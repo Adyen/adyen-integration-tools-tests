@@ -1,8 +1,15 @@
-// @ts-check
-const { test, expect } = require("@playwright/test");
+import { test, expect } from "@playwright/test";
+import { ProductDetailPage } from "../pages/plugin/ProductDetail.page.js";
 
 test("basic test", async ({ page }) => {
-  await page.goto("/");
-  await page.locator("text=Get started").click();
-  await expect(page).toHaveTitle(/Getting started/);
+  const productDetailPage = new ProductDetailPage(page);
+  await productDetailPage.addItemToCart("joust-duffle-bag.html");
+  await productDetailPage.addItemWithOptionsToCart(
+    "breathe-easy-tank.html",
+    "M",
+    2
+  );
+
+  console.log(await productDetailPage.currentCartItemCount);
+  await expect(await productDetailPage.currentCartItemCount).toEqual("3");
 });
