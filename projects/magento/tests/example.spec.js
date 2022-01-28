@@ -9,7 +9,5 @@ test("basic test", async ({ page }) => {
     "M",
     2
   );
-
-  console.log(await productDetailPage.currentCartItemCount);
   await expect(await productDetailPage.currentCartItemCount).toEqual("3");
 });
