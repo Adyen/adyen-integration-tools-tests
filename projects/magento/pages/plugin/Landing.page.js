@@ -8,7 +8,7 @@ export class LandingPage extends BasePage {
     this.productPicture = page.locator(".product-item-photo");
   }
 
-  async goto() {
+  async goTo() {
     await this.page.goto("/");
   }
 

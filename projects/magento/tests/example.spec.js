@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
-import { ProductDetailPage } from "../pages/plugin/ProductDetail.page.js";
+import { ProductDetailsPage } from "../pages/plugin/ProductDetail.page.js";
 
 test("basic test", async ({ page }) => {
-  const productDetailPage = new ProductDetailPage(page);
+  const productDetailPage = new ProductDetailsPage(page);
   await productDetailPage.addItemToCart("joust-duffle-bag.html");
   await productDetailPage.addItemWithOptionsToCart(
     "breathe-easy-tank.html",
