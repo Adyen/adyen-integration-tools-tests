@@ -8,8 +8,6 @@ export class BasePage extends TopBar {
     this.searchInput = page.locator(".control #search");
     this.cartIcon = page.locator(".showcart");
     this.cartItemCount = page.locator(".qty .counter-number");
-    this.cartItemLoadingAnimation = page.locator("._block-content-loading");
-    this.loadingLayer = page.locator("[aria-busy='true']");
   }
 
   get currentCartItemCount() {

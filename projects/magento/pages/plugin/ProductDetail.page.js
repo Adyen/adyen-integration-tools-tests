@@ -1,4 +1,5 @@
 import { BasePage } from "./Base.page.js";
+import { Helpers } from "./Helpers.js";
 
 export class ProductDetailsPage extends BasePage {
   constructor(page) {
@@ -14,8 +15,7 @@ export class ProductDetailsPage extends BasePage {
   async addItemToCart(itemURL) {
     await this.page.goto(`/${itemURL}`);
     await this.addToCartButton.click();
-    await this.loadingLayer.waitFor({ state: "attached", timeout: 5000 });
-    await this.loadingLayer.waitFor({ state: "detached", timeout: 5000 });
+    await new Helpers(this.page).waitForAnimation();
   }
 
   async addItemWithOptionsToCart(itemURL, itemSize = "S", howMany = 1) {
@@ -25,7 +25,6 @@ export class ProductDetailsPage extends BasePage {
     await this.quantityField.fill(howMany.toString());
 
     await this.addToCartButton.click();
-    await this.loadingLayer.waitFor({ state: "attached", timeout: 5000 });
-    await this.loadingLayer.waitFor({ state: "detached", timeout: 5000 });
+    await new Helpers(this.page).waitForAnimation();
   }
 }
