@@ -24,25 +24,9 @@ test("basic test", async ({ page }) => {
   );
 
   const paymentDetailPage = new PaymentDetails(page);
-
-  // tamam
-
-  await page.click("#adyen_cc");
-
-  await page.click(".adyen-checkout__card__holderName input");
-  await page.fill(".adyen-checkout__card__holderName input", "JohnDoe");
-  const ccNumber = await page
-    .frameLocator(".adyen-checkout__card__cardNumber__input iframe")
-    .locator("#encryptedCardNumber");
-  await ccNumber.fill("2222 4000 7000 0005");
-  const expDate = await page
-    .frameLocator(".adyen-checkout__card__exp-date__input iframe")
-    .locator("#encryptedExpiryDate");
-  await expDate.fill("0330");
-
-  // tamam
-
-  await paymentDetailPage.fillCreditCardInfoAndPlaceOrder(
+  await (
+    await paymentDetailPage.selectCreditCard()
+  ).fillCreditCardInfoAndPlaceOrder(
     user.firstName,
     user.lastName,
     paymentResources.masterCardWithout3D,

@@ -68,6 +68,13 @@ const config = {
       },
     },
 
+    {
+      name: "chrome",
+      use: {
+        channel: "chrome",
+      },
+    },
+
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
