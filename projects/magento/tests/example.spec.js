@@ -3,6 +3,7 @@ import PaymentResources from "../../common/PaymentResources.js";
 import { ProductDetailsPage } from "../pages/plugin/ProductDetail.page.js";
 import { ShippingDetails } from "../pages/checkout/ShippingDetails.page.js";
 import { PaymentDetails } from "../pages/checkout/PaymentDetails.page.js";
+import { SuccessfulCheckoutPage } from "../pages/checkout/SuccessfulCheckout.page.js";
 
 test("basic test", async ({ page }) => {
   const paymentResources = new PaymentResources();
@@ -32,5 +33,11 @@ test("basic test", async ({ page }) => {
     paymentResources.masterCardWithout3D,
     paymentResources.expDate,
     paymentResources.cvc
+  );
+
+  const successfulCheckoutPage = new SuccessfulCheckoutPage(page);
+  await successfulCheckoutPage.waitforNavigaton();
+  await expect(await successfulCheckoutPage.pageTitle.innerText()).toEqual(
+    "Thank you for your purchase!"
   );
 });
