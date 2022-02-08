@@ -39,7 +39,7 @@ export class CreditCardComponents {
     await this.cvcInput.type(CVC);
   }
 
-  async fillCreditCardInfoAndPlaceOrder(
+  async fillCreditCardInfo(
     cardHolderName,
     cardHolderLastName,
     cardNumber,
@@ -53,7 +53,26 @@ export class CreditCardComponents {
     await this.fillCardNumber(cardNumber);
     await this.fillExpDate(cardExpirationDate);
     await this.fillCVC(cardCVC);
+  }
 
+  async placeOrder() {
     await this.placeOrderButton.click();
+  }
+
+  async fillCreditCardInfoAndPlaceOrder(
+    cardHolderName,
+    cardHolderLastName,
+    cardNumber,
+    cardExpirationDate,
+    cardCVC
+  ) {
+    await this.fillCreditCardInfo(
+      cardHolderName,
+      cardHolderLastName,
+      cardNumber,
+      cardExpirationDate,
+      cardCVC
+    );
+    await this.placeOrder();
   }
 }
