@@ -8,9 +8,11 @@ import { SuccessfulCheckoutPage } from "../pages/checkout/SuccessfulCheckout.pag
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
 
-test("basic test", async ({ page }) => {
+test.beforeEach(async ({ page }) => {
   await goToShippingWithSingleItem(page);
+});
 
+test("basic test", async ({ page }) => {
   const shippingDetailsPage = new ShippingDetails(page);
   await shippingDetailsPage.goTo();
   await shippingDetailsPage.fillShippingDetailsAndProceedToPayment(
