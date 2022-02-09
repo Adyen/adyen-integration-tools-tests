@@ -5,11 +5,12 @@ import { ShippingDetails } from "../pages/checkout/ShippingDetails.page.js";
 import { PaymentDetails } from "../pages/checkout/PaymentDetails.page.js";
 import { SuccessfulCheckoutPage } from "../pages/checkout/SuccessfulCheckout.page.js";
 import { ThreeDSPaymentPage } from "../../common/ThreeDSPaymentPage.js";
+import { ThreeDS2PaymentPage } from "../../common/ThreeDS2PaymentPage.js";
 
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
 
-test.describe("Payment with", () => {
+test.describe.parallel("Payment with", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
   });
@@ -29,11 +30,11 @@ test.describe("Payment with", () => {
   });
 
   test("credit card with 3Ds1 should succeed", async ({ page }) => {
-    proceedToPaymentAs(page, users.regular);
+    proceedToPaymentAs(page, users.dutch);
 
     await makeCreditCardPayment(
       page,
-      users.regular,
+      users.dutch,
       paymentResources.visa3DS1,
       paymentResources.expDate,
       paymentResources.cvc
@@ -47,7 +48,8 @@ test.describe("Payment with", () => {
   });
 
   test("credit card with 3Ds2 should succeed", async ({ page }) => {
-    proceedToPaymentAs(page, users.regular);
+    proceedToPaymentAs(page, users.regular
+    );
 
     await makeCreditCardPayment(
       page,
@@ -55,6 +57,10 @@ test.describe("Payment with", () => {
       paymentResources.masterCard3DS2,
       paymentResources.expDate,
       paymentResources.cvc
+    );
+
+    await new ThreeDS2PaymentPage(page).validate3DS2(
+      paymentResources.threeDSCorrectPassword
     );
 
     await verifySuccessfulCheckout(page);

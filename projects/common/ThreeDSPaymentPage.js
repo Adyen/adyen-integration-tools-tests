@@ -1,7 +1,7 @@
 export class ThreeDSPaymentPage {
   constructor(page) {
-    this.threeDS2UsernameInput = page.locator("#username");
-    this.threeDS2PasswordInput = page.locator("#password");
+    this.threeDSUsernameInput = page.locator("#username");
+    this.threeDSPasswordInput = page.locator("#password");
     this.threeDSSubmit = page.locator('input[type="submit"]');
   }
 
@@ -10,8 +10,8 @@ export class ThreeDSPaymentPage {
   }
 
   async fillThreeDSCredentialsAndSubmit(username, password) {
-    await this.threeDS2UsernameInput.type(username);
-    await this.threeDS2PasswordInput.type(password);
+    await this.threeDSUsernameInput.type(username);
+    await this.threeDSPasswordInput.type(password);
     await this.threeDSSubmit.click();
   }
 }

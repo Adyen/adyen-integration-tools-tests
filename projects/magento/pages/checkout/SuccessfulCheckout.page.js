@@ -9,6 +9,6 @@ export class SuccessfulCheckoutPage extends BasePage {
   }
 
   async waitforNavigaton() {
-    await this.page.waitForNavigation();
+    await this.page.waitForNavigation({waitUntil:"load"});
   }
 }

@@ -59,7 +59,7 @@ export default class PaymentResources {
       lastName: "Test",
       street: "Guest street",
       houseNumber: "1",
-      city: "London",
+      city: "Amsterdam",
       postCode: "1111 AA",
       countryCode: "NL",
       countryName: "Netherlands",
