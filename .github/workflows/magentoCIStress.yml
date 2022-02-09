@@ -1,4 +1,4 @@
-name: Magento E2E Stress tests with Playwright
+name: Magento E2E Stress test with Playwright
 on:
   push:
     branches: [main, master]
