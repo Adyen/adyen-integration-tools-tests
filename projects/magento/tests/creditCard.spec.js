@@ -28,7 +28,7 @@ test.describe("Payment with", () => {
     await verifySuccessfulCheckout(page);
   });
 
-  test.only("credit card with 3Ds1 should succeed", async ({ page }) => {
+  test("credit card with 3Ds1 should succeed", async ({ page }) => {
     proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(

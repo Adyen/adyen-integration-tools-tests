@@ -47,9 +47,7 @@ export class CreditCardComponents {
     cardCVC
   ) {
     await this.fillHolderName(cardHolderName);
-    if (cardHolderLastName != undefined) {
-      await this.fillHolderName(` ${this.cardHolderLastName}`);
-    }
+    await this.fillHolderName(` ${cardHolderLastName}`);
     await this.fillCardNumber(cardNumber);
     await this.fillExpDate(cardExpirationDate);
     await this.fillCVC(cardCVC);
