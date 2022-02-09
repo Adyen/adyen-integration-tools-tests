@@ -10,7 +10,7 @@ import { ThreeDS2PaymentPage } from "../../common/ThreeDS2PaymentPage.js";
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
 
-test.describe("Payment with", () => {
+test.describe.parallel("Payment with", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
   });
@@ -48,8 +48,7 @@ test.describe("Payment with", () => {
   });
 
   test("credit card with 3Ds2 should succeed", async ({ page }) => {
-    proceedToPaymentAs(page, users.regular
-    );
+    proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
       page,
