@@ -17,8 +17,9 @@ export default class PaymentResources {
   cvc = "737";
   cardTypes = { credit: "Credit Card", debit: "Debit Card" };
 
-  threeDS2CorrectAnswer = "password";
-  threeDS2WrongAnswer = "wrong answer";
+  threeDSCorrectUser = "user";
+  threeDSCorrectPassword = "password";
+  threeDSWrongPassword = "wrong answer";
 
   bcmc = {
     be: {

@@ -4,50 +4,101 @@ import { ProductDetailsPage } from "../pages/plugin/ProductDetail.page.js";
 import { ShippingDetails } from "../pages/checkout/ShippingDetails.page.js";
 import { PaymentDetails } from "../pages/checkout/PaymentDetails.page.js";
 import { SuccessfulCheckoutPage } from "../pages/checkout/SuccessfulCheckout.page.js";
+import { ThreeDSPaymentPage } from "../../common/ThreeDSPaymentPage.js";
 
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
 
-test.beforeEach(async ({ page }) => {
-  await goToShippingWithSingleItem(page);
+test.describe("Payment with", () => {
+  test.beforeEach(async ({ page }) => {
+    await goToShippingWithFullCart(page);
+  });
+
+  test("credit card without 3Ds should succeed", async ({ page }) => {
+    proceedToPaymentAs(page, users.regular);
+
+    await makeCreditCardPayment(
+      page,
+      users.regular,
+      paymentResources.masterCardWithout3D,
+      paymentResources.expDate,
+      paymentResources.cvc
+    );
+
+    await verifySuccessfulCheckout(page);
+  });
+
+  test.only("credit card with 3Ds1 should succeed", async ({ page }) => {
+    proceedToPaymentAs(page, users.regular);
+
+    await makeCreditCardPayment(
+      page,
+      users.regular,
+      paymentResources.visa3DS1,
+      paymentResources.expDate,
+      paymentResources.cvc
+    );
+
+    await new ThreeDSPaymentPage(page).validate3DS(
+      paymentResources.threeDSCorrectUser,
+      paymentResources.threeDSCorrectPassword
+    );
+    await verifySuccessfulCheckout(page);
+  });
+
+  test("credit card with 3Ds2 should succeed", async ({ page }) => {
+    proceedToPaymentAs(page, users.regular);
+
+    await makeCreditCardPayment(
+      page,
+      users.regular,
+      paymentResources.masterCard3DS2,
+      paymentResources.expDate,
+      paymentResources.cvc
+    );
+
+    await verifySuccessfulCheckout(page);
+  });
 });
 
-test("basic test", async ({ page }) => {
-  const shippingDetailsPage = new ShippingDetails(page);
-  await shippingDetailsPage.goTo();
-  await shippingDetailsPage.fillShippingDetailsAndProceedToPayment(
-    users.regular
-  );
-
-  const paymentDetailPage = new PaymentDetails(page);
-  const creditCardSection = await paymentDetailPage.selectCreditCard();
-  await creditCardSection.fillCreditCardInfoAndPlaceOrder(
-    users.regular.firstName,
-    users.regular.lastName,
-    paymentResources.masterCardWithout3D,
-    paymentResources.expDate,
-    paymentResources.cvc
-  );
-
-  await verifySuccessfulCheckout(page);
-});
-
-async function goToShippingWithSingleItem(page) {
+async function goToShippingWithFullCart(page, multiItems = false) {
   const productDetailsPage = new ProductDetailsPage(page);
   await productDetailsPage.addItemToCart("joust-duffle-bag.html");
 
   await expect(await productDetailsPage.currentCartItemCount).toEqual("1");
+
+  if (multiItems != false) {
+    await productDetailsPage.addItemWithOptionsToCart(
+      "breathe-easy-tank.html",
+      "M",
+      2
+    );
+    await expect(await productDetailsPage.currentCartItemCount).toEqual("3");
+  }
 }
 
-async function goToShippingWithMultipleItems(page) {
-  const productDetailsPage = new ProductDetailsPage(page);
-  await productDetailsPage.addItemToCart("joust-duffle-bag.html");
-  await productDetailsPage.addItemWithOptionsToCart(
-    "breathe-easy-tank.html",
-    "M",
-    2
+async function proceedToPaymentAs(page, user) {
+  const shippingDetailsPage = new ShippingDetails(page);
+  await shippingDetailsPage.goTo();
+  await shippingDetailsPage.fillShippingDetailsAndProceedToPayment(user);
+}
+
+async function makeCreditCardPayment(
+  page,
+  user,
+  creditCardNumber,
+  expDate,
+  cvc
+) {
+  const paymentDetailPage = new PaymentDetails(page);
+  const creditCardSection = await paymentDetailPage.selectCreditCard();
+  await creditCardSection.fillCreditCardInfoAndPlaceOrder(
+    user.firstName,
+    user.lastName,
+    creditCardNumber,
+    expDate,
+    cvc
   );
-  await expect(await productDetailsPage.currentCartItemCount).toEqual("3");
 }
 
 async function verifySuccessfulCheckout(page) {
