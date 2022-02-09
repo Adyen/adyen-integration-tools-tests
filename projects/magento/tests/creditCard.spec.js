@@ -10,7 +10,7 @@ import { ThreeDS2PaymentPage } from "../../common/ThreeDS2PaymentPage.js";
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
 
-test.describe.parallel("Payment with", () => {
+test.describe("Payment with", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
   });
