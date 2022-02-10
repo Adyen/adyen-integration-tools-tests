@@ -1,6 +1,9 @@
+import { expect } from "@playwright/test";
 export class CreditCardComponents {
   constructor(page) {
     this.page = page;
+
+    this.errorMessage = page.locator("#adyen-cc-form .message-error");
 
     this.holderNameInput = page.locator(
       "#payment_form_adyen_cc .adyen-checkout__card__holderName input"
@@ -72,5 +75,11 @@ export class CreditCardComponents {
       cardCVC
     );
     await this.placeOrder();
+  }
+
+  async verifyPaymentRefusal() {
+    const errorMessage = await expect(
+      await this.errorMessage.innerText()
+    ).toEqual("The payment is REFUSED.");
   }
 }

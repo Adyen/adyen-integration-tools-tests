@@ -6,6 +6,8 @@ import { PaymentDetails } from "../pages/checkout/PaymentDetails.page.js";
 import { SuccessfulCheckoutPage } from "../pages/checkout/SuccessfulCheckout.page.js";
 import { ThreeDSPaymentPage } from "../../common/ThreeDSPaymentPage.js";
 import { ThreeDS2PaymentPage } from "../../common/ThreeDS2PaymentPage.js";
+import { ShoppingCartPage } from "../pages/plugin/ShoppingCart.page.js";
+import { CreditCardComponents } from "../pages/checkout/CreditCardComponents.js";
 
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
@@ -30,11 +32,11 @@ test.describe.parallel("Payment with", () => {
   });
 
   test("credit card with 3Ds1 should succeed", async ({ page }) => {
-    proceedToPaymentAs(page, users.dutch);
+    proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
       page,
-      users.dutch,
+      users.regular,
       paymentResources.visa3DS1,
       paymentResources.expDate,
       paymentResources.cvc
@@ -45,6 +47,27 @@ test.describe.parallel("Payment with", () => {
       paymentResources.threeDSCorrectPassword
     );
     await verifySuccessfulCheckout(page);
+  });
+
+  test("credit card with wrong 3Ds1 credentials should fail", async ({
+    page,
+  }) => {
+    proceedToPaymentAs(page, users.regular);
+
+    await makeCreditCardPayment(
+      page,
+      users.regular,
+      paymentResources.visa3DS1,
+      paymentResources.expDate,
+      paymentResources.cvc
+    );
+
+    await new ThreeDSPaymentPage(page).validate3DS(
+      paymentResources.threeDSCorrectUser,
+      paymentResources.threeDSWrongPassword
+    );
+
+    await new ShoppingCartPage(page).verifyPaymentFailure();
   });
 
   test("credit card with 3Ds2 should succeed", async ({ page }) => {
@@ -63,6 +86,26 @@ test.describe.parallel("Payment with", () => {
     );
 
     await verifySuccessfulCheckout(page);
+  });
+
+  test("credit card with wrong 3Ds2 credentials should fail", async ({
+    page,
+  }) => {
+    proceedToPaymentAs(page, users.regular);
+
+    await makeCreditCardPayment(
+      page,
+      users.regular,
+      paymentResources.masterCard3DS2,
+      paymentResources.expDate,
+      paymentResources.cvc
+    );
+
+    await new ThreeDS2PaymentPage(page).validate3DS2(
+      paymentResources.threeDSWrongPassword
+    );
+
+    await new CreditCardComponents(page).verifyPaymentRefusal();
   });
 });
 

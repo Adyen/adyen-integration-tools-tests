@@ -14,7 +14,7 @@ export class SuccessfulCheckoutPage extends BasePage {
   async waitforNavigaton() {
     await this.page.waitForNavigation({
       url: /.*checkout\/onepage\/success/,
-      timeout: 5000,
+      timeout: 10000,
     });
   }
 }
