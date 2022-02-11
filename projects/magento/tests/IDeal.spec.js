@@ -5,7 +5,7 @@ import {
   goToShippingWithFullCart,
   proceedToPaymentAs,
   verifySuccessfulCheckout,
-} from "../pages/plugin/ScenarioHelper.js";
+} from "../helpers/ScenarioHelper.js";
 
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
