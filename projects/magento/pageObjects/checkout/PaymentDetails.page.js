@@ -1,6 +1,6 @@
 import { CreditCardComponents } from "./CreditCardComponents.js";
 
-export class PaymentDetails {
+export class PaymentDetailsPage {
   constructor(page) {
     this.page = page;
 

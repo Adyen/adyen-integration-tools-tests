@@ -1,5 +1,5 @@
-import { BasePage } from "./Base.page.js";
-import { Helpers } from "./Helpers.js";
+import { BasePage } from "../plugin/Base.page.js";
+import { AnimationHelper } from "../../helpers/AnimationHelper.js";
 
 export class ProductDetailsPage extends BasePage {
   constructor(page) {
@@ -15,7 +15,7 @@ export class ProductDetailsPage extends BasePage {
   async addItemToCart(itemURL) {
     await this.page.goto(`/${itemURL}`);
     await this.addToCartButton.click();
-    await new Helpers(this.page).waitForAnimation();
+    await new AnimationHelper(this.page).waitForAnimation();
   }
 
   async addItemWithOptionsToCart(itemURL, itemSize = "S", howMany = 1) {
@@ -25,6 +25,6 @@ export class ProductDetailsPage extends BasePage {
     await this.quantityField.fill(howMany.toString());
 
     await this.addToCartButton.click();
-    await new Helpers(this.page).waitForAnimation();
+    await new AnimationHelper(this.page).waitForAnimation();
   }
 }

@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
 import { BasePage } from "./Base.page.js";
-import { Helpers } from "../plugin/Helpers.js";
+import { AnimationHelper } from "../../helpers/AnimationHelper.js";
 
 export class ShoppingCartPage extends BasePage {
   constructor(page) {
@@ -11,7 +11,7 @@ export class ShoppingCartPage extends BasePage {
 
   async goTo() {
     await this.page.goto("/checkout/cart");
-    await new Helpers(this.page).waitForAnimation();
+    await new AnimationHelper(this.page).waitForAnimation();
   }
 
   async waitforNavigaton() {

@@ -1,4 +1,4 @@
-import { Helpers } from "../plugin/Helpers.js";
+import { AnimationHelper } from "../../helpers/AnimationHelper.js";
 
 export class ShippingDetails {
   constructor(page) {
@@ -28,7 +28,7 @@ export class ShippingDetails {
   async goTo() {
     // Only works with a non-empty shopping cart
     await this.page.goto("/checkout/#shipping");
-    await new Helpers(this.page).waitForAnimation();
+    await new AnimationHelper(this.page).waitForAnimation();
   }
 
   async fillShippingDetails(user) {
@@ -48,7 +48,7 @@ export class ShippingDetails {
     await this.phoneNumberInput.type(user.phoneNumber);
     await this.postCodeInput.type(user.postCode);
 
-    await new Helpers(this.page).waitForAnimation();
+    await new AnimationHelper(this.page).waitForAnimation();
     await this.shippingMethodRadioButton.check();
   }
 
@@ -59,6 +59,6 @@ export class ShippingDetails {
   async fillShippingDetailsAndProceedToPayment(user) {
     await this.fillShippingDetails(user);
     await this.clickNextButton();
-    await new Helpers(this.page).waitForAnimation();
+    await new AnimationHelper(this.page).waitForAnimation();
   }
 }
