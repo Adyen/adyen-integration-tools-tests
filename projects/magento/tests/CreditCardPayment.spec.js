@@ -1,20 +1,20 @@
-import { test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import PaymentResources from "../../common/PaymentResources.js";
 import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.js";
 import { ThreeDSPaymentPage } from "../../common/ThreeDSPaymentPage.js";
 import { ThreeDS2PaymentPage } from "../../common/ThreeDS2PaymentPage.js";
 import { ShoppingCartPage } from "../pageObjects/plugin/ShoppingCart.page.js";
 import { CreditCardComponents } from "../pageObjects/checkout/CreditCardComponents.js";
+import { SuccessfulCheckoutPage } from "../pageObjects/checkout/SuccessfulCheckout.page.js";
 import {
   goToShippingWithFullCart,
   proceedToPaymentAs,
-  verifySuccessfulCheckout,
 } from "../helpers/ScenarioHelper.js";
 
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
 
-test.describe.parallel("Payment with", () => {
+test.describe("Payment with", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
   });
@@ -126,5 +126,13 @@ async function makeCreditCardPayment(
     creditCardNumber,
     expDate,
     cvc
+  );
+}
+
+async function verifySuccessfulCheckout(page) {
+  const successfulCheckoutPage = new SuccessfulCheckoutPage(page);
+  await successfulCheckoutPage.waitForRedirection();
+  await expect(await successfulCheckoutPage.pageTitle.innerText()).toEqual(
+    "Thank you for your purchase!"
   );
 }

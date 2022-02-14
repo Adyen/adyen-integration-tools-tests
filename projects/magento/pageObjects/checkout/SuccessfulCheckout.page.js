@@ -11,7 +11,11 @@ export class SuccessfulCheckoutPage extends BasePage {
     );
   }
 
-  async waitforNavigaton() {
+  get titleText() {
+    return this.pageTitle.innerText();
+  }
+
+  async waitForRedirection() {
     await this.page.waitForNavigation({
       url: /.*checkout\/onepage\/success/,
       timeout: 10000,
