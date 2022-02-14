@@ -14,7 +14,7 @@ import {
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
 
-test.describe("Payment with", () => {
+test.describe.parallel("Payment with", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
   });
