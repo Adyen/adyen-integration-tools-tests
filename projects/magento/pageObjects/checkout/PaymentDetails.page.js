@@ -1,5 +1,5 @@
 import { CreditCardComponents } from "./CreditCardComponents.js";
-import { IDealComponents } from "./IDealComponents.js";
+import { IDealComponents } from "./iDealComponents.js";
 
 export class PaymentDetailsPage {
   constructor(page) {
