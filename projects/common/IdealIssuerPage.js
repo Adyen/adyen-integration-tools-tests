@@ -4,7 +4,10 @@ export class IdealIssuerPage {
   }
 
   async continuePayment() {
-    await this.iDealContinueButton.waitFor({ state: "visible", timeout: 5000 });
+    await this.iDealContinueButton.waitFor({
+      state: "visible",
+      timeout: 7000,
+    });
     await this.iDealContinueButton.click();
   }
 }
