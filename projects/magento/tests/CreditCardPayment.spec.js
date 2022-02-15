@@ -14,12 +14,12 @@ import {
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
 
-test.describe.parallel("Payment with", () => {
+test.describe.parallel("Payment via credit card", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
   });
 
-  test("credit card without 3Ds should succeed", async ({ page }) => {
+  test("without 3Ds should succeed", async ({ page }) => {
     proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
@@ -33,7 +33,7 @@ test.describe.parallel("Payment with", () => {
     await verifySuccessfulCheckout(page);
   });
 
-  test("credit card with 3Ds1 should succeed", async ({ page }) => {
+  test("with 3Ds1 should succeed", async ({ page }) => {
     proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
@@ -51,9 +51,7 @@ test.describe.parallel("Payment with", () => {
     await verifySuccessfulCheckout(page);
   });
 
-  test("credit card with wrong 3Ds1 credentials should fail", async ({
-    page,
-  }) => {
+  test("with wrong 3Ds1 credentials should fail", async ({ page }) => {
     proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
@@ -72,7 +70,7 @@ test.describe.parallel("Payment with", () => {
     await new ShoppingCartPage(page).verifyPaymentFailure();
   });
 
-  test("credit card with 3Ds2 should succeed", async ({ page }) => {
+  test("with 3Ds2 should succeed", async ({ page }) => {
     proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
@@ -90,9 +88,7 @@ test.describe.parallel("Payment with", () => {
     await verifySuccessfulCheckout(page);
   });
 
-  test("credit card with wrong 3Ds2 credentials should fail", async ({
-    page,
-  }) => {
+  test("with wrong 3Ds2 credentials should fail", async ({ page }) => {
     proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
