@@ -1,4 +1,4 @@
-name: Magento E2E Tests with Playwright
+name: Magento E2E Headless Tests with Playwright
 on:
   push:
     branches: [main, master]
