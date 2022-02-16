@@ -4,6 +4,9 @@ export default class PaymentResources {
   visa3DS1 = "4212345678901237";
   oneyCard = "4970101558744789";
 
+  payPalUserName = "sb-absw44928195@personal.example.com";
+  payPalPassword = "t-2LqbUX";
+
   klarnaApprovedNLDateOfBirth = "10-07-1970";
 
   afterPayApprovedNLGender = "M";
