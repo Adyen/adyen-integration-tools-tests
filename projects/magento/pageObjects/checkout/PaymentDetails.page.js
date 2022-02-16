@@ -12,23 +12,27 @@ export class PaymentDetailsPage {
     this.paymentSummaryLoadingSpinner = page.locator(
       ".opc-sidebar .loading-mask"
     );
+    this.activePaymentMethod = page.locator(".payment-method._active");
   }
 
   async selectCreditCard() {
     await this.creditCardRadioButton.click();
     await this.waitForPaymentSummaryLoader();
+    await this.activePaymentMethod.scrollIntoViewIfNeeded();
     return new CreditCardComponents(this.page);
   }
 
   async selectIDeal() {
     await this.idealRadioButton.click();
     await this.waitForPaymentSummaryLoader();
+    await this.activePaymentMethod.scrollIntoViewIfNeeded();
     return new IDealComponents(this.page);
   }
 
   async selectPayPal() {
     await this.payPalRadioButton.click();
     await this.waitForPaymentSummaryLoader();
+    await this.activePaymentMethod.scrollIntoViewIfNeeded();
     return new PayPalComponents(this.page);
   }
 
