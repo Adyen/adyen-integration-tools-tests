@@ -26,6 +26,9 @@ export class PayPalPaymentPage {
   }
 
   async waitForPopupLoad(page) {
-    await page.waitForNavigation({ url: /.*sandbox.paypal.com*/ });
+    await page.waitForNavigation({
+      url: /.*sandbox.paypal.com*/,
+      timeout: 10000,
+    });
   }
 }
