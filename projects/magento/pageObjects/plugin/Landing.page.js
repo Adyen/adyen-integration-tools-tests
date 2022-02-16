@@ -3,7 +3,7 @@ import { ProductDetailPage } from("./ProductDetail.page.js");
 
 export class LandingPage extends BasePage {
   constructor(page) {
-    super()
+    super(page)
     this.page = page;
     this.productPicture = page.locator(".product-item-photo");
   }

@@ -1,5 +1,6 @@
 export class ThreeDSPaymentPage {
   constructor(page) {
+    this.page = page;
     this.threeDSUsernameInput = page.locator("#username");
     this.threeDSPasswordInput = page.locator("#password");
     this.threeDSSubmit = page.locator('input[type="submit"]');

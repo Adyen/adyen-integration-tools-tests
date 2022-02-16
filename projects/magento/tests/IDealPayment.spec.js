@@ -31,10 +31,10 @@ test.describe.parallel("Payment with iDeal", () => {
 
 async function makeIDealPayment(page, issuerName) {
   const paymentDetailPage = new PaymentDetailsPage(page);
-  const idealSection = await paymentDetailPage.selectIDeal();
-  await idealSection.selectIdealIssuer(issuerName);
+  const idealPaymentSection = await paymentDetailPage.selectIDeal();
+  await idealPaymentSection.selectIdealIssuer(issuerName);
 
-  const issuerPage = await idealSection.placeOrder();
+  const issuerPage = await idealPaymentSection.placeOrder();
   await issuerPage.continuePayment();
 }
 
