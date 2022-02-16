@@ -1,9 +1,9 @@
-import { test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import PaymentResources from "../../common/PaymentResources.js";
 import { goToShippingWithFullCart } from "../helpers/ScenarioHelper.js";
 import { proceedToPaymentAs } from "../helpers/ScenarioHelper.js";
 import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.js";
-import { PayPalPaymentPage } from "../../common/PayPalPaymentPage.js";
+import { SuccessfulCheckoutPage } from "../pageObjects/checkout/SuccessfulCheckout.page.js";
 
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
@@ -27,10 +27,19 @@ test.describe("Payment via PayPal", () => {
   async function makePayPalPayment(page, username, password) {
     const paymentDetailPage = new PaymentDetailsPage(page);
     const payPalSection = await paymentDetailPage.selectPayPal();
-    await payPalSection.proceedToPayPal(page);
 
-    const payPalExternalPage = new PayPalPaymentPage(page);
-    await payPalExternalPage.makeFullPayment(page, username, password);
+    const [popup] = await Promise.all([
+      page.waitForEvent("popup"),
+      payPalSection.proceedToPayPal(),
+    ]);
+
+    await popup.waitForNavigation({ url: /.*sandbox.paypal.com*/ });
+    await popup.locator("#email").fill("sb-absw44928195@personal.example.com");
+    await popup.locator("#password").fill("t-2LqbUX");
+    await popup.locator("#btnLogin").click();
+    await popup.locator("#payment-submit-btn").click();
+    // const payPalExternalPage = new PayPalPaymentPage(page);
+    // await payPalExternalPage.makeFullPayment(page, username, password);
   }
 
   async function verifySuccessfulCheckout(page) {
