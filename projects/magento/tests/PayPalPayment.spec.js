@@ -4,6 +4,7 @@ import { goToShippingWithFullCart } from "../helpers/ScenarioHelper.js";
 import { proceedToPaymentAs } from "../helpers/ScenarioHelper.js";
 import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.js";
 import { SuccessfulCheckoutPage } from "../pageObjects/checkout/SuccessfulCheckout.page.js";
+import { PayPalPaymentPage } from "../../common/PayPalPaymentPage.js";
 
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
@@ -15,7 +16,7 @@ test.describe("Payment via PayPal", () => {
   test("should succeed", async ({ page }) => {
     await proceedToPaymentAs(page, users.dutch);
 
-    await makePayPalPayment(
+    await payViaPayPal(
       page,
       paymentResources.payPalUserName,
       paymentResources.payPalPassword
@@ -24,7 +25,7 @@ test.describe("Payment via PayPal", () => {
     await verifySuccessfulCheckout(page);
   });
 
-  async function makePayPalPayment(page, username, password) {
+  async function payViaPayPal(page, username, password) {
     const paymentDetailPage = new PaymentDetailsPage(page);
     const payPalSection = await paymentDetailPage.selectPayPal();
 
@@ -33,13 +34,7 @@ test.describe("Payment via PayPal", () => {
       payPalSection.proceedToPayPal(),
     ]);
 
-    await popup.waitForNavigation({ url: /.*sandbox.paypal.com*/ });
-    await popup.locator("#email").fill("sb-absw44928195@personal.example.com");
-    await popup.locator("#password").fill("t-2LqbUX");
-    await popup.locator("#btnLogin").click();
-    await popup.locator("#payment-submit-btn").click();
-    // const payPalExternalPage = new PayPalPaymentPage(page);
-    // await payPalExternalPage.makeFullPayment(page, username, password);
+    await new PayPalPaymentPage(popup).makePayPalPayment(username, password);
   }
 
   async function verifySuccessfulCheckout(page) {
