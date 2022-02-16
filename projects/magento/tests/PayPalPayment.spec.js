@@ -13,6 +13,7 @@ test.describe("Payment via PayPal", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
   });
+
   test("should succeed", async ({ page }) => {
     await proceedToPaymentAs(page, users.dutch);
 
