@@ -1,9 +1,7 @@
 name: Magento E2E Headless Tests with Playwright
 on:
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
+  schedule:
+    - cron: "30 6 * *"
 jobs:
   test:
     timeout-minutes: 60
