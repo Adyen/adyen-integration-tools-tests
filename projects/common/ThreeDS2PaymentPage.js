@@ -1,11 +1,16 @@
 export class ThreeDS2PaymentPage {
   constructor(page) {
+    this.page = page;
     this.threeDS2Modal = page.locator("#cc_actionModal");
     this.threeDS2Iframe = page.frameLocator(
       ".adyen-checkout__threeds2__challenge iframe"
     );
-    this.threeDS2PasswordInput =  this.threeDS2Iframe.locator("input[name='answer']");
-    this.threeDS2SubmitButton = this.threeDS2Iframe.locator("button[type='submit']");
+    this.threeDS2PasswordInput = this.threeDS2Iframe.locator(
+      "input[name='answer']"
+    );
+    this.threeDS2SubmitButton = this.threeDS2Iframe.locator(
+      "button[type='submit']"
+    );
   }
 
   async validate3DS2(answer) {
