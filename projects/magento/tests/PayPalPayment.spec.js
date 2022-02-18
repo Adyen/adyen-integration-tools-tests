@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import PaymentResources from "../../common/PaymentResources.js";
+import PaymentResources from "../../data/PaymentResources.js";
 import { goToShippingWithFullCart } from "../helpers/ScenarioHelper.js";
 import { proceedToPaymentAs } from "../helpers/ScenarioHelper.js";
 import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.js";
