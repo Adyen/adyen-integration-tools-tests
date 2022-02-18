@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import PaymentResources from "../../common/PaymentResources.js";
+import PaymentResources from "../../data/PaymentResources.js";
 import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.js";
 import { ThreeDSPaymentPage } from "../../common/ThreeDSPaymentPage.js";
 import { ThreeDS2PaymentPage } from "../../common/ThreeDS2PaymentPage.js";
