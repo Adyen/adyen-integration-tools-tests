@@ -25,7 +25,7 @@ test.describe.parallel("Payment with iDeal", () => {
   test("should fail via Failing Test Issuer", async ({ page }) => {
     await proceedToPaymentAs(page, users.dutch);
     await makeIDealPayment(page, "Test Issuer Refused");
-    await verifyFailedIdealChechkout(page);
+    await verifyFailedIdealCheckout(page);
   });
 });
 
@@ -43,7 +43,7 @@ async function verifySuccessfulIdealCheckout(page) {
   await expect(successMessage).toEqual("Thank you for your purchase!");
 }
 
-async function verifyFailedIdealChechkout(page) {
+async function verifyFailedIdealCheckout(page) {
   const errorMessage = await new ShoppingCartPage(
     page
   ).errorMessage.innerText();
