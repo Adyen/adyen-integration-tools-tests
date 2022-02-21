@@ -1,14 +1,14 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
 import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.js";
 import { ThreeDSPaymentPage } from "../../common/ThreeDSPaymentPage.js";
 import { ThreeDS2PaymentPage } from "../../common/ThreeDS2PaymentPage.js";
 import { ShoppingCartPage } from "../pageObjects/plugin/ShoppingCart.page.js";
 import { CreditCardComponents } from "../pageObjects/checkout/CreditCardComponents.js";
-import { SuccessfulCheckoutPage } from "../pageObjects/checkout/SuccessfulCheckout.page.js";
 import {
   goToShippingWithFullCart,
   proceedToPaymentAs,
+  verifySuccessfulPayment,
 } from "../helpers/ScenarioHelper.js";
 
 const paymentResources = new PaymentResources();
@@ -30,7 +30,7 @@ test.describe.parallel("Payment via credit card", () => {
       paymentResources.cvc
     );
 
-    await verifySuccessfulCheckout(page);
+    await verifySuccessfulPayment(page);
   });
 
   test("with 3Ds1 should succeed", async ({ page }) => {
@@ -48,7 +48,7 @@ test.describe.parallel("Payment via credit card", () => {
       paymentResources.threeDSCorrectUser,
       paymentResources.threeDSCorrectPassword
     );
-    await verifySuccessfulCheckout(page);
+    await verifySuccessfulPayment(page);
   });
 
   test("with wrong 3Ds1 credentials should fail", async ({ page }) => {
@@ -85,7 +85,7 @@ test.describe.parallel("Payment via credit card", () => {
       paymentResources.threeDSCorrectPassword
     );
 
-    await verifySuccessfulCheckout(page);
+    await verifySuccessfulPayment(page);
   });
 
   test("with wrong 3Ds2 credentials should fail", async ({ page }) => {
@@ -122,13 +122,5 @@ async function makeCreditCardPayment(
     creditCardNumber,
     expDate,
     cvc
-  );
-}
-
-async function verifySuccessfulCheckout(page) {
-  const successfulCheckoutPage = new SuccessfulCheckoutPage(page);
-  await successfulCheckoutPage.waitForRedirection();
-  await expect(await successfulCheckoutPage.pageTitle.innerText()).toEqual(
-    "Thank you for your purchase!"
   );
 }

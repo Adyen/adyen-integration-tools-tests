@@ -118,6 +118,7 @@ export default class PaymentResources {
           city: "Gravenhage",
           postCode: "2521VA",
           countryCode: "NL",
+          stateCode: "NH",
           phoneNumber: "0612345678",
           dateOfBirth: "10071970",
           gender: "M",

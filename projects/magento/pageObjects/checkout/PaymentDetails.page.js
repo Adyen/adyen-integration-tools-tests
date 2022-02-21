@@ -1,5 +1,6 @@
 import { CreditCardComponents } from "./CreditCardComponents.js";
 import { IDealComponents } from "./iDealComponents.js";
+import { KlarnaPayLaterComponents } from "./KlarnaPayLaterComponents.js";
 import { PayPalComponents } from "./PayPalComponents.js";
 
 export class PaymentDetailsPage {
@@ -9,6 +10,8 @@ export class PaymentDetailsPage {
     this.creditCardRadioButton = page.locator("#adyen_cc");
     this.idealRadioButton = page.locator("#adyen_ideal");
     this.payPalRadioButton = page.locator("#adyen_paypal");
+    this.klarnaPayLaterButton = page.locator("#adyen_klarna");
+
     this.paymentSummaryLoadingSpinner = page.locator(
       ".opc-sidebar .loading-mask"
     );
@@ -34,6 +37,13 @@ export class PaymentDetailsPage {
     await this.waitForPaymentSummaryLoader();
     await this.activePaymentMethod.scrollIntoViewIfNeeded();
     return new PayPalComponents(this.page);
+  }
+
+  async selectKlarnaPayLater() {
+    await this.klarnaPayLaterButton.click();
+    await this.waitForPaymentSummaryLoader();
+    await this.activePaymentMethod.scrollIntoViewIfNeeded();
+    return new KlarnaPayLaterComponents(this.page);
   }
 
   async waitForPaymentSummaryLoader() {

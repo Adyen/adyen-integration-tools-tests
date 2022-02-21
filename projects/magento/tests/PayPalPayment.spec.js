@@ -1,9 +1,11 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
-import { goToShippingWithFullCart } from "../helpers/ScenarioHelper.js";
+import {
+  goToShippingWithFullCart,
+  verifySuccessfulPayment,
+} from "../helpers/ScenarioHelper.js";
 import { proceedToPaymentAs } from "../helpers/ScenarioHelper.js";
 import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.js";
-import { SuccessfulCheckoutPage } from "../pageObjects/checkout/SuccessfulCheckout.page.js";
 import { PayPalPaymentPage } from "../../common/PayPalPaymentPage.js";
 
 const paymentResources = new PaymentResources();
@@ -23,7 +25,7 @@ test.describe("Payment via PayPal", () => {
       paymentResources.payPalPassword
     );
 
-    await verifySuccessfulCheckout(page);
+    await verifySuccessfulPayment(page);
   });
 
   async function payViaPayPal(page, username, password) {
@@ -36,13 +38,5 @@ test.describe("Payment via PayPal", () => {
     ]);
 
     await new PayPalPaymentPage(popup).makePayPalPayment(username, password);
-  }
-
-  async function verifySuccessfulCheckout(page) {
-    const successfulCheckoutPage = new SuccessfulCheckoutPage(page);
-    await successfulCheckoutPage.waitForRedirection();
-    await expect(await successfulCheckoutPage.pageTitle.innerText()).toEqual(
-      "Thank you for your purchase!"
-    );
   }
 });
