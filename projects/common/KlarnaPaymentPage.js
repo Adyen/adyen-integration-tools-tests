@@ -31,7 +31,6 @@ export default class KlarnaPaymentPage {
   }
 
   async continueOnKlarna(phoneNumber) {
-    await this.waitForKlarnaLoad(this.page);
     await this.klarnaBuyButton.click();
 
     await this.klarnaPhoneInput.fill(phoneNumber);
