@@ -78,8 +78,8 @@ export class CreditCardComponents {
   }
 
   async verifyPaymentRefusal() {
-    const errorMessage = await expect(
-      await this.errorMessage.innerText()
-    ).toEqual("The payment is REFUSED.");
+    await expect(await this.errorMessage.innerText()).toEqual(
+      "The payment is REFUSED."
+    );
   }
 }
