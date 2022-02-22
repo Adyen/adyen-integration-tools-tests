@@ -1,3 +1,4 @@
+import { BancontactCardComponents } from "./BancontactCardComponents.js";
 import { CreditCardComponents } from "./CreditCardComponents.js";
 import { IDealComponents } from "./iDealComponents.js";
 import { KlarnaPayLaterComponents } from "./KlarnaPayLaterComponents.js";
@@ -11,6 +12,7 @@ export class PaymentDetailsPage {
     this.idealRadioButton = page.locator("#adyen_ideal");
     this.payPalRadioButton = page.locator("#adyen_paypal");
     this.klarnaPayLaterButton = page.locator("#adyen_klarna");
+    this.bancontactCardButton = page.locator("#adyen_bcmc");
 
     this.paymentSummaryLoadingSpinner = page.locator(
       ".opc-sidebar .loading-mask"
@@ -44,6 +46,13 @@ export class PaymentDetailsPage {
     await this.waitForPaymentSummaryLoader();
     await this.activePaymentMethod.scrollIntoViewIfNeeded();
     return new KlarnaPayLaterComponents(this.page);
+  }
+
+  async selectBancontactCard() {
+    await this.bancontactCardButton.click();
+    await this.waitForPaymentSummaryLoader();
+    await this.activePaymentMethod.scrollIntoViewIfNeeded();
+    return new BancontactCardComponents(this.page);
   }
 
   async waitForPaymentSummaryLoader() {
