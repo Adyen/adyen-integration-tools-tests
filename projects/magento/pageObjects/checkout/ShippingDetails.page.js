@@ -37,18 +37,19 @@ export class ShippingDetails {
     await this.lastNameInput.type(user.lastName);
     await this.addressInput.type(user.street);
 
-    if (user.stateOrProvince) {
+    await this.countrySelector.selectOption(user.countryCode);
+    await new AnimationHelper(this.page).waitForAnimation();
+
+    if (user.stateOrProvince != undefined) {
       await this.stateProvinceDropdown.selectOption(user.stateOrProvince);
-    } else {
+    } else if (user.stateCode != undefined) {
       await this.stateProvinceField.type(user.stateCode);
     }
 
-    await this.countrySelector.selectOption(user.countryCode);
     await this.cityInput.type(user.city);
-    await this.phoneNumberInput.type(user.phoneNumber);
     await this.postCodeInput.type(user.postCode);
 
-    await new AnimationHelper(this.page).waitForAnimation();
+    await this.phoneNumberInput.type(user.phoneNumber);
     await this.shippingMethodRadioButton.check();
   }
 
