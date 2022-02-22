@@ -12,7 +12,7 @@ import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.
 const paymentResources = new PaymentResources();
 const user = paymentResources.guestUser.klarna.approved.nl;
 
-test.describe.parallel("Payment via Klarna", () => {
+test.describe.parallel("Payment via Klarna Pay Later", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
   });
