@@ -8,6 +8,7 @@ import { CreditCardComponents } from "../pageObjects/checkout/CreditCardComponen
 import {
   goToShippingWithFullCart,
   proceedToPaymentAs,
+  verifyFailedPayment,
   verifySuccessfulPayment,
 } from "../helpers/ScenarioHelper.js";
 
@@ -67,7 +68,7 @@ test.describe.parallel("Payment via credit card", () => {
       paymentResources.threeDSWrongPassword
     );
 
-    await new ShoppingCartPage(page).verifyPaymentFailure();
+    await verifyFailedPayment(page);
   });
 
   test("with 3Ds2 should succeed", async ({ page }) => {
