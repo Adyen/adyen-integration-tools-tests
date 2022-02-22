@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
 import KlarnaPaymentPage from "../../common/KlarnaPaymentPage.js";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
