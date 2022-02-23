@@ -3,6 +3,7 @@ import { CreditCardComponents } from "./CreditCardComponents.js";
 import { IDealComponents } from "./iDealComponents.js";
 import { KlarnaPayLaterComponents } from "./KlarnaPayLaterComponents.js";
 import { PayPalComponents } from "./PayPalComponents.js";
+import { SepaDirectDebitComponents } from "./SepaDirectDebitComponents.js";
 
 export class PaymentDetailsPage {
   constructor(page) {
@@ -13,6 +14,7 @@ export class PaymentDetailsPage {
     this.payPalRadioButton = page.locator("#adyen_paypal");
     this.klarnaPayLaterButton = page.locator("#adyen_klarna");
     this.bancontactCardButton = page.locator("#adyen_bcmc");
+    this.sepaDirectDebitButton = page.locator("#adyen_sepadirectdebit");
 
     this.paymentSummaryLoadingSpinner = page.locator(
       ".opc-sidebar .loading-mask"
@@ -53,6 +55,13 @@ export class PaymentDetailsPage {
     await this.waitForPaymentSummaryLoader();
     await this.activePaymentMethod.scrollIntoViewIfNeeded();
     return new BancontactCardComponents(this.page);
+  }
+
+  async selectSepaDirectDebit() {
+    await this.sepaDirectDebitButton.click();
+    await this.waitForPaymentSummaryLoader();
+    await this.activePaymentMethod.scrollIntoViewIfNeeded();
+    return new SepaDirectDebitComponents(this.page);
   }
 
   async waitForPaymentSummaryLoader() {
