@@ -7,13 +7,17 @@ export class GiftCardHPPage {
         this.cardPinUnput = page.locator("#genericgiftcard\\.pin");
 
         this.partialPaymentCheckBox = page.locator("#genericgiftcard\\.partialPayments");
-        this.continueButton = page.locator("#mainSubmit[value|='continue']");
+        this.continueButton = page.locator("#mainSubmit[value='continue']");
 
         this.previousButton = page.locator("#mainBack");
 
-        this.payButton = page.locator("#mainSubmit[value|='pay']");
+        this.payButton = page.locator("#mainSubmit[value='pay']");
 
-        this.genericGiftCardButtonHPP = page.locator("input[value|='Generic GiftCard']");
+        this.genericGiftCardButtonHPP = page.locator("input[value='Generic GiftCard']");
+        this.idealButtonHPP = page.locator("input[value='iDEAL']");
+
+        this.idealIssuerButton = page.locator("input.idealButton[name='idealIssuer']").first();
+        this.iDealContinueButton = page.locator("input[value='Continue']");
     }
 
     async fillGiftCardDetails(cardHolderName, cardNumber, cardPin, partialPayment = false){
