@@ -1,5 +1,6 @@
 import { BancontactCardComponents } from "./BancontactCardComponents.js";
 import { CreditCardComponents } from "./CreditCardComponents.js";
+import { GenericGiftCardComponents } from "./GenericGiftCardComponents.js";
 import { IDealComponents } from "./iDealComponents.js";
 import { KlarnaPayLaterComponents } from "./KlarnaPayLaterComponents.js";
 import { PayPalComponents } from "./PayPalComponents.js";
@@ -15,6 +16,7 @@ export class PaymentDetailsPage {
     this.klarnaPayLaterButton = page.locator("#adyen_klarna");
     this.bancontactCardButton = page.locator("#adyen_bcmc");
     this.sepaDirectDebitButton = page.locator("#adyen_sepadirectdebit");
+    this.genericGiftCardButton = page.locator("#adyen_genericgiftcard");
 
     this.paymentSummaryLoadingSpinner = page.locator(
       ".opc-sidebar .loading-mask"
@@ -63,6 +65,15 @@ export class PaymentDetailsPage {
     await this.activePaymentMethod.scrollIntoViewIfNeeded();
     return new SepaDirectDebitComponents(this.page);
   }
+
+  async selectGiftCard(){
+    await this.genericGiftCardButton.click();
+    await this.waitForPaymentSummaryLoader();
+    await this.activePaymentMethod.scrollIntoViewIfNeeded();
+    return new GenericGiftCardComponents(this.page);
+  }
+
+
 
   async waitForPaymentSummaryLoader() {
     await this.paymentSummaryLoadingSpinner.waitFor({

@@ -42,6 +42,20 @@ export default class PaymentResources {
     },
   };
 
+  giftCard = {
+    EUR50: {
+      cardHolderName : "BALANCE EUR 5000",
+      cardNumber : "6064365010000000000",
+      cardPIN: "73737",
+    },
+    
+    EUR20: {
+    cardHolderName : "BALANCE EUR 2000",
+    cardNumber : "6064365010000000000",
+    cardPIN: "73737",
+    },
+  };
+
   guestUser = {
     regular: {
       email: "guest@adyen.com",
