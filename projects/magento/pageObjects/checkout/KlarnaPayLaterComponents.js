@@ -1,5 +1,3 @@
-import KlarnaPaymentPage from "../../../common/KlarnaPaymentPage.js";
-
 export class KlarnaPayLaterComponents {
   constructor(page) {
     this.page = page;
