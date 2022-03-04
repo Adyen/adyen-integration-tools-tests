@@ -16,8 +16,6 @@ export async function goToShippingWithFullCart(page, additionalItemCount = 0) {
       "M",
       additionalItemCount
     );
-    await expect(await productDetailsPage.currentCartItemCount)
-      .toEqual((additionalItemCount + 1).toString());
   }
 }
 

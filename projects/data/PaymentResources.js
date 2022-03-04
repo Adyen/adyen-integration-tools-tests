@@ -44,15 +44,15 @@ export default class PaymentResources {
 
   giftCard = {
     EUR50: {
-      cardHolderName : "BALANCE EUR 5000",
-      cardNumber : "6064365010000000000",
+      cardHolderName: "BALANCE EUR 5000",
+      cardNumber: "6064365010000000000",
       cardPIN: "73737",
     },
-    
+
     EUR20: {
-    cardHolderName : "BALANCE EUR 2000",
-    cardNumber : "6064365010000000000",
-    cardPIN: "73737",
+      cardHolderName: "BALANCE EUR 2000",
+      cardNumber: "6064365010000000000",
+      cardPIN: "73737",
     },
   };
 
@@ -151,7 +151,7 @@ export default class PaymentResources {
           postCode: "75008",
           countryCode: "FR",
           phoneNumber: "+33700555497",
-          dateOfBirth: "1970-07-07",
+          dateOfBirth: "07071970",
           gender: "M",
         },
       },
