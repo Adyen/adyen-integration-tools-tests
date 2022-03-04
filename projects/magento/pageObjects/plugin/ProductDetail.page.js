@@ -26,5 +26,8 @@ export class ProductDetailsPage extends BasePage {
 
     await this.addToCartButton.click();
     await new AnimationHelper(this.page).waitForAnimation();
+    /* 100ms additional ugly wait to prevent race condition between
+    the animation and the item number update */
+    await new Promise(resolve => setTimeout(resolve, 100));
   }
 }
