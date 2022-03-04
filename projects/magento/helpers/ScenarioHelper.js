@@ -4,19 +4,20 @@ import { ShippingDetails } from "../pageObjects/checkout/ShippingDetails.page.js
 import { SuccessfulCheckoutPage } from "../pageObjects/checkout/SuccessfulCheckout.page.js";
 import { ShoppingCartPage } from "../pageObjects/plugin/ShoppingCart.page.js";
 
-export async function goToShippingWithFullCart(page, multiItems = false) {
+export async function goToShippingWithFullCart(page, additionalItemCount = 0) {
   const productDetailsPage = new ProductDetailsPage(page);
   await productDetailsPage.addItemToCart("joust-duffle-bag.html");
 
   await expect(await productDetailsPage.currentCartItemCount).toEqual("1");
 
-  if (multiItems != false) {
+  if (additionalItemCount >= 1) {
     await productDetailsPage.addItemWithOptionsToCart(
       "breathe-easy-tank.html",
       "M",
-      2
+      additionalItemCount
     );
-    await expect(await productDetailsPage.currentCartItemCount).toEqual("3");
+    await expect(await productDetailsPage.currentCartItemCount)
+      .toEqual((additionalItemCount + 1).toString());
   }
 }
 
