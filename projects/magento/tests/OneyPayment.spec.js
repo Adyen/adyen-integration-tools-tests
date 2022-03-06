@@ -22,7 +22,6 @@ test.describe("Payment via Oney", () => {
     await verifySuccessfulPayment(page, false);
   });
 
-
   async function payViaOney(page) {
     const paymentDetailPage = new PaymentDetailsPage(page);
     const oneyPaymentSection = await paymentDetailPage.selectOney();

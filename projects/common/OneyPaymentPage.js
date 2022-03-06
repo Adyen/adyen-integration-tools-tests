@@ -3,7 +3,9 @@ export class OneyPaymentPage {
   constructor(page) {
     this.page = page;
 
-    this.continueWithoutLoggingInButton = page.locator(".connection-button").nth(1);
+    this.continueWithoutLoggingInButton = page
+      .locator(".connection-button")
+      .nth(1);
 
     this.genderSelector = page.locator(".civility-selectable").nth(2);
     this.birthDateInput = page.locator("input#birthDate");
@@ -11,25 +13,26 @@ export class OneyPaymentPage {
     this.birthPlaceInput = page.locator("input#birthCity");
     this.birthPlaceList = page.locator(".mat-focus-indicator").first();
 
-    this.birthDepartmentSelector = page.locator("#birthDepartment")
+    this.birthDepartmentSelector = page.locator("#birthDepartment");
 
     this.cardHolderNameInput = page.locator("#cardOwner");
     this.cardNumberInput = page.locator("#cardNumber");
     this.cardExpDateInput = page.locator("#cardExpirationDate");
     this.cardCvvInput = page.locator("#cvv");
 
-    this.termsAndConditionsCheckBox = page.locator("#generalTermsAndConditions");
+    this.termsAndConditionsCheckBox = page.locator(
+      "#generalTermsAndConditions"
+    );
     this.completePaymentButton = page.locator("button[type='submit']");
 
     this.oneyAnimationLayer = page.locator("#loader-message");
 
     this.returnToMerchantSiteButton = page.locator("#successRedirectLink");
-
   }
 
   async continueOneyPayment() {
     const paymentResources = new PaymentResources();
-    const user = paymentResources.guestUser.oney.approved.fr
+    const user = paymentResources.guestUser.oney.approved.fr;
 
     await this.continueWithoutLoggingInButton.click();
     await this.genderSelector.click();
@@ -37,7 +40,6 @@ export class OneyPaymentPage {
     await this.birthPlaceInput.click();
     await this.birthPlaceInput.type(user.city);
     await this.birthPlaceList.click();
-
 
     await this.cardHolderNameInput.type(`${user.firstName} ${user.lastName}`);
     await this.cardNumberInput.type(paymentResources.oneyCard);
@@ -48,12 +50,20 @@ export class OneyPaymentPage {
     await this.completePaymentButton.click();
 
     await this.waitForOneyAnimation();
+    await this.waitForOneySuccessPageLoad();
 
     await this.returnToMerchantSiteButton.click();
   }
 
+  async waitForOneySuccessPageLoad() {
+    await this.page.waitForNavigation({
+      url: /.*success*/,
+      timeout: 10000,
+      waitUntil: "load",
+    });
+  }
+
   async waitForOneyAnimation() {
     await this.oneyAnimationLayer.waitFor({ state: "attached", timeout: 5000 });
-    await this.oneyAnimationLayer.waitFor({ state: "detached", timeout: 15000 });
   }
 }
