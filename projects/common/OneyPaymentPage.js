@@ -58,7 +58,7 @@ export class OneyPaymentPage {
   async waitForOneySuccessPageLoad() {
     await this.page.waitForNavigation({
       url: /.*success*/,
-      timeout: 10000,
+      timeout: 15000,
       waitUntil: "load",
     });
   }
