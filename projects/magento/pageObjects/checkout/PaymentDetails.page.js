@@ -7,6 +7,7 @@ import { KlarnaPayLaterComponents } from "./KlarnaPayLaterComponents.js";
 import { OneyComponents } from "./OneyComponents.js";
 import { PayPalComponents } from "./PayPalComponents.js";
 import { SepaDirectDebitComponents } from "./SepaDirectDebitComponents.js";
+import { ClearPayComponents } from "./ClearPayComponents.js";
 
 export class PaymentDetailsPage {
   constructor(page) {
@@ -20,6 +21,7 @@ export class PaymentDetailsPage {
     this.sepaDirectDebitRadioButton = page.locator("#adyen_sepadirectdebit");
     this.genericGiftCardRadioButton = page.locator("#adyen_genericgiftcard");
     this.oney3RadioButton = page.locator("#adyen_facilypay_3x");
+    this.clearPayRadioButton = page.locator("#adyen_clearpay");
 
     this.paymentSummaryLoadingSpinner = page.locator(
       ".opc-sidebar .loading-mask"
@@ -81,6 +83,13 @@ export class PaymentDetailsPage {
     await this.waitForPaymentSummaryLoader();
     await this.activePaymentMethod.scrollIntoViewIfNeeded();
     return new OneyComponents(this.page);
+  }
+
+  async selectClearPay() {
+    await this.clearPayRadioButton.click();
+    await this.waitForPaymentSummaryLoader();
+    await this.activePaymentMethod.scrollIntoViewIfNeeded();
+    return new ClearPayComponents(this.page);
   }
 
   async waitForPaymentSummaryLoader() {

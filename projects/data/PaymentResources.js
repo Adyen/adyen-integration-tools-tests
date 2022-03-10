@@ -188,6 +188,24 @@ export default class PaymentResources {
         },
       },
     },
+    clearPay: {
+      approved: {
+        it: {
+          email: "guestitalian@adyen.com",
+          firstName: "Test",
+          lastName: "Accepted",
+          street: "Vicolo Bianchetti",
+          houseNumber: "8",
+          city: "Bologna",
+          postCode: "40125",
+          phoneNumber: "0612345678",
+          dateOfBirth: "1990-01-01",
+          gender: "M",
+          stateOrProvince: "697",
+          countryCode: "IT",
+        },
+      },
+    },
     iDeal: {
       nl: {
         email: "guest@adyen.com",
