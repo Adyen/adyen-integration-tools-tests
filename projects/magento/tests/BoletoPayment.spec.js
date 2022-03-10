@@ -4,6 +4,7 @@ import {
   goToShippingWithFullCart,
   proceedToPaymentAs,
   verifySuccessfulPayment,
+  verifyVoucherCouponGeneration,
 } from "../helpers/ScenarioHelper.js";
 import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.js";
 
@@ -27,5 +28,6 @@ test.describe("Payment via Boleto", () => {
     );
     await boletoSection.placeOrder();
     await verifySuccessfulPayment(page);
+    await verifyVoucherCouponGeneration(page);
   });
 });
