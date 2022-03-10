@@ -8,6 +8,7 @@ import { PayPalComponents } from "./PayPalComponents.js";
 import { SepaDirectDebitComponents } from "./SepaDirectDebitComponents.js";
 import { ClearPayComponents } from "./ClearPayComponents.js";
 import { BoletoComponents } from "./BoletoComponents.js";
+import { MultiBancoComponents } from "./MultiBancoComponents.js";
 
 export class PaymentDetailsPage {
   constructor(page) {
@@ -23,6 +24,7 @@ export class PaymentDetailsPage {
     this.oney3RadioButton = page.locator("#adyen_facilypay_3x");
     this.clearPayRadioButton = page.locator("#adyen_clearpay");
     this.boletoRadioButton = page.locator("#adyen_boleto");
+    this.multiBancoRadioButton = page.locator("#adyen_multibanco");
 
     this.paymentSummaryLoadingSpinner = page.locator(
       ".opc-sidebar .loading-mask"
@@ -88,6 +90,12 @@ export class PaymentDetailsPage {
     await this.boletoRadioButton.click();
     await this.waitForPaymentMethodReady();
     return new BoletoComponents(this.page);
+  }
+
+  async selectMultiBanco() {
+    await this.multiBancoRadioButton.click();
+    await this.waitForPaymentMethodReady();
+    return new MultiBancoComponents(this.page);
   }
 
   async waitForPaymentMethodReady() {
