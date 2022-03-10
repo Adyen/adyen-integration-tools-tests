@@ -139,6 +139,21 @@ export default class PaymentResources {
         },
       },
     },
+    boleto: {
+      email: "guest@adyen.com",
+      firstName: "Alex",
+      lastName: "De Souza",
+      street: "Guest street",
+      houseNumber: "1",
+      city: "São Paulo",
+      postCode: "12345-123",
+      countryCode: "BR",
+      countryName: "Brazil",
+      phoneNumber: "06123456789",
+      stateCode: "SP",
+      stateOrProvince: "508",
+      socialSecurityNumber: "39698460000170",
+    },
     oney: {
       approved: {
         fr: {
