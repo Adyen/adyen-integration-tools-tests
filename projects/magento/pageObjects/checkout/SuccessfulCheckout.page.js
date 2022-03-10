@@ -9,6 +9,7 @@ export class SuccessfulCheckoutPage extends BasePage {
     this.continueButton = page.locator(
       "//*[@class = 'action primary continue']//*[text()='Continue Shopping']"
     );
+    this.voucherCoudeContainer = page.locator(".adyen-checkout__voucher-result");
   }
 
   get titleText() {

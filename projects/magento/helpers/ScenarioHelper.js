@@ -35,6 +35,11 @@ export async function verifySuccessfulPayment(page, redirect = true) {
   );
 }
 
+export async function verifyVoucherCouponGeneration(page) {
+  const successfulCheckoutPage = new SuccessfulCheckoutPage(page);
+  await expect(successfulCheckoutPage.voucherCoudeContainer).toBeVisible();
+}
+
 export async function verifyFailedPayment(page) {
   const errorMessage = await new ShoppingCartPage(
     page
