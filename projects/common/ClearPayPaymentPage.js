@@ -1,4 +1,3 @@
-import PaymentResources from "../data/PaymentResources.js";
 export class ClearPayPaymentPage {
   constructor(page) {
     this.page = page;

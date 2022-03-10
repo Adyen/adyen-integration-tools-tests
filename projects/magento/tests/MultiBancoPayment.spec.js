@@ -22,7 +22,6 @@ test.describe("Payment via MultiBanco", () => {
     const multiBancoSection = await paymentDetailPage.selectMultiBanco();
     await multiBancoSection.placeOrder();
 
-
     await verifySuccessfulPayment(page);
     await verifyVoucherCouponGeneration(page);
   });

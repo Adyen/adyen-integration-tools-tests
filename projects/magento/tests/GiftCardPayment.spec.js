@@ -21,39 +21,46 @@ test.describe.parallel("Payment via Gift Card", () => {
     await proceedToPaymentAs(page, user);
   });
 
-  test("should succeed with gift card that has sufficient funds", async ({ page }) => {
+  test("should succeed with gift card that has sufficient funds", async ({
+    page,
+  }) => {
     const giftCardPaymentPage = await selectGiftCard(page);
     await giftCardPaymentPage.fillGiftCardDetails(
       giftCard50EUR.cardHolderName,
       giftCard50EUR.cardNumber,
-      giftCard50EUR.cardPIN);
-    
+      giftCard50EUR.cardPIN
+    );
+
     await giftCardPaymentPage.clickContinue();
     await giftCardPaymentPage.clickPay();
 
     await verifySuccessfulPayment(page, false);
   });
 
-  test("should fail if Previous Button is clicked on payment details page", async ({ page }) => {
+  test("should fail if Previous Button is clicked on payment details page", async ({
+    page,
+  }) => {
     const giftCardPaymentPage = await selectGiftCard(page);
     await giftCardPaymentPage.fillGiftCardDetails(
       giftCard50EUR.cardHolderName,
       giftCard50EUR.cardNumber,
-      giftCard50EUR.cardPIN);
-    
+      giftCard50EUR.cardPIN
+    );
+
     await giftCardPaymentPage.clickPrevious();
 
     await verifyFailedPayment(page);
   });
 
-  test(
-    "should redirect to a second payment method if giftcard has less balance than sum",
-     async ({ page }) => {
+  test("should redirect to a second payment method if giftcard has less balance than sum", async ({
+    page,
+  }) => {
     const giftCardPaymentPage = await selectGiftCard(page);
     await giftCardPaymentPage.fillGiftCardDetails(
       giftCard20EUR.cardHolderName,
       giftCard20EUR.cardNumber,
-      giftCard20EUR.cardPIN);
+      giftCard20EUR.cardPIN
+    );
     await giftCardPaymentPage.partialPaymentCheckBox.click();
     await giftCardPaymentPage.clickContinue();
 
@@ -64,22 +71,24 @@ test.describe.parallel("Payment via Gift Card", () => {
     await giftCardPaymentPage.fillGiftCardDetails(
       giftCard20EUR.cardHolderName,
       giftCard20EUR.cardNumber,
-      giftCard20EUR.cardPIN);
+      giftCard20EUR.cardPIN
+    );
     await giftCardPaymentPage.clickContinue();
-    
+
     await giftCardPaymentPage.clickPay();
 
     await verifySuccessfulPayment(page, false);
   });
 
-  test(
-    "should succeed when partially combined with another payment method",
-     async ({ page }) => {
+  test("should succeed when partially combined with another payment method", async ({
+    page,
+  }) => {
     const giftCardPaymentPage = await selectGiftCard(page);
     await giftCardPaymentPage.fillGiftCardDetails(
       giftCard20EUR.cardHolderName,
       giftCard20EUR.cardNumber,
-      giftCard20EUR.cardPIN);
+      giftCard20EUR.cardPIN
+    );
     await giftCardPaymentPage.partialPaymentCheckBox.click();
     await giftCardPaymentPage.clickContinue();
 
@@ -95,9 +104,7 @@ test.describe.parallel("Payment via Gift Card", () => {
 
 async function selectGiftCard(page) {
   const paymentDetailPage = new PaymentDetailsPage(page);
-  const giftCardSection = await paymentDetailPage.selectGiftCard(
-    page
-  );
+  const giftCardSection = await paymentDetailPage.selectGiftCard(page);
   await giftCardSection.placeOrder();
   return new GiftCardHPPage(page);
 }

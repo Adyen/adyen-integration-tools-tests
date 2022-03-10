@@ -9,7 +9,7 @@ import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.
 import { ClearPayPaymentPage } from "../../common/ClearPayPaymentPage.js";
 
 const paymentResources = new PaymentResources();
-const user = paymentResources.guestUser.clearPay.approved.it
+const user = paymentResources.guestUser.clearPay.approved.it;
 
 test.describe("Payment via Oney", () => {
   test.beforeEach(async ({ page }) => {
