@@ -1,6 +1,6 @@
 name: Magento E2E Headless Tests with Playwright
 on:
-  workflow_dispatch
+  workflow_dispatch:
   push:
     branches: [main]
   pull_request:
