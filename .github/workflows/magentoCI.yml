@@ -12,6 +12,7 @@ jobs:
     env:
       PAYPAL_USERNAME: ${{secrets.PLAYWRIGHT_PAYPAL_USERNAME}}
       PAYPAL_PASSWORD: ${{secrets.PLAYWRIGHT_PAYPAL_PASSWORD}}
+      MAGENTO_BASE_URL: ${{secrets.PLAYWRIGHT_MAGENTO_BASE_URL}}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2

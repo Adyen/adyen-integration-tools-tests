@@ -37,7 +37,7 @@ const config = {
     actionTimeout: 0,
 
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: "https://magento2-e2e.seamless-checkout.store",
+    baseURL: process.env.MAGENTO_BASE_URL,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
