@@ -39,7 +39,7 @@ ENVIRONMENT VARIABLE(S) + npx playwright test + test worker count + headless/hea
 
 `--headed` = Use this flag running the tests in a headed browser. Currently using no flag defaults to a headless run.
 
-`--project` = Use this flag to define with which browser/platform is desired while running the tests. All these options should be defined in specific configuration file before they can be used. Check projects variable in **projects/magento/magento.config.cjs** if you need an example.
+`--project` = Use this flag to define with which browser/platform is desired while running the tests. All these options should be defined in specific configuration file before they can be used. Check `projects` variable in **projects/magento/magento.config.cjs** if you need an example.
 
 `--config` = a specific configuration file to define the specific settings to be used during a test run. Refer to [Playwright Documentation](https://playwright.dev/docs/test-configuration) for more information about configuration files.
 
@@ -48,7 +48,7 @@ ENVIRONMENT VARIABLE(S) + npx playwright test + test worker count + headless/hea
 **Sample bash command compilation**
 
 ```bash
-MAGENTO_BASE_URL="https://maymagento2.store/" npx playwright test --workers=1 --headed --project=chrome --config=projects/magento/magento.config.cjs projects/magento/tests/CreditCardPayment.spec.js
+MAGENTO_BASE_URL="https://mymagento2.store/" npx playwright test --workers=1 --headed --project=chrome --config=projects/magento/magento.config.cjs projects/magento/tests/CreditCardPayment.spec.js
 ```
 This will run the `CreditCardPayment.spec.js` test only with **one worker** in a **headed chrome browser** using **magento.config.cjs**
 
