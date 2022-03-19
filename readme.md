@@ -54,6 +54,8 @@ This will run the `CreditCardPayment.spec.js` test only with **one worker** in a
 
 ## Quick Start Commands
 
+Check `package.json` to see all available scripts.
+
 ```bash
 npm run test:adyenlocal:magento
 ```
