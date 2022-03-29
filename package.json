@@ -1,0 +1,19 @@
+{
+  "name": "pluginstest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test:adyenlocal:magento": "npx playwright test --workers=1 --headed --project=chrome --config=projects/magento/magento.config.cjs",
+    "test:adyenlocal:magento:headless": "npx playwright test --workers=1 --project=chrome --config=projects/magento/magento.config.cjs",
+    "test:adyenlocal:magento:parallel": "npx playwright test --headed --project=chrome --config=projects/magento/magento.config.cjs",
+    "test:adyenlocal:magento:headless:parallel": "npx playwright test --project=chrome --config=projects/magento/magento.config.cjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.18.0"
+  }
+}
