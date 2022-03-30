@@ -1,3 +1,5 @@
+import PaymentResources from "../data/PaymentResources";
+
 export default class KlarnaPaymentPage {
   constructor(page) {
     this.page = page;
@@ -36,7 +38,7 @@ export default class KlarnaPaymentPage {
     await this.klarnaPhoneInput.fill(phoneNumber);
     await this.klarnaContinueButton.click();
 
-    await this.klarnaVerificationCodeInput.fill("123456");
+    await this.klarnaVerificationCodeInput.fill(new PaymentResources().klarnaVerificationCode);
     await this.klarnaConfirmButton.click();
   }
 
