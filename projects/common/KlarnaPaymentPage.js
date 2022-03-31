@@ -18,9 +18,13 @@ export default class KlarnaPaymentPage {
     this.klarnaConfirmButton = this.klarnaIframe.locator(
       "#invoice_kp-purchase-review-continue-button"
     );
-    this.klarnaConfirmBankAccountButton = page.locator(
+    this.klarnaConfirmBankAccountButton = this.klarnaIframe.locator(
       "#mandate-review__confirmation-button"
     );
+    this.klarnaConfirmPurchaseWithInstallmentsButton =
+      this.klarnaIframe.locator(
+        "#payinparts_kp-purchase-review-continue-button"
+      );
   }
 
   async makeKlarnaPayment(action, phoneNumber = null) {
@@ -34,6 +38,10 @@ export default class KlarnaPaymentPage {
         await this.continueOnKlarna(phoneNumber);
         await this.klarnaConfirmBankAccountButton.click();
         break;
+      case "overTime":
+        await this.continueOnKlarna(phoneNumber);
+        await this.klarnaConfirmPurchaseWithInstallmentsButton.click();
+        break;
       case "cancel":
         await this.klarnaGoBackButton.click();
         break;
@@ -46,8 +54,9 @@ export default class KlarnaPaymentPage {
     await this.klarnaPhoneInput.fill(phoneNumber);
     await this.klarnaContinueButton.click();
 
-    await this.klarnaVerificationCodeInput.fill(new PaymentResources().klarnaVerificationCode);
-    await this.klarnaConfirmButton.click();
+    await this.klarnaVerificationCodeInput.fill(
+      new PaymentResources().klarnaVerificationCode
+    );
   }
 
   async waitForKlarnaLoad() {

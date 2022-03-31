@@ -17,7 +17,7 @@ test.describe.parallel("Payment via Klarna Pay Now", () => {
     await goToShippingWithFullCart(page);
   });
 
-  test.only("should succeed", async ({ page }) => {
+  test("should succeed", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 
@@ -36,9 +36,7 @@ test.describe.parallel("Payment via Klarna Pay Now", () => {
 
 async function proceedToKlarnaPayNow(page) {
   const paymentDetailPage = new PaymentDetailsPage(page);
-  const klarnaPayNowSection = await paymentDetailPage.selectKlarnaPayNow(
-    page
-  );
+  const klarnaPayNowSection = await paymentDetailPage.selectKlarnaPayNow(page);
   await klarnaPayNowSection.placeOrder();
   return new KlarnaPaymentPage(page);
 }
