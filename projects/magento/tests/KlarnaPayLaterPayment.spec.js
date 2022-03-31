@@ -17,7 +17,7 @@ test.describe.parallel("Payment via Klarna Pay Later", () => {
     await goToShippingWithFullCart(page);
   });
 
-  test.only("should succeed", async ({ page }) => {
+  test("should succeed", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayLater(page);
 
