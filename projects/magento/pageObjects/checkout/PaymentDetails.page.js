@@ -9,6 +9,8 @@ import { SepaDirectDebitComponents } from "./SepaDirectDebitComponents.js";
 import { ClearPayComponents } from "./ClearPayComponents.js";
 import { BoletoComponents } from "./BoletoComponents.js";
 import { MultiBancoComponents } from "./MultiBancoComponents.js";
+import { KlarnaPayNowComponents } from "./KlarnaPayNowComponents.js";
+import { KlarnaPayOverTimeComponents } from "./KlarnaPayOverTimeComponents.js";
 
 export class PaymentDetailsPage {
   constructor(page) {
@@ -18,6 +20,8 @@ export class PaymentDetailsPage {
     this.idealRadioButton = page.locator("#adyen_ideal");
     this.payPalRadioButton = page.locator("#adyen_paypal");
     this.klarnaPayLaterRadioButton = page.locator("#adyen_klarna");
+    this.klarnaPayOverTimeRadioButton = page.locator("#adyen_klarna_account");
+    this.klarnaPayNowRadioButton = page.locator("#adyen_klarna_paynow");
     this.bancontactCardRadioButton = page.locator("#adyen_bcmc");
     this.sepaDirectDebitRadioButton = page.locator("#adyen_sepadirectdebit");
     this.genericGiftCardRadioButton = page.locator("#adyen_genericgiftcard");
@@ -54,6 +58,18 @@ export class PaymentDetailsPage {
     await this.klarnaPayLaterRadioButton.click();
     await this.waitForPaymentMethodReady();
     return new KlarnaPayLaterComponents(this.page);
+  }
+
+  async selectKlarnaPayOverTime() {
+    await this.klarnaPayOverTimeRadioButton.click();
+    await this.waitForPaymentMethodReady();
+    return new KlarnaPayOverTimeComponents(this.page);
+  }
+
+  async selectKlarnaPayNow() {
+    await this.klarnaPayNowRadioButton.click();
+    await this.waitForPaymentMethodReady();
+    return new KlarnaPayNowComponents(this.page);
   }
 
   async selectBancontactCard() {

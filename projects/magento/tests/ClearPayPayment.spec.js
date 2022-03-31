@@ -11,7 +11,7 @@ import { ClearPayPaymentPage } from "../../common/ClearPayPaymentPage.js";
 const paymentResources = new PaymentResources();
 const user = paymentResources.guestUser.clearPay.approved.it;
 
-test.describe("Payment via Oney", () => {
+test.describe("Payment via ClearPay", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
   });

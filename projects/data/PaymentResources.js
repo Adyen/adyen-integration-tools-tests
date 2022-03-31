@@ -4,6 +4,8 @@ export default class PaymentResources {
   visa3DS1 = "4212345678901237";
   oneyCard = "4970101558744789";
 
+  klarnaVerificationCode = "123456";
+
   payPalUserName = process.env.PAYPAL_USERNAME;
   payPalPassword = process.env.PAYPAL_PASSWORD;
 
