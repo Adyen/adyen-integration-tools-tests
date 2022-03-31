@@ -12,33 +12,33 @@ import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.
 const paymentResources = new PaymentResources();
 const user = paymentResources.guestUser.klarna.approved.nl;
 
-test.describe.parallel("Payment via Klarna Pay Later", () => {
+test.describe.parallel("Payment via Klarna Pay Now", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
   });
 
   test.only("should succeed", async ({ page }) => {
     await proceedToPaymentAs(page, user);
-    const klarnaPaymentPage = await proceedToKlarnaPayLater(page);
+    const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 
-    await klarnaPaymentPage.makeKlarnaPayment("later", user.phoneNumber);
+    await klarnaPaymentPage.makeKlarnaPayment("directDebit", user.phoneNumber);
     await verifySuccessfulPayment(page);
   });
 
   test("should fail if cancelled", async ({ page }) => {
     await proceedToPaymentAs(page, user);
-    const klarnaPaymentPage = await proceedToKlarnaPayLater(page);
+    const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 
     await klarnaPaymentPage.makeKlarnaPayment("cancel");
     await verifyFailedPayment(page);
   });
 });
 
-async function proceedToKlarnaPayLater(page) {
+async function proceedToKlarnaPayNow(page) {
   const paymentDetailPage = new PaymentDetailsPage(page);
-  const klarnaPayLaterSection = await paymentDetailPage.selectKlarnaPayLater(
+  const klarnaPayNowSection = await paymentDetailPage.selectKlarnaPayNow(
     page
   );
-  await klarnaPayLaterSection.placeOrder();
+  await klarnaPayNowSection.placeOrder();
   return new KlarnaPaymentPage(page);
 }

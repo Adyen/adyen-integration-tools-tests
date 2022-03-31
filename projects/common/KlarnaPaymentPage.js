@@ -1,4 +1,4 @@
-import PaymentResources from "../data/PaymentResources";
+import PaymentResources from "../data/PaymentResources.js";
 
 export default class KlarnaPaymentPage {
   constructor(page) {
@@ -18,13 +18,21 @@ export default class KlarnaPaymentPage {
     this.klarnaConfirmButton = this.klarnaIframe.locator(
       "#invoice_kp-purchase-review-continue-button"
     );
+    this.klarnaConfirmBankAccountButton = page.locator(
+      "#mandate-review__confirmation-button"
+    );
   }
 
   async makeKlarnaPayment(action, phoneNumber = null) {
     await this.waitForKlarnaLoad();
     switch (action) {
-      case "continue":
+      case "later":
         await this.continueOnKlarna(phoneNumber);
+        await this.klarnaConfirmButton.click();
+        break;
+      case "directDebit":
+        await this.continueOnKlarna(phoneNumber);
+        await this.klarnaConfirmBankAccountButton.click();
         break;
       case "cancel":
         await this.klarnaGoBackButton.click();
