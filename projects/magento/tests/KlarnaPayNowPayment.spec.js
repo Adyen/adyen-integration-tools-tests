@@ -25,11 +25,14 @@ test.describe.parallel("Payment via Klarna Pay Now", () => {
     await verifySuccessfulPayment(page);
   });
 
-  test.only("should succeed via direct bank transfer", async ({ page }) => {
+  test("should succeed via direct bank transfer", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 
-    await klarnaPaymentPage.makeKlarnaPayment("directBankTransfer", user.phoneNumber);
+    await klarnaPaymentPage.makeKlarnaPayment(
+      "directBankTransfer",
+      user.phoneNumber
+    );
     await verifySuccessfulPayment(page);
   });
 

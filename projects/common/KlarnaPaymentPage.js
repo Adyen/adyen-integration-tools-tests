@@ -31,16 +31,45 @@ export default class KlarnaPaymentPage {
     );
     this.directBankTransferButton = this.klarnaMainIframe.locator(
       "input[value|=banktransfer_kp]"
-    )
-    this.bankSelector = page.locator("select[id='SenderBank']");
-
-    this.bankCredentialsIframe = page.frameLocator(
-      "#banktransfer_kp-direct-bank-transfer-dialog iframe"
     );
-    this.userIDInput = this.bankCredentialsIframe.locator("input#BackendFormUSERID");
-    this.userPINInput = this.bankCredentialsIframe.locator("input#BackendFormUSERPIN");
-    this.bankCredentialsNextButton = this.bankCredentialsIframe.locator("button:has-text('Next')");
-    this.confirmationCodeInput = this.bankCredentialsIframe.locator("input#BackendFormTAN");
+
+    this.dialogIframe = this.klarnaIframe.frameLocator("iframe");
+
+    // Bank Selection Dialog Selectors
+    this.countryAndBankSelectionDialog =
+      this.dialogIframe.locator("#SelectCountryPage");
+    this.bankSelectionDropdown = this.countryAndBankSelectionDialog.locator(
+      "select[id='SenderBank']"
+    );
+    this.countryAndBankSelectionNextButton =
+      this.countryAndBankSelectionDialog.locator("button:has-text('Next')");
+
+    // Bank Account Dialog Selectors
+    this.bankCredentialsDialog = this.dialogIframe.locator("#LoginPage");
+    this.userIDInput = this.bankCredentialsDialog.locator(
+      "input#BackendFormUSERID"
+    );
+    this.userPINInput = this.bankCredentialsDialog.locator(
+      "input#BackendFormUSERPIN"
+    );
+    this.bankCredentialsNextButton = this.bankCredentialsDialog.locator(
+      "button:has-text('Next')"
+    );
+
+    // Select Account Dialog Selectors
+    this.selectAccountDialog = this.dialogIframe.locator("#SelectAccountPage");
+    this.selectAccountNextButton = this.selectAccountDialog.locator(
+      "button:has-text('Next')"
+    );
+
+    // Transaction Confirmation Dialog
+    this.transactionConfirmationDialog =
+      this.dialogIframe.locator("#ProvideTanPage");
+    this.confirmationCodeInput = this.transactionConfirmationDialog.locator(
+      "input#BackendFormTAN"
+    );
+    this.transactionConfirmationNextButton =
+      this.transactionConfirmationDialog.locator("button:has-text('Next')");
   }
 
   async makeKlarnaPayment(action, phoneNumber = null) {
@@ -56,17 +85,21 @@ export default class KlarnaPaymentPage {
         await this.klarnaConfirmBankAccountButton.click();
         break;
       case "directBankTransfer":
+        await this.directBankTransferButton.waitFor({
+          state: "visible",
+          timeout: 10000,
+        });
         await this.directBankTransferButton.click();
         await this.continueOnKlarna(phoneNumber);
-        await this.klarnaConfirmBankAccountButton.click();
-        await this.bankSelector.selectOption("00000");
+        await this.bankSelectionDropdown.selectOption("00000");
+        await this.countryAndBankSelectionNextButton.click();
 
-        await this.bankCredentialsNextButton.click();
         await this.userIDInput.fill("test");
         await this.userPINInput.fill("1111");
         await this.bankCredentialsNextButton.click();
-        await this.bankCredentialsNextButton.click();
+        await this.selectAccountNextButton.click();
         await this.confirmationCodeInput.fill("12345");
+        await this.transactionConfirmationNextButton.click();
         break;
       case "overTime":
         await this.continueOnKlarna(phoneNumber);
