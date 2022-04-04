@@ -8,6 +8,7 @@ export default class KlarnaPaymentPage {
     this.klarnaBuyButton = page.locator("#buy-button");
 
     this.klarnaIframe = page.frameLocator("#klarna-hpp-instance-fullscreen");
+    this.klarnaMainIframe = page.frameLocator("#klarna-hpp-instance-main");
     this.klarnaDateOfBirthInput = page.locator(
       "#invoice_kp-purchase-approval-form-date-of-birth"
     );
@@ -25,6 +26,21 @@ export default class KlarnaPaymentPage {
       this.klarnaIframe.locator(
         "#payinparts_kp-purchase-review-continue-button"
       );
+    this.directDebitButton = this.klarnaMainIframe.locator(
+      "input[value|=directdebit_kp]"
+    );
+    this.directBankTransferButton = this.klarnaMainIframe.locator(
+      "input[value|=banktransfer_kp]"
+    )
+    this.bankSelector = page.locator("select[id='SenderBank']");
+
+    this.bankCredentialsIframe = page.frameLocator(
+      "#banktransfer_kp-direct-bank-transfer-dialog iframe"
+    );
+    this.userIDInput = this.bankCredentialsIframe.locator("input#BackendFormUSERID");
+    this.userPINInput = this.bankCredentialsIframe.locator("input#BackendFormUSERPIN");
+    this.bankCredentialsNextButton = this.bankCredentialsIframe.locator("button:has-text('Next')");
+    this.confirmationCodeInput = this.bankCredentialsIframe.locator("input#BackendFormTAN");
   }
 
   async makeKlarnaPayment(action, phoneNumber = null) {
@@ -35,8 +51,22 @@ export default class KlarnaPaymentPage {
         await this.klarnaConfirmButton.click();
         break;
       case "directDebit":
+        await this.directDebitButton.click();
         await this.continueOnKlarna(phoneNumber);
         await this.klarnaConfirmBankAccountButton.click();
+        break;
+      case "directBankTransfer":
+        await this.directBankTransferButton.click();
+        await this.continueOnKlarna(phoneNumber);
+        await this.klarnaConfirmBankAccountButton.click();
+        await this.bankSelector.selectOption("00000");
+
+        await this.bankCredentialsNextButton.click();
+        await this.userIDInput.fill("test");
+        await this.userPINInput.fill("1111");
+        await this.bankCredentialsNextButton.click();
+        await this.bankCredentialsNextButton.click();
+        await this.confirmationCodeInput.fill("12345");
         break;
       case "overTime":
         await this.continueOnKlarna(phoneNumber);

@@ -17,11 +17,19 @@ test.describe.parallel("Payment via Klarna Pay Now", () => {
     await goToShippingWithFullCart(page);
   });
 
-  test("should succeed", async ({ page }) => {
+  test("should succeed via direct debit", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 
     await klarnaPaymentPage.makeKlarnaPayment("directDebit", user.phoneNumber);
+    await verifySuccessfulPayment(page);
+  });
+
+  test.only("should succeed via direct bank transfer", async ({ page }) => {
+    await proceedToPaymentAs(page, user);
+    const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
+
+    await klarnaPaymentPage.makeKlarnaPayment("directBankTransfer", user.phoneNumber);
     await verifySuccessfulPayment(page);
   });
 
