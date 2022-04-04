@@ -9,7 +9,9 @@ export class SuccessfulCheckoutPage extends BasePage {
     this.continueButton = page.locator(
       "//*[@class = 'action primary continue']//*[text()='Continue Shopping']"
     );
-    this.voucherCoudeContainer = page.locator(".adyen-checkout__voucher-result");
+    this.voucherCoudeContainer = page.locator(
+      ".adyen-checkout__voucher-result"
+    );
   }
 
   get titleText() {
@@ -19,7 +21,7 @@ export class SuccessfulCheckoutPage extends BasePage {
   async waitForRedirection() {
     await this.page.waitForNavigation({
       url: / *\/onepage\/success/,
-      timeout: 10000,
+      timeout: 15000,
     });
   }
 }

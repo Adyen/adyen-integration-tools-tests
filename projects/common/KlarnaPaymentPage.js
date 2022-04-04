@@ -113,8 +113,11 @@ export default class KlarnaPaymentPage {
 
   async continueOnKlarna(phoneNumber) {
     await this.klarnaBuyButton.click();
-
     await this.klarnaPhoneInput.fill(phoneNumber);
+    await this.klarnaContinueButton.waitFor({
+      state: "visible",
+      timeout: 10000,
+    });
     await this.klarnaContinueButton.click();
 
     await this.klarnaVerificationCodeInput.fill(
@@ -125,7 +128,8 @@ export default class KlarnaPaymentPage {
   async waitForKlarnaLoad() {
     await this.page.waitForNavigation({
       url: /.*playground.klarna/,
-      timeout: 10000,
+      timeout: 15000,
+      waitUntil: "networkidle",
     });
   }
 }
