@@ -80,8 +80,16 @@ export default class KlarnaPaymentPage {
         await this.klarnaConfirmButton.click();
         break;
       case "directDebit":
+        await this.directDebitButton.waitFor({
+          state: "visible",
+          timeout: 10000,
+        });
         await this.directDebitButton.click();
         await this.continueOnKlarna(phoneNumber);
+        await this.klarnaConfirmBankAccountButton.waitFor({
+          state: "visible",
+          timeout: 10000,
+        });
         await this.klarnaConfirmBankAccountButton.click();
         break;
       case "directBankTransfer":
@@ -112,14 +120,25 @@ export default class KlarnaPaymentPage {
   }
 
   async continueOnKlarna(phoneNumber) {
+    await this.klarnaBuyButton.waitFor({
+      state: "visible",
+      timeout: 10000,
+    });
     await this.klarnaBuyButton.click();
+    await this.klarnaPhoneInput.waitFor({
+      state: "visible",
+      timeout: 10000,
+    });
     await this.klarnaPhoneInput.fill(phoneNumber);
     await this.klarnaContinueButton.waitFor({
       state: "visible",
       timeout: 10000,
     });
     await this.klarnaContinueButton.click();
-
+    await this.klarnaVerificationCodeInput.waitFor({
+      state: "visible",
+      timeout: 10000,
+    });
     await this.klarnaVerificationCodeInput.fill(
       new PaymentResources().klarnaVerificationCode
     );
