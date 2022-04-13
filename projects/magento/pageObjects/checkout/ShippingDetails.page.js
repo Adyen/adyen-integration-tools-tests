@@ -5,18 +5,19 @@ export class ShippingDetails {
     this.page = page;
 
     // Shipping Section Locators
-    this.emailInput = page.locator(
-      "#checkout-step-shipping #customer-email"
+    this.shippingForm = page.locator(
+      "#checkout-step-shipping"
     );
-    this.firstNameInput = page.locator("#checkout-step-shipping input[name='firstname']");
-    this.lastNameInput = page.locator("#checkout-step-shipping input[name='lastname']");
-    this.addressInput = page.locator("#checkout-step-shipping input[name='street[0]']");
-    this.countrySelector = page.locator("#checkout-step-shipping select[name='country_id']");
-    this.stateProvinceDropdown = page.locator("#checkout-step-shipping select[name='region_id']");
-    this.stateProvinceField = page.locator("#checkout-step-shipping input[name='region']");
-    this.cityInput = page.locator("#checkout-step-shipping input[name='city']");
-    this.postCodeInput = page.locator("#checkout-step-shipping input[name='postcode']");
-    this.phoneNumberInput = page.locator("#checkout-step-shipping input[name='telephone']");
+    this.emailInput = this.shippingForm.locator("#customer-email");
+    this.firstNameInput = this.shippingForm.locator("input[name='firstname']");
+    this.lastNameInput = this.shippingForm.locator("input[name='lastname']");
+    this.addressInput = this.shippingForm.locator("input[name='street[0]']");
+    this.countrySelector = this.shippingForm.locator("select[name='country_id']");
+    this.stateProvinceDropdown = this.shippingForm.locator("select[name='region_id']");
+    this.stateProvinceField = this.shippingForm.locator("input[name='region']");
+    this.cityInput = this.shippingForm.locator("input[name='city']");
+    this.postCodeInput = this.shippingForm.locator("input[name='postcode']");
+    this.phoneNumberInput = this.shippingForm.locator("input[name='telephone']");
     this.shippingMethodRadioButton = page
       .locator("#checkout-shipping-method-load input[type='radio']")
       .first();
