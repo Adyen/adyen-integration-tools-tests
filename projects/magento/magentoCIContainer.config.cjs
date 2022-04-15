@@ -37,7 +37,7 @@ const config = {
     actionTimeout: 0,
 
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: "https://8080-michaelpaul-gitpoddocker-6ueon4ptu87.ws-eu38.gitpod.io/",
+    baseURL: "https://80-michaelpaul-gitpoddocker-4wltskvo6i7.ws-eu40.gitpod.io/",
     ignoreHTTPSErrors: true,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
