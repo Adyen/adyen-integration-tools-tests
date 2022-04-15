@@ -9,7 +9,7 @@ const config = {
   testDir: "./tests/",
 
   /* Maximum time one test can run for. */
-  timeout: 10 * 1000,
+  timeout: 60 * 1000,
 
   expect: {
     /**
@@ -37,7 +37,8 @@ const config = {
     actionTimeout: 0,
 
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: "https://80-michaelpaul-gitpoddocker-4wltskvo6i7.ws-eu40.gitpod.io/",
+    baseURL:
+      "https://80-michaelpaul-gitpoddocker-4wltskvo6i7.ws-eu40.gitpod.io/",
     ignoreHTTPSErrors: true,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
