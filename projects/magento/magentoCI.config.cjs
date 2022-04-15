@@ -9,7 +9,7 @@ const config = {
   testDir: "./tests/",
 
   /* Maximum time one test can run for. */
-  timeout: 10 * 1000,
+  timeout: 60 * 1000,
 
   expect: {
     /**
@@ -23,7 +23,7 @@ const config = {
   forbidOnly: !!process.env.CI,
 
   /* Retry on CI only */
-  retries: 0,
+  retries: 1,
 
   /* Opt out of parallel tests on CI. */
   workers: 3,
@@ -37,7 +37,8 @@ const config = {
     actionTimeout: 0,
 
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: "http://magento2.test.com",
+    baseURL:
+      "https://80-michaelpaul-gitpoddocker-4wltskvo6i7.ws-eu40.gitpod.io/",
     ignoreHTTPSErrors: true,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
