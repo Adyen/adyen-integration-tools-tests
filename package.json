@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test:ci:magento": "npx playwright test --project=chromium --config=projects/magento/magentoCI.config.cjs",
+    "test:ci:magento": "npx playwright test --project=chromium --config=projects/magento/magentoCIContainer.config.cjs",
     "test:adyenlocal:magento": "npx playwright test --workers=1 --headed --project=chrome --config=projects/magento/magento.config.cjs",
     "test:adyenlocal:magento:headless": "npx playwright test --workers=1 --project=chrome --config=projects/magento/magento.config.cjs",
     "test:adyenlocal:magento:parallel": "npx playwright test --headed --project=chrome --config=projects/magento/magento.config.cjs",
