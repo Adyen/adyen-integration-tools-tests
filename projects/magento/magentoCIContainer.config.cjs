@@ -37,8 +37,7 @@ const config = {
     actionTimeout: 0,
 
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL:
-      "https://80-michaelpaul-gitpoddocker-4wltskvo6i7.ws-eu40.gitpod.io/",
+    baseURL: process.env.MAGENTO_BASE_URL,
     ignoreHTTPSErrors: true,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
