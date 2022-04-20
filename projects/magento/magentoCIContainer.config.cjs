@@ -29,7 +29,7 @@ const config = {
   workers: 3,
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [["html", { outputFolder: "test-report" }]],
+  reporter: [["html", { outputFolder: "test-report", open: "never" }]],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
