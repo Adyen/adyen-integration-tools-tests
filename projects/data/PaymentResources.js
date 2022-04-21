@@ -154,7 +154,7 @@ export default class PaymentResources {
       phoneNumber: "06123456789",
       stateCode: "SP",
       stateOrProvince: "508",
-      socialSecurityNumber: "39698460000170",
+      socialSecurityNumber: "56861752509",
     },
     oney: {
       approved: {
