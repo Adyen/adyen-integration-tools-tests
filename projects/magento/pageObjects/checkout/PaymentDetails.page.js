@@ -122,11 +122,11 @@ export class PaymentDetailsPage {
   async waitForPaymentSummaryLoader() {
     await this.paymentSummaryLoadingSpinner.waitFor({
       state: "attached",
-      timeout: 10000,
+      timeout: 15000,
     });
     await this.paymentSummaryLoadingSpinner.waitFor({
       state: "detached",
-      timeout: 10000,
+      timeout: 15000,
     });
   }
 }

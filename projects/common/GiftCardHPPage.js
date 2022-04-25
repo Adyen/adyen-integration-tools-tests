@@ -34,6 +34,10 @@ export class GiftCardHPPage {
     cardPin,
     partialPayment = false
   ) {
+    await this.cardHoldernameInput.waitFor({
+      state:"visible",
+      timeout: 10000,
+    })
     await this.cardHoldernameInput.fill(cardHolderName);
     await this.cardNumberInput.fill(cardNumber);
     await this.cardPinUnput.fill(cardPin);

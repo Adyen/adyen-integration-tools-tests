@@ -5,7 +5,7 @@ export class AnimationHelper {
   }
 
   async waitForAnimation() {
-    await this.loadingLayer.waitFor({ state: "attached", timeout: 10000 });
-    await this.loadingLayer.waitFor({ state: "detached", timeout: 10000 });
+    await this.loadingLayer.waitFor({ state: "attached", timeout: 15000 });
+    await this.loadingLayer.waitFor({ state: "detached", timeout: 15000 });
   }
 }

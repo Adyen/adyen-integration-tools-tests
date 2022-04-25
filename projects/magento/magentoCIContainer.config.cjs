@@ -16,7 +16,7 @@ const config = {
      * Maximum time expect() should wait for the condition to be met.
      * For example in `await expect(locator).toHaveText();`
      */
-    timeout: 5000,
+    timeout: 10000,
   },
 
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -26,7 +26,7 @@ const config = {
   retries: 1,
 
   /* Opt out of parallel tests on CI. */
-  workers: 2,
+  workers: 3,
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [["html", { outputFolder: "../test-report", open: "never" }]],
