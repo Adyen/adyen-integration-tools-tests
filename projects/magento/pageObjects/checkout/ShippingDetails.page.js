@@ -62,4 +62,10 @@ export class ShippingDetails {
     await this.clickNextButton();
     await new AnimationHelper(this.page).waitForAnimation();
   }
+
+  async proceedToPaymentIfLoggedIn() {
+    await this.shippingMethodRadioButton.check();
+    await this.clickNextButton();
+    await new AnimationHelper(this.page).waitForAnimation();
+  }
 }
