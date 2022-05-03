@@ -75,6 +75,13 @@ const config = {
       },
     },
 
+    {
+      name: "edge",
+      use: {
+        channel: "msedge",
+      },
+    },
+
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
