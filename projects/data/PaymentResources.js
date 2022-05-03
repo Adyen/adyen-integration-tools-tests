@@ -58,6 +58,11 @@ export default class PaymentResources {
     },
   };
 
+  sampleRegisteredUser = {
+    email: "roni_cost@example.com",
+    password: "roni_cost3@example.com",
+  };
+
   guestUser = {
     regular: {
       email: "guest@adyen.com",
