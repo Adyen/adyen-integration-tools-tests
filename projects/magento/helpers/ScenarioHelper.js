@@ -3,6 +3,7 @@ import { ProductDetailsPage } from "../pageObjects/plugin/ProductDetail.page.js"
 import { ShippingDetails } from "../pageObjects/checkout/ShippingDetails.page.js";
 import { SuccessfulCheckoutPage } from "../pageObjects/checkout/SuccessfulCheckout.page.js";
 import { ShoppingCartPage } from "../pageObjects/plugin/ShoppingCart.page.js";
+import { LoginPage } from "../pageObjects/plugin/Login.page.js";
 
 export async function goToShippingWithFullCart(page, additionalItemCount = 0) {
   const productDetailsPage = new ProductDetailsPage(page);
@@ -17,6 +18,12 @@ export async function goToShippingWithFullCart(page, additionalItemCount = 0) {
       additionalItemCount
     );
   }
+}
+
+export async function loginAs(page, user) {
+  const loginPage = new LoginPage(page);
+  await loginPage.goTo();
+  await loginPage.login(user);
 }
 
 export async function proceedToPaymentAs(page, user) {
