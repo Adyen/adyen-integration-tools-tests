@@ -17,7 +17,7 @@ export async function goToShippingWithFullCart(page, additionalItemCount = 0) {
     );
   }
 
-  expect(
+  await expect(
     parseInt(await productDetailsPage.currentCartItemCount)
   ).toBeGreaterThanOrEqual(1);
 }
@@ -28,10 +28,19 @@ export async function loginAs(page, user) {
   await loginPage.login(user);
 }
 
-export async function proceedToPaymentAs(page, user) {
+export async function proceedToPaymentAs(page, user, isGuest = true) {
   const shippingDetailsPage = new ShippingDetails(page);
   await shippingDetailsPage.goTo();
-  await shippingDetailsPage.fillShippingDetailsAndProceedToPayment(user);
+
+  // Used switch since more functionality is to be added for registered users
+  switch (isGuest) {
+    case true:
+      await shippingDetailsPage.fillShippingDetailsAndProceedToPayment(user);
+      break;
+    case false:
+      await shippingDetailsPage.proceedToPaymentWithSavedAddress();
+      break;
+  }
 }
 
 export async function verifySuccessfulPayment(page, redirect = true) {
