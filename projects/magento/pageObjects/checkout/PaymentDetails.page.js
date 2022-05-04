@@ -34,6 +34,13 @@ export class PaymentDetailsPage {
       ".opc-sidebar .loading-mask"
     );
     this.activePaymentMethod = page.locator(".payment-method._active");
+    this.paymentMethodSaveCheckBox = this.activePaymentMethod.locator(
+      ".adyen-checkout__checkbox__label"
+    );
+  }
+
+  async savePaymentMethod() {
+    await this.paymentMethodSaveCheckBox.click();
   }
 
   async selectCreditCard() {
