@@ -1,4 +1,4 @@
-import { TopBar } from "./TopBar.page";
+import { TopBar } from "./TopBar.page.js";
 
 export class LoginPage extends TopBar {
   constructor(page) {
