@@ -11,11 +11,13 @@ import { BoletoComponents } from "./BoletoComponents.js";
 import { MultiBancoComponents } from "./MultiBancoComponents.js";
 import { KlarnaPayNowComponents } from "./KlarnaPayNowComponents.js";
 import { KlarnaPayOverTimeComponents } from "./KlarnaPayOverTimeComponents.js";
+import { VaultComponents } from "./VaultComponents.js";
 
 export class PaymentDetailsPage {
   constructor(page) {
     this.page = page;
 
+    this.vaultRadioButton = page.locator("[id*='adyen_cc_vault']");
     this.creditCardRadioButton = page.locator("#adyen_cc");
     this.idealRadioButton = page.locator("#adyen_ideal");
     this.payPalRadioButton = page.locator("#adyen_paypal");
@@ -41,6 +43,12 @@ export class PaymentDetailsPage {
 
   async savePaymentMethod() {
     await this.paymentMethodSaveCheckBox.click();
+  }
+
+  async selectVault() {
+    await this.vaultRadioButton.click();
+    await this.waitForPaymentMethodReady();
+    return new VaultComponents(this.page);
   }
 
   async selectCreditCard() {
