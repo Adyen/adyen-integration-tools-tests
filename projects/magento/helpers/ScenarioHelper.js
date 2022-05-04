@@ -9,8 +9,6 @@ export async function goToShippingWithFullCart(page, additionalItemCount = 0) {
   const productDetailsPage = new ProductDetailsPage(page);
   await productDetailsPage.addItemToCart("joust-duffle-bag.html");
 
-  await expect(await productDetailsPage.currentCartItemCount).toEqual("1");
-
   if (additionalItemCount >= 1) {
     await productDetailsPage.addItemWithOptionsToCart(
       "breathe-easy-tank.html",
@@ -18,6 +16,10 @@ export async function goToShippingWithFullCart(page, additionalItemCount = 0) {
       additionalItemCount
     );
   }
+
+  expect(
+    parseInt(await productDetailsPage.currentCartItemCount)
+  ).toBeGreaterThanOrEqual(1);
 }
 
 export async function loginAs(page, user) {
