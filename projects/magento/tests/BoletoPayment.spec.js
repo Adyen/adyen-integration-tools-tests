@@ -17,7 +17,8 @@ test.describe("Payment via Boleto", () => {
     await proceedToPaymentAs(page, user);
   });
 
-  test("should succeed", async ({ page }) => {
+  // Skipping this due to Merchant config issue with BRL
+  test.skip("should succeed", async ({ page }) => {
     const paymentDetailPage = new PaymentDetailsPage(page);
     const boletoSection = await paymentDetailPage.selectBoleto();
 
