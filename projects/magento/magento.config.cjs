@@ -23,10 +23,10 @@ const config = {
   forbidOnly: !!process.env.CI,
 
   /* Retry on CI only */
-  retries: process.env.CI ? 3 : 0,
+  retries: process.env.CI ? 1 : 0,
 
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 2 : undefined,
+  workers: process.env.CI ? 3 : undefined,
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: "html",
