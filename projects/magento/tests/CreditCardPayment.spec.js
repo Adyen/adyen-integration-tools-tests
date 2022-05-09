@@ -3,7 +3,6 @@ import PaymentResources from "../../data/PaymentResources.js";
 import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.js";
 import { ThreeDSPaymentPage } from "../../common/ThreeDSPaymentPage.js";
 import { ThreeDS2PaymentPage } from "../../common/ThreeDS2PaymentPage.js";
-import { ShoppingCartPage } from "../pageObjects/plugin/ShoppingCart.page.js";
 import { CreditCardComponents } from "../pageObjects/checkout/CreditCardComponents.js";
 import {
   goToShippingWithFullCart,

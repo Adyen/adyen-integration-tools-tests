@@ -3,12 +3,11 @@ import { ProductDetailsPage } from "../pageObjects/plugin/ProductDetail.page.js"
 import { ShippingDetails } from "../pageObjects/checkout/ShippingDetails.page.js";
 import { SuccessfulCheckoutPage } from "../pageObjects/checkout/SuccessfulCheckout.page.js";
 import { ShoppingCartPage } from "../pageObjects/plugin/ShoppingCart.page.js";
+import { LoginPage } from "../pageObjects/plugin/Login.page.js";
 
 export async function goToShippingWithFullCart(page, additionalItemCount = 0) {
   const productDetailsPage = new ProductDetailsPage(page);
   await productDetailsPage.addItemToCart("joust-duffle-bag.html");
-
-  await expect(await productDetailsPage.currentCartItemCount).toEqual("1");
 
   if (additionalItemCount >= 1) {
     await productDetailsPage.addItemWithOptionsToCart(
@@ -17,12 +16,31 @@ export async function goToShippingWithFullCart(page, additionalItemCount = 0) {
       additionalItemCount
     );
   }
+
+  await expect(
+    parseInt(await productDetailsPage.currentCartItemCount)
+  ).toBeGreaterThanOrEqual(1);
 }
 
-export async function proceedToPaymentAs(page, user) {
+export async function loginAs(page, user) {
+  const loginPage = new LoginPage(page);
+  await loginPage.goTo();
+  await loginPage.login(user);
+}
+
+export async function proceedToPaymentAs(page, user, isGuest = true) {
   const shippingDetailsPage = new ShippingDetails(page);
   await shippingDetailsPage.goTo();
-  await shippingDetailsPage.fillShippingDetailsAndProceedToPayment(user);
+
+  // Used switch since more functionality is to be added for registered users
+  switch (isGuest) {
+    case true:
+      await shippingDetailsPage.fillShippingDetailsAndProceedToPayment(user);
+      break;
+    case false:
+      await shippingDetailsPage.proceedToPaymentWithSavedAddress();
+      break;
+  }
 }
 
 export async function verifySuccessfulPayment(page, redirect = true) {

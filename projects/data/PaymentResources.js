@@ -58,6 +58,11 @@ export default class PaymentResources {
     },
   };
 
+  sampleRegisteredUser = {
+    email: "roni_cost@example.com",
+    password: "roni_cost3@example.com",
+  };
+
   guestUser = {
     regular: {
       email: "guest@adyen.com",
@@ -154,7 +159,7 @@ export default class PaymentResources {
       phoneNumber: "06123456789",
       stateCode: "SP",
       stateOrProvince: "508",
-      socialSecurityNumber: "39698460000170",
+      socialSecurityNumber: "56861752509",
     },
     oney: {
       approved: {
