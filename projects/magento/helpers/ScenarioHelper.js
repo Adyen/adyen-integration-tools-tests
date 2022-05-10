@@ -17,9 +17,9 @@ export async function goToShippingWithFullCart(page, additionalItemCount = 0) {
     );
   }
 
-  await expect(
-    parseInt(await productDetailsPage.currentCartItemCount)
-  ).toBeGreaterThanOrEqual(1);
+  await expect
+    .soft(parseInt(await productDetailsPage.currentCartItemCount))
+    .toBeGreaterThanOrEqual(1);
 }
 
 export async function loginAs(page, user) {
