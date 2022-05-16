@@ -4,6 +4,7 @@ import { ShippingDetails } from "../pageObjects/checkout/ShippingDetails.page.js
 import { SuccessfulCheckoutPage } from "../pageObjects/checkout/SuccessfulCheckout.page.js";
 import { ShoppingCartPage } from "../pageObjects/plugin/ShoppingCart.page.js";
 import { LoginPage } from "../pageObjects/plugin/Login.page.js";
+import { AdminLoginPage } from "../pageObjects/plugin/AdminLogin.page.js";
 
 export async function goToShippingWithFullCart(page, additionalItemCount = 0) {
   const productDetailsPage = new ProductDetailsPage(page);
@@ -17,7 +18,7 @@ export async function goToShippingWithFullCart(page, additionalItemCount = 0) {
     );
   }
 
-  await expect
+  expect
     .soft(parseInt(await productDetailsPage.currentCartItemCount))
     .toBeGreaterThanOrEqual(1);
 }
@@ -26,6 +27,12 @@ export async function loginAs(page, user) {
   const loginPage = new LoginPage(page);
   await loginPage.goTo();
   await loginPage.login(user);
+}
+
+export async function loginAsAdmin(page, user) {
+  const adminLoginPage = new AdminLoginPage(page);
+  await adminLoginPage.goTo();
+  await adminLoginPage.login(user);
 }
 
 export async function proceedToPaymentAs(page, user, isGuest = true) {
