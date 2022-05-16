@@ -26,6 +26,11 @@ export default class PaymentResources {
   threeDSCorrectPassword = "password";
   threeDSWrongPassword = "wrong answer";
 
+  magentoAdminUser = {
+    username: "admin",
+    password: "admin123",
+  };
+
   bcmc = {
     be: {
       cardNumber: "6703444444444449",
