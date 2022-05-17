@@ -16,6 +16,12 @@ export default class KlarnaPaymentPage {
     this.klarnaContinueButton = this.klarnaIframe.locator("#onContinue");
     this.klarnaVerificationCodeInput = this.klarnaIframe.locator("#otp_field");
 
+    this.payLaterButton = this.klarnaMainIframe.locator("#radio-pay_later");
+    this.payInThreeInstallmentsButton = this.klarnaMainIframe.locator(
+      "#radio-pay_over_time"
+    );
+    this.payNowButton = this.klarnaMainIframe.locator("#radio-pay_now");
+
     this.klarnaConfirmButton = this.klarnaIframe.locator(
       "#invoice_kp-purchase-review-continue-button"
     );
@@ -74,12 +80,15 @@ export default class KlarnaPaymentPage {
 
   async makeKlarnaPayment(action, phoneNumber = null) {
     await this.waitForKlarnaLoad();
+    await this.page.waitForLoadState("networkidle", { timeout: 10000 });
     switch (action) {
       case "later":
+        await this.payLaterButton.click();
         await this.continueOnKlarna(phoneNumber);
         await this.klarnaConfirmButton.click();
         break;
       case "directDebit":
+        await this.payNowButton.click();
         await this.directDebitButton.waitFor({
           state: "visible",
           timeout: 10000,
@@ -93,6 +102,7 @@ export default class KlarnaPaymentPage {
         await this.klarnaConfirmBankAccountButton.click();
         break;
       case "directBankTransfer":
+        await this.payNowButton.click();
         await this.directBankTransferButton.waitFor({
           state: "visible",
           timeout: 10000,
@@ -110,6 +120,7 @@ export default class KlarnaPaymentPage {
         await this.transactionConfirmationNextButton.click();
         break;
       case "overTime":
+        await this.payInThreeInstallmentsButton.click();
         await this.continueOnKlarna(phoneNumber);
         await this.klarnaConfirmPurchaseWithInstallmentsButton.click();
         break;
