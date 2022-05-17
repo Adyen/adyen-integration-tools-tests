@@ -8,9 +8,14 @@ export class BasePage extends TopBar {
     this.searchInput = page.locator(".control #search");
     this.cartIcon = page.locator(".showcart");
     this.cartItemCount = page.locator(".qty .counter-number");
+    this.shoppingCartLoaderMask = page.locator(".showcart .loading-mask");
   }
 
-  get currentCartItemCount() {
+  async currentCartItemCount() {
+    await this.shoppingCartLoaderMask.waitFor({
+      state: "detached",
+      timeout: 10000,
+    });
     return this.cartItemCount.innerText();
   }
 }

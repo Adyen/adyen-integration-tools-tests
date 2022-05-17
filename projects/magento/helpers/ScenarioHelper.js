@@ -19,7 +19,7 @@ export async function goToShippingWithFullCart(page, additionalItemCount = 0) {
   }
 
   expect
-    .soft(parseInt(await productDetailsPage.currentCartItemCount))
+    .soft(parseInt(await productDetailsPage.currentCartItemCount()))
     .toBeGreaterThanOrEqual(1);
 }
 
