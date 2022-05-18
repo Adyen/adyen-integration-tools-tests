@@ -34,6 +34,8 @@ export class OneyPaymentPage {
     const paymentResources = new PaymentResources();
     const user = paymentResources.guestUser.oney.approved.fr;
 
+    await this.page.waitForLoadState("networkidle", { timeout: 10000 });
+
     await this.continueWithoutLoggingInButton.click();
     await this.genderSelector.click();
     await this.birthDateInput.type(user.dateOfBirth);
@@ -59,7 +61,7 @@ export class OneyPaymentPage {
     await this.page.waitForNavigation({
       url: /.*success*/,
       timeout: 15000,
-      waitUntil: "load",
+      waitUntil: "networkidle",
     });
   }
 
