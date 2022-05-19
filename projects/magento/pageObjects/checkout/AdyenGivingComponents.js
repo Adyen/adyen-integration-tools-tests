@@ -57,6 +57,6 @@ export class AdyenGivingComponents {
   }
 
   async verifyDeclineRedirection() {
-    await this.page.waitForURL("/");
+    await this.page.waitForURL("/", { timeout: 10000 });
   }
 }
