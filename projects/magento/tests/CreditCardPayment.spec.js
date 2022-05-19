@@ -20,7 +20,7 @@ test.describe.parallel("Payment via credit card", () => {
   });
 
   test("without 3Ds should succeed", async ({ page }) => {
-    proceedToPaymentAs(page, users.regular);
+    await proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
       page,
@@ -34,7 +34,7 @@ test.describe.parallel("Payment via credit card", () => {
   });
 
   test("with 3Ds1 should succeed", async ({ page }) => {
-    proceedToPaymentAs(page, users.regular);
+    await proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
       page,
@@ -52,7 +52,7 @@ test.describe.parallel("Payment via credit card", () => {
   });
 
   test("with wrong 3Ds1 credentials should fail", async ({ page }) => {
-    proceedToPaymentAs(page, users.regular);
+    await proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
       page,
@@ -71,7 +71,7 @@ test.describe.parallel("Payment via credit card", () => {
   });
 
   test("with 3Ds2 should succeed", async ({ page }) => {
-    proceedToPaymentAs(page, users.regular);
+    await proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
       page,
@@ -89,7 +89,7 @@ test.describe.parallel("Payment via credit card", () => {
   });
 
   test("with wrong 3Ds2 credentials should fail", async ({ page }) => {
-    proceedToPaymentAs(page, users.regular);
+    await proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
       page,
