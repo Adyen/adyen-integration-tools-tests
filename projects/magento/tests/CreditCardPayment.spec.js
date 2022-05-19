@@ -1,6 +1,6 @@
 import { test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
-import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.js";
+import { makeCreditCardPayment } from "../helpers/PaymentHelper.js";
 import { ThreeDSPaymentPage } from "../../common/ThreeDSPaymentPage.js";
 import { ThreeDS2PaymentPage } from "../../common/ThreeDS2PaymentPage.js";
 import { CreditCardComponents } from "../pageObjects/checkout/CreditCardComponents.js";
@@ -106,21 +106,3 @@ test.describe.parallel("Payment via credit card", () => {
     await new CreditCardComponents(page).verifyPaymentRefusal();
   });
 });
-
-async function makeCreditCardPayment(
-  page,
-  user,
-  creditCardNumber,
-  expDate,
-  cvc
-) {
-  const paymentDetailPage = new PaymentDetailsPage(page);
-  const creditCardSection = await paymentDetailPage.selectCreditCard();
-  await creditCardSection.fillCreditCardInfoAndPlaceOrder(
-    user.firstName,
-    user.lastName,
-    creditCardNumber,
-    expDate,
-    cvc
-  );
-}
