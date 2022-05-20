@@ -8,7 +8,7 @@ const paymentResources = new PaymentResources();
 const magentoAdminUser = paymentResources.magentoAdminUser;
 let paymentLink;
 
-test.describe("Payment via stored credit card", () => {
+test.describe("Payment via PayByLink", () => {
   test.beforeEach(async ({ page }) => {
     await loginAsAdmin(page, magentoAdminUser);
     paymentLink = await new AdminPanelPage(page).createOrderPayBylink(page);
