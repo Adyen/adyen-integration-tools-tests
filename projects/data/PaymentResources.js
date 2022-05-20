@@ -27,8 +27,8 @@ export default class PaymentResources {
   threeDSWrongPassword = "wrong answer";
 
   magentoAdminUser = {
-    username: "admin",
-    password: "admin123",
+    username: process.env.MAGENTO_ADMIN_USERNAME,
+    password: process.env.MAGENTO_ADMIN_PASSWORD,
   };
 
   bcmc = {
