@@ -38,7 +38,6 @@ export class OneyPaymentPage {
 
     await this.continueWithoutLoggingInButton.click();
     await this.genderSelector.click();
-    await this.birthDateInput.type(user.dateOfBirth);
     await this.birthPlaceInput.click();
     await this.birthPlaceInput.type(user.city);
     await this.birthPlaceList.click();
@@ -58,14 +57,14 @@ export class OneyPaymentPage {
   }
 
   async waitForOneySuccessPageLoad() {
-    await this.page.waitForNavigation({
-      url: /.*success*/,
-      timeout: 15000,
-      waitUntil: "networkidle",
-    });
+    await this.page.waitForURL(/.*success*/, { timeout: 10000 });
   }
 
   async waitForOneyAnimation() {
     await this.oneyAnimationLayer.waitFor({ state: "attached", timeout: 5000 });
+    await this.oneyAnimationLayer.waitFor({
+      state: "hidden",
+      timeout: 10000,
+    });
   }
 }
