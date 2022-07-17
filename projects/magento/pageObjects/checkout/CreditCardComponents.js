@@ -26,8 +26,11 @@ export class CreditCardComponents {
   }
 
   async fillHolderName(holderName) {
+    /*
+    Nerfing this function until the card holder name field is re-enabled
     await this.holderNameInput.click();
     await this.holderNameInput.type(holderName);
+    */
   }
   async fillCardNumber(cardNumber) {
     await this.cardNumberInput.click();
