@@ -62,14 +62,14 @@ export class ShippingDetails {
 
   async fillShippingDetailsAndProceedToPayment(user) {
     await this.fillShippingDetails(user);
-    this.page.waitForLoadState("networkidle", { timeout: 10000 });
+    await new AnimationHelper(this.page).waitForAnimation();
     await this.clickNextButton();
     await new AnimationHelper(this.page).waitForAnimation();
   }
 
   async proceedToPaymentWithSavedAddress() {
-    this.page.waitForLoadState("networkidle", { timeout: 10000 });
     await this.shippingMethodRadioButton.check();
+    await new AnimationHelper(this.page).waitForAnimation();
     await this.clickNextButton();
     await new AnimationHelper(this.page).waitForAnimation();
   }
