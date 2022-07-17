@@ -29,7 +29,7 @@ export class ShippingDetails {
   async goTo(waitForAnimation = true) {
     // Only works with a non-empty shopping cart
     await this.page.goto("/checkout/#shipping");
-    if (waitForAnimation != false){
+    if (waitForAnimation != false) {
       await new AnimationHelper(this.page).waitForAnimation();
     }
   }
@@ -62,11 +62,13 @@ export class ShippingDetails {
 
   async fillShippingDetailsAndProceedToPayment(user) {
     await this.fillShippingDetails(user);
+    this.page.waitForLoadState("networkidle", { timeout: 10000 });
     await this.clickNextButton();
     await new AnimationHelper(this.page).waitForAnimation();
   }
 
   async proceedToPaymentWithSavedAddress() {
+    this.page.waitForLoadState("networkidle", { timeout: 10000 });
     await this.shippingMethodRadioButton.check();
     await this.clickNextButton();
     await new AnimationHelper(this.page).waitForAnimation();
