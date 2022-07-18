@@ -62,14 +62,12 @@ export class ShippingDetails {
 
   async fillShippingDetailsAndProceedToPayment(user) {
     await this.fillShippingDetails(user);
-    await new AnimationHelper(this.page).waitForAnimation();
     await this.clickNextButton();
     await new AnimationHelper(this.page).waitForAnimation();
   }
 
   async proceedToPaymentWithSavedAddress() {
     await this.shippingMethodRadioButton.check();
-    await new AnimationHelper(this.page).waitForAnimation();
     await this.clickNextButton();
     await new AnimationHelper(this.page).waitForAnimation();
   }
