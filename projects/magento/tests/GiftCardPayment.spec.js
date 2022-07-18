@@ -17,7 +17,7 @@ const user = paymentResources.guestUser.dutch;
 
 test.describe.parallel("Payment via Gift Card", () => {
   test.beforeEach(async ({ page }) => {
-    await goToShippingWithFullCart(page);
+    await goToShippingWithFullCart(page, 1);
     await proceedToPaymentAs(page, user);
   });
 

@@ -50,15 +50,21 @@ export default class PaymentResources {
   };
 
   giftCard = {
+    /* The test cards are broken as of 18th Jul 2022,
+    so using the VVVgiftcard codes instead, after discussing
+    with support
+    The amounts are respectively 560EUR and 60EUR for EUR50 card
+    and EUR20 cards*/
+
     EUR50: {
       cardHolderName: "BALANCE EUR 5000",
-      cardNumber: "6064365010000000000",
+      cardNumber: "6064364295385017424",
       cardPIN: "73737",
     },
 
     EUR20: {
       cardHolderName: "BALANCE EUR 2000",
-      cardNumber: "6064365010000000000",
+      cardNumber: "6064364295385017427",
       cardPIN: "73737",
     },
   };
