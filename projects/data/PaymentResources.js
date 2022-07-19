@@ -125,6 +125,7 @@ export default class PaymentResources {
       postCode: "1234-123",
       countryCode: "PT",
       countryName: "Portugal",
+      stateOrProvince: "1013",
       phoneNumber: "06123456789",
     },
     belgian: {
