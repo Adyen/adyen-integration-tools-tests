@@ -83,7 +83,11 @@ export default class KlarnaPaymentPage {
     await this.page.waitForLoadState("networkidle", { timeout: 10000 });
     switch (action) {
       case "later":
+        /* Commenting out the step below due to changes in sandbox,
+        but not deleting it since the changes get reverted from time
+        to time.
         await this.payLaterButton.click();
+        */
         await this.continueOnKlarna(phoneNumber);
         await this.klarnaConfirmButton.click();
         break;
