@@ -151,7 +151,11 @@ export default class KlarnaPaymentPage {
         await this.transactionConfirmationNextButton.click();
         break;
       case "overTime":
+        /* Commenting out the step below due to changes in sandbox,
+        but not deleting it since the changes get reverted from time
+        to time.
         await this.payInThreeInstallmentsButton.click();
+        */
         await this.continueOnKlarna(phoneNumber);
         await this.klarnaConfirmPurchaseWithInstallmentsButton.click();
         break;
