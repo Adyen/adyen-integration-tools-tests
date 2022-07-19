@@ -11,7 +11,9 @@ export class PayPalPaymentPage {
   }
 
   async loginToPayPal(username, password) {
+    /* Disabling this step since the PayPal HPP disabled this step for now
     await this.changeEmailAddressButton.click();
+    */
     await this.emailInput.fill(username);
     await this.nextButton.click();
     await this.passwordInput.fill(password);
