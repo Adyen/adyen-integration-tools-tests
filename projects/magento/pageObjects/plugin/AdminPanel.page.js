@@ -38,10 +38,12 @@ export class AdminPanelPage {
   }
 
   async waitForPageLoad(page) {
+    await page.waitForLoadState("domcontentloaded", { timeout: 10000 });
     await page.waitForLoadState("networkidle", { timeout: 10000 });
   }
 
   async createOrderPayBylink(page) {
+    await this.waitForPageLoad(page);
     await this.goToOrdersPage(page);
     await this.waitForPageLoad(page);
     await this.createNewOrderButton.click();
