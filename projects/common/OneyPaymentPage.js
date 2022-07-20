@@ -3,9 +3,7 @@ export class OneyPaymentPage {
   constructor(page) {
     this.page = page;
 
-    this.continueWithoutLoggingInButton = page
-      .locator(".connection-button")
-      .nth(1);
+    this.continueWithoutLoggingInButton = page.locator(".primary-button")
 
     this.genderSelector = page.locator(".civility-selectable").nth(2);
     this.birthDateInput = page.locator("input#birthDate");
@@ -21,11 +19,11 @@ export class OneyPaymentPage {
     this.cardCvvInput = page.locator("#cvv");
 
     this.termsAndConditionsCheckBox = page.locator(
-      "#generalTermsAndConditions"
+      "label[for='generalTermsAndConditions']"
     );
     this.completePaymentButton = page.locator("button[type='submit']");
 
-    this.oneyAnimationLayer = page.locator("#loader-message");
+    this.oneyAnimationLayer = page.locator(".loader-message");
 
     this.returnToMerchantSiteButton = page.locator("#successRedirectLink");
   }
@@ -57,14 +55,10 @@ export class OneyPaymentPage {
   }
 
   async waitForOneySuccessPageLoad() {
-    await this.page.waitForURL(/.*success*/, { timeout: 10000 });
+    await this.page.waitForURL(/.*success*/, { timeout: 15000 });
   }
 
   async waitForOneyAnimation() {
     await this.oneyAnimationLayer.waitFor({ state: "attached", timeout: 5000 });
-    await this.oneyAnimationLayer.waitFor({
-      state: "hidden",
-      timeout: 10000,
-    });
   }
 }
