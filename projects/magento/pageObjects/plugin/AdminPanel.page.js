@@ -18,10 +18,17 @@ export class AdminPanelPage {
     this.payByLinkSelector = page.locator("#p_method_adyen_pay_by_link");
     this.submitOrderButton = page.locator("#submit_order_top_button");
     this.paymentLink = page.locator("a[rel='noopener']");
+
+    // Sidebar locators
+    this.salesLink = page.locator("#menu-magento-sales-sales");
+    this.salesSideMenu = page.locator(".item-sales-operation");
+
+    this.orderLink = this.salesSideMenu.locator("//span[text()='Orders']")
   }
 
-  async goToOrdersPage(page) {
-    await page.goto("/admin/sales/order");
+  async goToOrdersPage() {
+    await this.salesLink.click();
+    await this.orderLink.click();
   }
 
   async waitForAdminPanelAnimation(page) {
@@ -31,10 +38,12 @@ export class AdminPanelPage {
   }
 
   async waitForPageLoad(page) {
+    await page.waitForLoadState("domcontentloaded", { timeout: 10000 });
     await page.waitForLoadState("networkidle", { timeout: 10000 });
   }
 
   async createOrderPayBylink(page) {
+    await this.waitForPageLoad(page);
     await this.goToOrdersPage(page);
     await this.waitForPageLoad(page);
     await this.createNewOrderButton.click();

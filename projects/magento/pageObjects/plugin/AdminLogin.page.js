@@ -7,12 +7,13 @@ export class AdminLoginPage {
   }
 
   async goTo() {
-    await this.page.goto("/admin");
+    await this.page.goto("/admin/");
   }
 
   async login(user) {
-    await this.usernameInput.fill(user.username);
-    await this.passwordInput.fill(user.password);
+    await this.usernameInput.type(user.username);
+    await this.passwordInput.type(user.password);
+
     await this.loginButton.click();
   }
 }

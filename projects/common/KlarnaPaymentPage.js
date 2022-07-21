@@ -25,6 +25,9 @@ export default class KlarnaPaymentPage {
     this.klarnaConfirmButton = this.klarnaIframe.locator(
       "#invoice_kp-purchase-review-continue-button"
     );
+
+    this.klarnaConfirmPaymentButton = this.klarnaIframe.locator("#dd-confirmation-dialog__footer-button-wrapper button")
+
     this.klarnaConfirmBankAccountButton = this.klarnaIframe.locator(
       "#mandate-review__confirmation-button"
     );
@@ -83,31 +86,55 @@ export default class KlarnaPaymentPage {
     await this.page.waitForLoadState("networkidle", { timeout: 10000 });
     switch (action) {
       case "later":
+        /* Commenting out the step below due to changes in sandbox,
+        but not deleting it since the changes get reverted from time
+        to time.
         await this.payLaterButton.click();
+        */
         await this.continueOnKlarna(phoneNumber);
         await this.klarnaConfirmButton.click();
         break;
       case "directDebit":
+        /* Commenting out the step below due to changes in sandbox,
+        but not deleting it since the changes get reverted from time
+        to time.
         await this.payNowButton.click();
+        */
         await this.directDebitButton.waitFor({
           state: "visible",
           timeout: 10000,
         });
         await this.directDebitButton.click();
         await this.continueOnKlarna(phoneNumber);
+        /* Commenting out the step below due to changes in sandbox,
+        but not deleting it since the changes get reverted from time
+        to time.
+
         await this.klarnaConfirmBankAccountButton.waitFor({
           state: "visible",
           timeout: 10000,
         });
         await this.klarnaConfirmBankAccountButton.click();
+        */
+        await this.klarnaConfirmPaymentButton.waitFor({ state: "visible", timeout: 10000 });
+        await this.klarnaConfirmPaymentButton.click();
+
         break;
       case "directBankTransfer":
+        /* Commenting out the step below due to changes in sandbox,
+        but not deleting it since the changes get reverted from time
+        to time.
         await this.payNowButton.click();
+        */
         await this.directBankTransferButton.waitFor({
           state: "visible",
           timeout: 10000,
         });
         await this.directBankTransferButton.click();
+        /* Additional wait is needed since the buy button remains enabled even
+        the page load is ongoing, and clicking it during that period breaks
+        the flow */
+        await this.page.waitForLoadState("networkidle", { timeout: 10000 });
         await this.continueOnKlarna(phoneNumber);
         await this.bankSelectionDropdown.selectOption("00000");
         await this.countryAndBankSelectionNextButton.click();
@@ -115,12 +142,20 @@ export default class KlarnaPaymentPage {
         await this.userIDInput.fill("test");
         await this.userPINInput.fill("1111");
         await this.bankCredentialsNextButton.click();
+        /* Commenting out the step below due to changes in sandbox,
+        but not deleting it since the changes get reverted from time
+        to time.
         await this.selectAccountNextButton.click();
+        */
         await this.confirmationCodeInput.fill("12345");
         await this.transactionConfirmationNextButton.click();
         break;
       case "overTime":
+        /* Commenting out the step below due to changes in sandbox,
+        but not deleting it since the changes get reverted from time
+        to time.
         await this.payInThreeInstallmentsButton.click();
+        */
         await this.continueOnKlarna(phoneNumber);
         await this.klarnaConfirmPurchaseWithInstallmentsButton.click();
         break;
