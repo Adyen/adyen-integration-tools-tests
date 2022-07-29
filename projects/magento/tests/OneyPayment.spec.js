@@ -11,7 +11,8 @@ import { OneyPaymentPage } from "../../common/OneyPaymentPage.js";
 const paymentResources = new PaymentResources();
 const user = paymentResources.guestUser.oney.approved.fr;
 
-test.describe("Payment via Oney", () => {
+// Skipping due to broken sandbox
+test.describe.skip("Payment via Oney", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page, 4);
   });
