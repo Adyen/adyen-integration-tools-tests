@@ -3,3 +3,4 @@ playwright-report/
 test-results.json
 test-report/
 .DS_Store
+.idea
