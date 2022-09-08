@@ -35,7 +35,7 @@ export class ShippingDetails {
   }
 
   async fillShippingDetails(user) {
-    const typeDelay = 50
+    const typeDelay = 50;
 
     await this.emailInput.fill(user.email);
     await this.firstNameInput.fill(user.firstName);
