@@ -23,6 +23,8 @@ export class CreditCardComponents {
     this.placeOrderButton = page.locator(
       ".payment-method._active button[type=submit]"
     );
+
+    this.typeDelay = 50;
   }
 
   async fillHolderName(holderName) {
@@ -31,15 +33,15 @@ export class CreditCardComponents {
   }
   async fillCardNumber(cardNumber) {
     await this.cardNumberInput.click();
-    await this.cardNumberInput.type(cardNumber);
+    await this.cardNumberInput.type(cardNumber, { delay: this.typeDelay });
   }
   async fillExpDate(expDate) {
     await this.expDateInput.click();
-    await this.expDateInput.type(expDate);
+    await this.expDateInput.type(expDate, { delay: this.typeDelay });
   }
   async fillCVC(CVC) {
     await this.cvcInput.click();
-    await this.cvcInput.type(CVC);
+    await this.cvcInput.type(CVC, { delay: this.typeDelay });
   }
 
   async fillCreditCardInfo(

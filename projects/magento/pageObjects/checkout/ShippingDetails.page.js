@@ -35,6 +35,8 @@ export class ShippingDetails {
   }
 
   async fillShippingDetails(user) {
+    const typeDelay = 50;
+
     await this.emailInput.fill(user.email);
     await this.firstNameInput.fill(user.firstName);
     await this.lastNameInput.fill(user.lastName);
@@ -49,10 +51,10 @@ export class ShippingDetails {
       await this.stateProvinceField.fill(user.stateCode);
     }
 
-    await this.cityInput.fill(user.city);
-    await this.postCodeInput.fill(user.postCode);
+    await this.cityInput.type(user.city, { delay: typeDelay });
+    await this.postCodeInput.type(user.postCode, { delay: typeDelay });
 
-    await this.phoneNumberInput.fill(user.phoneNumber);
+    await this.phoneNumberInput.type(user.phoneNumber, { delay: typeDelay });
     await this.shippingMethodRadioButton.check();
   }
 
@@ -66,7 +68,7 @@ export class ShippingDetails {
     await this.page.waitForLoadState("networkidle", { timeout: 10000 });
 
     // Unavoidable hard wait until the payment method render issue is resolved
-    await new Promise(r => setTimeout(r, 500));
+    await new Promise(r => setTimeout(r, 1500));
 
     await this.clickNextButton();
     await new AnimationHelper(this.page).waitForAnimation();
@@ -76,6 +78,10 @@ export class ShippingDetails {
     await this.shippingMethodRadioButton.check();
     await this.page.waitForLoadState("domcontentloaded", { timeout: 10000 });
     await this.page.waitForLoadState("networkidle", { timeout: 10000 });
+
+    // Unavoidable hard wait until the payment method render issue is resolved
+    await new Promise(r => setTimeout(r, 1500));
+
     await this.clickNextButton();
     await new AnimationHelper(this.page).waitForAnimation();
   }
