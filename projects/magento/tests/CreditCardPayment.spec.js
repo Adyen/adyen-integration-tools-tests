@@ -105,4 +105,36 @@ test.describe.parallel("Payment via credit card", () => {
 
     await new CreditCardComponents(page).verifyPaymentRefusal();
   });
+
+  test("with 3Ds2 should abort the payment with correct message when cancelled", async ({ page }) => {
+    await proceedToPaymentAs(page, users.regular);
+
+    await makeCreditCardPayment(
+      page,
+      users.regular,
+      paymentResources.masterCard3DS2,
+      paymentResources.expDate,
+      paymentResources.cvc
+    );
+
+    await new ThreeDS2PaymentPage(page).clickCancel();
+
+    await new CreditCardComponents(page).verifyPaymentRefusal();
+  });
+
+  test("with 3Ds2 should abort the payment with correct message when challenge closed", async ({ page }) => {
+    await proceedToPaymentAs(page, users.regular);
+
+    await makeCreditCardPayment(
+      page,
+      users.regular,
+      paymentResources.masterCard3DS2,
+      paymentResources.expDate,
+      paymentResources.cvc
+    );
+
+    await new ThreeDS2PaymentPage(page).clickClose();
+
+    await new CreditCardComponents(page).verifyPaymentCancellation();
+  });
 });
