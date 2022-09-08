@@ -100,6 +100,25 @@ test.describe.parallel("Payment via Gift Card", () => {
 
     await verifySuccessfulPayment(page, false);
   });
+
+  test("should fail when the second part of a partial payment is cancelled", async ({
+    page,
+  }) => {
+    const giftCardPaymentPage = await selectGiftCard(page);
+    await giftCardPaymentPage.fillGiftCardDetails(
+      giftCard20EUR.cardHolderName,
+      giftCard20EUR.cardNumber,
+      giftCard20EUR.cardPIN
+    );
+    await giftCardPaymentPage.partialPaymentCheckBox.click();
+    await giftCardPaymentPage.clickContinue();
+
+    await giftCardPaymentPage.clickPay();
+
+    await giftCardPaymentPage.clickPrevious();
+
+    await verifyFailedPayment(page);
+  });
 });
 
 async function selectGiftCard(page) {
