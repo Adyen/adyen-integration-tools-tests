@@ -1,7 +1,16 @@
+import { CreditCardComponents } from "../checkout/CreditCardComponents.js";
 export class AdminPanelPage {
   constructor(page) {
     this.page = page;
 
+    // Sidebar locators
+    this.salesLink = page.locator("#menu-magento-sales-sales");
+
+    // Sales menu locators
+    this.salesSideMenu = page.locator(".item-sales-operation");
+    this.orderLink = this.salesSideMenu.locator("//span[text()='Orders']")
+
+    // Sales > Orders Section
     this.createNewOrderButton = page.locator("#add");
     this.testUserNameSelector = page.locator(
       "//td[@data-column='name' and contains(text(),'Veronica Costello')]"
@@ -15,15 +24,13 @@ export class AdminPanelPage {
       .locator(".order-shipping-method a")
       .nth(0);
     this.shippingMethodSelector = page.locator("#s_method_flatrate_flatrate");
+
     this.payByLinkSelector = page.locator("#p_method_adyen_pay_by_link");
+    this.motoSelector = page.locator("#p_method_adyen_moto");
+    this.motoMerchantAccountDropdown = page.locator("#adyen_moto_merchant_accounts");
+
     this.submitOrderButton = page.locator("#submit_order_top_button");
     this.paymentLink = page.locator("a[rel='noopener']");
-
-    // Sidebar locators
-    this.salesLink = page.locator("#menu-magento-sales-sales");
-    this.salesSideMenu = page.locator(".item-sales-operation");
-
-    this.orderLink = this.salesSideMenu.locator("//span[text()='Orders']")
   }
 
   async goToOrdersPage() {
@@ -42,7 +49,7 @@ export class AdminPanelPage {
     await page.waitForLoadState("networkidle", { timeout: 10000 });
   }
 
-  async createOrderPayBylink(page) {
+  async createOrder(page) {
     await this.waitForPageLoad(page);
     await this.goToOrdersPage(page);
     await this.waitForPageLoad(page);
@@ -58,6 +65,10 @@ export class AdminPanelPage {
     await this.waitForAdminPanelAnimation(page);
     await this.shippingMethodSelector.click();
     await this.waitForAdminPanelAnimation(page);
+  }
+
+  async createOrderPayBylink(page) {
+    await this.createOrder(page);
     await this.payByLinkSelector.click();
     await this.waitForAdminPanelAnimation(page);
     await this.submitOrderButton.click();
@@ -65,5 +76,26 @@ export class AdminPanelPage {
 
     const linkToPayment = await this.paymentLink.getAttribute("href");
     return linkToPayment;
+  }
+
+  async createOrderMoto(page, cardNumber, cardExpirationDate, merchantAccount = undefined) {
+    await this.createOrder(page);
+    await this.motoSelector.click();
+    await this.waitForAdminPanelAnimation(page);
+
+    merchantAccount != undefined ?
+      await this.motoMerchantAccountDropdown.selectOption({ value: `${merchantAccount}` }) :
+      await this.motoMerchantAccountDropdown.selectOption({ index: 1 });
+
+    await this.waitForAdminPanelAnimation(page);
+
+    const ccSection = new CreditCardComponents(page);
+    await ccSection.fillHolderName("John Doe");
+    await ccSection.fillCardNumber(cardNumber);
+    await ccSection.fillExpDate(cardExpirationDate);
+
+    this.submitOrderButton.click();
+    await this.waitForPageLoad(page);
+
   }
 }
