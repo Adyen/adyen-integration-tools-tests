@@ -31,6 +31,8 @@ export default class PaymentResources {
     password: process.env.MAGENTO_ADMIN_PASSWORD,
   };
 
+  wsUserApiKey = process.env.WS_USER_API_KEY;
+
   bcmc = {
     be: {
       cardNumber: "6703444444444449",
