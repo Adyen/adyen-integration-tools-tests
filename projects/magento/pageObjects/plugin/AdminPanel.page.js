@@ -22,6 +22,8 @@ export class AdminPanelPage {
     // Sidebar locators
     this.salesLink = page.locator("#menu-magento-sales-sales");
     this.salesSideMenu = page.locator(".item-sales-operation");
+    this.storesLink = page.locator("#menu-magento-backend-stores");
+    this.configurationSettingsLink = this.storesLink.locator(".item-system-config", { has: page.locator("//span[text()='Configuration']") });
 
     this.orderLink = this.salesSideMenu.locator("//span[text()='Orders']")
   }
@@ -40,6 +42,21 @@ export class AdminPanelPage {
   async waitForPageLoad(page) {
     await page.waitForLoadState("domcontentloaded", { timeout: 10000 });
     await page.waitForLoadState("networkidle", { timeout: 10000 });
+  }
+
+  async goToConfiguration () {
+    await this.storesLink.click();
+    await this.configurationSettingsLink.click();
+  }
+
+  async goToPluginConfiguration(page) {
+    await this.waitForPageLoad(page);
+    await this.goToConfiguration();
+    await this.waitForPageLoad(page);
+    const configNavigation = page.locator("#system_config_tabs");
+    await configNavigation.locator(".config-nav-block", { has: page.locator("//strong[text()='Sales']") }).scrollIntoViewIfNeeded();
+    await configNavigation.locator(".config-nav-block", { has: page.locator("//strong[text()='Sales']") }).click();
+    await configNavigation.locator(".admin__page-nav-item", { has: page.locator("//span[text()='Payment Methods']") }).click();
   }
 
   async createOrderPayBylink(page) {
@@ -65,5 +82,11 @@ export class AdminPanelPage {
 
     const linkToPayment = await this.paymentLink.getAttribute("href");
     return linkToPayment;
+  }
+
+  async autoConfigureRequiredSettings(page) {
+    await this.goToPluginConfiguration(page);
+    await this.waitForPageLoad(page);
+
   }
 }
