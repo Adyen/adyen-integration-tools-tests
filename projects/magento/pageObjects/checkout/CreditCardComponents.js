@@ -6,8 +6,9 @@ export class CreditCardComponents {
     this.errorMessage = page.locator("#adyen-cc-form .message-error");
 
     this.holderNameInput = page.locator(
-      "#payment_form_adyen_cc .adyen-checkout__card__holderName input"
+      ".adyen-checkout__card__holderName input"
     );
+
     this.cardNumberInput = page
       .frameLocator(".adyen-checkout__card__cardNumber__input iframe")
       .locator(".input-field");
