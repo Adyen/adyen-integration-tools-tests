@@ -3,12 +3,50 @@ export class AdminPanelPage {
   constructor(page) {
     this.page = page;
 
+    //General Buttons
+    this.saveConfigButton = page.locator("#save");
+
+    //Messages
+    this.successMessage = page.locator("#messages .message-success");
+    this.errorMessage = page.locator("#order-message .message-error")
+
     // Sidebar locators
     this.salesLink = page.locator("#menu-magento-sales-sales");
+    this.storesLink = page.locator("#menu-magento-backend-stores");
 
     // Sales menu locators
     this.salesSideMenu = page.locator(".item-sales-operation");
-    this.orderLink = this.salesSideMenu.locator("//span[text()='Orders']")
+    this.orderLink = this.salesSideMenu.locator("//span[text()='Orders']");
+
+    // Stores menu locators
+    this.storesSettingsSection = page.locator(".item-stores-settings");
+    this.configurationLink = this.storesSettingsSection.locator("//span[text()='Configuration']");
+
+    //Configuration Section
+    this.configurationMenuWrapper = page.locator("#system_config_tabs");
+    this.salesConfigLink = this.configurationMenuWrapper.locator("//strong[text()='Sales']")
+
+    //Configuration > Sales Subsection
+    this.salesConfigMenu = this.salesConfigLink.locator("..").locator("..");
+    this.paymentMethodsLink = this.salesConfigMenu.locator("//span[text()='Payment Methods']");
+
+    //Configuration > Payment Methods
+    this.adyenPaymentsLink = page.locator("#payment_us_adyen_group_all_in_one-head");
+    this.configurePaymentMethodsLink = page.locator("#payment_us_adyen_group_all_in_one_adyen_configure_payment_methods-head");
+    this.adyenMOTOLink = page.locator("#payment_us_adyen_group_all_in_one_adyen_configure_payment_methods_adyen_moto_advanced_settings-head");
+
+    //Configuration > Payment Methods > AdyenMOTO
+    this.adyenMOTOStatusDropdown = page.locator("#payment_us_adyen_group_all_in_one_adyen_configure_payment_methods_adyen_moto_advanced_settings_active");
+
+    this.adyenMOTOAccountSettingsGroup = page.locator("#payment_us_adyen_group_all_in_one_adyen_configure_payment_methods_adyen_moto_advanced_settings_moto_settings");
+
+    this.adyenMOTOAccountAddButton = this.adyenMOTOAccountSettingsGroup.locator("button[title='Add']");
+    this.adyenMOTOCredentialsFirstTable = this.adyenMOTOAccountSettingsGroup.locator("tbody tr").first();
+
+    this.adyenMOTOMerhcantAccountInputField = this.adyenMOTOCredentialsFirstTable.locator("//input[contains(@id,'_merchant_account')]");
+    this.adyenMOTOClientKeyInputField = this.adyenMOTOCredentialsFirstTable.locator("//input[contains(@id,'_client_key')]");
+    this.adyenMOTOApiKeyInputField = this.adyenMOTOCredentialsFirstTable.locator("//input[contains(@id,'_api_key')]");
+    this.adyenMOTOModeSelector = this.adyenMOTOCredentialsFirstTable.locator("select");
 
     // Sales > Orders Section
     this.createNewOrderButton = page.locator("#add");
@@ -33,11 +71,6 @@ export class AdminPanelPage {
     this.paymentLink = page.locator("a[rel='noopener']");
   }
 
-  async goToOrdersPage() {
-    await this.salesLink.click();
-    await this.orderLink.click();
-  }
-
   async waitForAdminPanelAnimation(page) {
     const loadingLayer = page.locator(".loading-mask");
     await loadingLayer.waitFor({ state: "visible", timeout: 15000 });
@@ -49,9 +82,44 @@ export class AdminPanelPage {
     await page.waitForLoadState("networkidle", { timeout: 10000 });
   }
 
+  async goToOrdersPage() {
+    await this.salesLink.click();
+    await this.orderLink.click();
+  }
+
+  async goToAdyenPluginConfigurationPage(page) {
+    await this.storesLink.click();
+    await this.configurationLink.click();
+    await this.waitForPageLoad(page);
+    await this.salesConfigLink.click();
+    await this.paymentMethodsLink.click();
+    await this.waitForPageLoad(page);
+  }
+
+  async enableMOTO(page, adyenMOTOMerchantAccount, adyenMOTOClientKey, adyenMOTOApiKey) {
+    await this.waitForPageLoad(page);
+    await this.goToAdyenPluginConfigurationPage(page);
+
+    await this.configurePaymentMethodsLink.click();
+
+    await this.adyenMOTOLink.click();
+    await this.adyenMOTOStatusDropdown.selectOption("1");
+    await this.adyenMOTOAccountAddButton.click();
+
+    await this.adyenMOTOMerhcantAccountInputField.type(adyenMOTOMerchantAccount);
+    await this.adyenMOTOClientKeyInputField.type(adyenMOTOClientKey);
+    await this.adyenMOTOApiKeyInputField.type(adyenMOTOApiKey);
+
+    await this.adyenMOTOModeSelector.selectOption("1");
+    await this.saveConfigButton.click();
+
+    await this.waitForPageLoad(page);
+
+  }
+
   async createOrder(page) {
     await this.waitForPageLoad(page);
-    await this.goToOrdersPage(page);
+    await this.goToOrdersPage();
     await this.waitForPageLoad(page);
     await this.createNewOrderButton.click();
     await this.waitForPageLoad(page);
@@ -94,8 +162,7 @@ export class AdminPanelPage {
     await ccSection.fillCardNumber(cardNumber);
     await ccSection.fillExpDate(cardExpirationDate);
 
-    this.submitOrderButton.click();
+    await this.submitOrderButton.click();
     await this.waitForPageLoad(page);
-
   }
 }
