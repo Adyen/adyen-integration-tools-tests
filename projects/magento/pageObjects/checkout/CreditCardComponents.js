@@ -85,4 +85,10 @@ export class CreditCardComponents {
       "The payment is REFUSED."
     );
   }
+
+  async verifyPaymentCancellation() {
+    await expect(await this.errorMessage.innerText()).toEqual(
+      "Payment has been cancelled"
+    );
+  }
 }
