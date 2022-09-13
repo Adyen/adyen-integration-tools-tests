@@ -83,10 +83,4 @@ export class AdminPanelPage {
     const linkToPayment = await this.paymentLink.getAttribute("href");
     return linkToPayment;
   }
-
-  async autoConfigureRequiredSettings(page) {
-    await this.goToPluginConfiguration(page);
-    await this.waitForPageLoad(page);
-
-  }
 }
