@@ -71,11 +71,6 @@ export class AdminPanelPage {
     this.paymentLink = page.locator("a[rel='noopener']");
   }
 
-  async goToOrdersPage() {
-    await this.salesLink.click();
-    await this.orderLink.click();
-  }
-
   async waitForAdminPanelAnimation(page) {
     const loadingLayer = page.locator(".loading-mask");
     await loadingLayer.waitFor({ state: "visible", timeout: 15000 });
@@ -85,6 +80,11 @@ export class AdminPanelPage {
   async waitForPageLoad(page) {
     await page.waitForLoadState("domcontentloaded", { timeout: 10000 });
     await page.waitForLoadState("networkidle", { timeout: 10000 });
+  }
+
+  async goToOrdersPage() {
+    await this.salesLink.click();
+    await this.orderLink.click();
   }
 
   async goToAdyenPluginConfigurationPage(page) {
