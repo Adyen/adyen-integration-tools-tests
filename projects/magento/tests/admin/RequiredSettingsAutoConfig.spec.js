@@ -4,6 +4,7 @@ import {loginAsAdmin} from "../../helpers/ScenarioHelper.js";
 import {AdminPanelPage} from "../../pageObjects/plugin/AdminPanel.page.js";
 
 const paymentResources = new PaymentResources();
+const apiCredentials = paymentResources.apiCredentials;
 
 test.describe('Configure required settings', () => {
     test.beforeEach(async ({ page }) => {
@@ -15,8 +16,6 @@ test.describe('Configure required settings', () => {
         await adminSection.goToAdyenPluginConfigurationPage(page);
 
         const requiredSettingsHeader = page.locator("#payment_us_adyen_group_all_in_one_adyen_required_settings-head");
-        const apiKey = paymentResources.wsUserApiKey;
-        const clientKey = paymentResources.wsUserClientKey;
         const configurationModeField = page.locator("select[name*=configuration_mode]");
         const demoModeField = page.locator("select[name*=demo_mode]");
         const apiKeyField = page.locator("div.adyen_required_config_settings input[name*=api_key_test]");
@@ -29,19 +28,20 @@ test.describe('Configure required settings', () => {
         await requiredSettingsHeader.click();
         await configurationModeField.selectOption('auto');
         await demoModeField.selectOption('1');
-
-        await apiKeyField.type(apiKey);
+        await apiKeyField.type(apiCredentials.apiKey);
         await nextButton.click();
+
         await adminSection.waitForPageLoad(page);
-        await expect(clientKeyField).toHaveValue(clientKey);
+        await expect(clientKeyField).toHaveValue(apiCredentials.clientKey);
 
-        await merchantAccountField.selectOption('MagentoMerchantTest2');
+        await merchantAccountField.selectOption(apiCredentials.merchantAccount);
         await nextButton.click();
+
         await expect(notificationUsernameField).toHaveValue('webuser');
         await expect(notificationPasswordField).not.toBeEmpty();
         await page.locator('#save').click();
-        await adminSection.waitForPageLoad(page);
 
+        await adminSection.waitForPageLoad(page);
         await expect(page.locator('.message-success', { has: page.locator("//div[text()='You saved the configuration.']")})).toBeVisible();
     });
 });

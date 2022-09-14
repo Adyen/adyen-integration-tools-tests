@@ -5,7 +5,7 @@ import { AdminPanelPage } from "../../pageObjects/plugin/AdminPanel.page.js";
 
 const paymentResources = new PaymentResources();
 const magentoAdminUser = paymentResources.magentoAdminUser;
-const MOTOUser = paymentResources.magentoMOTOUser;
+const apiCredentials = paymentResources.apiCredentials;
 
 const cardNumber = paymentResources.visa3DS1;
 const cardExpirationDate = paymentResources.expDate;
@@ -20,7 +20,7 @@ test.describe("MOTO Orders", () => {
 
   test("should successfully be created and paid with a valid CC", async ({ page }) => {
     adminPage = new AdminPanelPage(page);
-    await adminPage.enableMOTO(page, MOTOUser.merchantAccount, MOTOUser.clientKey, MOTOUser.apiKey);
+    await adminPage.enableMOTO(page, apiCredentials.merchantAccount, apiCredentials.clientKey, apiCredentials.apiKey);
     await adminPage.createOrderMoto(page, cardNumber, cardExpirationDate);
 
     expect(await adminPage.successMessage.innerText()).toContain("You created the order.");
