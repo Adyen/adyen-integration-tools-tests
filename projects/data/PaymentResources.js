@@ -33,6 +33,11 @@ export default class PaymentResources {
 
   wsUserApiKey = process.env.ADYEN_API_KEY;
   wsUserClientKey = process.env.ADYEN_CLIENT_KEY;
+  magentoMOTOUser = {
+    merchantAccount: process.env.ADYEN_MERCHANT,
+    clientKey: process.env.ADYEN_CLIENT_KEY,
+    apiKey: process.env.ADYEN_API_KEY,
+  };
 
   bcmc = {
     be: {

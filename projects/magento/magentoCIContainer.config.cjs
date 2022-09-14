@@ -41,39 +41,25 @@ const config = {
     ignoreHTTPSErrors: true,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: "retain-on-failure",
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
-      name: "chromium",
-
-      /* Project-specific settings. */
+      name: "user",
+      testDir: "./tests/",
+      testIgnore: "**/admin/**",
       use: {
-        ...devices["Desktop Chrome"],
-      },
+        browserName: "chromium",
+        trace: "retain-on-failure",
+      }
     },
-
     {
-      name: "firefox",
+      name: "admin",
+      testDir: "./tests/admin",
       use: {
-        ...devices["Desktop Firefox"],
-      },
-    },
-
-    {
-      name: "webkit",
-      use: {
-        ...devices["Desktop Safari"],
-      },
-    },
-
-    {
-      name: "chrome",
-      use: {
-        channel: "chrome",
-      },
+        browserName: "chromium",
+      }
     },
 
     /* Test against mobile viewports. */
