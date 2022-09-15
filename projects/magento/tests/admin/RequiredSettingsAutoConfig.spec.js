@@ -6,28 +6,39 @@ import {AdminPanelPage} from "../../pageObjects/plugin/AdminPanel.page.js";
 const paymentResources = new PaymentResources();
 const apiCredentials = paymentResources.apiCredentials;
 let adminSection;
+let requiredSettingsHeader;
+let configurationModeField;
+let demoModeField;
+let apiKeyField;
+let clientKeyField;
+let merchantAccountField;
+let notificationUsernameField;
+let notificationPasswordField;
+let nextButton;
+let resetButton;
+let saveConfigButton;
 
 test.describe('Configure required settings', () => {
     test.beforeEach(async ({ page }) => {
         await loginAsAdmin(page, paymentResources.magentoAdminUser);
         adminSection = new AdminPanelPage(page);
+        requiredSettingsHeader = page.locator("#payment_us_adyen_group_all_in_one_adyen_required_settings-head");
+        configurationModeField = page.locator("select[name*=configuration_mode]");
+        demoModeField = page.locator("select[name*=demo_mode]");
+        apiKeyField = page.locator("div.adyen_required_config_settings input[name*=api_key_test]");
+        clientKeyField = page.locator('input[name*=client_key_test]');
+        merchantAccountField = page.locator("select[name*=merchant_account_auto]");
+        notificationUsernameField = page.locator('input[name*=notification_username]');
+        notificationPasswordField = page.locator('input[name*=notification_password]');
+        nextButton = page.locator('#adyen_configuration_action');
+        resetButton = page.locator('#adyen_configuration_action_reset');
+        saveConfigButton = page.locator('#save');
+
         await adminSection.goToAdyenPluginConfigurationPage(page);
     });
 
     test("auto mode should be configured successfully", async ({ page }) => {
-        const requiredSettingsHeader = page.locator("#payment_us_adyen_group_all_in_one_adyen_required_settings-head");
-        const configurationModeField = page.locator("select[name*=configuration_mode]");
-        const demoModeField = page.locator("select[name*=demo_mode]");
-        const apiKeyField = page.locator("div.adyen_required_config_settings input[name*=api_key_test]");
-        const clientKeyField = page.locator('input[name*=client_key_test]');
-        const merchantAccountField = page.locator("select[name*=merchant_account_auto]");
-        const notificationUsernameField = page.locator('input[name*=notification_username]');
-        const notificationPasswordField = page.locator('input[name*=notification_password]');
-        const nextButton = page.locator('#adyen_configuration_action');
-
-        await requiredSettingsHeader.click();
-        await configurationModeField.selectOption('auto');
-        await demoModeField.selectOption('1');
+        await goToAutoConfigurationMode(page);
         await apiKeyField.type(apiCredentials.apiKey);
         await nextButton.click();
 
@@ -39,7 +50,7 @@ test.describe('Configure required settings', () => {
 
         await expect(notificationUsernameField).toHaveValue('webuser');
         await expect(notificationPasswordField).not.toBeEmpty();
-        await page.locator('#save').click();
+        await saveConfigButton.click();
 
         await adminSection.waitForPageLoad(page);
         await expect(page.locator('.message-success', { has: page.locator("//div[text()='You saved the configuration.']")})).toBeVisible();
@@ -47,16 +58,9 @@ test.describe('Configure required settings', () => {
 
     test('auto mode fails with bad api key', async ({ page }) => {
         page.on('dialog', dialog => dialog.accept());
-        const requiredSettingsHeader = page.locator("#payment_us_adyen_group_all_in_one_adyen_required_settings-head");
-        const configurationModeField = page.locator("select[name*=configuration_mode]");
-        const demoModeField = page.locator("select[name*=demo_mode]");
-        const apiKeyField = page.locator("div.adyen_required_config_settings input[name*=api_key_test]");
-        const nextButton = page.locator('#adyen_configuration_action');
-        await requiredSettingsHeader.click();
-        await configurationModeField.selectOption('auto');
-        await page.locator('#adyen_configuration_action_reset').click();
+        await goToAutoConfigurationMode(page);
 
-        await demoModeField.selectOption('1');
+        await resetButton.click();
         await apiKeyField.type('xyzabc');
         await nextButton.click();
 
@@ -64,3 +68,9 @@ test.describe('Configure required settings', () => {
         await expect(page.locator('#adyen_payments_configuration_errors .message-warning')).toContainText('Unable to load merchant accounts');
     });
 });
+
+async function goToAutoConfigurationMode(page) {
+    await requiredSettingsHeader.click();
+    await configurationModeField.selectOption('auto');
+    await demoModeField.selectOption('1');
+}
