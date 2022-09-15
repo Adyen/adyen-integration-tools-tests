@@ -38,7 +38,7 @@ test.describe('Configure required settings', () => {
     });
 
     test("auto mode should be configured successfully", async ({ page }) => {
-        await goToAutoConfigurationMode(page);
+        await goToAutoConfigurationMode();
         await apiKeyField.type(apiCredentials.apiKey);
         await nextButton.click();
 
@@ -58,7 +58,7 @@ test.describe('Configure required settings', () => {
 
     test('auto mode fails with bad api key', async ({ page }) => {
         page.on('dialog', dialog => dialog.accept());
-        await goToAutoConfigurationMode(page);
+        await goToAutoConfigurationMode();
 
         await resetButton.click();
         await apiKeyField.type('xyzabc');
@@ -69,7 +69,7 @@ test.describe('Configure required settings', () => {
     });
 });
 
-async function goToAutoConfigurationMode(page) {
+async function goToAutoConfigurationMode() {
     await requiredSettingsHeader.click();
     await configurationModeField.selectOption('auto');
     await demoModeField.selectOption('1');
