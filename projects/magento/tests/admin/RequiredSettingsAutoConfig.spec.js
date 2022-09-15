@@ -5,16 +5,16 @@ import {AdminPanelPage} from "../../pageObjects/plugin/AdminPanel.page.js";
 
 const paymentResources = new PaymentResources();
 const apiCredentials = paymentResources.apiCredentials;
+let adminSection;
 
 test.describe('Configure required settings', () => {
     test.beforeEach(async ({ page }) => {
         await loginAsAdmin(page, paymentResources.magentoAdminUser);
+        adminSection = new AdminPanelPage(page);
+        await adminSection.goToAdyenPluginConfigurationPage(page);
     });
 
     test("auto mode should be configured successfully", async ({ page }) => {
-        const adminSection = new AdminPanelPage(page);
-        await adminSection.goToAdyenPluginConfigurationPage(page);
-
         const requiredSettingsHeader = page.locator("#payment_us_adyen_group_all_in_one_adyen_required_settings-head");
         const configurationModeField = page.locator("select[name*=configuration_mode]");
         const demoModeField = page.locator("select[name*=demo_mode]");
@@ -43,5 +43,24 @@ test.describe('Configure required settings', () => {
 
         await adminSection.waitForPageLoad(page);
         await expect(page.locator('.message-success', { has: page.locator("//div[text()='You saved the configuration.']")})).toBeVisible();
+    });
+
+    test('auto mode fails with bad api key', async ({ page }) => {
+        page.on('dialog', dialog => dialog.accept());
+        const requiredSettingsHeader = page.locator("#payment_us_adyen_group_all_in_one_adyen_required_settings-head");
+        const configurationModeField = page.locator("select[name*=configuration_mode]");
+        const demoModeField = page.locator("select[name*=demo_mode]");
+        const apiKeyField = page.locator("div.adyen_required_config_settings input[name*=api_key_test]");
+        const nextButton = page.locator('#adyen_configuration_action');
+        await requiredSettingsHeader.click();
+        await configurationModeField.selectOption('auto');
+        await page.locator('#adyen_configuration_action_reset').click();
+
+        await demoModeField.selectOption('1');
+        await apiKeyField.type('xyzabc');
+        await nextButton.click();
+
+        await adminSection.waitForPageLoad(page);
+        await expect(page.locator('#adyen_payments_configuration_errors .message-warning')).toContainText('Unable to load merchant accounts');
     });
 });
