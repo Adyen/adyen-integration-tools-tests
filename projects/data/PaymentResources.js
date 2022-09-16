@@ -31,7 +31,7 @@ export default class PaymentResources {
     password: process.env.MAGENTO_ADMIN_PASSWORD,
   };
 
-  magentoMOTOUser = {
+  apiCredentials = {
     merchantAccount: process.env.ADYEN_MERCHANT,
     clientKey: process.env.ADYEN_CLIENT_KEY,
     apiKey: process.env.ADYEN_API_KEY,
