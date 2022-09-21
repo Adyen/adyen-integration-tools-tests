@@ -21,6 +21,8 @@ jobs:
           node-version: "16.x"
       - name: Echo Branch
         run: echo ${{env.CURRENT_BRANCH}}
+      - name: Echo Branch alternative
+        run: echo ${{ github.event.pull_request.head.ref}}
       - name: Install dependencies
         run: npm ci
       - name: Install Playwright
