@@ -3,18 +3,11 @@ on: [pull_request]
 
 jobs:
   build:
-    strategy:
-      matrix:
-        php-version: ["7.4"]
-        magento-version: ["2.3.7", "2.4.2"]
-        include:
-          - php-version: "8.1"
-            magento-version: "2.4.5"
     runs-on: ubuntu-latest
     env:
       CURRENT_BRANCH: $GITHUB_HEAD_REF
-      PHP_VERSION: ${{ matrix.php-version }}
-      MAGENTO_VERSION: ${{ matrix.magento-version }}
+      PHP_VERSION: "8.1"
+      MAGENTO_VERSION: "2.4.5"
       ADMIN_USERNAME: ${{secrets.MAGENTO_ADMIN_USERNAME}}
       ADMIN_PASSWORD: ${{secrets.MAGENTO_ADMIN_PASSWORD}}
     steps:
