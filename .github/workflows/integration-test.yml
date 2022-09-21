@@ -54,6 +54,9 @@ jobs:
           MAGENTO_BASE_URL: ${{secrets.MAGENTO_BASE_URL}}
           PAYPAL_USERNAME: ${{secrets.PLAYWRIGHT_PAYPAL_USERNAME}}
           PAYPAL_PASSWORD: ${{secrets.PLAYWRIGHT_PAYPAL_PASSWORD}}
+          ADYEN_MERCHANT: ${{secrets.ADYEN_MERCHANT}}
+          ADYEN_CLIENT_KEY: ${{secrets.ADYEN_CLIENT_KEY}}
+          ADYEN_API_KEY: ${{secrets.ADYEN_API_KEY}}
 
       - name: Archive test result artifacts
         if: github.event.pull_request.base.ref == 'main'
