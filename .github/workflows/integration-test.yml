@@ -12,7 +12,7 @@ jobs:
             magento-version: "2.4.5"
     runs-on: ubuntu-latest
     env:
-      CURRENT_BRANCH: ${{GITHUB_REF##*/}}
+      CURRENT_BRANCH: $GITHUB_HEAD_REF
       PHP_VERSION: ${{ matrix.php-version }}
       MAGENTO_VERSION: ${{ matrix.magento-version }}
       ADMIN_USERNAME: ${{secrets.MAGENTO_ADMIN_USERNAME}}
