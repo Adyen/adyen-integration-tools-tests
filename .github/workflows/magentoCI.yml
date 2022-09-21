@@ -10,7 +10,7 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     env:
-      CURRENT_BRANCH: ${{GITHUB_REF##*/}}
+      CURRENT_BRANCH: $GITHUB_HEAD_REF
       PAYPAL_USERNAME: ${{secrets.PLAYWRIGHT_PAYPAL_USERNAME}}
       PAYPAL_PASSWORD: ${{secrets.PLAYWRIGHT_PAYPAL_PASSWORD}}
       MAGENTO_BASE_URL: ${{secrets.PLAYWRIGHT_MAGENTO_BASE_URL}}
