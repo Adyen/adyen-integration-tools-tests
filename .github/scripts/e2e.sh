@@ -8,7 +8,7 @@ cd adyen-integration-tools-tests;
 git checkout $INTEGRATION_TESTS_BRANCH;
 
 # Setup environment
-npm ci;
+npm i;
 npx playwright install --with-deps;
 
 # Run tests
