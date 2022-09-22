@@ -59,7 +59,6 @@ jobs:
           ADYEN_API_KEY: ${{secrets.ADYEN_API_KEY}}
 
       - name: Archive test result artifacts
-        if: github.event.pull_request.base.ref == 'main'
         uses: actions/upload-artifact@v3
         with:
           name: html-report
