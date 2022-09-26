@@ -20,4 +20,4 @@ services:
       - ADYEN_API_KEY
     volumes:
       - ../../scripts/e2e.sh:/e2e.sh
-      - ../../../test-report:/tmp/test-report
+      - ../../../test-report:/tmp/projects/test-report
