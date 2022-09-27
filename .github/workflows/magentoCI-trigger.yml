@@ -10,4 +10,4 @@ jobs:
       GH_TOKEN: ${{ secrets.TEST_TOKEN }}
     steps:
       - name: Run E2E Tests
-        run: gh workflow run e2e-only.yml -R Adyen/adyen-magento2 -F testBranch=${{ github.event.pull_request.head.ref}} -r PW-7195
+        run: gh workflow run e2e-only.yml -R Adyen/adyen-magento2 -F testBranch=${{ github.event.pull_request.head.ref}}
