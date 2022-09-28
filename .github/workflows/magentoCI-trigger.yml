@@ -1,4 +1,4 @@
-name: Magento E2E Headless Tests with Playwright ${{ github.event.pull_request.head.ref}}
+name: Magento E2E Headless Tests with Playwright
 on:
   pull_request:
     branches: [main, develop]
