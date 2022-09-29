@@ -43,7 +43,6 @@ export class ShippingDetails {
     await this.addressInput.fill(user.street);
 
     await this.countrySelector.selectOption(user.countryCode);
-    await new AnimationHelper(this.page).waitForAnimation();
 
     if (user.stateOrProvince != undefined) {
       await this.stateProvinceDropdown.selectOption(user.stateOrProvince);
@@ -66,9 +65,6 @@ export class ShippingDetails {
     await this.fillShippingDetails(user);
     await this.page.waitForLoadState("domcontentloaded", { timeout: 10000 });
     await this.page.waitForLoadState("networkidle", { timeout: 10000 });
-
-    // Unavoidable hard wait until the payment method render issue is resolved
-    await new Promise(r => setTimeout(r, 1500));
 
     await this.clickNextButton();
     await new AnimationHelper(this.page).waitForAnimation();
