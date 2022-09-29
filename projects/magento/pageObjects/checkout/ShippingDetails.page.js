@@ -43,7 +43,6 @@ export class ShippingDetails {
     await this.addressInput.fill(user.street);
 
     await this.countrySelector.selectOption(user.countryCode);
-    await new AnimationHelper(this.page).waitForAnimation();
 
     if (user.stateOrProvince != undefined) {
       await this.stateProvinceDropdown.selectOption(user.stateOrProvince);
