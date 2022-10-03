@@ -21,7 +21,7 @@ Delete `package-lock.json` file in the root folder.
 Use JS package manager to install dependencies.
 
 ```bash
-npm install @playwright/test@1.21.0
+npm install @playwright/test@1.25.0
 ```
 
 ## Usage
