@@ -8,6 +8,10 @@ export class PayPalComponents {
   }
 
   async proceedToPayPal() {
+    /* Immediate click of PayPal button may cause since the iframe
+    may take extra time to load, hence this hard wait */
+    await new Promise(r => setTimeout(r, 500));
+    await this.payPalButton.hover();
     await this.payPalButton.click();
   }
 }
