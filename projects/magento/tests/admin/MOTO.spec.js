@@ -1,7 +1,9 @@
 import { test, expect } from "@playwright/test";
 import PaymentResources from "../../../data/PaymentResources.js";
 import { loginAsAdmin } from "../../helpers/ScenarioHelper.js";
-import { AdminPanelPage } from "../../pageObjects/plugin/AdminPanel.page.js";
+import { AdminAdyenConfigPage } from "../../pageObjects/plugin/AdminAdyenConfig.page.js";
+import { AdminOrderCreationPage } from "../../pageObjects/plugin/AdminOrderCreation.page.js";
+
 
 const paymentResources = new PaymentResources();
 const magentoAdminUser = paymentResources.magentoAdminUser;
@@ -11,7 +13,9 @@ const cardNumber = paymentResources.visa3DS1;
 const cardExpirationDate = paymentResources.expDate;
 const wrongExpirationDate = paymentResources.wrongExpDate;
 
-let adminPage;
+let adyenConfigPage;
+let adminOrderCreationPage;
+
 
 test.describe("MOTO Orders", () => {
   test.beforeEach(async ({ page }) => {
@@ -19,17 +23,19 @@ test.describe("MOTO Orders", () => {
   });
 
   test("should successfully be created and paid with a valid CC", async ({ page }) => {
-    adminPage = new AdminPanelPage(page);
-    await adminPage.enableMOTO(page, apiCredentials.merchantAccount, apiCredentials.clientKey, apiCredentials.apiKey);
-    await adminPage.createOrderMoto(page, cardNumber, cardExpirationDate);
+    adyenConfigPage = new AdminAdyenConfigPage(page);
+    await adyenConfigPage.enableMOTO(page, apiCredentials.merchantAccount, apiCredentials.clientKey, apiCredentials.apiKey);
 
-    expect(await adminPage.successMessage.innerText()).toContain("You created the order.");
+    adminOrderCreationPage = new AdminOrderCreationPage(page);
+    await adminOrderCreationPage.createOrderMoto(page, cardNumber, cardExpirationDate);
+
+    expect(await adminOrderCreationPage.successMessage.innerText()).toContain("You created the order.");
   });
 
   test("should fail without a valid CC", async ({ page }) => {
-    adminPage = new AdminPanelPage(page);
-    await adminPage.createOrderMoto(page, cardNumber, wrongExpirationDate);
+    adminOrderCreationPage = new AdminOrderCreationPage(page);
+    await adminOrderCreationPage.createOrderMoto(page, cardNumber, wrongExpirationDate);
 
-    expect(await adminPage.errorMessage.innerText()).toContain("The payment is REFUSED.");
+    expect(await adminOrderCreationPage.errorMessage.innerText()).toContain("The payment is REFUSED.");
   });
 });
