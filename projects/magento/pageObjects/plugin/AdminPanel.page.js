@@ -2,6 +2,10 @@ export class AdminPanelPage {
   constructor(page) {
     this.page = page;
 
+    //Security Patch Message Selectors
+    this.securityMessageHeader = page.locator("//*[contains(@class, 'modal-title') and contains(text(),'Incoming Message')]/..");
+    this.securityMessageCloseButton = this.securityMessageHeader.locator(".action-close")
+
     //General Buttons
     this.saveConfigButton = page.locator("#save");
 
@@ -28,6 +32,13 @@ export class AdminPanelPage {
     //Configuration > Sales Subsection
     this.salesConfigMenu = this.salesConfigLink.locator("..").locator("..");
     this.paymentMethodsLink = this.salesConfigMenu.locator("//span[text()='Payment Methods']");
+  }
+
+  async closePopup() {
+    await this.waitForPageLoad(this.page);
+    if (await this.securityMessageHeader.isVisible()) {
+      await this.securityMessageCloseButton.click();
+    }
   }
 
   async waitForAdminPanelAnimation(page) {

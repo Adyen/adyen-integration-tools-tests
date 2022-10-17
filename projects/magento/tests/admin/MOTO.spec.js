@@ -20,6 +20,9 @@ let adminOrderCreationPage;
 test.describe("MOTO Orders", () => {
   test.beforeEach(async ({ page }) => {
     await loginAsAdmin(page, magentoAdminUser);
+
+    adyenConfigPage = new AdminAdyenConfigPage(page);
+    await adyenConfigPage.closePopup();
   });
 
   test("should successfully be created and paid with a valid CC", async ({ page }) => {
