@@ -23,6 +23,7 @@ test.describe("MOTO Orders", () => {
 
     adyenConfigPage = new AdminAdyenConfigPage(page);
     await adyenConfigPage.closePopup();
+    await adyenConfigPage.goToAdyenPluginConfigurationPage(page);
   });
 
   test("should successfully be created and paid with a valid CC", async ({ page }) => {
@@ -39,6 +40,6 @@ test.describe("MOTO Orders", () => {
     adminOrderCreationPage = new AdminOrderCreationPage(page);
     await adminOrderCreationPage.createOrderMoto(page, cardNumber, wrongExpirationDate);
 
-    expect(await adminOrderCreationPage.errorMessage.innerText()).toContain("The payment is REFUSED.");
+    expect(await adminOrderCreationPage.orderErrorMessage.innerText()).toContain("The payment is REFUSED.");
   });
 });

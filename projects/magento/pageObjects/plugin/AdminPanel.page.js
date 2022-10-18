@@ -11,7 +11,8 @@ export class AdminPanelPage {
 
     //Messages
     this.successMessage = page.locator("#messages .message-success");
-    this.errorMessage = page.locator("#order-message .message-error")
+    this.errorMessage = page.locator("#messages .message-error");
+    this.orderErrorMessage = page.locator("#order-message .message-error")
 
     // Sidebar locators
     this.salesLink = page.locator("#menu-magento-sales-sales");
@@ -58,6 +59,7 @@ export class AdminPanelPage {
   }
 
   async goToAdyenPluginConfigurationPage(page) {
+    await this.waitForPageLoad(page);
     await this.storesLink.click();
     await this.configurationLink.click();
     await this.waitForPageLoad(page);
