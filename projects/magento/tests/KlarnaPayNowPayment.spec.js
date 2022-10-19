@@ -25,7 +25,8 @@ test.describe.parallel("Payment via Klarna Pay Now", () => {
     await verifySuccessfulPayment(page);
   });
 
-  test("should succeed via direct bank transfer", async ({ page }) => {
+  test.skip("should succeed via direct bank transfer", async ({ page }) => {
+    // Skipping this test until Klarna's ever changing bank transfer flow settles
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 
