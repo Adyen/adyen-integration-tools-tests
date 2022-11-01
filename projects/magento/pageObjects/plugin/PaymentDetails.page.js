@@ -1,17 +1,17 @@
-import { BancontactCardComponents } from "./BancontactCardComponents.js";
-import { CreditCardComponents } from "./CreditCardComponents.js";
-import { GenericGiftCardComponents } from "./GenericGiftCardComponents.js";
-import { IDealComponents } from "./iDealComponents.js";
-import { KlarnaPayLaterComponents } from "./KlarnaPayLaterComponents.js";
-import { OneyComponents } from "./OneyComponents.js";
-import { PayPalComponents } from "./PayPalComponents.js";
-import { SepaDirectDebitComponents } from "./SepaDirectDebitComponents.js";
-import { ClearPayComponents } from "./ClearPayComponents.js";
-import { BoletoComponents } from "./BoletoComponents.js";
-import { MultiBancoComponents } from "./MultiBancoComponents.js";
-import { KlarnaPayNowComponents } from "./KlarnaPayNowComponents.js";
-import { KlarnaPayOverTimeComponents } from "./KlarnaPayOverTimeComponents.js";
-import { VaultComponents } from "./VaultComponents.js";
+import { BancontactCardComponents } from "../checkout/BancontactCardComponents.js";
+import { CreditCardComponents } from "../checkout/CreditCardComponents.js";
+import { GenericGiftCardComponents } from "../checkout/GenericGiftCardComponents.js";
+import { IDealComponents } from "../checkout/iDealComponents.js";
+import { KlarnaPayLaterComponents } from "../checkout/KlarnaPayLaterComponents.js";
+import { OneyComponents } from "../checkout/OneyComponents.js";
+import { PayPalComponents } from "../checkout/PayPalComponents.js";
+import { SepaDirectDebitComponents } from "../checkout/SepaDirectDebitComponents.js";
+import { ClearPayComponents } from "../checkout/ClearPayComponents.js";
+import { BoletoComponents } from "../checkout/BoletoComponents.js";
+import { MultiBancoComponents } from "../checkout/MultiBancoComponents.js";
+import { KlarnaPayNowComponents } from "../checkout/KlarnaPayNowComponents.js";
+import { KlarnaPayOverTimeComponents } from "../checkout/KlarnaPayOverTimeComponents.js";
+import { VaultComponents } from "../checkout/VaultComponents.js";
 
 export class PaymentDetailsPage {
   constructor(page) {

@@ -5,7 +5,7 @@ import {
   verifySuccessfulPayment,
 } from "../helpers/ScenarioHelper.js";
 import { proceedToPaymentAs } from "../helpers/ScenarioHelper.js";
-import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.js";
+import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
 import { PayPalPaymentPage } from "../../common/PayPalPaymentPage.js";
 
 const paymentResources = new PaymentResources();

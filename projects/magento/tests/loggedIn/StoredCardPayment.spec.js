@@ -1,6 +1,6 @@
 import { test } from "@playwright/test";
 import PaymentResources from "../../../data/PaymentResources.js";
-import { PaymentDetailsPage } from "../../../magento/pageObjects/checkout/PaymentDetails.page.js";
+import { PaymentDetailsPage } from "../../../magento/pageObjects/plugin/PaymentDetails.page.js";
 import {
   goToShippingWithFullCart,
   proceedToPaymentAs,

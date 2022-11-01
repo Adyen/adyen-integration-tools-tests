@@ -5,7 +5,7 @@ import {
   proceedToPaymentAs,
   verifySuccessfulPayment,
 } from "../helpers/ScenarioHelper.js";
-import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.js";
+import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
 
 const paymentResources = new PaymentResources();
 const user = paymentResources.guestUser.dutch;

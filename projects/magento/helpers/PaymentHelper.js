@@ -1,4 +1,4 @@
-import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.js";
+import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
 
 export async function makeCreditCardPayment(
   page,

@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
 import { ProductDetailsPage } from "../pageObjects/plugin/ProductDetail.page.js";
-import { ShippingDetails } from "../pageObjects/checkout/ShippingDetails.page.js";
+import { ShippingDetails } from "../pageObjects/plugin/ShippingDetails.page.js";
 import { SuccessfulCheckoutPage } from "../pageObjects/checkout/SuccessfulCheckout.page.js";
 import { ShoppingCartPage } from "../pageObjects/plugin/ShoppingCart.page.js";
 import { LoginPage } from "../pageObjects/plugin/Login.page.js";
