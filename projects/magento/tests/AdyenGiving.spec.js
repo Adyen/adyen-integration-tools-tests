@@ -6,7 +6,7 @@ import {
   proceedToPaymentAs,
 } from "../helpers/ScenarioHelper.js";
 import { makeCreditCardPayment } from "../helpers/PaymentHelper.js";
-import { AdyenGivingComponents } from "../pageObjects/checkout/AdyenGivingComponents.js";
+import { AdyenGivingMagento } from "../pageObjects/checkout/AdyenGivingMagento.js";
 
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
@@ -28,13 +28,13 @@ test.describe.parallel("Adyen Giving payments", () => {
   });
 
   test("should succeed with a 3Ds2 credit card", async ({ page }) => {
-    const donationSection = new AdyenGivingComponents(page);
+    const donationSection = new AdyenGivingMagento(page);
     await donationSection.makeDonation("least");
     await donationSection.verifySuccessfulDonationMessage();
   });
 
   test("should redirect to landing page when declined", async ({ page }) => {
-    const donationSection = new AdyenGivingComponents(page);
+    const donationSection = new AdyenGivingMagento(page);
     await donationSection.declineDonation();
     await donationSection.verifyDeclineRedirection();
   });

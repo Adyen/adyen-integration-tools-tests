@@ -1,4 +1,3 @@
-import { expect } from "@playwright/test";
 export class AdyenGivingComponents {
   constructor(page) {
     this.page = page;
@@ -50,13 +49,5 @@ export class AdyenGivingComponents {
 
   async declineDonation() {
     await this.declinelButton.click();
-  }
-
-  async verifySuccessfulDonationMessage() {
-    await expect(this.DonationMessage).toHaveText("Thanks for your support!");
-  }
-
-  async verifyDeclineRedirection() {
-    await this.page.waitForURL("/index.php/", { timeout: 10000 });
   }
 }
