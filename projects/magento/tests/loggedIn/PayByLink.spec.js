@@ -1,8 +1,8 @@
 import { chromium, expect, test } from "@playwright/test";
 import PaymentResources from "../../../data/PaymentResources.js";
-import { loginAsAdmin } from "../../../magento/helpers/ScenarioHelper.js";
+import { loginAsAdmin } from "../../helpers/ScenarioHelper.js";
 import { CreditCardComponents } from "../../pageObjects/checkout/CreditCardComponents.js";
-import { AdminPanelPage } from "../../pageObjects/plugin/AdminPanel.page.js";
+import {AdminOrderCreationPage} from "../../pageObjects/plugin/AdminOrderCreation.page.js";
 
 const paymentResources = new PaymentResources();
 const magentoAdminUser = paymentResources.magentoAdminUser;
@@ -11,7 +11,7 @@ let paymentLink;
 test.describe("Payment via PayByLink", () => {
   test.beforeEach(async ({ page }) => {
     await loginAsAdmin(page, magentoAdminUser);
-    paymentLink = await new AdminPanelPage(page).createOrderPayBylink(page);
+    paymentLink = await new AdminOrderCreationPage(page).createOrderPayBylink(page);
   });
 
   test("should succeed", async ({ page }) => {
