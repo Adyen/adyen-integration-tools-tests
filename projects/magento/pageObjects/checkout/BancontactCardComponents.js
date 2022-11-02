@@ -55,7 +55,7 @@ export class BancontactCardComponents {
   }
 
   async verifyPaymentRefusal() {
-    await expect(await this.errorMessage.innerText()).toEqual(
+    await expect(await this.errorMessage.innerText()).toContain(
       "The payment is REFUSED."
     );
   }

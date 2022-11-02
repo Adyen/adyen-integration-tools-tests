@@ -19,7 +19,7 @@ export class ShoppingCartPage extends BasePage {
       url: /.*checkout\/cart/,
       timeout: 10000,
     });
-    await expect(await this.errorMessage.innerText()).toEqual(
+    await expect(await this.errorMessage.innerText()).toContain(
       "Your payment failed, Please try again later"
     );
   }
