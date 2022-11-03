@@ -7,7 +7,7 @@ export class AdminPanelPage {
     this.securityMessageCloseButton = this.securityMessageHeader.locator(".action-close")
 
     //Adobe Data collection popup button
-    this.usageStatsTrackerPopupCloser = page.locator(".modal-content .action-secondary")
+    this.usageStatsTrackerPopupCloser = page.locator(".modal-footer .action-secondary")
 
     //General Buttons
     this.saveConfigButton = page.locator("#save");
