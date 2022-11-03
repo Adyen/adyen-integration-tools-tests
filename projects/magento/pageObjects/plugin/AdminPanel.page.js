@@ -77,7 +77,9 @@ export class AdminPanelPage {
     await this.configurationLink.click();
     await this.waitForPageLoad(page);
     await this.generalConfigMenuLinkWrapper.waitFor({ state: "visible", timeout: 2000 });
+    await this.salesConfigLink.scrollIntoViewIfNeeded();
     await this.salesConfigLink.click();
+    await this.paymentMethodsLink.scrollIntoViewIfNeeded();
     await this.paymentMethodsLink.click();
     await this.waitForPageLoad(page);
   }
