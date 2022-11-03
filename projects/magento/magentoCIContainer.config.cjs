@@ -55,8 +55,8 @@ const config = {
       }
     },
     {
-      name: "admin",
-      testDir: "./tests/admin",
+      name: "backoffice",
+      testDir: "./tests/backoffice",
       use: {
         browserName: "chromium",
       }
