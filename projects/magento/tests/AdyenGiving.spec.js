@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
 import { ThreeDS2PaymentPage } from "../../common/ThreeDS2PaymentPage.js";
 import {
@@ -35,7 +35,14 @@ test.describe.parallel("Adyen Giving payments", () => {
 
   test("should redirect to landing page when declined", async ({ page }) => {
     const donationSection = new AdyenGivingComponents(page);
-    await donationSection.declineDonation();
-    await donationSection.verifyDeclineRedirection();
+
+    // Check whether the redirect occurs after declining the donation
+    const [response] = await Promise.all([
+      page.waitForNavigation({ timeout: 10000 }),
+      donationSection.declineDonation()
+    ]);
+
+    // Check whether the redirected page is landing page by checking promo locator
+    await expect(page.locator(".blocks-promo")).toBeVisible();
   });
 });
