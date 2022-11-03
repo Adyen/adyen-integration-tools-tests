@@ -6,6 +6,9 @@ export class AdminPanelPage {
     this.securityMessageHeader = page.locator("//*[contains(@class, 'modal-title') and contains(text(),'Incoming Message')]/..");
     this.securityMessageCloseButton = this.securityMessageHeader.locator(".action-close")
 
+    //Adobe Data collection popup button
+    this.usageStatsTrackerPopupCloser = page.locator(".modal-content .action-secondary")
+
     //General Buttons
     this.saveConfigButton = page.locator("#save");
 
@@ -39,6 +42,9 @@ export class AdminPanelPage {
     await this.waitForPageLoad(this.page);
     if (await this.securityMessageHeader.isVisible()) {
       await this.securityMessageCloseButton.click();
+    }
+    if (await this.usageStatsTrackerPopupCloser.isVisible()) {
+      await this.usageStatsTrackerPopupCloser.click();
     }
   }
 
