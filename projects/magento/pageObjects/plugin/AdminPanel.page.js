@@ -32,7 +32,7 @@ export class AdminPanelPage {
     //Configuration Screen Section
     this.configurationMenuWrapper = page.locator("#system_config_tabs");
 
-    //Configuration Screen > Sales Menu link
+    //Configuration Screen > Menu Links
     this.generalConfigLink = this.configurationMenuWrapper.locator("//strong[text()='General']");
     this.salesConfigLink = this.configurationMenuWrapper.locator("//strong[text()='Sales']");
 
