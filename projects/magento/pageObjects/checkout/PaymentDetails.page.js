@@ -141,7 +141,7 @@ export class PaymentDetailsPage {
     });
     await this.paymentSummaryLoadingSpinner.waitFor({
       state: "detached",
-      timeout: 15000,
+      timeout: 20000,
     });
   }
 }
