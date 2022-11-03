@@ -23,10 +23,10 @@ const config = {
   forbidOnly: !!process.env.CI,
 
   /* Retry on CI only */
-  retries: 1,
+  retries: 0,
 
   /* Opt out of parallel tests on CI. */
-  workers: 2,
+  workers: 1,
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [["html", { outputFolder: "/tmp/test-report", open: "never" }]],
@@ -45,20 +45,21 @@ const config = {
 
   /* Configure projects for major browsers */
   projects: [
-    {
-      name: "user",
-      testDir: "./tests/",
-      testIgnore: "**/backoffice/**",
-      use: {
-        browserName: "chromium",
-        trace: "retain-on-failure",
-      }
-    },
+    // {
+    //   name: "user",
+    //   testDir: "./tests/",
+    //   testIgnore: "**/backoffice/**",
+    //   use: {
+    //     browserName: "chromium",
+    //     trace: "retain-on-failure",
+    //   }
+    // },
     {
       name: "backoffice",
       testDir: "./tests/backoffice",
       use: {
         browserName: "chromium",
+        trace: "retain-on-failure",
       }
     },
 
