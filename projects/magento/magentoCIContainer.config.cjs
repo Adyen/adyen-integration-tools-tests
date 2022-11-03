@@ -45,20 +45,21 @@ const config = {
 
   /* Configure projects for major browsers */
   projects: [
-    {
-      name: "user",
-      testDir: "./tests/",
-      testIgnore: "**/backoffice/**",
-      use: {
-        browserName: "chromium",
-        trace: "retain-on-failure",
-      }
-    },
+    // {
+    //   name: "user",
+    //   testDir: "./tests/",
+    //   testIgnore: "**/backoffice/**",
+    //   use: {
+    //     browserName: "chromium",
+    //     trace: "retain-on-failure",
+    //   }
+    // },
     {
       name: "backoffice",
       testDir: "./tests/backoffice",
       use: {
         browserName: "chromium",
+        trace: "on"
       }
     },
 
