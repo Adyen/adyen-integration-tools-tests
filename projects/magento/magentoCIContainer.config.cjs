@@ -58,7 +58,8 @@ const config = {
       name: "backoffice",
       testDir: "./tests/backoffice",
       use: {
-        browserName: "chromium"
+        browserName: "chromium",
+        trace: "retain-on-failure",
       }
     },
 
