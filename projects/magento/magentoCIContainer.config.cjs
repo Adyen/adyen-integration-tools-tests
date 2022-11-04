@@ -48,17 +48,17 @@ const config = {
     {
       name: "user",
       testDir: "./tests/",
-      testIgnore: "**/admin/**",
+      testIgnore: "**/backoffice/**",
       use: {
         browserName: "chromium",
         trace: "retain-on-failure",
       }
     },
     {
-      name: "admin",
-      testDir: "./tests/admin",
+      name: "backoffice",
+      testDir: "./tests/backoffice",
       use: {
-        browserName: "chromium",
+        browserName: "chromium"
       }
     },
 

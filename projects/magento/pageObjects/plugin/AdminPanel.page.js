@@ -21,19 +21,26 @@ export class AdminPanelPage {
     this.salesLink = page.locator("#menu-magento-sales-sales");
     this.storesLink = page.locator("#menu-magento-backend-stores");
 
-    // Sales menu locators
+    // Sidebar > Sales Submenu locators
     this.salesSideMenu = page.locator(".item-sales-operation");
     this.orderLink = this.salesSideMenu.locator("//span[text()='Orders']");
 
-    // Stores menu locators
+    // Sidebar > Stores Submenu locators
     this.storesSettingsSection = page.locator(".item-stores-settings");
     this.configurationLink = this.storesSettingsSection.locator("//span[text()='Configuration']");
 
-    //Configuration Section
+    //Configuration Screen Section
     this.configurationMenuWrapper = page.locator("#system_config_tabs");
-    this.salesConfigLink = this.configurationMenuWrapper.locator("//strong[text()='Sales']")
 
-    //Configuration > Sales Subsection
+    //Configuration Screen > Menu Links
+    this.generalConfigLink = this.configurationMenuWrapper.locator("//strong[text()='General']");
+    this.salesConfigLink = this.configurationMenuWrapper.locator("//strong[text()='Sales']");
+
+    //Configuration Screen > General Subsection
+    this.generalConfigMenu = this.generalConfigLink.locator("..").locator("..");
+    this.generalConfigMenuLinkWrapper = this.generalConfigMenu.locator("ul").first();
+
+    //Configuration Screen > Sales Subsection
     this.salesConfigMenu = this.salesConfigLink.locator("..").locator("..");
     this.paymentMethodsLink = this.salesConfigMenu.locator("//span[text()='Payment Methods']");
   }
@@ -69,7 +76,10 @@ export class AdminPanelPage {
     await this.storesLink.click();
     await this.configurationLink.click();
     await this.waitForPageLoad(page);
+    await this.generalConfigMenuLinkWrapper.waitFor({ state: "visible", timeout: 2000 });
+    await this.salesConfigLink.scrollIntoViewIfNeeded();
     await this.salesConfigLink.click();
+    await this.paymentMethodsLink.scrollIntoViewIfNeeded();
     await this.paymentMethodsLink.click();
     await this.waitForPageLoad(page);
   }
