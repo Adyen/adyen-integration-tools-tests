@@ -76,7 +76,12 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
     }
 
     await this.apiKeyInput.fill("");
-    await this.apiKeyInput.type(apiKey);
+    console.log("non-stringified");
+    console.log(apiKey);
+    console.log("stringified");
+    console.log(`${apiKey}`);
+
+    await this.apiKeyInput.type(`${apiKey}`);
     await this.nextButton.scrollIntoViewIfNeeded();
     await this.nextButton.click();
 
