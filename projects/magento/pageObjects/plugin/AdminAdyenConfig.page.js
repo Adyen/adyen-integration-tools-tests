@@ -75,12 +75,6 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
       await this.reconfigureButton.click();
     }
 
-    await this.apiKeyInput.fill("");
-    console.log("non-stringified");
-    console.log(apiKey);
-    console.log("stringified");
-    console.log(`${apiKey}`);
-
     await this.apiKeyInput.type(`${apiKey}`);
     await this.nextButton.scrollIntoViewIfNeeded();
     await this.nextButton.click();
