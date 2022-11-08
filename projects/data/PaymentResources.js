@@ -261,8 +261,4 @@ export default class PaymentResources {
       },
     },
   };
-
-  isCI() {
-    return process.env.CI
-  }
 }
