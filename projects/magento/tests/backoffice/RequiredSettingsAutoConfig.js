@@ -25,7 +25,7 @@ test.describe('Configure required settings', () => {
         await adyenConfigPage.waitForPageLoad(page);
 
         await expect(adyenConfigPage.successMessage).toContainText("You saved the configuration.");
-        if (!paymentResources.isCI()) {
+        if (page.url().includes("https://192.168.58.20/")) {
             await expect(adyenConfigPage.errorMessage).toContainText("Credentials saved but webhook and HMAC key couldn't be generated");
         };
     });
