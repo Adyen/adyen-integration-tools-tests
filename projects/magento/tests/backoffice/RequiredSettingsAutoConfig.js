@@ -25,8 +25,7 @@ test.describe('Configure required settings', () => {
         await adyenConfigPage.waitForPageLoad(page);
 
         await expect(adyenConfigPage.successMessage).toContainText("You saved the configuration.");
-        if (paymentResources.isLocal()) {
-            console.log(process.env.MAGENTO_BASE_URL);
+        if (!paymentResources.isCI()) {
             await expect(adyenConfigPage.errorMessage).toContainText("Credentials saved but webhook and HMAC key couldn't be generated");
         };
     });

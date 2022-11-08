@@ -262,9 +262,7 @@ export default class PaymentResources {
     },
   };
 
-  isLocal() {
-    if (process.env.MAGENTO_BASE_URL = "https://192.168.58.20/") {
-      return true;
-    }
+  isCI() {
+    return process.env.CI
   }
 }
