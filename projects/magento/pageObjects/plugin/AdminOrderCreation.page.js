@@ -41,13 +41,13 @@ export class AdminOrderCreationPage extends AdminPanelPage {
     await this.thirdProductPriceSelector.click();
     await this.waitForPageLoad(page);
     await this.addProductsToOrderButton.click();
-    // await this.waitForAdminPanelAnimation(page);
+    await this.waitForAdminPanelAnimation(page);
     await this.waitForPageLoad(page);
     await this.shippingMethodCalculateLink.click();
-    // await this.waitForAdminPanelAnimation(page);
+    await this.waitForAdminPanelAnimation(page);
     await this.waitForPageLoad(page);
     await this.shippingMethodSelector.click();
-    // await this.waitForAdminPanelAnimation(page);
+    await this.waitForAdminPanelAnimation(page);
     await this.waitForPageLoad(page);
   }
 
