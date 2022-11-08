@@ -52,7 +52,9 @@ export class AdminOrderCreationPage extends AdminPanelPage {
   async createOrderPayBylink(page) {
     await this.createOrder(page);
     await this.payByLinkSelector.click();
-    await this.waitForAdminPanelAnimation(page);
+    // await this.waitForAdminPanelAnimation(page);
+    await this.waitForPageLoad(page);
+
     await this.submitOrderButton.click();
     await this.waitForPageLoad(page);
 
@@ -69,7 +71,8 @@ export class AdminOrderCreationPage extends AdminPanelPage {
       await this.motoMerchantAccountDropdown.selectOption({ value: `${merchantAccount}` }) :
       await this.motoMerchantAccountDropdown.selectOption({ index: 1 });
 
-    await this.waitForAdminPanelAnimation(page);
+    // await this.waitForAdminPanelAnimation(page);
+    await this.waitForPageLoad(page);
 
     const ccSection = new CreditCardComponents(page);
     await ccSection.fillHolderName("John Doe");
