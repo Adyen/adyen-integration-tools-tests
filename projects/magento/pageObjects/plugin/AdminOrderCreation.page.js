@@ -43,7 +43,7 @@ export class AdminOrderCreationPage extends AdminPanelPage {
     await this.shippingMethodCalculateLink.click();
     // await this.waitForAdminPanelAnimation(page);
     await this.shippingMethodSelector.click();
-    await this.waitForAdminPanelAnimation(page);
+    // await this.waitForAdminPanelAnimation(page);
   }
 
   async createOrderPayBylink(page) {
