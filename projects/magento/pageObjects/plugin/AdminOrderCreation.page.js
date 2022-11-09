@@ -37,13 +37,18 @@ export class AdminOrderCreationPage extends AdminPanelPage {
     await this.testUserNameSelector.click();
     await this.waitForPageLoad(page);
     await this.addProductsButton.click();
+    await this.waitForPageLoad(page);
     await this.thirdProductPriceSelector.click();
+    await this.waitForPageLoad(page);
     await this.addProductsToOrderButton.click();
     await this.waitForAdminPanelAnimation(page);
+    await this.waitForPageLoad(page);
     await this.shippingMethodCalculateLink.click();
     await this.waitForAdminPanelAnimation(page);
+    await this.waitForPageLoad(page);
     await this.shippingMethodSelector.click();
     await this.waitForAdminPanelAnimation(page);
+    await this.waitForPageLoad(page);
   }
 
   async createOrderPayBylink(page) {
@@ -66,7 +71,8 @@ export class AdminOrderCreationPage extends AdminPanelPage {
       await this.motoMerchantAccountDropdown.selectOption({ value: `${merchantAccount}` }) :
       await this.motoMerchantAccountDropdown.selectOption({ index: 1 });
 
-    await this.waitForAdminPanelAnimation(page);
+    // await this.waitForAdminPanelAnimation(page);
+    await this.waitForPageLoad(page);
 
     const ccSection = new CreditCardComponents(page);
     await ccSection.fillHolderName("John Doe");
