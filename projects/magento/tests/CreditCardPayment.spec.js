@@ -103,7 +103,7 @@ test.describe.parallel("Payment via credit card", () => {
       paymentResources.threeDSWrongPassword
     );
 
-    await new CreditCardComponents(page).verifyPaymentRefusal();
+    await new CreditCardComponentsMagento(page).verifyPaymentRefusal();
   });
 
   test("with 3Ds2 should abort the payment with correct message when cancelled", async ({ page }) => {
@@ -119,6 +119,6 @@ test.describe.parallel("Payment via credit card", () => {
 
     await new ThreeDS2PaymentPage(page).clickCancel();
 
-    await new CreditCardComponents(page).verifyPaymentRefusal();
+    await new CreditCardComponentsMagento(page).verifyPaymentRefusal();
   });
 });
