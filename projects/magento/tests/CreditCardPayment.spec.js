@@ -3,7 +3,7 @@ import PaymentResources from "../../data/PaymentResources.js";
 import { makeCreditCardPayment } from "../helpers/PaymentHelper.js";
 import { ThreeDSPaymentPage } from "../../common/redirect/ThreeDSPaymentPage.js";
 import { ThreeDS2PaymentPage } from "../../common/redirect/ThreeDS2PaymentPage.js";
-import { CreditCardComponents } from "../pageObjects/checkout/CreditCardComponents.js";
+import { CreditCardComponents } from "../pageObjects/checkout/CreditCardComponentsMagento.js";
 import {
   goToShippingWithFullCart,
   proceedToPaymentAs,

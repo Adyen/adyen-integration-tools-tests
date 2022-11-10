@@ -1,4 +1,4 @@
-import { CreditCardComponents } from "../checkout/CreditCardComponents.js";
+import { CreditCardComponents } from "../checkout/CreditCardComponentsMagento.js";
 import { AdminPanelPage } from "./AdminPanel.page.js";
 export class AdminOrderCreationPage extends AdminPanelPage {
   constructor(page) {

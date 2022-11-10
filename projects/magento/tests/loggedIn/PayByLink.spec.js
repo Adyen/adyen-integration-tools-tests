@@ -1,7 +1,7 @@
 import { chromium, expect, test } from "@playwright/test";
 import PaymentResources from "../../../data/PaymentResources.js";
 import { loginAsAdmin } from "../../helpers/ScenarioHelper.js";
-import { CreditCardComponents } from "../../pageObjects/checkout/CreditCardComponents.js";
+import { CreditCardComponents } from "../../pageObjects/checkout/CreditCardComponentsMagento.js";
 import { AdminOrderCreationPage } from "../../pageObjects/plugin/AdminOrderCreation.page.js";
 
 const paymentResources = new PaymentResources();
