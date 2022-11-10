@@ -6,7 +6,7 @@ import {
 } from "../helpers/ScenarioHelper.js";
 import { proceedToPaymentAs } from "../helpers/ScenarioHelper.js";
 import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
-import { ClearPayPaymentPage } from "../../common/ClearPayPaymentPage.js";
+import { ClearPayPaymentPage } from "../../common/redirect/ClearPayPaymentPage.js";
 
 const paymentResources = new PaymentResources();
 const user = paymentResources.guestUser.clearPay.approved.it;

@@ -1,5 +1,5 @@
 import { test } from "@playwright/test";
-import { ThreeDSPaymentPage } from "../..redirect/ThreeDSPaymentPage.js";
+import { ThreeDSPaymentPage } from "../../common/redirect/ThreeDSPaymentPage.js";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
   goToShippingWithFullCart,
