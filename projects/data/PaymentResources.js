@@ -1,5 +1,5 @@
 export default class PaymentResources {
-  masterCardWithout3D = "5100290029002909";
+  masterCardWithout3D = "5555341244441115";
   masterCard3DS2 = "5454545454545454";
   visa3DS1 = "4212345678901237";
   oneyCard = "4970101558744789";
