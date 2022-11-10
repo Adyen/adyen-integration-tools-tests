@@ -1,4 +1,4 @@
-import { BancontactCardComponents } from "../checkout/BancontactCardComponentsMagento.js";
+import { BancontactCardComponentsMagento } from "../checkout/BancontactCardComponentsMagento.js";
 import { CreditCardComponents } from "../checkout/CreditCardComponentsMagento.js";
 import { GenericGiftCardComponents } from "../checkout/GenericGiftCardComponentsMagento.js";
 import { IDealComponents } from "../checkout/iDealComponentsMagento.js";
@@ -90,7 +90,7 @@ export class PaymentDetailsPage {
   async selectBancontactCard() {
     await this.bancontactCardRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new BancontactCardComponents(this.page);
+    return new BancontactCardComponentsMagento(this.page);
   }
 
   async selectSepaDirectDebit() {

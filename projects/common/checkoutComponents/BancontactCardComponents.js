@@ -1,4 +1,3 @@
-import { expect } from "@playwright/test";
 export class BancontactCardComponents {
   constructor(page) {
     this.page = page;
@@ -48,15 +47,5 @@ export class BancontactCardComponents {
     await this.fillExpDate(cardExpirationDate);
     await this.fillHolderName(cardHolderName);
     await this.fillHolderName(` ${cardHolderLastName}`);
-  }
-
-  async placeOrder() {
-    await this.placeOrderButton.click();
-  }
-
-  async verifyPaymentRefusal() {
-    await expect(await this.errorMessage.innerText()).toContain(
-      "The payment is REFUSED."
-    );
   }
 }
