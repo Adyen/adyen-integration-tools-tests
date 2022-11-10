@@ -1,16 +1,16 @@
-import { BancontactCardComponents } from "../checkout/BancontactCardComponents.js";
-import { CreditCardComponents } from "../checkout/CreditCardComponents.js";
-import { GenericGiftCardComponents } from "../checkout/GenericGiftCardComponents.js";
-import { IDealComponents } from "../checkout/iDealComponents.js";
-import { KlarnaPayLaterComponents } from "../checkout/KlarnaPayLaterComponents.js";
-import { OneyComponents } from "../checkout/OneyComponents.js";
-import { PayPalComponents } from "../checkout/PayPalComponents.js";
-import { SepaDirectDebitComponents } from "../checkout/SepaDirectDebitComponents.js";
-import { ClearPayComponents } from "../checkout/ClearPayComponents.js";
-import { BoletoComponents } from "../checkout/BoletoComponents.js";
-import { MultiBancoComponents } from "../checkout/MultiBancoComponents.js";
-import { KlarnaPayNowComponents } from "../checkout/KlarnaPayNowComponents.js";
-import { KlarnaPayOverTimeComponents } from "../checkout/KlarnaPayOverTimeComponents.js";
+import { BancontactCardComponents } from "../checkout/BancontactCardComponentsMagento.js";
+import { CreditCardComponents } from "../checkout/CreditCardComponentsMagento.js";
+import { GenericGiftCardComponents } from "../checkout/GenericGiftCardComponentsMagento.js";
+import { IDealComponents } from "../checkout/iDealComponentsMagento.js";
+import { KlarnaPayLaterComponents } from "../checkout/KlarnaPayLaterComponentsMagento.js";
+import { OneyComponents } from "../checkout/OneyComponentsMagento.js";
+import { PayPalComponents } from "../checkout/PayPalComponentsMagento.js";
+import { SepaDirectDebitComponents } from "../checkout/SepaDirectDebitComponentsMagento.js";
+import { ClearPayComponents } from "../checkout/ClearPayComponentsMagento.js";
+import { BoletoComponents } from "../checkout/BoletoComponentsMagento.js";
+import { MultiBancoComponents } from "../checkout/MultiBancoComponentsMagento.js";
+import { KlarnaPayNowComponents } from "../checkout/KlarnaPayNowComponentsMagento.js";
+import { KlarnaPayOverTimeComponents } from "../checkout/KlarnaPayOverTimeComponentsMagento.js";
 import { VaultComponents } from "../checkout/VaultComponents.js";
 
 export class PaymentDetailsPage {
