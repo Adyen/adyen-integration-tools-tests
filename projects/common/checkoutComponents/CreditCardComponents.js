@@ -3,8 +3,6 @@ export class CreditCardComponents {
   constructor(page) {
     this.page = page;
 
-    this.errorMessage = page.locator("#adyen-cc-form .message-error");
-
     this.holderNameInput = page.locator(
       ".adyen-checkout__card__holderName input"
     );
@@ -78,17 +76,5 @@ export class CreditCardComponents {
       cardCVC
     );
     await this.placeOrder();
-  }
-
-  async verifyPaymentRefusal() {
-    await expect(await this.errorMessage.innerText()).toContain(
-      "The payment is REFUSED."
-    );
-  }
-
-  async verifyPaymentCancellation() {
-    await expect(await this.errorMessage.innerText()).toContain(
-      "Payment has been cancelled"
-    );
   }
 }
