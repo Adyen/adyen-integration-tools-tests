@@ -12,10 +12,6 @@ export class BoletoComponents {
     );
   }
 
-  async placeOrder() {
-    await this.placeOrderButton.click();
-  }
-
   async fillBoletoDetails(socialSecurityNumber, firstName, lastName) {
     await this.socialSecurityNumberInput.fill(socialSecurityNumber);
     await this.firstNameInput.fill(firstName);
