@@ -1,8 +1,8 @@
 import { test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
 import { makeCreditCardPayment } from "../helpers/PaymentHelper.js";
-import { ThreeDSPaymentPage } from "../../common/ThreeDSPaymentPage.js";
-import { ThreeDS2PaymentPage } from "../../common/ThreeDS2PaymentPage.js";
+import { ThreeDSPaymentPage } from "../../common/redirect/ThreeDSPaymentPage.js";
+import { ThreeDS2PaymentPage } from "../../common/redirect/ThreeDS2PaymentPage.js";
 import { CreditCardComponents } from "../pageObjects/checkout/CreditCardComponents.js";
 import {
   goToShippingWithFullCart,

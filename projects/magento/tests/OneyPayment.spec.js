@@ -6,7 +6,7 @@ import {
 } from "../helpers/ScenarioHelper.js";
 import { proceedToPaymentAs } from "../helpers/ScenarioHelper.js";
 import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
-import { OneyPaymentPage } from "../../common/OneyPaymentPage.js";
+import { OneyPaymentPage } from "../../common/redirect/OneyPaymentPage.js";
 
 const paymentResources = new PaymentResources();
 const user = paymentResources.guestUser.oney.approved.fr;

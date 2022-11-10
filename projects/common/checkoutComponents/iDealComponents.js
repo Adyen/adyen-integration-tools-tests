@@ -1,4 +1,4 @@
-import { IdealIssuerPage } from "../../../common/IdealIssuerPage.js";
+import { IdealIssuerPage } from "../../../common/redirect/IdealIssuerPage.js";
 export class IDealComponents {
   constructor(page) {
     this.page = page;

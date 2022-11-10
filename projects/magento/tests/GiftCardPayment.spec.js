@@ -1,6 +1,5 @@
 import { test } from "@playwright/test";
-import { GiftCardHPPage } from "../../common/GiftCardHPPage.js";
-import { ThreeDSPaymentPage } from "../../common/ThreeDSPaymentPage.js";
+import { GiftCardHPPage } from "../../common/redirect/GiftCardHPPage.js";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
   goToShippingWithFullCart,

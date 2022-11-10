@@ -6,7 +6,7 @@ import {
 } from "../helpers/ScenarioHelper.js";
 import { proceedToPaymentAs } from "../helpers/ScenarioHelper.js";
 import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
-import { PayPalPaymentPage } from "../../common/PayPalPaymentPage.js";
+import { PayPalPaymentPage } from "../../common/redirect/PayPalPaymentPage.js";
 
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;

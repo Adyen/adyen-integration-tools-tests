@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
-import { ThreeDS2PaymentPage } from "../../common/ThreeDS2PaymentPage.js";
+import { ThreeDS2PaymentPage } from "../../common/redirect/ThreeDS2PaymentPage.js";
 import {
   goToShippingWithFullCart,
   proceedToPaymentAs,

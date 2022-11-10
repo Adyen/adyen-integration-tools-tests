@@ -1,5 +1,5 @@
 import { test } from "@playwright/test";
-import KlarnaPaymentPage from "../../common/KlarnaPaymentPage.js";
+import KlarnaPaymentPage from "../../common/redirect/KlarnaPaymentPage.js";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
   goToShippingWithFullCart,
