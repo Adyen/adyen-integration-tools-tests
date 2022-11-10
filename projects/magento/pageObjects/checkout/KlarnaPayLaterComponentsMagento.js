@@ -1,4 +1,4 @@
-export class KlarnaPayLaterComponents {
+export class KlarnaPayLaterComponentsMagento {
   constructor(page) {
     this.page = page;
 
