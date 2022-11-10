@@ -1,7 +1,7 @@
 import { BancontactCardComponentsMagento } from "../checkout/BancontactCardComponentsMagento.js";
 import { CreditCardComponentsMagento } from "../checkout/CreditCardComponentsMagento.js";
 import { GenericGiftCardComponentsMagento } from "../checkout/GenericGiftCardComponentsMagento.js";
-import { IDealComponents } from "../checkout/iDealComponentsMagento.js";
+import { IDealComponentsMagento } from "../checkout/iDealComponentsMagento.js";
 import { KlarnaPayLaterComponents } from "../checkout/KlarnaPayLaterComponentsMagento.js";
 import { OneyComponents } from "../checkout/OneyComponentsMagento.js";
 import { PayPalComponents } from "../checkout/PayPalComponentsMagento.js";
@@ -60,7 +60,7 @@ export class PaymentDetailsPage {
   async selectIDeal() {
     await this.idealRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new IDealComponents(this.page);
+    return new IDealComponentsMagento(this.page);
   }
 
   async selectPayPal() {
