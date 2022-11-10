@@ -1,4 +1,4 @@
-export class GenericGiftCardComponents {
+export class GenericGiftCardComponentsMagento {
   constructor(page) {
     this.page = page;
 
