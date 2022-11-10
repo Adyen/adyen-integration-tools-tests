@@ -6,7 +6,7 @@ import {
   proceedToPaymentAs,
 } from "../helpers/ScenarioHelper.js";
 import { makeCreditCardPayment } from "../helpers/PaymentHelper.js";
-import { AdyenGivingMagento } from "../pageObjects/checkout/AdyenGivingMagento.js";
+import { AdyenGivingMagento } from "../pageObjects/checkout/AdyenGivingComponentsMagento.js";
 
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
