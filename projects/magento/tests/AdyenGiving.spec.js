@@ -34,7 +34,7 @@ test.describe.parallel("Adyen Giving payments", () => {
   });
 
   test("should redirect to landing page when declined", async ({ page }) => {
-    const donationSection = new AdyenGivingComponents(page);
+    const donationSection = new AdyenGivingMagento(page);
 
     // Check whether the redirect occurs after declining the donation
     const [response] = await Promise.all([
