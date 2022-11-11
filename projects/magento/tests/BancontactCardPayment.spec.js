@@ -3,6 +3,7 @@ import { ThreeDSPaymentPage } from "../../common/redirect/ThreeDSPaymentPage.js"
 import PaymentResources from "../../data/PaymentResources.js";
 import {
   goToShippingWithFullCart,
+  placeOrder,
   proceedToPaymentAs,
   verifyFailedPayment,
   verifySuccessfulPayment,
@@ -24,7 +25,7 @@ test.describe.parallel("Payment via Bancontact Card", () => {
       user.firstName,
       user.lastName
     );
-    await bancontactCardSection.placeOrder();
+    await placeOrder(page);
   });
 
   test("should succeed with correct 3DS credentials", async ({ page }) => {

@@ -7,18 +7,10 @@ export class BancontactCardComponentsMagento extends BancontactCardComponents {
 
 
     this.errorMessage = page.locator("#messages-bcmc");
-    this.placeOrderButton = page.locator(
-      ".payment-method._active button[type=submit]"
-    );
-  }
-
-
-  async placeOrder() {
-    await this.placeOrderButton.click();
   }
 
   async verifyPaymentRefusal() {
-    await expect(await this.errorMessage.innerText()).toContain(
+    expect(await this.errorMessage.innerText()).toContain(
       "The payment is REFUSED."
     );
   }
