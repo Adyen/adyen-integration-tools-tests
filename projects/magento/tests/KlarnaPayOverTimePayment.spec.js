@@ -3,6 +3,7 @@ import KlarnaPaymentPage from "../../common/redirect/KlarnaPaymentPage.js";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
   goToShippingWithFullCart,
+  placeOrder,
   proceedToPaymentAs,
   verifyFailedPayment,
   verifySuccessfulPayment,
@@ -35,9 +36,7 @@ test.describe.parallel("Payment via Klarna Pay Over Time", () => {
 });
 
 async function proceedToKlarnaPayOverTime(page) {
-  const paymentDetailPage = new PaymentDetailsPage(page);
-  const klarnaPayOverTimeSection =
-    await paymentDetailPage.selectKlarnaPayOverTime(page);
-  await klarnaPayOverTimeSection.placeOrder();
+  await new PaymentDetailsPage(page).selectKlarnaPayOverTime();
+  await placeOrder(page);
   return new KlarnaPaymentPage(page);
 }

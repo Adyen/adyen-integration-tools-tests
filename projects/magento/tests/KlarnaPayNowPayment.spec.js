@@ -3,6 +3,7 @@ import KlarnaPaymentPage from "../../common/redirect/KlarnaPaymentPage.js";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
   goToShippingWithFullCart,
+  placeOrder,
   proceedToPaymentAs,
   verifyFailedPayment,
   verifySuccessfulPayment,
@@ -47,8 +48,7 @@ test.describe.parallel("Payment via Klarna Pay Now", () => {
 });
 
 async function proceedToKlarnaPayNow(page) {
-  const paymentDetailPage = new PaymentDetailsPage(page);
-  const klarnaPayNowSection = await paymentDetailPage.selectKlarnaPayNow(page);
-  await klarnaPayNowSection.placeOrder();
+  await new PaymentDetailsPage(page).selectKlarnaPayNow();
+  await placeOrder(page);
   return new KlarnaPaymentPage(page);
 }

@@ -1,12 +1,9 @@
 import { BancontactCardComponentsMagento } from "../checkout/BancontactCardComponentsMagento.js";
 import { CreditCardComponentsMagento } from "../checkout/CreditCardComponentsMagento.js";
-import { KlarnaPayLaterComponentsMagento } from "../checkout/KlarnaPayLaterComponentsMagento.js";
 import { OneyComponentsMagento } from "../checkout/OneyComponentsMagento.js";
 import { PayPalComponents } from "../../../common/checkoutComponents/PayPalComponents.js"
 import { SepaDirectDebitComponentsMagento } from "../checkout/SepaDirectDebitComponentsMagento.js";
 import { MultiBancoComponentsMagento } from "../checkout/MultiBancoComponentsMagento.js";
-import { KlarnaPayNowComponentsMagento } from "../checkout/KlarnaPayNowComponentsMagento.js";
-import { KlarnaPayOverTimeComponentsMagento } from "../checkout/KlarnaPayOverTimeComponentsMagento.js";
 import { VaultComponents } from "../checkout/VaultComponents.js";
 import { BoletoComponents } from "../../../common/checkoutComponents/BoletoComponents.js";
 import { IDealComponents } from "../../../common/checkoutComponents/iDealComponents.js";
@@ -70,19 +67,16 @@ export class PaymentDetailsPage {
   async selectKlarnaPayLater() {
     await this.klarnaPayLaterRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new KlarnaPayLaterComponentsMagento(this.page);
   }
 
   async selectKlarnaPayOverTime() {
     await this.klarnaPayOverTimeRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new KlarnaPayOverTimeComponentsMagento(this.page);
   }
 
   async selectKlarnaPayNow() {
     await this.klarnaPayNowRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new KlarnaPayNowComponentsMagento(this.page);
   }
 
   async selectBancontactCard() {
