@@ -7,11 +7,11 @@ import { OneyComponentsMagento } from "../checkout/OneyComponentsMagento.js";
 import { PayPalComponents } from "../../../common/checkoutComponents/PayPalComponents.js"
 import { SepaDirectDebitComponentsMagento } from "../checkout/SepaDirectDebitComponentsMagento.js";
 import { ClearPayComponents } from "../checkout/ClearPayComponentsMagento.js";
-import { BoletoComponentsMagento } from "../checkout/BoletoComponentsMagento.js";
 import { MultiBancoComponentsMagento } from "../checkout/MultiBancoComponentsMagento.js";
 import { KlarnaPayNowComponentsMagento } from "../checkout/KlarnaPayNowComponentsMagento.js";
 import { KlarnaPayOverTimeComponentsMagento } from "../checkout/KlarnaPayOverTimeComponentsMagento.js";
 import { VaultComponents } from "../checkout/VaultComponents.js";
+import { BoletoComponents } from "../../../common/checkoutComponents/BoletoComponents.js";
 
 export class PaymentDetailsPage {
   constructor(page) {
@@ -120,7 +120,7 @@ export class PaymentDetailsPage {
   async selectBoleto() {
     await this.boletoRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new BoletoComponentsMagento(this.page);
+    return new BoletoComponents(this.page);
   }
 
   async selectMultiBanco() {

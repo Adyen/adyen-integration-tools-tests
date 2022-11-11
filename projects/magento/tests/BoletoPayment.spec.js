@@ -2,6 +2,7 @@ import { test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
   goToShippingWithFullCart,
+  placeOrder,
   proceedToPaymentAs,
   verifySuccessfulPayment,
   verifyVoucherCouponGeneration,
@@ -27,7 +28,7 @@ test.describe("Payment via Boleto", () => {
       user.firstName,
       user.lastName
     );
-    await boletoSection.placeOrder();
+    await placeOrder(page);
     await verifySuccessfulPayment(page);
     await verifyVoucherCouponGeneration(page);
   });
