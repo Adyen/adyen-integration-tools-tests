@@ -9,13 +9,13 @@ export class CreditCardComponentsMagento extends CreditCardComponents {
   }
 
   async verifyPaymentRefusal() {
-    await expect(await this.errorMessage.innerText()).toContain(
+    expect(await this.errorMessage.innerText()).toContain(
       "The payment is REFUSED."
     );
   }
 
   async verifyPaymentCancellation() {
-    await expect(await this.errorMessage.innerText()).toContain(
+    expect(await this.errorMessage.innerText()).toContain(
       "Payment has been cancelled"
     );
   }
