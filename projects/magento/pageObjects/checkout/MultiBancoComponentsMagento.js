@@ -1,4 +1,4 @@
-export class MultiBancoComponents {
+export class MultiBancoComponentsMagento {
   constructor(page) {
     this.page = page;
 

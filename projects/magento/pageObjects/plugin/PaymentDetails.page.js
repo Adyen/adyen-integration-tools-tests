@@ -8,7 +8,7 @@ import { PayPalComponents } from "../checkout/PayPalComponentsMagento.js";
 import { SepaDirectDebitComponents } from "../checkout/SepaDirectDebitComponentsMagento.js";
 import { ClearPayComponents } from "../checkout/ClearPayComponentsMagento.js";
 import { BoletoComponentsMagento } from "../checkout/BoletoComponentsMagento.js";
-import { MultiBancoComponents } from "../checkout/MultiBancoComponentsMagento.js";
+import { MultiBancoComponentsMagento } from "../checkout/MultiBancoComponentsMagento.js";
 import { KlarnaPayNowComponentsMagento } from "../checkout/KlarnaPayNowComponentsMagento.js";
 import { KlarnaPayOverTimeComponentsMagento } from "../checkout/KlarnaPayOverTimeComponentsMagento.js";
 import { VaultComponents } from "../checkout/VaultComponents.js";
@@ -126,7 +126,7 @@ export class PaymentDetailsPage {
   async selectMultiBanco() {
     await this.multiBancoRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new MultiBancoComponents(this.page);
+    return new MultiBancoComponentsMagento(this.page);
   }
 
   async waitForPaymentMethodReady() {
