@@ -2,6 +2,7 @@ import { test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
   goToShippingWithFullCart,
+  placeOrder,
   verifySuccessfulPayment,
 } from "../helpers/ScenarioHelper.js";
 import { proceedToPaymentAs } from "../helpers/ScenarioHelper.js";
@@ -23,9 +24,8 @@ test.describe("Payment via ClearPay", () => {
   });
 
   async function payViaClearPay(page) {
-    const paymentDetailPage = new PaymentDetailsPage(page);
-    const clearPayPaymentSection = await paymentDetailPage.selectClearPay();
-    await clearPayPaymentSection.placeOrder();
+    await new PaymentDetailsPage(page).selectClearPay();
+    await placeOrder(page);
     await new ClearPayPaymentPage(page).continueClearPayPayment();
   }
 });

@@ -6,7 +6,6 @@ import { KlarnaPayLaterComponentsMagento } from "../checkout/KlarnaPayLaterCompo
 import { OneyComponentsMagento } from "../checkout/OneyComponentsMagento.js";
 import { PayPalComponents } from "../../../common/checkoutComponents/PayPalComponents.js"
 import { SepaDirectDebitComponentsMagento } from "../checkout/SepaDirectDebitComponentsMagento.js";
-import { ClearPayComponents } from "../checkout/ClearPayComponentsMagento.js";
 import { MultiBancoComponentsMagento } from "../checkout/MultiBancoComponentsMagento.js";
 import { KlarnaPayNowComponentsMagento } from "../checkout/KlarnaPayNowComponentsMagento.js";
 import { KlarnaPayOverTimeComponentsMagento } from "../checkout/KlarnaPayOverTimeComponentsMagento.js";
@@ -114,7 +113,6 @@ export class PaymentDetailsPage {
   async selectClearPay() {
     await this.clearPayRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new ClearPayComponents(this.page);
   }
 
   async selectBoleto() {
