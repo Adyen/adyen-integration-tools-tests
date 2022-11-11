@@ -2,6 +2,7 @@ import { test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
   goToShippingWithFullCart,
+  placeOrder,
   verifySuccessfulPayment,
 } from "../helpers/ScenarioHelper.js";
 import { proceedToPaymentAs } from "../helpers/ScenarioHelper.js";
@@ -28,7 +29,7 @@ test.describe("Payment via Oney", () => {
     const oneyPaymentSection = await paymentDetailPage.selectOney();
 
     await oneyPaymentSection.completeOneyForm(user.dateOfBirth);
-    await oneyPaymentSection.placeOrder();
+    await placeOrder(page);
     await new OneyPaymentPage(page).continueOneyPayment();
   }
 });

@@ -1,11 +1,11 @@
 import { BancontactCardComponentsMagento } from "../checkout/BancontactCardComponentsMagento.js";
 import { CreditCardComponentsMagento } from "../checkout/CreditCardComponentsMagento.js";
-import { OneyComponentsMagento } from "../checkout/OneyComponentsMagento.js";
 import { PayPalComponents } from "../../../common/checkoutComponents/PayPalComponents.js"
 import { SepaDirectDebitComponentsMagento } from "../checkout/SepaDirectDebitComponentsMagento.js";
 import { VaultComponents } from "../checkout/VaultComponents.js";
 import { BoletoComponents } from "../../../common/checkoutComponents/BoletoComponents.js";
 import { IDealComponents } from "../../../common/checkoutComponents/iDealComponents.js";
+import { OneyComponents } from "../../../common/checkoutComponents/OneyComponents.js";
 
 export class PaymentDetailsPage {
   constructor(page) {
@@ -98,7 +98,7 @@ export class PaymentDetailsPage {
   async selectOney() {
     await this.oney3RadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new OneyComponentsMagento(this.page);
+    return new OneyComponents(this.page);
   }
 
   async selectClearPay() {
