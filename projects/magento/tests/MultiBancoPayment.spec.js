@@ -2,6 +2,7 @@ import { test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
   goToShippingWithFullCart,
+  placeOrder,
   proceedToPaymentAs,
   verifySuccessfulPayment,
   verifyVoucherCouponGeneration,
@@ -18,10 +19,8 @@ test.describe("Payment via MultiBanco", () => {
   });
 
   test("should succeed", async ({ page }) => {
-    const paymentDetailPage = new PaymentDetailsPage(page);
-    const multiBancoSection = await paymentDetailPage.selectMultiBanco();
-    await multiBancoSection.placeOrder();
-
+    await new PaymentDetailsPage(page).selectMultiBanco();
+    await placeOrder(page);
     await verifySuccessfulPayment(page);
     await verifyVoucherCouponGeneration(page);
   });
