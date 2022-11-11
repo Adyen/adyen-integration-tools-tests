@@ -4,7 +4,7 @@ import { GenericGiftCardComponentsMagento } from "../checkout/GenericGiftCardCom
 import { IDealComponentsMagento } from "../checkout/iDealComponentsMagento.js";
 import { KlarnaPayLaterComponentsMagento } from "../checkout/KlarnaPayLaterComponentsMagento.js";
 import { OneyComponentsMagento } from "../checkout/OneyComponentsMagento.js";
-import { PayPalComponents } from "../checkout/PayPalComponentsMagento.js";
+import { PayPalComponents } from "../../../common/checkoutComponents/PayPalComponents.js"
 import { SepaDirectDebitComponents } from "../checkout/SepaDirectDebitComponentsMagento.js";
 import { ClearPayComponents } from "../checkout/ClearPayComponentsMagento.js";
 import { BoletoComponentsMagento } from "../checkout/BoletoComponentsMagento.js";
