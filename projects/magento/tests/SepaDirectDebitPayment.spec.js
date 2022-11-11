@@ -2,6 +2,7 @@ import { test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
   goToShippingWithFullCart,
+  placeOrder,
   proceedToPaymentAs,
   verifySuccessfulPayment,
 } from "../helpers/ScenarioHelper.js";
@@ -25,7 +26,7 @@ test.describe("Payment via SEPA Direct debit", () => {
       ibanDetails.accountName,
       ibanDetails.iban
     );
-    await sepaPaymentSection.placeOrder();
+    await placeOrder(page);
 
     await verifySuccessfulPayment(page);
   });
