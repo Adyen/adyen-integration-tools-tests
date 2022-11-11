@@ -5,7 +5,7 @@ import { IDealComponentsMagento } from "../checkout/iDealComponentsMagento.js";
 import { KlarnaPayLaterComponentsMagento } from "../checkout/KlarnaPayLaterComponentsMagento.js";
 import { OneyComponentsMagento } from "../checkout/OneyComponentsMagento.js";
 import { PayPalComponents } from "../../../common/checkoutComponents/PayPalComponents.js"
-import { SepaDirectDebitComponents } from "../checkout/SepaDirectDebitComponentsMagento.js";
+import { SepaDirectDebitComponentsMagento } from "../checkout/SepaDirectDebitComponentsMagento.js";
 import { ClearPayComponents } from "../checkout/ClearPayComponentsMagento.js";
 import { BoletoComponentsMagento } from "../checkout/BoletoComponentsMagento.js";
 import { MultiBancoComponentsMagento } from "../checkout/MultiBancoComponentsMagento.js";
@@ -96,7 +96,7 @@ export class PaymentDetailsPage {
   async selectSepaDirectDebit() {
     await this.sepaDirectDebitRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new SepaDirectDebitComponents(this.page);
+    return new SepaDirectDebitComponentsMagento(this.page);
   }
 
   async selectGiftCard() {

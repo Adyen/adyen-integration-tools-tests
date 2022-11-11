@@ -11,9 +11,6 @@ export class SepaDirectDebitComponents {
     this.accountNumberInput = this.sepaDirectDebitSection.locator(
       "input[name='ibanNumber']"
     );
-    this.placeOrderButton = page.locator(
-      ".payment-method._active button[type=submit]"
-    );
   }
 
   async fillSepaDirectDebitInfo(accountHolderName, accountNumber) {
@@ -22,9 +19,5 @@ export class SepaDirectDebitComponents {
 
     await this.accountNumberInput.click();
     await this.accountNumberInput.fill(accountNumber);
-  }
-
-  async placeOrder() {
-    await this.placeOrderButton.click();
   }
 }
