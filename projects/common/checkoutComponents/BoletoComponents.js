@@ -7,9 +7,6 @@ export class BoletoComponents {
     );
     this.firstNameInput = page.locator("#adyen_boleto_firstname");
     this.lastNameInput = page.locator("#adyen_boleto_lastname");
-    this.placeOrderButton = page.locator(
-      ".payment-method._active button[type=submit]"
-    );
   }
 
   async fillBoletoDetails(socialSecurityNumber, firstName, lastName) {
