@@ -1,6 +1,5 @@
 import { BancontactCardComponentsMagento } from "../checkout/BancontactCardComponentsMagento.js";
 import { CreditCardComponentsMagento } from "../checkout/CreditCardComponentsMagento.js";
-import { IDealComponentsMagento } from "../checkout/iDealComponentsMagento.js";
 import { KlarnaPayLaterComponentsMagento } from "../checkout/KlarnaPayLaterComponentsMagento.js";
 import { OneyComponentsMagento } from "../checkout/OneyComponentsMagento.js";
 import { PayPalComponents } from "../../../common/checkoutComponents/PayPalComponents.js"
@@ -10,6 +9,7 @@ import { KlarnaPayNowComponentsMagento } from "../checkout/KlarnaPayNowComponent
 import { KlarnaPayOverTimeComponentsMagento } from "../checkout/KlarnaPayOverTimeComponentsMagento.js";
 import { VaultComponents } from "../checkout/VaultComponents.js";
 import { BoletoComponents } from "../../../common/checkoutComponents/BoletoComponents.js";
+import { IDealComponents } from "../../../common/checkoutComponents/iDealComponents.js";
 
 export class PaymentDetailsPage {
   constructor(page) {
@@ -58,7 +58,7 @@ export class PaymentDetailsPage {
   async selectIDeal() {
     await this.idealRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new IDealComponentsMagento(this.page);
+    return new IDealComponents(this.page);
   }
 
   async selectPayPal() {
