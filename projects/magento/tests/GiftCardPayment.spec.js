@@ -3,6 +3,7 @@ import { GiftCardHPPage } from "../../common/redirect/GiftCardHPPage.js";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
   goToShippingWithFullCart,
+  placeOrder,
   proceedToPaymentAs,
   verifyFailedPayment,
   verifySuccessfulPayment,
@@ -121,8 +122,7 @@ test.describe.parallel("Payment via Gift Card", () => {
 });
 
 async function selectGiftCard(page) {
-  const paymentDetailPage = new PaymentDetailsPage(page);
-  const giftCardSection = await paymentDetailPage.selectGiftCard(page);
-  await giftCardSection.placeOrder();
+  await new PaymentDetailsPage(page).selectGiftCard(page);
+  await placeOrder(page);
   return new GiftCardHPPage(page);
 }

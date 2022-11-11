@@ -1,6 +1,5 @@
 import { BancontactCardComponentsMagento } from "../checkout/BancontactCardComponentsMagento.js";
 import { CreditCardComponentsMagento } from "../checkout/CreditCardComponentsMagento.js";
-import { GenericGiftCardComponentsMagento } from "../checkout/GenericGiftCardComponentsMagento.js";
 import { IDealComponentsMagento } from "../checkout/iDealComponentsMagento.js";
 import { KlarnaPayLaterComponentsMagento } from "../checkout/KlarnaPayLaterComponentsMagento.js";
 import { OneyComponentsMagento } from "../checkout/OneyComponentsMagento.js";
@@ -101,7 +100,6 @@ export class PaymentDetailsPage {
   async selectGiftCard() {
     await this.genericGiftCardRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new GenericGiftCardComponentsMagento(this.page);
   }
 
   async selectOney() {
