@@ -1,7 +1,7 @@
 import { chromium, expect, test } from "@playwright/test";
 import PaymentResources from "../../../data/PaymentResources.js";
 import { loginAsAdmin } from "../../helpers/ScenarioHelper.js";
-import { CreditCardComponents } from "../../pageObjects/checkout/CreditCardComponentsMagento.js";
+import { CreditCardComponentsMagento } from "../../pageObjects/checkout/CreditCardComponentsMagento.js";
 import { AdminOrderCreationPage } from "../../pageObjects/plugin/AdminOrderCreation.page.js";
 
 const paymentResources = new PaymentResources();
@@ -29,7 +29,7 @@ test.describe("Payment via PayByLink", () => {
     /* Passing the outer page object to the constructor instead of
     the object "page" since we need an additional wrapper locator
     to be able to find the elements on checkout page. */
-    const creditCardSection = new CreditCardComponents(
+    const creditCardSection = new CreditCardComponentsMagento(
       userSession.locator(".adyen-checkout__payment-method--selected")
     );
     await userSession.click("button[aria-label='Credit Card']");
