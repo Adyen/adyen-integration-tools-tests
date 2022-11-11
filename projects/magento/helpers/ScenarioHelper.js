@@ -71,3 +71,11 @@ export async function verifyFailedPayment(page) {
     "Your payment failed, Please try again later"
   );
 }
+
+export async function placeOrder(page) {
+  const placeOrderButton = page.locator(
+    ".payment-method._active button[type=submit]"
+  );
+
+  await placeOrderButton.click();
+}
