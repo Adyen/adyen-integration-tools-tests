@@ -1,4 +1,6 @@
-export class OneyComponents {
+import { OneyComponents } from "../../../common/checkoutComponents/OneyComponents.js";
+
+export class OneyComponentsMagento extends OneyComponents {
   constructor(page) {
     this.page = page;
 
@@ -6,17 +8,6 @@ export class OneyComponents {
     this.placeOrderButton = this.activePaymentMethodSection.locator(
       "button[type=submit]"
     );
-    this.maleGenderRadioButton = this.activePaymentMethodSection
-      .locator(".adyen-checkout__radio_group__input-wrapper")
-      .nth(0);
-    this.birthdayInput = this.activePaymentMethodSection.locator(
-      ".adyen-checkout__input--dateOfBirth"
-    );
-  }
-
-  async completeOneyForm(birthday) {
-    await this.maleGenderRadioButton.click();
-    await this.birthdayInput.type(birthday);
   }
 
   async placeOrder() {

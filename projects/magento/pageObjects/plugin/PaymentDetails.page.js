@@ -3,7 +3,7 @@ import { CreditCardComponentsMagento } from "../checkout/CreditCardComponentsMag
 import { GenericGiftCardComponentsMagento } from "../checkout/GenericGiftCardComponentsMagento.js";
 import { IDealComponentsMagento } from "../checkout/iDealComponentsMagento.js";
 import { KlarnaPayLaterComponentsMagento } from "../checkout/KlarnaPayLaterComponentsMagento.js";
-import { OneyComponents } from "../checkout/OneyComponentsMagento.js";
+import { OneyComponentsMagento } from "../checkout/OneyComponentsMagento.js";
 import { PayPalComponents } from "../checkout/PayPalComponentsMagento.js";
 import { SepaDirectDebitComponents } from "../checkout/SepaDirectDebitComponentsMagento.js";
 import { ClearPayComponents } from "../checkout/ClearPayComponentsMagento.js";
@@ -108,7 +108,7 @@ export class PaymentDetailsPage {
   async selectOney() {
     await this.oney3RadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new OneyComponents(this.page);
+    return new OneyComponentsMagento(this.page);
   }
 
   async selectClearPay() {
