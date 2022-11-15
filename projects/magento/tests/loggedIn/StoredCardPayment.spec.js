@@ -6,6 +6,7 @@ import {
   proceedToPaymentAs,
   verifySuccessfulPayment,
   loginAs,
+  placeOrder,
 } from "../../../magento/helpers/ScenarioHelper.js";
 
 const paymentResources = new PaymentResources();
@@ -49,13 +50,14 @@ async function makeCreditCardPayment(
   const paymentDetailPage = new PaymentDetailsPage(page);
   const creditCardSection = await paymentDetailPage.selectCreditCard();
   if (saveCard == true) await paymentDetailPage.savePaymentMethod();
-  await creditCardSection.fillCreditCardInfoAndPlaceOrder(
+  await creditCardSection.fillCreditCardInfo(
     user.firstName,
     user.lastName,
     creditCardNumber,
     expDate,
     cvc
   );
+  await placeOrder(page);
 }
 
 async function makeVaultPayment(page) {
