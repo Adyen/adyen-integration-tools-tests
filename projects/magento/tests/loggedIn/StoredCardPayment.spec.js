@@ -61,7 +61,6 @@ async function makeCreditCardPayment(
 }
 
 async function makeVaultPayment(page) {
-  const paymentDetailPage = new PaymentDetailsPage(page);
-  const vaultPaymentSection = await paymentDetailPage.selectVault();
-  await vaultPaymentSection.placeOrder();
+  await new PaymentDetailsPage(page).selectVault();
+  await placeOrder(page);
 }

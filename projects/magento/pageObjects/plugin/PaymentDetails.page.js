@@ -2,7 +2,6 @@ import { BancontactCardComponentsMagento } from "../checkout/BancontactCardCompo
 import { CreditCardComponentsMagento } from "../checkout/CreditCardComponentsMagento.js";
 import { PayPalComponents } from "../../../common/checkoutComponents/PayPalComponents.js"
 import { SepaDirectDebitComponents } from "../../../common/checkoutComponents/SepaDirectDebitComponents.js";
-import { VaultComponents } from "../checkout/VaultComponents.js";
 import { BoletoComponents } from "../../../common/checkoutComponents/BoletoComponents.js";
 import { IDealComponents } from "../../../common/checkoutComponents/iDealComponents.js";
 import { OneyComponents } from "../../../common/checkoutComponents/OneyComponents.js";
@@ -42,7 +41,6 @@ export class PaymentDetailsPage {
   async selectVault() {
     await this.vaultRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new VaultComponents(this.page);
   }
 
   async selectCreditCard() {
