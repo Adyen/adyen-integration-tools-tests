@@ -23,6 +23,9 @@ export class ShippingPage {
         this.countrySelectDropdown = this.shippingFormContainer.locator("#billingAddressAddressCountry");
         this.stateSelectDropDown = this.shippingFormContainer.locator("#billingAddressAddressCountryState");
 
+        //Continue button
+        this.continueButton = page.locator(".register-submit button.btn-primary");
+
     }
 
     // General actions
@@ -51,7 +54,7 @@ export class ShippingPage {
     }
 
     async clickContinue() {
-        return await this.alertMessage.textContent();
+        await this.continueButton.click();
     }
 
 
