@@ -1,12 +1,9 @@
-export class ShippingPage {
+import { SPRBasePage } from "./SPRBase.page.js";
+
+export class ShippingDetailsPage extends SPRBasePage {
     constructor(page) {
+        super(page);
         this.page = page;
-
-        // Header section
-        this.header = page.locator(".header-minimal");
-        this.headerLogo = this.header.locator(".header-logo-main");
-
-        this.backToShopButton = this.header.locator(".header-minimal-back-to-shop-button");
 
         // Shipping details form
         this.shippingFormContainer = page.locator(".register-form");
@@ -14,7 +11,7 @@ export class ShippingPage {
         this.salutationDropDown = this.shippingFormContainer.locator("#personalSalutation");
         this.firstNameField = this.shippingFormContainer.locator("#personalFirstName");
         this.lastNameField = this.shippingFormContainer.locator("#personalLastName");
-        this.noCustomerAccountCheckBox = this.shippingFormContainer.locator("#personalGuest");
+        this.noCustomerAccountCheckBox = this.shippingFormContainer.locator("label[for='personalGuest']");
         this.emailField = this.shippingFormContainer.locator("#personalMail");
 
         this.addressField = this.shippingFormContainer.locator("#billingAddressAddressStreet");
@@ -28,12 +25,6 @@ export class ShippingPage {
 
     }
 
-    // General actions
-    async navigateBackToShop() {
-        await this.backToShopButton.click();
-    }
-
-
     // Shipping details actions
     async fillShippingDetails(user) {
         await this.salutationDropDown.selectOption({ index: 1 });
@@ -46,7 +37,8 @@ export class ShippingPage {
         await this.postCodeField.fill(user.postCode);
         await this.cityField.fill(user.city);
 
-        await this.countrySelector.selectOption({ label: user.countryCode });
+        await this.countrySelectDropdown.scrollIntoViewIfNeeded();
+        await this.countrySelectDropdown.selectOption(user.shopwareCountryCode);
 
         if (await this.stateSelectDropDown.isVisible()) {
             await this.stateSelectDropDown.selectOption({ index: 2 });

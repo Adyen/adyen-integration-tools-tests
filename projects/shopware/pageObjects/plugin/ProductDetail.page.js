@@ -1,5 +1,5 @@
 
-import { BasePage } from "./Base.page";
+import { BasePage } from "./Base.page.js";
 
 export class ProductDetailPage extends BasePage {
     constructor(page) {
