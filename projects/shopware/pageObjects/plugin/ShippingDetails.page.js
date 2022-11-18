@@ -38,7 +38,9 @@ export class ShippingDetailsPage extends SPRBasePage {
         await this.cityField.fill(user.city);
 
         await this.countrySelectDropdown.scrollIntoViewIfNeeded();
-        await this.countrySelectDropdown.selectOption(user.shopwareCountryCode);
+
+        const dropdownValue = await this.countrySelectDropdown.locator(`//option[contains(text(),'${user.countryName}')]`).getAttribute("value");
+        await this.countrySelectDropdown.selectOption(dropdownValue);
 
         if (await this.stateSelectDropDown.isVisible()) {
             await this.stateSelectDropDown.selectOption({ index: 2 });
