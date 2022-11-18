@@ -1,9 +1,9 @@
 import { test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
 import { makeCreditCardPayment } from "../helpers/PaymentHelper.js";
-import { ThreeDSPaymentPage } from "../../common/ThreeDSPaymentPage.js";
-import { ThreeDS2PaymentPage } from "../../common/ThreeDS2PaymentPage.js";
-import { CreditCardComponents } from "../pageObjects/checkout/CreditCardComponents.js";
+import { ThreeDSPaymentPage } from "../../common/redirect/ThreeDSPaymentPage.js";
+import { ThreeDS2PaymentPage } from "../../common/redirect/ThreeDS2PaymentPage.js";
+import { CreditCardComponentsMagento } from "../pageObjects/checkout/CreditCardComponentsMagento.js";
 import {
   goToShippingWithFullCart,
   proceedToPaymentAs,
@@ -103,7 +103,7 @@ test.describe.parallel("Payment via credit card", () => {
       paymentResources.threeDSWrongPassword
     );
 
-    await new CreditCardComponents(page).verifyPaymentRefusal();
+    await new CreditCardComponentsMagento(page).verifyPaymentRefusal();
   });
 
   test("with 3Ds2 should abort the payment with correct message when cancelled", async ({ page }) => {
@@ -119,6 +119,6 @@ test.describe.parallel("Payment via credit card", () => {
 
     await new ThreeDS2PaymentPage(page).clickCancel();
 
-    await new CreditCardComponents(page).verifyPaymentRefusal();
+    await new CreditCardComponentsMagento(page).verifyPaymentRefusal();
   });
 });

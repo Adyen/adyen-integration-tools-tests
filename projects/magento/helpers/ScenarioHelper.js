@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
 import { ProductDetailsPage } from "../pageObjects/plugin/ProductDetail.page.js";
-import { ShippingDetails } from "../pageObjects/checkout/ShippingDetails.page.js";
+import { ShippingDetails } from "../pageObjects/plugin/ShippingDetails.page.js";
 import { SuccessfulCheckoutPage } from "../pageObjects/checkout/SuccessfulCheckout.page.js";
 import { ShoppingCartPage } from "../pageObjects/plugin/ShoppingCart.page.js";
 import { LoginPage } from "../pageObjects/plugin/Login.page.js";
@@ -53,7 +53,7 @@ export async function verifySuccessfulPayment(page, redirect = true) {
   if (redirect != false) {
     await successfulCheckoutPage.waitForRedirection();
   }
-  await expect(await successfulCheckoutPage.pageTitle.innerText()).toContain(
+  expect(await successfulCheckoutPage.pageTitle.innerText()).toContain(
     "Thank you for your purchase!"
   );
 }
@@ -67,7 +67,15 @@ export async function verifyFailedPayment(page) {
   const errorMessage = await new ShoppingCartPage(
     page
   ).errorMessage.innerText();
-  await expect(errorMessage).toContain(
+  expect(errorMessage).toContain(
     "Your payment failed, Please try again later"
   );
+}
+
+export async function placeOrder(page) {
+  const placeOrderButton = page.locator(
+    ".payment-method._active button[type=submit]"
+  );
+
+  await placeOrderButton.click();
 }

@@ -1,5 +1,4 @@
 import { expect } from "@playwright/test";
-
 export class AdyenGivingComponents {
   constructor(page) {
     this.page = page;

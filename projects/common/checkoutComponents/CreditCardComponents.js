@@ -1,9 +1,6 @@
-import { expect } from "@playwright/test";
 export class CreditCardComponents {
   constructor(page) {
     this.page = page;
-
-    this.errorMessage = page.locator("#adyen-cc-form .message-error");
 
     this.holderNameInput = page.locator(
       ".adyen-checkout__card__holderName input"
@@ -20,10 +17,6 @@ export class CreditCardComponents {
     this.cvcInput = page
       .frameLocator(".adyen-checkout__card__cvc__input iframe")
       .locator(".input-field");
-
-    this.placeOrderButton = page.locator(
-      ".payment-method._active button[type=submit]"
-    );
 
     this.typeDelay = 50;
   }
@@ -57,38 +50,5 @@ export class CreditCardComponents {
     await this.fillCardNumber(cardNumber);
     await this.fillExpDate(cardExpirationDate);
     await this.fillCVC(cardCVC);
-  }
-
-  async placeOrder() {
-    await this.placeOrderButton.click();
-  }
-
-  async fillCreditCardInfoAndPlaceOrder(
-    cardHolderName,
-    cardHolderLastName,
-    cardNumber,
-    cardExpirationDate,
-    cardCVC
-  ) {
-    await this.fillCreditCardInfo(
-      cardHolderName,
-      cardHolderLastName,
-      cardNumber,
-      cardExpirationDate,
-      cardCVC
-    );
-    await this.placeOrder();
-  }
-
-  async verifyPaymentRefusal() {
-    await expect(await this.errorMessage.innerText()).toContain(
-      "The payment is REFUSED."
-    );
-  }
-
-  async verifyPaymentCancellation() {
-    await expect(await this.errorMessage.innerText()).toContain(
-      "Payment has been cancelled"
-    );
   }
 }

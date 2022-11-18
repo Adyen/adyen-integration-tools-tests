@@ -2,11 +2,12 @@ import { test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
   goToShippingWithFullCart,
+  placeOrder,
   proceedToPaymentAs,
   verifySuccessfulPayment,
   verifyVoucherCouponGeneration,
 } from "../helpers/ScenarioHelper.js";
-import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.js";
+import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
 
 const paymentResources = new PaymentResources();
 const user = paymentResources.guestUser.boleto;
@@ -27,7 +28,7 @@ test.describe("Payment via Boleto", () => {
       user.firstName,
       user.lastName
     );
-    await boletoSection.placeOrder();
+    await placeOrder(page);
     await verifySuccessfulPayment(page);
     await verifyVoucherCouponGeneration(page);
   });

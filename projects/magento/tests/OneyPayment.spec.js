@@ -2,11 +2,12 @@ import { test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
   goToShippingWithFullCart,
+  placeOrder,
   verifySuccessfulPayment,
 } from "../helpers/ScenarioHelper.js";
 import { proceedToPaymentAs } from "../helpers/ScenarioHelper.js";
-import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.js";
-import { OneyPaymentPage } from "../../common/OneyPaymentPage.js";
+import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
+import { OneyPaymentPage } from "../../common/redirect/OneyPaymentPage.js";
 
 const paymentResources = new PaymentResources();
 const user = paymentResources.guestUser.oney.approved.fr;
@@ -28,7 +29,7 @@ test.describe("Payment via Oney", () => {
     const oneyPaymentSection = await paymentDetailPage.selectOney();
 
     await oneyPaymentSection.completeOneyForm(user.dateOfBirth);
-    await oneyPaymentSection.placeOrder();
+    await placeOrder(page);
     await new OneyPaymentPage(page).continueOneyPayment();
   }
 });

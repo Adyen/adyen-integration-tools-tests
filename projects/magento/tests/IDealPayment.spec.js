@@ -1,8 +1,10 @@
 import { test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
-import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.js";
+import { IdealIssuerPage } from "../../common/redirect/IdealIssuerPage.js"
+import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
 import {
   goToShippingWithFullCart,
+  placeOrder,
   proceedToPaymentAs,
   verifyFailedPayment,
   verifySuccessfulPayment,
@@ -34,6 +36,6 @@ async function makeIDealPayment(page, issuerName) {
   const idealPaymentSection = await paymentDetailPage.selectIDeal();
   await idealPaymentSection.selectIdealIssuer(issuerName);
 
-  const issuerPage = await idealPaymentSection.placeOrder();
-  await issuerPage.continuePayment();
+  await placeOrder(page);
+  await new IdealIssuerPage(page).continuePayment();
 }

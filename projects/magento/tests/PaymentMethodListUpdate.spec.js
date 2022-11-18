@@ -4,8 +4,8 @@ import {
   goToShippingWithFullCart,
   proceedToPaymentAs,
 } from "../helpers/ScenarioHelper.js";
-import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.js";
-import { ShippingDetails } from "../pageObjects/checkout/ShippingDetails.page.js";
+import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
+import { ShippingDetails } from "../pageObjects/plugin/ShippingDetails.page.js";
 
 const paymentResources = new PaymentResources();
 const belgianUser = paymentResources.guestUser.belgian;
@@ -20,7 +20,7 @@ test.describe("Payment method list", () => {
     await proceedToPaymentAs(page, dutchUser);
     const paymentDetailPage = new PaymentDetailsPage(page);
     await paymentDetailPage.selectIDeal();
-    
+
     const shippingDetailsPage = new ShippingDetails(page);
     await shippingDetailsPage.goTo(false);
     await shippingDetailsPage.fillShippingDetails(belgianUser);

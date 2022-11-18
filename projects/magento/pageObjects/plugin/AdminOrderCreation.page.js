@@ -1,4 +1,4 @@
-import { CreditCardComponents } from "../checkout/CreditCardComponents.js";
+import { CreditCardComponentsMagento } from "../checkout/CreditCardComponentsMagento.js";
 import { AdminPanelPage } from "./AdminPanel.page.js";
 export class AdminOrderCreationPage extends AdminPanelPage {
   constructor(page) {
@@ -74,7 +74,7 @@ export class AdminOrderCreationPage extends AdminPanelPage {
     // await this.waitForAdminPanelAnimation(page);
     await this.waitForPageLoad(page);
 
-    const ccSection = new CreditCardComponents(page);
+    const ccSection = new CreditCardComponentsMagento(page);
     await ccSection.fillHolderName("John Doe");
     await ccSection.fillCardNumber(cardNumber);
     await ccSection.fillExpDate(cardExpirationDate);

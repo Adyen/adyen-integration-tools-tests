@@ -1,11 +1,12 @@
 import { test } from "@playwright/test";
 import PaymentResources from "../../../data/PaymentResources.js";
-import { PaymentDetailsPage } from "../../../magento/pageObjects/checkout/PaymentDetails.page.js";
+import { PaymentDetailsPage } from "../../../magento/pageObjects/plugin/PaymentDetails.page.js";
 import {
   goToShippingWithFullCart,
   proceedToPaymentAs,
   verifySuccessfulPayment,
   loginAs,
+  placeOrder,
 } from "../../../magento/helpers/ScenarioHelper.js";
 
 const paymentResources = new PaymentResources();
@@ -49,17 +50,17 @@ async function makeCreditCardPayment(
   const paymentDetailPage = new PaymentDetailsPage(page);
   const creditCardSection = await paymentDetailPage.selectCreditCard();
   if (saveCard == true) await paymentDetailPage.savePaymentMethod();
-  await creditCardSection.fillCreditCardInfoAndPlaceOrder(
+  await creditCardSection.fillCreditCardInfo(
     user.firstName,
     user.lastName,
     creditCardNumber,
     expDate,
     cvc
   );
+  await placeOrder(page);
 }
 
 async function makeVaultPayment(page) {
-  const paymentDetailPage = new PaymentDetailsPage(page);
-  const vaultPaymentSection = await paymentDetailPage.selectVault();
-  await vaultPaymentSection.placeOrder();
+  await new PaymentDetailsPage(page).selectVault();
+  await placeOrder(page);
 }

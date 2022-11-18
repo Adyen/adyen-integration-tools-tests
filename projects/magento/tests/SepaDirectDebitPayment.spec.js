@@ -2,10 +2,11 @@ import { test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
   goToShippingWithFullCart,
+  placeOrder,
   proceedToPaymentAs,
   verifySuccessfulPayment,
 } from "../helpers/ScenarioHelper.js";
-import { PaymentDetailsPage } from "../pageObjects/checkout/PaymentDetails.page.js";
+import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
 
 const paymentResources = new PaymentResources();
 const user = paymentResources.guestUser.dutch;
@@ -25,7 +26,7 @@ test.describe("Payment via SEPA Direct debit", () => {
       ibanDetails.accountName,
       ibanDetails.iban
     );
-    await sepaPaymentSection.placeOrder();
+    await placeOrder(page);
 
     await verifySuccessfulPayment(page);
   });

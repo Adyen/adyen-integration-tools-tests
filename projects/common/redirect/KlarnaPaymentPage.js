@@ -1,4 +1,4 @@
-import PaymentResources from "../data/PaymentResources.js";
+import PaymentResources from "../../data/PaymentResources.js";
 
 export default class KlarnaPaymentPage {
   constructor(page) {

@@ -1,17 +1,10 @@
-import { BancontactCardComponents } from "./BancontactCardComponents.js";
-import { CreditCardComponents } from "./CreditCardComponents.js";
-import { GenericGiftCardComponents } from "./GenericGiftCardComponents.js";
-import { IDealComponents } from "./iDealComponents.js";
-import { KlarnaPayLaterComponents } from "./KlarnaPayLaterComponents.js";
-import { OneyComponents } from "./OneyComponents.js";
-import { PayPalComponents } from "./PayPalComponents.js";
-import { SepaDirectDebitComponents } from "./SepaDirectDebitComponents.js";
-import { ClearPayComponents } from "./ClearPayComponents.js";
-import { BoletoComponents } from "./BoletoComponents.js";
-import { MultiBancoComponents } from "./MultiBancoComponents.js";
-import { KlarnaPayNowComponents } from "./KlarnaPayNowComponents.js";
-import { KlarnaPayOverTimeComponents } from "./KlarnaPayOverTimeComponents.js";
-import { VaultComponents } from "./VaultComponents.js";
+import { BancontactCardComponentsMagento } from "../checkout/BancontactCardComponentsMagento.js";
+import { CreditCardComponentsMagento } from "../checkout/CreditCardComponentsMagento.js";
+import { PayPalComponents } from "../../../common/checkoutComponents/PayPalComponents.js"
+import { SepaDirectDebitComponents } from "../../../common/checkoutComponents/SepaDirectDebitComponents.js";
+import { BoletoComponents } from "../../../common/checkoutComponents/BoletoComponents.js";
+import { IDealComponents } from "../../../common/checkoutComponents/iDealComponents.js";
+import { OneyComponents } from "../../../common/checkoutComponents/OneyComponents.js";
 
 export class PaymentDetailsPage {
   constructor(page) {
@@ -48,13 +41,12 @@ export class PaymentDetailsPage {
   async selectVault() {
     await this.vaultRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new VaultComponents(this.page);
   }
 
   async selectCreditCard() {
     await this.creditCardRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new CreditCardComponents(this.page);
+    return new CreditCardComponentsMagento(this.page);
   }
 
   async selectIDeal() {
@@ -72,25 +64,22 @@ export class PaymentDetailsPage {
   async selectKlarnaPayLater() {
     await this.klarnaPayLaterRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new KlarnaPayLaterComponents(this.page);
   }
 
   async selectKlarnaPayOverTime() {
     await this.klarnaPayOverTimeRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new KlarnaPayOverTimeComponents(this.page);
   }
 
   async selectKlarnaPayNow() {
     await this.klarnaPayNowRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new KlarnaPayNowComponents(this.page);
   }
 
   async selectBancontactCard() {
     await this.bancontactCardRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new BancontactCardComponents(this.page);
+    return new BancontactCardComponentsMagento(this.page);
   }
 
   async selectSepaDirectDebit() {
@@ -102,7 +91,6 @@ export class PaymentDetailsPage {
   async selectGiftCard() {
     await this.genericGiftCardRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new GenericGiftCardComponents(this.page);
   }
 
   async selectOney() {
@@ -114,7 +102,6 @@ export class PaymentDetailsPage {
   async selectClearPay() {
     await this.clearPayRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new ClearPayComponents(this.page);
   }
 
   async selectBoleto() {
@@ -126,7 +113,6 @@ export class PaymentDetailsPage {
   async selectMultiBanco() {
     await this.multiBancoRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new MultiBancoComponents(this.page);
   }
 
   async waitForPaymentMethodReady() {
