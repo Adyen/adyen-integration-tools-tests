@@ -46,7 +46,7 @@ export class PaymentDetailsPage {
   async selectCreditCard() {
     await this.creditCardRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new CreditCardComponentsMagento(this.page);
+    return new CreditCardComponentsMagento(this.page.locator(".payment-method._active"));
   }
 
   async selectIDeal() {
