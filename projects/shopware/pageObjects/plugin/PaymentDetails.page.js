@@ -40,8 +40,14 @@ export class PaymentDetailsPage extends SPRBasePage {
 
     // Payment Method specific actions
     async selectCreditCard() {
-        await this.cardSelector.click();
+        await this.getPaymentMethodReady(this.cardSelector);
         return new CreditCardComponents(this.page);
+    }
+
+    async getPaymentMethodReady(locator) {
+        await locator.click();
+        await this.page.waitForLoadState("networkidle", { timeout: 10000 });
+        await locator.scrollIntoViewIfNeeded();
     }
 
 }
