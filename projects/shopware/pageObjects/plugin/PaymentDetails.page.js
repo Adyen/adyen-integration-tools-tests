@@ -20,6 +20,23 @@ export class PaymentDetailsPage extends SPRBasePage {
         //Submit Order button
         this.submitOrderButton = page.locator("#confirmFormSubmit");
 
+        //Error message
+        this.errorMessageContainer = page.locator(".alert-content");
+
+    }
+
+    // Redirect in case of an error
+
+    async waitForRedirection() {
+
+        await this.page.waitForNavigation({
+            url: /ERROR/,
+            timeout: 15000,
+        });
+    }
+
+    get errorMessage() {
+        return this.errorMessageContainer.innerText();
     }
 
     // General actions
