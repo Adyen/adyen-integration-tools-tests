@@ -20,6 +20,23 @@ export class PaymentDetailsPage extends SPRBasePage {
         //Submit Order button
         this.submitOrderButton = page.locator("#confirmFormSubmit");
 
+        //Error message
+        this.errorMessageContainer = page.locator(".alert-content");
+
+    }
+
+    // Redirect in case of an error
+
+    async waitForRedirection() {
+
+        await this.page.waitForNavigation({
+            url: /ERROR/,
+            timeout: 15000,
+        });
+    }
+
+    get errorMessage() {
+        return this.errorMessageContainer.innerText();
     }
 
     // General actions
@@ -40,8 +57,14 @@ export class PaymentDetailsPage extends SPRBasePage {
 
     // Payment Method specific actions
     async selectCreditCard() {
-        await this.cardSelector.click();
+        await this.getPaymentMethodReady(this.cardSelector);
         return new CreditCardComponents(this.page);
+    }
+
+    async getPaymentMethodReady(locator) {
+        await locator.click();
+        await this.page.waitForLoadState("networkidle", { timeout: 10000 });
+        await locator.scrollIntoViewIfNeeded();
     }
 
 }
