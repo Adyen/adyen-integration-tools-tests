@@ -1,7 +1,7 @@
 export class ThreeDS2PaymentPage {
   constructor(page) {
     this.page = page;
-    this.threeDS2Modal = page.locator("#cc_actionModal");
+    this.threeDS2ModalFrame = page.locator("iframe[name='threeDSIframe']");
     this.threeDS2Iframe = page.frameLocator(
       ".adyen-checkout__threeds2__challenge iframe"
     );
@@ -14,7 +14,6 @@ export class ThreeDS2PaymentPage {
     this.threeDS2CancelButton = this.threeDS2Iframe.locator(
       "#buttonCancel"
     );
-    this.threeDS2CloseButton = this.threeDS2Modal.locator('..').locator('..').locator(".action-close");
   }
 
   async validate3DS2(answer) {
@@ -22,19 +21,15 @@ export class ThreeDS2PaymentPage {
   }
 
   async fillThreeDS2PasswordAndSubmit(answer) {
-    await this.threeDS2Modal.waitFor({ state: "visible", timeout: 10000 });
+    await this.threeDS2ModalFrame.waitFor({ state: "visible", timeout: 10000 });
     await this.threeDS2PasswordInput.click();
     await this.threeDS2PasswordInput.type(answer);
     await this.threeDS2SubmitButton.click();
   }
 
   async clickCancel() {
-    await this.threeDS2Modal.waitFor({ state: "visible", timeout: 10000 });
+    await this.threeDS2ModalFrame.waitFor({ state: "visible", timeout: 10000 });
     await this.threeDS2CancelButton.click();
   }
 
-  async clickClose() {
-    await this.threeDS2Modal.waitFor({ state: "visible", timeout: 10000 });
-    await this.threeDS2CloseButton.click();
-  }
 }
