@@ -34,3 +34,14 @@ export async function verifySuccessfulPayment(page, redirect = true) {
     "Thank you for your order with"
   );
 }
+
+export async function verifyFailedPayment(page, redirect = true) {
+  const failedResultPage = new PaymentDetailsPage(page);
+  if (redirect) {
+    await failedResultPage.waitForRedirection();
+  }
+  expect(await failedResultPage.errorMessage).toContain(
+    "please change the payment method or try again"
+  );
+}
+
