@@ -21,6 +21,7 @@ export async function proceedToPaymentAs(page, user) {
 
 export async function doPrePaymentChecks(page) {
   const paymentDetailsPage = new PaymentDetailsPage(page);
+  await page.waitForLoadState("domcontentloaded", { timeout: 10000 });
   await paymentDetailsPage.acceptTermsAndConditions();
   await paymentDetailsPage.loadAllPaymentDetails();
 }
