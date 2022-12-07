@@ -4,6 +4,7 @@ import { IdealIssuerPage } from "../../common/redirect/IdealIssuerPage.js"
 import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
 import {
   goToShippingWithFullCart,
+  makeIDealPayment,
   placeOrder,
   proceedToPaymentAs,
   verifyFailedPayment,
@@ -30,12 +31,3 @@ test.describe.parallel("Payment with iDeal", () => {
     await verifyFailedPayment(page);
   });
 });
-
-async function makeIDealPayment(page, issuerName) {
-  const paymentDetailPage = new PaymentDetailsPage(page);
-  const idealPaymentSection = await paymentDetailPage.selectIDeal();
-  await idealPaymentSection.selectIdealIssuer(issuerName);
-
-  await placeOrder(page);
-  await new IdealIssuerPage(page).continuePayment();
-}
