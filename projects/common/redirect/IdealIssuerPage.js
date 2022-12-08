@@ -1,6 +1,6 @@
 export class IdealIssuerPage {
   constructor(page) {
-    this.iDealContinueButton = page.locator('input[type="submit"]');
+    this.iDealContinueButton = page.locator("button");
   }
 
   async continuePayment() {

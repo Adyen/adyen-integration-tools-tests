@@ -5,6 +5,8 @@ import { SuccessfulCheckoutPage } from "../pageObjects/checkout/SuccessfulChecko
 import { ShoppingCartPage } from "../pageObjects/plugin/ShoppingCart.page.js";
 import { LoginPage } from "../pageObjects/plugin/Login.page.js";
 import { AdminLoginPage } from "../pageObjects/plugin/AdminLogin.page.js";
+import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
+import { IdealIssuerPage } from "../../common/redirect/IdealIssuerPage.js";
 
 export async function goToShippingWithFullCart(page, additionalItemCount = 0) {
   const productDetailsPage = new ProductDetailsPage(page);
@@ -78,4 +80,14 @@ export async function placeOrder(page) {
   );
 
   await placeOrderButton.click();
+}
+
+export async function makeIDealPayment(page, issuerName) {
+  const paymentDetailPage = new PaymentDetailsPage(page);
+  const idealPaymentSection = await paymentDetailPage.selectIDeal();
+  await idealPaymentSection.selectIdealIssuer(issuerName);
+
+  await placeOrder(page);
+  await page.waitForNavigation();
+  await new IdealIssuerPage(page).continuePayment();
 }
