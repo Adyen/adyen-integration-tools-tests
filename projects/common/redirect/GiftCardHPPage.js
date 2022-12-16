@@ -26,6 +26,7 @@ export class GiftCardHPPage {
       .locator("input.idealButton[name='idealIssuer']")
       .first();
     this.iDealContinueButton = page.locator("input[value='Continue']");
+    this.iDealCompleteButton = page.locator("button").first();
   }
 
   async fillGiftCardDetails(
@@ -35,7 +36,7 @@ export class GiftCardHPPage {
     partialPayment = false
   ) {
     await this.cardHoldernameInput.waitFor({
-      state:"visible",
+      state: "visible",
       timeout: 10000,
     })
     await this.cardHoldernameInput.fill(cardHolderName);

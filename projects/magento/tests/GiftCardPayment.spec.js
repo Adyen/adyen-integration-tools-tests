@@ -96,7 +96,10 @@ test.describe.parallel("Payment via Gift Card", () => {
 
     await giftCardPaymentPage.idealButtonHPP.click();
     await giftCardPaymentPage.idealIssuerButton.click();
-    await giftCardPaymentPage.iDealContinueButton.click();
+
+    // Ideal simulator can have different buttons based on the merchant account
+    await giftCardPaymentPage.iDealCompleteButton.isVisible() ? await giftCardPaymentPage.iDealCompleteButton.click()
+      : await giftCardPaymentPage.iDealContinueButton.click();
 
     await verifySuccessfulPayment(page, false);
   });
