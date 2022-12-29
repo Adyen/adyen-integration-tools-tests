@@ -23,7 +23,7 @@ const config = {
   forbidOnly: !!process.env.CI,
 
   /* Retry on CI only */
-  retries: 1,
+  retries: 0,
 
   /* Opt out of parallel tests on CI. */
   workers: 4,
@@ -58,7 +58,8 @@ const config = {
       name: "backoffice",
       testDir: "./tests/backoffice",
       use: {
-        browserName: "chromium"
+        browserName: "chromium",
+        trace: "retain-on-failure"
       }
     },
 
