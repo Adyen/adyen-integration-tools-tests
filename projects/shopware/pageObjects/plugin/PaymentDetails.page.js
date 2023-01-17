@@ -1,4 +1,5 @@
 import { CreditCardComponents } from "../../../common/checkoutComponents/CreditCardComponents.js";
+import { PayPalComponents } from "../../../common/checkoutComponents/PayPalComponents.js";
 import { SPRBasePage } from "./SPRBase.page.js";
 
 export class PaymentDetailsPage extends SPRBasePage {
@@ -16,6 +17,7 @@ export class PaymentDetailsPage extends SPRBasePage {
         // Payment Method Specifics
         this.paymentDetailsList = page.locator("#changePaymentForm");
         this.cardSelector = this.paymentDetailsList.locator("img[alt='Cards']");
+        this.payPalSelector = this.paymentDetailsList.locator("img[alt='PayPal']");
 
         //Submit Order button
         this.submitOrderButton = page.locator("#confirmFormSubmit");
@@ -59,6 +61,12 @@ export class PaymentDetailsPage extends SPRBasePage {
     async selectCreditCard() {
         await this.getPaymentMethodReady(this.cardSelector);
         return new CreditCardComponents(this.page);
+    }
+
+    async selectPayPal() {
+        await this.getPaymentMethodReady(this.payPalSelector);
+        return new PayPalComponents(this.page);
+
     }
 
     async getPaymentMethodReady(locator) {
