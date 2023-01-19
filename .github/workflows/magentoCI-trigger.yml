@@ -11,6 +11,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    if: ${{ github.actor != 'renovate[bot]' || github.actor != 'lgtm-com[bot]' }}
     env:
       GITHUB_TOKEN: ${{ secrets.ADYEN_AUTOMATION_BOT_TEST_ACCESS_TOKEN }}
     steps:
