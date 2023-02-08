@@ -26,7 +26,7 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
 
 
     //Configuration > Payment Methods
-    this.adyenPaymentsLink = page.locator("#payment_us_adyen_group_all_in_one-head");
+    this.adyenPaymentsConfigButton = page.locator("#payment_us_adyen_group_all_in_one-head");
     this.configurePaymentMethodsLink = page.locator("#payment_us_adyen_group_all_in_one_adyen_configure_payment_methods-head");
     this.adyenMOTOLink = page.locator("#payment_us_adyen_group_all_in_one_adyen_configure_payment_methods_adyen_moto_advanced_settings-head");
 
@@ -44,7 +44,12 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
     this.adyenMOTOModeSelector = this.adyenMOTOCredentialsFirstTable.locator("select");
   }
 
+  async revealAdyenSettings(){
+    await this.adyenPaymentsConfigButton.click();
+  }
+
   async enableMOTO(page, adyenMOTOMerchantAccount, adyenMOTOClientKey, adyenMOTOApiKey) {
+    await this.revealAdyenSettings();
     await this.configurePaymentMethodsLink.click();
 
     await this.adyenMOTOLink.click();
@@ -64,6 +69,8 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
 
   async autoConfigureRequiredSettings(page, apiKey, clientKey, merchantAccount, webhookUsername,) {
     await this.waitForPageLoad(page);
+    await this.revealAdyenSettings();
+
     await this.adyenRequiredSettingsLink.click();
     await this.confirgurationModeDropdown.selectOption("auto");
     await this.environmentDropdown.selectOption("1");
@@ -101,7 +108,5 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
       await this.saveConfigButton.click();
     }
   }
-
-
 
 }
