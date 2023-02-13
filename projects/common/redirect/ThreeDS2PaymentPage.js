@@ -4,7 +4,7 @@ export class ThreeDS2PaymentPage {
     this.threeDS2ModalFrame = page.locator("iframe[name='threeDSIframe']");
     this.threeDS2Iframe = page.frameLocator(
       ".adyen-checkout__threeds2__challenge iframe"
-    );
+    ).frameLocator("iframe");
     this.threeDS2PasswordInput = this.threeDS2Iframe.locator(
       "input[name='answer']"
     );
