@@ -19,10 +19,13 @@ export class PaymentDetailsPage extends SPRBasePage {
         this.cardSelector = this.paymentDetailsList.locator("img[alt='Cards']");
         this.payPalSelector = this.paymentDetailsList.locator("img[alt='PayPal']");
 
-        //Submit Order button
+        // Checkout Summary
+        this.checkoutSummaryContainer = page.locator(".checkout-aside-container");
+
+        // Submit Order button
         this.submitOrderButton = page.locator("#confirmFormSubmit");
 
-        //Error message
+        // Error message
         this.errorMessageContainer = page.locator(".alert-content");
 
     }
@@ -55,6 +58,10 @@ export class PaymentDetailsPage extends SPRBasePage {
         if (await this.showMoreButton.isVisible()) {
             await this.showMoreButton.click();
         }
+    }
+
+    async scrollToCheckoutSummary() {
+        await this.checkoutSummaryContainer.scrollIntoViewIfNeeded();
     }
 
     // Payment Method specific actions
