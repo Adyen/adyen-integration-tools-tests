@@ -38,6 +38,7 @@ async function payViaPayPal(page, username, password) {
     const payPalSection = await paymentDetailPage.selectPayPal();
 
     await page.waitForLoadState("networkidle", { timeout: 10000 });
+    await paymentDetailPage.scrollToCheckoutSummary();
 
     const [popup] = await Promise.all([
       page.waitForEvent("popup"),
