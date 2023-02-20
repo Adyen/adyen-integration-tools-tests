@@ -12,6 +12,7 @@ export class PaymentDetailsPage {
 
     this.vaultRadioButton = page.locator("[id*='adyen_cc_vault']").last();
     this.creditCardRadioButton = page.locator("#adyen_cc");
+    this.idealWrapper = page.locator("#payment_form_adyen_hpp_ideal");
     this.idealRadioButton = page.locator("#adyen_ideal");
     this.payPalRadioButton = page.locator("#adyen_paypal");
     this.klarnaPayLaterRadioButton = page.locator("#adyen_klarna");
@@ -52,7 +53,7 @@ export class PaymentDetailsPage {
   async selectIDeal() {
     await this.idealRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new IDealComponents(this.page);
+    return new IDealComponents(this.idealWrapper);
   }
 
   async selectPayPal() {

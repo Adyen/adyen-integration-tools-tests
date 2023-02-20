@@ -1,4 +1,5 @@
 import { CreditCardComponents } from "../../../common/checkoutComponents/CreditCardComponents.js";
+import { IDealComponents } from "../../../common/checkoutComponents/iDealComponents.js";
 import { PayPalComponents } from "../../../common/checkoutComponents/PayPalComponents.js";
 import { SPRBasePage } from "./SPRBase.page.js";
 
@@ -18,6 +19,8 @@ export class PaymentDetailsPage extends SPRBasePage {
         this.paymentDetailsList = page.locator("#changePaymentForm");
         this.cardSelector = this.paymentDetailsList.locator("img[alt='Cards']");
         this.payPalSelector = this.paymentDetailsList.locator("img[alt='PayPal']");
+        this.idealWrapper = this.paymentDetailsList.locator("#adyen-payment-checkout-mask");
+        this.idealSelector = this.paymentDetailsList.locator("img[alt='iDeal']")
 
         // Checkout Summary
         this.checkoutSummaryContainer = page.locator(".checkout-aside-container");
@@ -74,6 +77,11 @@ export class PaymentDetailsPage extends SPRBasePage {
         await this.getPaymentMethodReady(this.payPalSelector);
         return new PayPalComponents(this.page);
 
+    }
+
+    async selectIdeal(){
+        await this.getPaymentMethodReady(this.idealSelector);
+        return new IDealComponents(this.idealWrapper);
     }
 
     async getPaymentMethodReady(locator) {

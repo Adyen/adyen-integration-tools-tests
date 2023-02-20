@@ -1,11 +1,8 @@
 import { test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
-import { IdealIssuerPage } from "../../common/redirect/IdealIssuerPage.js"
-import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
 import {
   goToShippingWithFullCart,
   makeIDealPayment,
-  placeOrder,
   proceedToPaymentAs,
   verifyFailedPayment,
   verifySuccessfulPayment,
