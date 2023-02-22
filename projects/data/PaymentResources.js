@@ -243,6 +243,7 @@ export default class PaymentResources {
           gender: "M",
           stateOrProvince: "Bologna",
           countryCode: "IT",
+          countryName: "Italy",
           password: "Abc1234567!"
         },
       },
