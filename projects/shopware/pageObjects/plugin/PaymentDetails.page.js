@@ -20,7 +20,8 @@ export class PaymentDetailsPage extends SPRBasePage {
         this.cardSelector = this.paymentDetailsList.locator("img[alt='Cards']");
         this.payPalSelector = this.paymentDetailsList.locator("img[alt='PayPal']");
         this.idealWrapper = this.paymentDetailsList.locator("#adyen-payment-checkout-mask");
-        this.idealSelector = this.paymentDetailsList.locator("img[alt='iDeal']")
+        this.idealSelector = this.paymentDetailsList.locator("img[alt='iDeal']");
+        this.clearPaySelector = this.paymentDetailsList.locator("img[alt='Clearpay']");
 
         // Checkout Summary
         this.checkoutSummaryContainer = page.locator(".checkout-aside-container");
@@ -82,6 +83,10 @@ export class PaymentDetailsPage extends SPRBasePage {
     async selectIdeal(){
         await this.getPaymentMethodReady(this.idealSelector);
         return new IDealComponents(this.idealWrapper);
+    }
+
+    async selectClearPay(){
+        await this.getPaymentMethodReady(this.clearPaySelector);
     }
 
     async getPaymentMethodReady(locator) {
