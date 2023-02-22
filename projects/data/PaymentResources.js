@@ -238,11 +238,12 @@ export default class PaymentResources {
           houseNumber: "8",
           city: "Bologna",
           postCode: "40125",
-          phoneNumber: "0612345678",
+          phoneNumber: "+393777777781",
           dateOfBirth: "1990-01-01",
           gender: "M",
           stateOrProvince: "Bologna",
           countryCode: "IT",
+          password: "Abc1234567!"
         },
       },
     },
