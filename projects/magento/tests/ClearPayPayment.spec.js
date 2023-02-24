@@ -17,10 +17,10 @@ test.describe("Payment via ClearPay", () => {
     await goToShippingWithFullCart(page);
   });
 
-  test.skip("should succeed", async ({ page }) => {
+  test("should succeed", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     await payViaClearPay(page);
-    await verifySuccessfulPayment(page, false);
+    await verifySuccessfulPayment(page, true);
   });
 
   async function payViaClearPay(page) {

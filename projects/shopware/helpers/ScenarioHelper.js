@@ -29,7 +29,7 @@ export async function doPrePaymentChecks(page) {
 export async function verifySuccessfulPayment(page, redirect = true) {
   const successfulResultPage = new ResultPage(page);
   if (redirect) {
-    await successfulResultPage.waitForRedirection();
+    await successfulResultPage.waitForRedirection({ timeout:15000 });
   }
   expect(await successfulResultPage.titleText).toContain(
     "Thank you for your order with"

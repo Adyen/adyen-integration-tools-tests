@@ -119,7 +119,7 @@ export default class PaymentResources {
       countryName: "Brazil",
       phoneNumber: "06123456789",
       stateCode: "SP",
-      stateOrProvince: "508",
+      stateOrProvince: "São Paulo",
     },
     portuguese: {
       email: "guest@adyen.com",
@@ -131,7 +131,7 @@ export default class PaymentResources {
       postCode: "1234-123",
       countryCode: "PT",
       countryName: "Portugal",
-      stateOrProvince: "1013",
+      stateOrProvince: "Aveiro",
       phoneNumber: "06123456789",
     },
     belgian: {
@@ -176,7 +176,7 @@ export default class PaymentResources {
       countryName: "Brazil",
       phoneNumber: "06123456789",
       stateCode: "SP",
-      stateOrProvince: "508",
+      stateOrProvince: "São Paulo",
       socialSecurityNumber: "56861752509",
     },
     oney: {
@@ -238,11 +238,13 @@ export default class PaymentResources {
           houseNumber: "8",
           city: "Bologna",
           postCode: "40125",
-          phoneNumber: "0612345678",
+          phoneNumber: "+393777777781",
           dateOfBirth: "1990-01-01",
           gender: "M",
-          stateOrProvince: "697",
+          stateOrProvince: "Bologna",
           countryCode: "IT",
+          countryName: "Italy",
+          password: "Abc1234567!"
         },
       },
     },

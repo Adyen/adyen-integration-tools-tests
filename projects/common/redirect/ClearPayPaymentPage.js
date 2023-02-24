@@ -1,27 +1,47 @@
+import PaymentResources from "../../data/PaymentResources.js";
+
 export class ClearPayPaymentPage {
   constructor(page) {
     this.page = page;
 
-    this.continueButton = page.locator("#continueBtn");
+    this.numberEmailInput = page.locator("input[data-testid='login-identity-input']");
+    this.loginButton = page.locator("button[data-testid='login-identity-button']");
+    
+    this.passwordInput = page.locator("input[data-testid='login-password-input']");
+    this.continueButton = page.locator("button[data-testid='login-password-button']");
 
-    this.mobileNumberInput = page.locator("input[name='mobile']");
-    this.fiscalCodeInput = page.locator("input[name='fiscalCode']");
-    this.passwordInput = page.locator("input[name='password']");
+    this.confirmButton = page.locator("button[data-testid='summary-button']");
+    
+    this.typeDelay = 50;
   }
 
   async continueClearPayPayment() {
-    // const paymentResources = new PaymentResources();
-    // const user = paymentResources.guestUser.oney.approved.fr;
+    const italianUser =  new PaymentResources().guestUser.clearPay.approved.it
 
+    await this.page.waitForLoadState("networkidle", { timeout: 10000 });
+    
+    await this.numberEmailInput.waitFor({
+      state: "visible",
+      timeout: 10000,
+    });
+    await this.numberEmailInput.click();
+    await this.numberEmailInput.fill("");
+    await this.numberEmailInput.type(italianUser.phoneNumber, { delay: this.typeDelay });
+    await this.loginButton.click();
+
+    await this.passwordInput.waitFor({
+      state: "visible",
+      timeout: 10000,
+    });
+    await this.passwordInput.click();
+    await this.passwordInput.fill("");
+    await this.passwordInput.type(italianUser.password, { delay:this.typeDelay });
     await this.continueButton.click();
 
-    await this.passwordInput.fill("Abc12345");
-    await this.continueButton.click();
-
-    await this.genderSelector.click();
-    await this.birthDateInput.type(user.dateOfBirth);
-    await this.birthPlaceInput.click();
-    await this.birthPlaceInput.type(user.city);
-    await this.birthPlaceList.click();
+    await this.confirmButton.waitFor({
+      state: "visible",
+      timeout: 10000,
+    });
+    await this.confirmButton.click();
   }
 }
