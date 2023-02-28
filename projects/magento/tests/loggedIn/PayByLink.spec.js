@@ -32,7 +32,7 @@ test.describe("Payment via PayByLink", () => {
     const creditCardSection = new CreditCardComponentsMagento(
       userSession.locator(".adyen-checkout__payment-method--selected")
     );
-    await userSession.click("button[aria-label='Credit Card']");
+    await userSession.click("button:has-text('Credit Card')");
     await userSession.waitForLoadState("networkidle", { timeout: 10000 });
     await creditCardSection.fillCardNumber(
       paymentResources.masterCardWithout3D
