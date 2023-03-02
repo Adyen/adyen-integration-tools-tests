@@ -22,6 +22,9 @@ export class PaymentDetailsPage extends SPRBasePage {
         this.idealWrapper = this.paymentDetailsList.locator("#adyen-payment-checkout-mask");
         this.idealSelector = this.paymentDetailsList.locator("img[alt='iDeal']");
         this.clearPaySelector = this.paymentDetailsList.locator("img[alt='Clearpay']");
+        this.klarnaPayNowSelector = this.paymentDetailsList.locator("img[alt='Klarna Pay Now']");
+        this.klarnaPayLaterSelector = this.paymentDetailsList.locator("img[alt='Klarna Pay Later']");
+        this.klarnaPayAccountSelector = this.paymentDetailsList.locator("img[alt='Klarna Account']");
 
         // Checkout Summary
         this.checkoutSummaryContainer = page.locator(".checkout-aside-container");
@@ -87,6 +90,18 @@ export class PaymentDetailsPage extends SPRBasePage {
 
     async selectClearPay(){
         await this.getPaymentMethodReady(this.clearPaySelector);
+    }
+
+    async selectKlarnaPayNow(){
+        await this.getPaymentMethodReady(this.klarnaPayNowSelector);
+    }
+
+    async selectKlarnaPayLater(){
+        await this.getPaymentMethodReady(this.klarnaPayLaterSelector);
+    }
+
+    async selectKlarnaPayAccount(){
+        await this.getPaymentMethodReady(this.klarnaPayAccountSelector);
     }
 
     async getPaymentMethodReady(locator) {
