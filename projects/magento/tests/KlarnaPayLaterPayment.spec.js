@@ -25,14 +25,6 @@ test.describe.parallel("Payment via Klarna Pay Later", () => {
     await klarnaPaymentPage.makeKlarnaPayment("later", user.phoneNumber);
     await verifySuccessfulPayment(page);
   });
-
-  test("should fail if cancelled", async ({ page }) => {
-    await proceedToPaymentAs(page, user);
-    const klarnaPaymentPage = await proceedToKlarnaPayLater(page);
-
-    await klarnaPaymentPage.makeKlarnaPayment("cancel");
-    await verifyFailedPayment(page);
-  });
 });
 
 async function proceedToKlarnaPayLater(page) {

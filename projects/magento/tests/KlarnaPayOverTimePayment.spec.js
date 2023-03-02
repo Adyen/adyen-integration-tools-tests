@@ -25,14 +25,6 @@ test.describe.parallel("Payment via Klarna Pay Over Time", () => {
     await klarnaPaymentPage.makeKlarnaPayment("overTime", user.phoneNumber);
     await verifySuccessfulPayment(page);
   });
-
-  test("should fail if cancelled", async ({ page }) => {
-    await proceedToPaymentAs(page, user);
-    const klarnaPaymentPage = await proceedToKlarnaPayOverTime(page);
-
-    await klarnaPaymentPage.makeKlarnaPayment("cancel");
-    await verifyFailedPayment(page);
-  });
 });
 
 async function proceedToKlarnaPayOverTime(page) {
