@@ -17,7 +17,7 @@ export default class PaymentResources {
   afterPayApprovedNLHouseNumber = "80";
   afterPayDeniedNLHouseNumber = "999";
 
-  wrongExpDate = "1122";
+  wrongExpDate = "1130";
   expDate = "0330";
   cvc = "737";
   cardTypes = { credit: "Credit Card", debit: "Debit Card" };
