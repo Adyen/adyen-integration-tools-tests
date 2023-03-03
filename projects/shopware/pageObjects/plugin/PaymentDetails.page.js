@@ -14,6 +14,9 @@ export class PaymentDetailsPage extends SPRBasePage {
         // Show More button
         this.showMoreButton = page.locator
             ("//span[@class='confirm-checkout-collapse-trigger-label' and contains(text(),'Show more')]");
+        
+        // Collapsed payment methods section
+        this.collapsedPaymentMethods = page.locator(".collapse.show");
 
         // Payment Method Specifics
         this.paymentDetailsList = page.locator("#changePaymentForm");
@@ -64,7 +67,12 @@ export class PaymentDetailsPage extends SPRBasePage {
     async loadAllPaymentDetails() {
         if (await this.showMoreButton.isVisible()) {
             await this.showMoreButton.click();
+            await this.collapsedPaymentMethods.waitFor({
+                state: "visible",
+                timeout: 5000,
+              })
         }
+
     }
 
     async scrollToCheckoutSummary() {
@@ -107,7 +115,6 @@ export class PaymentDetailsPage extends SPRBasePage {
     async getPaymentMethodReady(locator) {
         await locator.click();
         await this.page.waitForLoadState("networkidle", { timeout: 10000 });
-        await locator.scrollIntoViewIfNeeded();
     }
 
 }
