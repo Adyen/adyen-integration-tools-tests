@@ -14,6 +14,9 @@ export class PaymentDetailsPage extends SPRBasePage {
         // Show More button
         this.showMoreButton = page.locator
             ("//span[@class='confirm-checkout-collapse-trigger-label' and contains(text(),'Show more')]");
+        
+        // Collapsed payment methods section
+        this.collapsedPaymentMethods = page.locator(".collapse.show");
 
         // Payment Method Specifics
         this.paymentDetailsList = page.locator("#changePaymentForm");
@@ -22,6 +25,9 @@ export class PaymentDetailsPage extends SPRBasePage {
         this.idealWrapper = this.paymentDetailsList.locator("#adyen-payment-checkout-mask");
         this.idealSelector = this.paymentDetailsList.locator("img[alt='iDeal']");
         this.clearPaySelector = this.paymentDetailsList.locator("img[alt='Clearpay']");
+        this.klarnaPayNowSelector = this.paymentDetailsList.locator("img[alt='Klarna Pay Now']");
+        this.klarnaPayLaterSelector = this.paymentDetailsList.locator("img[alt='Klarna Pay Later']");
+        this.klarnaPayAccountSelector = this.paymentDetailsList.locator("img[alt='Klarna Account']");
 
         // Checkout Summary
         this.checkoutSummaryContainer = page.locator(".checkout-aside-container");
@@ -61,7 +67,12 @@ export class PaymentDetailsPage extends SPRBasePage {
     async loadAllPaymentDetails() {
         if (await this.showMoreButton.isVisible()) {
             await this.showMoreButton.click();
+            await this.collapsedPaymentMethods.waitFor({
+                state: "visible",
+                timeout: 5000,
+              })
         }
+
     }
 
     async scrollToCheckoutSummary() {
@@ -89,10 +100,21 @@ export class PaymentDetailsPage extends SPRBasePage {
         await this.getPaymentMethodReady(this.clearPaySelector);
     }
 
+    async selectKlarnaPayNow(){
+        await this.getPaymentMethodReady(this.klarnaPayNowSelector);
+    }
+
+    async selectKlarnaPayLater(){
+        await this.getPaymentMethodReady(this.klarnaPayLaterSelector);
+    }
+
+    async selectKlarnaPayAccount(){
+        await this.getPaymentMethodReady(this.klarnaPayAccountSelector);
+    }
+
     async getPaymentMethodReady(locator) {
         await locator.click();
         await this.page.waitForLoadState("networkidle", { timeout: 10000 });
-        await locator.scrollIntoViewIfNeeded();
     }
 
 }
