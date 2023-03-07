@@ -19,6 +19,7 @@ export class PaymentDetailsPage {
     this.klarnaPayOverTimeRadioButton = page.locator("#adyen_klarna_account");
     this.klarnaPayNowRadioButton = page.locator("#adyen_klarna_paynow");
     this.bancontactCardRadioButton = page.locator("#adyen_bcmc");
+    this.sepaWrapper = page.locator("#payment_form_adyen_hpp_sepadirectdebit");
     this.sepaDirectDebitRadioButton = page.locator("#adyen_sepadirectdebit");
     this.genericGiftCardRadioButton = page.locator("#adyen_genericgiftcard");
     this.oney3RadioButton = page.locator("#adyen_facilypay_3x");
@@ -86,7 +87,7 @@ export class PaymentDetailsPage {
   async selectSepaDirectDebit() {
     await this.sepaDirectDebitRadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new SepaDirectDebitComponents(this.page);
+    return new SepaDirectDebitComponents(this.sepaWrapper);
   }
 
   async selectGiftCard() {
