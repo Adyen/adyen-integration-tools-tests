@@ -1,6 +1,7 @@
 import { CreditCardComponents } from "../../../common/checkoutComponents/CreditCardComponents.js";
 import { IDealComponents } from "../../../common/checkoutComponents/iDealComponents.js";
 import { PayPalComponents } from "../../../common/checkoutComponents/PayPalComponents.js";
+import { SepaDirectDebitComponents } from "../../../common/checkoutComponents/SepaDirectDebitComponents.js";
 import { SPRBasePage } from "./SPRBase.page.js";
 
 export class PaymentDetailsPage extends SPRBasePage {
@@ -28,6 +29,8 @@ export class PaymentDetailsPage extends SPRBasePage {
         this.klarnaPayNowSelector = this.paymentDetailsList.locator("img[alt='Klarna Pay Now']");
         this.klarnaPayLaterSelector = this.paymentDetailsList.locator("img[alt='Klarna Pay Later']");
         this.klarnaPayAccountSelector = this.paymentDetailsList.locator("img[alt='Klarna Account']");
+        this.sepaDirectDebitWrapper = this.paymentDetailsList.locator(".adyen-checkout__fieldset--iban-input");
+        this.sepaDirectDebitSelector = this.paymentDetailsList.locator("img[alt='SEPA direct debit']");
 
         // Checkout Summary
         this.checkoutSummaryContainer = page.locator(".checkout-aside-container");
@@ -110,6 +113,11 @@ export class PaymentDetailsPage extends SPRBasePage {
 
     async selectKlarnaPayAccount(){
         await this.getPaymentMethodReady(this.klarnaPayAccountSelector);
+    }
+
+    async selectSepaDirectDebit(){
+        await this.getPaymentMethodReady(this.sepaDirectDebitSelector);
+        return new SepaDirectDebitComponents(this.sepaDirectDebitWrapper);
     }
 
     async getPaymentMethodReady(locator) {
