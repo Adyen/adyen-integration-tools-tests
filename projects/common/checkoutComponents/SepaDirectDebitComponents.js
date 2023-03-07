@@ -2,13 +2,10 @@ export class SepaDirectDebitComponents {
   constructor(page) {
     this.page = page;
 
-    this.sepaDirectDebitSection = page.locator(
-      "#payment_form_adyen_hpp_sepadirectdebit"
-    );
-    this.accountHolderNameInput = this.sepaDirectDebitSection.locator(
+    this.accountHolderNameInput = this.page.locator(
       "input[name='ownerName']"
     );
-    this.accountNumberInput = this.sepaDirectDebitSection.locator(
+    this.accountNumberInput = this.page.locator(
       "input[name='ibanNumber']"
     );
   }
