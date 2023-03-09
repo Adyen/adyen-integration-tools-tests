@@ -31,6 +31,7 @@ export class PaymentDetailsPage extends SPRBasePage {
         this.klarnaPayAccountSelector = this.paymentDetailsList.locator("img[alt='Klarna Account']");
         this.sepaDirectDebitWrapper = this.paymentDetailsList.locator(".adyen-checkout__fieldset--iban-input");
         this.sepaDirectDebitSelector = this.paymentDetailsList.locator("img[alt='SEPA direct debit']");
+        this.multiBancoSelector = this.paymentDetailsList.locator("img[alt='Multibanco']");
 
         // Checkout Summary
         this.checkoutSummaryContainer = page.locator(".checkout-aside-container");
@@ -118,6 +119,10 @@ export class PaymentDetailsPage extends SPRBasePage {
     async selectSepaDirectDebit(){
         await this.getPaymentMethodReady(this.sepaDirectDebitSelector);
         return new SepaDirectDebitComponents(this.sepaDirectDebitWrapper);
+    }
+
+    async selectMultiBanco(){
+        await this.getPaymentMethodReady(this.multiBancoSelector);
     }
 
     async getPaymentMethodReady(locator) {
