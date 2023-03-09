@@ -6,6 +6,7 @@ export class ResultPage extends SPRBasePage {
         this.page = page;
 
         this.pageHeader = page.locator(".finish-header");
+        this.voucherCodeContainer = page.locator(".adyen-checkout__voucher-result");
     }
 
     get titleText() {

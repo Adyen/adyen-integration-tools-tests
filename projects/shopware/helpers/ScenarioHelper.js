@@ -46,3 +46,8 @@ export async function verifyFailedPayment(page, redirect = true) {
   );
 }
 
+export async function verifyVoucherCouponGeneration(page){
+  const successfulResultPage = new ResultPage(page);
+  await expect(successfulResultPage.voucherCodeContainer).toBeVisible();
+}
+
