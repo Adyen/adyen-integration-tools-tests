@@ -1,10 +1,7 @@
 export class ThreeDS2PaymentPage {
   constructor(page) {
     this.page = page;
-    this.threeDS2ModalFrame = page.locator("iframe[name='threeDSIframe']");
-    this.threeDS2Iframe = page.frameLocator(
-      ".adyen-checkout__threeds2__challenge iframe"
-    ).frameLocator("iframe");
+    this.threeDS2Iframe = page.frameLocator("iframe[name='threeDSIframe']");
     this.threeDS2PasswordInput = this.threeDS2Iframe.locator(
       "input[name='answer']"
     );
@@ -21,14 +18,14 @@ export class ThreeDS2PaymentPage {
   }
 
   async fillThreeDS2PasswordAndSubmit(answer) {
-    await this.threeDS2ModalFrame.waitFor({ state: "visible", timeout: 10000 });
+    await this.threeDS2PasswordInput.waitFor({ state: "visible", timeout: 10000 });
     await this.threeDS2PasswordInput.click();
     await this.threeDS2PasswordInput.type(answer);
     await this.threeDS2SubmitButton.click();
   }
 
   async clickCancel() {
-    await this.threeDS2ModalFrame.waitFor({ state: "visible", timeout: 10000 });
+    await this.threeDS2CancelButton.waitFor({ state: "visible", timeout: 10000 });
     await this.threeDS2CancelButton.click();
   }
 
