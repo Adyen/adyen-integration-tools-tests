@@ -62,7 +62,7 @@ export async function verifySuccessfulPayment(page, redirect = true) {
 
 export async function verifyVoucherCouponGeneration(page) {
   const successfulCheckoutPage = new SuccessfulCheckoutPage(page);
-  await expect(successfulCheckoutPage.voucherCoudeContainer).toBeVisible();
+  await expect(successfulCheckoutPage.voucherCodeContainer).toBeVisible();
 }
 
 export async function verifyFailedPayment(page) {
