@@ -10,7 +10,7 @@ export class PaymentDetailsPage {
   constructor(page) {
     this.page = page;
 
-    this.vaultRadioButton = page.locator("[id*='adyen_cc_vault']").last();
+    this.vaultRadioButton = page.locator("input#adyen_cc_vault_1").first();
     this.creditCardRadioButton = page.locator("#adyen_cc");
     this.idealWrapper = page.locator("#payment_form_adyen_hpp_ideal");
     this.idealRadioButton = page.locator("#adyen_ideal");
