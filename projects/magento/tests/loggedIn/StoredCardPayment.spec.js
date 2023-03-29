@@ -8,6 +8,7 @@ import {
   loginAs,
   placeOrder,
 } from "../../../magento/helpers/ScenarioHelper.js";
+import { CreditCardComponentsMagento } from "../../pageObjects/checkout/CreditCardComponentsMagento.js";
 
 const paymentResources = new PaymentResources();
 const magentoSampleUser = paymentResources.sampleRegisteredUser;
@@ -34,7 +35,7 @@ test.describe("Payment via stored credit card", () => {
     await goToShippingWithFullCart(page);
     await proceedToPaymentAs(page, undefined, false);
 
-    await makeVaultPayment(page);
+    await makeVaultPayment(page, paymentResources.cvc);
     await verifySuccessfulPayment(page);
   });
 });
@@ -60,7 +61,9 @@ async function makeCreditCardPayment(
   await placeOrder(page);
 }
 
-async function makeVaultPayment(page) {
+async function makeVaultPayment(page, cvc) {
   await new PaymentDetailsPage(page).selectVault();
+  await new CreditCardComponentsMagento(page.locator(".payment-method._active")).fillCVC(cvc);
+
   await placeOrder(page);
 }
