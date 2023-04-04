@@ -5,6 +5,28 @@ export class ShippingDetailsPage extends SPRBasePage {
         super(page);
         this.page = page;
 
+        //Alert message
+        this.alertMessage = page.locator(".alert-content");
+        
+        //Change Billing Address Form
+        this.changeBillingAddressButton = page.locator("text=Change billing address");
+        
+        this.currentAddressModal = page.locator(".address-editor-modal");
+        this.editAddressButton = this.currentAddressModal.locator("text=Edit address");
+
+        this.editAddressEditorWrapper = page.locator(".address-editor-create-address-wrapper").first();
+        
+        this.editSalutationDropDown = this.editAddressEditorWrapper.locator("#billing-addresspersonalSalutation");
+        this.editFirstNameField = this.editAddressEditorWrapper.locator("#billing-addresspersonalFirstName");
+        this.editLastNameField = this.editAddressEditorWrapper.locator("#billing-addresspersonalLastName");
+        this.editAddressField = this.editAddressEditorWrapper.locator("#billing-addressAddressStreet");
+        this.editPostCodeField = this.editAddressEditorWrapper.locator("#billing-addressAddressZipcode");
+        this.editCityField = this.editAddressEditorWrapper.locator("#billing-addressAddressCity");
+        this.editCountrySelectDropdown = this.editAddressEditorWrapper.locator("#billing-addressAddressCountry");
+        this.editStateSelectDropDown = this.editAddressEditorWrapper.locator("#billing-addressAddressCountryState");
+        
+        this.editSaveAddressButton = this.editAddressEditorWrapper.locator("button[type='submit']");
+        
         // Shipping details form
         this.shippingFormContainer = page.locator(".register-form");
 
@@ -51,5 +73,26 @@ export class ShippingDetailsPage extends SPRBasePage {
         await this.continueButton.click();
     }
 
+    async changeBillingAddress(user) {
+        await this.changeBillingAddressButton.click();
+        await this.currentAddressModal.waitFor({ state: "visible", timeout: 10000});
+        await this.editAddressButton.click();
+        await this.editSaveAddressButton.waitFor({ state: "visible", timeout: 10000});
+
+        await this.editAddressField.fill(user.firstName);
+        await this.editPostCodeField.fill(user.postCode);
+        await this.editCityField.fill(user.city);
+
+        const dropdownValue = await this.editCountrySelectDropdown.locator(`//option[contains(text(),'${user.countryName}')]`).getAttribute("value");
+        await this.editCountrySelectDropdown.selectOption(dropdownValue);
+
+        if (await this.editStateSelectDropDown.isVisible()) {
+            await this.editStateSelectDropDown.selectOption({ index: 2 });
+        }
+
+        await this.editSaveAddressButton.click();
+        await this.currentAddressModal.waitFor({ state: "detached", timeout: 10000});
+    }
+    
 
 }
