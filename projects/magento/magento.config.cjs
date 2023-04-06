@@ -1,6 +1,9 @@
 // @ts-check
 const { devices } = require("@playwright/test");
 
+const VIEWPORT_WIDTH = 1600;
+const VIEWPORT_HEIGHT = 900;
+
 /**
  * @see https://playwright.dev/docs/test-configuration
  * @type {import('@playwright/test').PlaywrightTestConfig}
@@ -52,6 +55,10 @@ const config = {
       /* Project-specific settings. */
       use: {
         ...devices["Desktop Chrome"],
+        viewport: {
+          width: VIEWPORT_WIDTH,
+          height: VIEWPORT_HEIGHT,
+        },
       },
     },
 
@@ -59,6 +66,10 @@ const config = {
       name: "firefox",
       use: {
         ...devices["Desktop Firefox"],
+        viewport: {
+          width: VIEWPORT_WIDTH,
+          height: VIEWPORT_HEIGHT,
+        },
       },
     },
 
@@ -66,6 +77,10 @@ const config = {
       name: "webkit",
       use: {
         ...devices["Desktop Safari"],
+        viewport: {
+          width: VIEWPORT_WIDTH,
+          height: VIEWPORT_HEIGHT,
+        },
       },
     },
 
@@ -73,6 +88,10 @@ const config = {
       name: "chrome",
       use: {
         channel: "chrome",
+        viewport: {
+          width: VIEWPORT_WIDTH,
+          height: VIEWPORT_HEIGHT,
+        },
       },
     },
 
@@ -80,6 +99,10 @@ const config = {
       name: "edge",
       use: {
         channel: "msedge",
+        viewport: {
+          width: VIEWPORT_WIDTH,
+          height: VIEWPORT_HEIGHT,
+        },
       },
     },
 
