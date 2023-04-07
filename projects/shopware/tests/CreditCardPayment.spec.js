@@ -9,7 +9,7 @@ import {
     verifyFailedPayment,
     verifySuccessfulPayment
 } from "../helpers/ScenarioHelper.js";
-import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
+import { makeCreditCardPayment } from "../helpers/PaymentHelper.js";
 
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
@@ -120,26 +120,3 @@ test.describe.parallel("Payment via credit card", () => {
     });
 
 });
-
-export async function makeCreditCardPayment(
-    page,
-    user,
-    creditCardNumber,
-    expDate,
-    cvc,
-    saveCard = false
-) {
-    const paymentDetailPage = new PaymentDetailsPage(page);
-    const creditCardSection = await paymentDetailPage.selectCreditCard();
-    await creditCardSection.fillCreditCardInfo(
-        user.firstName,
-        user.lastName,
-        creditCardNumber,
-        expDate,
-        cvc
-    );
-    if (saveCard) {
-        await page.locator(".adyen-checkout__checkbox__input").click();
-    }
-    await new PaymentDetailsPage(page).submitOrder();
-}
