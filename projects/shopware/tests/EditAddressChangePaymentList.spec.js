@@ -19,7 +19,7 @@ test.describe("Payment methods", () => {
         await doPrePaymentChecks(page);
     });
 
-    test.only("should be updated when the billing address is changed", async ({ page }) => {
+    test("should be updated when the billing address is changed", async ({ page }) => {
         const paymentDetailPage = new PaymentDetailsPage(page);
         const shippingDetailPage = new ShippingDetailsPage(page);
 
