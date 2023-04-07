@@ -7,8 +7,7 @@ import {
     verifyFailedPayment,
     verifySuccessfulPayment
 } from "../helpers/ScenarioHelper.js";
-import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
-import { IdealIssuerPage } from "../../common/redirect/IdealIssuerPage.js";
+import { makeIDealPayment } from "../helpers/PaymentHelper.js";
 
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
@@ -31,16 +30,3 @@ test.describe.parallel("Payment via iDeal", () => {
     });
 
 });
-
-
-async function makeIDealPayment(page, issuerName) {
-  const paymentDetailPage = new PaymentDetailsPage(page);
-  const idealPaymentSection = await paymentDetailPage.selectIdeal();
-  
-  await idealPaymentSection.selectIdealIssuer(issuerName);
-  await paymentDetailPage.scrollToCheckoutSummary();
-  await paymentDetailPage.submitOrder();
-
-  await page.waitForNavigation();
-  await new IdealIssuerPage(page).continuePayment();
-}
