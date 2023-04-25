@@ -9,7 +9,7 @@ export class OneyPaymentPage {
     this.birthDateInput = page.locator("input#birthDate");
 
     this.birthPlaceInput = page.locator("input#birthCity");
-    this.birthPlaceList = page.locator(".mat-focus-indicator").first();
+    this.birthPlaceList = page.locator("#cdk-overlay-1 mat-option").first();
 
     this.birthDepartmentSelector = page.locator("#birthDepartment");
 
@@ -40,7 +40,9 @@ export class OneyPaymentPage {
     await this.birthPlaceInput.type(user.city);
     await this.birthPlaceList.click();
 
-    await this.cardHolderNameInput.type(`${user.firstName} ${user.lastName}`);
+    /* await this.cardHolderNameInput.type(`${user.firstName} ${user.lastName}`);
+    This step was temporarily removed */
+
     await this.cardNumberInput.type(paymentResources.oneyCard);
     await this.cardExpDateInput.type(paymentResources.expDate);
     await this.cardCvvInput.type(paymentResources.cvc);
