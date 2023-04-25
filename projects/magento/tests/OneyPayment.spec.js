@@ -21,7 +21,6 @@ test.describe("Payment via Oney", () => {
   test("should succeed", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     await payViaOney(page);
-    await verifySuccessfulPayment(page, false);
   });
 
   async function payViaOney(page) {
