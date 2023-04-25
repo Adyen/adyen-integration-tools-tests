@@ -25,7 +25,7 @@ test.describe("Payment via Oney", () => {
     const paymentDetailPage = new PaymentDetailsPage(page);
     const oneyPaymentSection = await paymentDetailPage.selectOney();
 
-    await oneyPaymentSection.completeOneyForm(user.dateOfBirth);
+    await oneyPaymentSection.completeOneyForm(user);
     await placeOrder(page);
     await new OneyPaymentPage(page).continueOneyPayment();
   }
