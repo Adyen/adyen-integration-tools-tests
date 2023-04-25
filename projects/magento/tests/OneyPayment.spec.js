@@ -15,10 +15,10 @@ const user = paymentResources.guestUser.oney.approved.fr;
 // Skipping due to broken sandbox
 test.describe("Payment via Oney", () => {
   test.beforeEach(async ({ page }) => {
-    await goToShippingWithFullCart(page, 4);
+    await goToShippingWithFullCart(page, 5);
   });
 
-  test.skip("should succeed", async ({ page }) => {
+  test("should succeed", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     await payViaOney(page);
     await verifySuccessfulPayment(page, false);
