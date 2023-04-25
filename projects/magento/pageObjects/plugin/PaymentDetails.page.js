@@ -98,7 +98,7 @@ export class PaymentDetailsPage {
   async selectOney() {
     await this.oney3RadioButton.click();
     await this.waitForPaymentMethodReady();
-    return new OneyComponents(this.page);
+    return new OneyComponents(this.page.locator(".payment-method._active"));
   }
 
   async selectClearPay() {
