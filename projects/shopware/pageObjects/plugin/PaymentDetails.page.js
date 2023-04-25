@@ -1,5 +1,6 @@
 import { CreditCardComponents } from "../../../common/checkoutComponents/CreditCardComponents.js";
 import { IDealComponents } from "../../../common/checkoutComponents/iDealComponents.js";
+import { OneyComponents } from "../../../common/checkoutComponents/OneyComponents.js";
 import { PayPalComponents } from "../../../common/checkoutComponents/PayPalComponents.js";
 import { SepaDirectDebitComponents } from "../../../common/checkoutComponents/SepaDirectDebitComponents.js";
 import { SPRBasePage } from "./SPRBase.page.js";
@@ -32,6 +33,8 @@ export class PaymentDetailsPage extends SPRBasePage {
         this.sepaDirectDebitWrapper = this.paymentDetailsList.locator(".adyen-checkout__fieldset--iban-input");
         this.sepaDirectDebitSelector = this.paymentDetailsList.locator("img[alt='SEPA direct debit']");
         this.multiBancoSelector = this.paymentDetailsList.locator("img[alt='Multibanco']");
+        this.oneySelector = this.paymentDetailsList.locator("img[alt='Oney 3x']");
+        this.oneyWrapper = this.oneySelector.locator("..")
 
         // Checkout Summary
         this.checkoutSummaryContainer = page.locator(".checkout-aside-container");
@@ -123,6 +126,11 @@ export class PaymentDetailsPage extends SPRBasePage {
 
     async selectMultiBanco(){
         await this.getPaymentMethodReady(this.multiBancoSelector);
+    }
+
+    async selectOney(){
+        await this.getPaymentMethodReady(this.oneySelector);
+        return new OneyComponents(this.oneyWrapper);
     }
 
     async getPaymentMethodReady(locator) {
