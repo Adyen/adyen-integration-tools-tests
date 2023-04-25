@@ -191,6 +191,7 @@ export default class PaymentResources {
           city: "Paris",
           postCode: "75008",
           countryCode: "FR",
+          countryName: "France",
           phoneNumber: "+33700555497",
           dateOfBirth: "07071970",
           gender: "M",
