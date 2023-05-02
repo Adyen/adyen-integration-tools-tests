@@ -1,3 +1,4 @@
+import { BancontactCardComponents } from "../../../common/checkoutComponents/BancontactCardComponents.js";
 import { CreditCardComponents } from "../../../common/checkoutComponents/CreditCardComponents.js";
 import { IDealComponents } from "../../../common/checkoutComponents/iDealComponents.js";
 import { OneyComponents } from "../../../common/checkoutComponents/OneyComponents.js";
@@ -34,7 +35,9 @@ export class PaymentDetailsPage extends SPRBasePage {
         this.sepaDirectDebitSelector = this.paymentDetailsList.locator("img[alt='SEPA direct debit']");
         this.multiBancoSelector = this.paymentDetailsList.locator("img[alt='Multibanco']");
         this.oneySelector = this.paymentDetailsList.locator("img[alt='Oney 3x']");
-        this.oneyWrapper = this.oneySelector.locator("..")
+        this.oneyWrapper = this.oneySelector.locator("..");
+        this.bancontactCardSelector = this.paymentDetailsList.locator("img[alt='Bancontact card']");
+        this.bancontactCardWrapper = this.bancontactCardSelector.locator("..");
 
         // Checkout Summary
         this.checkoutSummaryContainer = page.locator(".checkout-aside-container");
@@ -131,6 +134,11 @@ export class PaymentDetailsPage extends SPRBasePage {
     async selectOney(){
         await this.getPaymentMethodReady(this.oneySelector);
         return new OneyComponents(this.oneyWrapper);
+    }
+
+    async selectBancontactCard(){
+        await this.getPaymentMethodReady(this.bancontactCardSelector);
+        return new BancontactCardComponents(this.bancontactCardWrapper);
     }
 
     async getPaymentMethodReady(locator) {
