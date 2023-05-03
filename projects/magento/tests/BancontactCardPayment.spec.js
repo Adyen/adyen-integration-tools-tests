@@ -18,7 +18,8 @@ test.describe.parallel("Payment via Bancontact Card", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
     await proceedToPaymentAs(page, user);
-    const bancontactCardSection = await selectBancontactCard(page);
+    const bancontactCardSection = await new PaymentDetailsPage(page)
+    .selectBancontactCard();
     await bancontactCardSection.fillBancontacCardInfo(
       bancontactCard.cardNumber,
       bancontactCard.expDate,
@@ -46,11 +47,3 @@ test.describe.parallel("Payment via Bancontact Card", () => {
     await verifyFailedPayment(page);
   });
 });
-
-async function selectBancontactCard(page) {
-  const paymentDetailPage = new PaymentDetailsPage(page);
-  const bancontactCardSection = await paymentDetailPage.selectBancontactCard(
-    page
-  );
-  return bancontactCardSection;
-}

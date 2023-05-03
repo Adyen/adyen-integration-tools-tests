@@ -4,23 +4,18 @@ export class BancontactCardComponents {
 
     this.cardNumberInput = page
       .frameLocator(
-        "#payment_form_adyen_hpp_bcmc .adyen-checkout__card__cardNumber__input iframe"
+        ".adyen-checkout__card__cardNumber__input iframe"
       )
       .locator(".input-field");
 
     this.expDateInput = page
       .frameLocator(
-        "#payment_form_adyen_hpp_bcmc .adyen-checkout__card__exp-date__input iframe"
+        ".adyen-checkout__card__exp-date__input iframe"
       )
       .locator(".input-field");
 
     this.holderNameInput = page.locator(
-      "#payment_form_adyen_hpp_bcmc input.adyen-checkout__card__holderName__input"
-    );
-
-    this.errorMessage = page.locator("#messages-bcmc");
-    this.placeOrderButton = page.locator(
-      ".payment-method._active button[type=submit]"
+      "input.adyen-checkout__card__holderName__input"
     );
   }
 
