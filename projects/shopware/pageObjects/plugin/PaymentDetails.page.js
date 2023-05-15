@@ -38,6 +38,8 @@ export class PaymentDetailsPage extends SPRBasePage {
         this.oneyWrapper = this.oneySelector.locator("..");
         this.bancontactCardSelector = this.paymentDetailsList.locator("img[alt='Bancontact card']");
         this.bancontactCardWrapper = this.bancontactCardSelector.locator("..");
+        this.storedCardSelector = this.paymentDetailsList.locator("img[alt='Stored Payment Methods']");
+        this.storedCardWrapper = this.storedCardSelector.locator("..");
 
         // Checkout Summary
         this.checkoutSummaryContainer = page.locator(".checkout-aside-container");
@@ -139,6 +141,11 @@ export class PaymentDetailsPage extends SPRBasePage {
     async selectBancontactCard(){
         await this.getPaymentMethodReady(this.bancontactCardSelector);
         return new BancontactCardComponents(this.bancontactCardWrapper);
+    }
+
+    async selectStoredCard(){
+        await this.getPaymentMethodReady(this.storedCardSelector);
+        return new CreditCardComponents(this.storedCardWrapper);
     }
 
     async getPaymentMethodReady(locator) {
