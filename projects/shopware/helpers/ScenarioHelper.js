@@ -13,16 +13,18 @@ export async function goToShippingWithFullCart(page, quantity) {
   await productDetailPage.clickProceedToCheckout();
 }
 
-export async function proceedToPaymentAs(page, user) {
+export async function proceedToPaymentAs(page, user, saveUser = false) {
   const shippingDetailsPage = new ShippingDetailsPage(page);
-  await shippingDetailsPage.fillShippingDetails(user);
+  await shippingDetailsPage.fillShippingDetails(user, saveUser);
   await shippingDetailsPage.clickContinue();
 }
 
-export async function doPrePaymentChecks(page) {
+export async function doPrePaymentChecks(page, acceptTerms = true) {
   const paymentDetailsPage = new PaymentDetailsPage(page);
   await page.waitForLoadState("domcontentloaded", { timeout: 10000 });
-  await paymentDetailsPage.acceptTermsAndConditions();
+  if(acceptTerms) {
+    await paymentDetailsPage.acceptTermsAndConditions();
+  }
   await paymentDetailsPage.loadAllPaymentDetails();
 }
 
