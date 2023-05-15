@@ -35,6 +35,7 @@ export class ShippingDetailsPage extends SPRBasePage {
         this.lastNameField = this.shippingFormContainer.locator("#personalLastName");
         this.noCustomerAccountCheckBox = this.shippingFormContainer.locator("label[for='personalGuest']");
         this.emailField = this.shippingFormContainer.locator("#personalMail");
+        this.passwordField = this.shippingFormContainer.locator("#personalPassword");
 
         this.addressField = this.shippingFormContainer.locator("#billingAddressAddressStreet");
         this.postCodeField = this.shippingFormContainer.locator("#billingAddressAddressZipcode");
@@ -48,12 +49,17 @@ export class ShippingDetailsPage extends SPRBasePage {
     }
 
     // Shipping details actions
-    async fillShippingDetails(user) {
+    async fillShippingDetails(user, saveUser) {
         await this.salutationDropDown.selectOption({ index: 1 });
         await this.firstNameField.fill(user.firstName);
         await this.lastNameField.fill(user.lastName);
-        await this.noCustomerAccountCheckBox.click();
+        
         await this.emailField.fill(user.email);
+        if (saveUser){
+            await this.passwordField.type(user.password);
+        } else {
+            await this.noCustomerAccountCheckBox.click();
+        }
 
         await this.addressField.fill(user.street);
         await this.postCodeField.fill(user.postCode);
