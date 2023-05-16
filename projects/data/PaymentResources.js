@@ -93,6 +93,7 @@ export default class PaymentResources {
       countryName: "United Kingdom",
       phoneNumber: "06123456789",
       stateCode: "NH",
+      password:"Ab223344!"
     },
     dutch: {
       email: "guest@adyen.com",

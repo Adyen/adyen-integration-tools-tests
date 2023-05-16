@@ -50,7 +50,9 @@ async function makeCreditCardPayment(
 ) {
   const paymentDetailPage = new PaymentDetailsPage(page);
   const creditCardSection = await paymentDetailPage.selectCreditCard();
-  if (saveCard == true) await paymentDetailPage.savePaymentMethod();
+  if (saveCard == true){
+    await paymentDetailPage.savePaymentMethod();
+  }
   await creditCardSection.fillCreditCardInfo(
     user.firstName,
     user.lastName,

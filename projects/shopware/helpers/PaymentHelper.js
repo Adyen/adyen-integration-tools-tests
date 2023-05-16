@@ -20,7 +20,7 @@ export async function makeCreditCardPayment(
         cvc
     );
     if (saveCard) {
-        await page.locator(".adyen-checkout__checkbox__input").click();
+        await page.locator("text=Save for my next payment").click();
     }
     await new PaymentDetailsPage(page).submitOrder();
 }

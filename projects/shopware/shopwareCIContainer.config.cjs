@@ -1,6 +1,9 @@
 // @ts-check
 const { devices } = require("@playwright/test");
 
+const VIEWPORT_WIDTH = 1600;
+const VIEWPORT_HEIGHT = 900;
+
 /**
  * @see https://playwright.dev/docs/test-configuration
  * @type {import('@playwright/test').PlaywrightTestConfig}
@@ -51,6 +54,10 @@ const config = {
       use: {
         browserName: "chromium",
         trace: "retain-on-failure",
+        viewport: {
+          width: VIEWPORT_WIDTH,
+          height: VIEWPORT_HEIGHT,
+        },
       }
     },
     /* Test against mobile viewports. */
