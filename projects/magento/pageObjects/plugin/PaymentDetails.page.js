@@ -10,7 +10,6 @@ export class PaymentDetailsPage {
   constructor(page) {
     this.page = page;
 
-    this.vaultRadioButton = page.locator("input#adyen_cc_vault_1").first();
     this.creditCardRadioButton = page.locator("#adyen_cc");
     this.idealWrapper = page.locator("#payment_form_adyen_hpp_ideal");
     this.idealRadioButton = page.locator("#adyen_ideal");
@@ -40,8 +39,11 @@ export class PaymentDetailsPage {
     await this.paymentMethodSaveCheckBox.click();
   }
 
-  async selectVault() {
-    await this.vaultRadioButton.click();
+  async selectVault(lastFourDigits) {
+    // Not ideal way of selecting saved card due to vault UI structure
+    lastFourDigits != undefined ?
+    await this.page.locator(`text=Ending ${lastFourDigits} ( expires: 3/2030 )`).click()
+    : await page.locator("input#adyen_cc_vault_1").first().click();
     await this.waitForPaymentMethodReady();
   }
 
