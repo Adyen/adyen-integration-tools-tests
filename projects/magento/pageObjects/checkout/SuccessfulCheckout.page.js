@@ -12,6 +12,7 @@ export class SuccessfulCheckoutPage extends BasePage {
     this.voucherCodeContainer = page.locator(
       ".adyen-checkout__voucher-result"
     );
+    this.orderNumber = page.locator(".checkout-success p span");
   }
 
   get titleText() {
