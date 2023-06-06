@@ -61,7 +61,7 @@ export async function verifySuccessfulPayment(page, redirect = true) {
 }
 
 export async function getOrderNumber(page){
-  return (await new SuccessfulCheckoutPage(page).orderNumber.innerText());
+  return (await new SuccessfulCheckoutPage(page).orderNumber());
 }
 
 
