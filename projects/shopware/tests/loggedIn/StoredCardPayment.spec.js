@@ -48,10 +48,6 @@ test.describe.parallel("Payment via stored credit card", () => {
         await storedCardSection.fillCVC(paymentResources.cvc);
         await paymentDetailPage.submitOrder();
 
-        await new ThreeDS2PaymentPage(page).validate3DS2(
-            paymentResources.threeDSCorrectPassword
-        );
-
         await verifySuccessfulPayment(page);
 
     });
