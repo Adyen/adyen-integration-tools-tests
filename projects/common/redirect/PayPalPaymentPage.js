@@ -8,7 +8,11 @@ export class PayPalPaymentPage {
     this.passwordInput = page.locator("#password");
     this.loginButton = page.locator("#btnLogin");
     this.agreeAndPayNowButton = page.locator("#payment-submit-btn");
-    this.cookiesDeclineButton = page.getByRole('button', { name: 'decline' });
+    
+    this.loggingInAnimation = page.locator("#app-loader");
+    this.cookiesWrapper = page.locator("#ccpaCookieBanner");
+    this.cookiesDeclineButton = this.cookiesWrapper.getByRole('button', { name: 'decline' });
+
   }
 
   async loginToPayPal(username, password) {
@@ -28,6 +32,9 @@ export class PayPalPaymentPage {
   async makePayPalPayment(username, password) {
     await this.waitForPopupLoad(this.page);
     await this.loginToPayPal(username, password);
+    
+    await this.loggingInAnimation.waitFor({ state: "visible" });
+    await this.loggingInAnimation.waitFor({ state: "visible", timeout: 10000 });
     if (await this.cookiesDeclineButton.isVisible()) {
       await this.cookiesDeclineButton.click();
   }
