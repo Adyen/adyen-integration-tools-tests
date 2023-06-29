@@ -8,6 +8,7 @@ export class PayPalPaymentPage {
     this.passwordInput = page.locator("#password");
     this.loginButton = page.locator("#btnLogin");
     this.agreeAndPayNowButton = page.locator("#payment-submit-btn");
+    this.cookiesDeclineButton = page.getByRole('button', { name: 'decline' });
   }
 
   async loginToPayPal(username, password) {
@@ -27,6 +28,9 @@ export class PayPalPaymentPage {
   async makePayPalPayment(username, password) {
     await this.waitForPopupLoad(this.page);
     await this.loginToPayPal(username, password);
+    if (await this.cookiesDeclineButton.isVisible()) {
+      await this.cookiesDeclineButton.click();
+  }
     await this.agreeAndPay();
   }
 
