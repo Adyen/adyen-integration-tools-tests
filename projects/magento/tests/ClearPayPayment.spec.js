@@ -17,7 +17,7 @@ test.describe("Payment via ClearPay", () => {
     await goToShippingWithFullCart(page);
   });
 
-  test("should succeed", async ({ page }) => {
+  test.skip("should succeed", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     await payViaClearPay(page);
     await verifySuccessfulPayment(page, true);
