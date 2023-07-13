@@ -9,7 +9,7 @@ export async function goToShippingWithFullCart(page, quantity) {
 
   await productDetailPage.addItemToCart("Main-product-free-shipping-with-highlighting/SWDEMO10006",
     quantity);
-  expect.soft(await productDetailPage.alertMessage.textContent()).toContain("been added to the shopping cart");
+  expect.soft(await productDetailPage.alertMessage.textContent()).toContain("added to your shopping cart");
   await productDetailPage.clickProceedToCheckout();
 }
 
