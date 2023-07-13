@@ -33,7 +33,7 @@ export class ShippingDetailsPage extends SPRBasePage {
         this.salutationDropDown = this.shippingFormContainer.locator("#personalSalutation");
         this.firstNameField = this.shippingFormContainer.locator("#personalFirstName");
         this.lastNameField = this.shippingFormContainer.locator("#personalLastName");
-        this.noCustomerAccountCheckBox = this.shippingFormContainer.locator("label[for='personalGuest']");
+        this.createCustomerAccountCheckBox = this.shippingFormContainer.locator("label[for='personalGuest']");
         this.emailField = this.shippingFormContainer.locator("#personalMail");
         this.passwordField = this.shippingFormContainer.locator("#personalPassword");
 
@@ -56,9 +56,8 @@ export class ShippingDetailsPage extends SPRBasePage {
         
         await this.emailField.fill(user.email);
         if (saveUser){
+            await this.createCustomerAccountCheckBox.click();
             await this.passwordField.type(user.password);
-        } else {
-            await this.noCustomerAccountCheckBox.click();
         }
 
         await this.addressField.fill(user.street);
