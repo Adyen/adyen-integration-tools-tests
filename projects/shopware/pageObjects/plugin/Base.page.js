@@ -16,7 +16,7 @@ export class BasePage {
 
         this.continueShoppingButton = this.sideBarContainer.locator(".offcanvas-close");
         this.alertMessage = this.sideBarContainer.locator(".alert-content").first();
-        this.proceedToCheckoutButton = this.sideBarContainer.locator("a[title='Proceed to checkout']")
+        this.proceedToCheckoutButton = this.sideBarContainer.getByRole('link', { name: 'Go to checkout' });
 
         this.firstProductContainer = this.sideBarContainer.locator(".cart-item-product").first();
         this.deleteProductButton = this.firstProductContainer.locator(".cart-item-remove-button");
