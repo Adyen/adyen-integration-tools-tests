@@ -33,8 +33,8 @@ export class PayPalPaymentPage {
     await this.waitForPopupLoad(this.page);
     await this.loginToPayPal(username, password);
     
-    await this.loggingInAnimation.waitFor({ state: "visible" });
     await this.loggingInAnimation.waitFor({ state: "visible", timeout: 10000 });
+    await this.loggingInAnimation.waitFor({ state: "hidden", timeout: 15000 });
     if (await this.cookiesDeclineButton.isVisible()) {
       await this.cookiesDeclineButton.click();
   }

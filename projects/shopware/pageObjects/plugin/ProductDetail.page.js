@@ -10,12 +10,15 @@ export class ProductDetailPage extends BasePage {
         this.productDetailContainer = page.locator(".product-detail-buy");
 
         this.addToCartButton = this.productDetailContainer.locator(".btn-buy");
-        this.productDetailQuantityDropdown = this.productDetailContainer.locator(".product-detail-quantity-select");
+        this.increaseProductQuantityButton = this.productDetailContainer.locator(".js-btn-plus").first();
 
     }
 
     async changeProductQuantity(quantity) {
-        await this.productDetailQuantityDropdown.selectOption(`${quantity}`);
+        while(quantity > 1){
+            await this.increaseProductQuantityButton.click();
+            quantity--;
+        }
     }
 
     async clickAddToCart() {

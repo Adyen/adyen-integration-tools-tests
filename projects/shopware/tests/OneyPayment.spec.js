@@ -11,7 +11,7 @@ import { OneyPaymentPage } from "../../common/redirect/OneyPaymentPage.js";
 
 const frenchUser = new PaymentResources().guestUser.oney.approved.fr;
 
-test.describe.parallel("Payment via ClearPay", () => {
+test.describe.parallel("Payment via Oney", () => {
     test.beforeEach(async ({ page }) => {
         await goToShippingWithFullCart(page, 8);
         await proceedToPaymentAs(page, frenchUser);
