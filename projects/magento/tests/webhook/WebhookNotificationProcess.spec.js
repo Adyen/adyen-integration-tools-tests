@@ -12,6 +12,13 @@ const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
 let orderNumber;
 const randomPspNumber = Math.random().toString().slice(2,7);
+const username = paymentResources.webhookUsername;
+const password = paymentResources.webhookPassword;
+
+const base64Credentials = Buffer.from(`${username}:${password}`).toString('base64');
+const headers = {
+    Authorization: `Basic ${base64Credentials}`
+};
 
 test.describe.parallel("Webhook notifications", () => {
   test.beforeEach(async ({ page }) => {
@@ -26,7 +33,8 @@ test.describe.parallel("Webhook notifications", () => {
    
    // Send the notification process request
    const processWebhookResponse = await request.post("/adyen/process/json", {
-     data: {
+      headers,
+      data: {
        "live" : "false",
        "notificationItems" : [
           {

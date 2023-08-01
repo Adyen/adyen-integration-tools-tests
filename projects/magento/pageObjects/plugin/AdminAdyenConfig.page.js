@@ -109,4 +109,34 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
     }
   }
 
+  async manualConfigureRequiredSettings(page, apiKey, clientKey, merchantAccount, webhookUsername, webhookPassword ) {
+    await this.waitForPageLoad(page);
+    await this.revealAdyenSettings();
+
+    await this.adyenRequiredSettingsLink.click();
+    await this.confirgurationModeDropdown.selectOption("manual");
+    await this.environmentDropdown.selectOption("1");
+
+    await this.waitForPageLoad(page);
+    
+    await expect(this.clientKeyInput).toHaveValue(clientKey);
+    await this.webhookPasswordInput.scrollIntoViewIfNeeded();
+
+    await expect(this.webhookUsernameInput).toHaveValue(webhookUsername);
+
+    await this.webhookPasswordInput.click();
+    
+    // Clear the password field
+    await this.webhookPasswordInput.fill(""); 
+
+    // Type the new password
+    await this.webhookPasswordInput.type(webhookPassword); 
+
+    await expect(this.webhookPasswordInput).not.toBeEmpty()
+
+
+    await this.saveConfigButton.scrollIntoViewIfNeeded();
+    await this.saveConfigButton.click();
+
+}
 }
