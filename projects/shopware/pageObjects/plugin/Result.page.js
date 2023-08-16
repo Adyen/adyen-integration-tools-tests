@@ -9,8 +9,8 @@ export class ResultPage extends SPRBasePage {
         this.voucherCodeContainer = page.locator(".adyen-checkout__voucher-result");
     }
 
-    get titleText() {
-        return this.pageHeader.innerText();
+    async titleText() {
+        return (await this.pageHeader.innerText());
     }
 
     async waitForRedirection() {

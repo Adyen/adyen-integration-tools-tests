@@ -12,10 +12,15 @@ export class SuccessfulCheckoutPage extends BasePage {
     this.voucherCodeContainer = page.locator(
       ".adyen-checkout__voucher-result"
     );
+    this.orderNumberSpan = page.locator(".checkout-success p span");
   }
 
-  get titleText() {
-    return this.pageTitle.innerText();
+  async titleText() {
+    return await this.pageTitle.innerText();
+  }
+
+  async orderNumber(){
+    return await this.orderNumberSpan.innerText();
   }
 
   async waitForRedirection() {
