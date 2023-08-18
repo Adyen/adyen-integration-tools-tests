@@ -3,13 +3,13 @@ export class IDealComponents {
     this.page = page;
 
     this.iDealDropDown = page.locator(
-      "#payment_form_adyen_hpp_ideal .adyen-checkout__dropdown__button"
+      ".adyen-checkout__dropdown__button"
     );
   }
 
   iDealDropDownSelectorGenerator(issuerName) {
     return this.page.locator(
-      `#payment_form_adyen_hpp_ideal .adyen-checkout__dropdown__list li [alt='${issuerName}']`
+      `.adyen-checkout__dropdown__list li [alt='${issuerName}']`
     );
   }
 
