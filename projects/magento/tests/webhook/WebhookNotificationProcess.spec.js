@@ -9,11 +9,12 @@ import {
 } from "../../helpers/ScenarioHelper.js";
 
 const paymentResources = new PaymentResources();
+const webhookCredentials = paymentResources.webhookCredentials;
 const users = paymentResources.guestUser;
 let orderNumber;
 const randomPspNumber = Math.random().toString().slice(2,7);
-const username = paymentResources.webhookUsername;
-const password = paymentResources.webhookPassword;
+const username = webhookCredentials.webhookUsername;
+const password = webhookCredentials.webhookPassword;
 
 const base64Credentials = Buffer.from(`${username}:${password}`).toString('base64');
 const headers = {

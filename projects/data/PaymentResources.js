@@ -9,9 +9,6 @@ export default class PaymentResources {
   payPalUserName = process.env.PAYPAL_USERNAME;
   payPalPassword = process.env.PAYPAL_PASSWORD;
 
-  webhookUsername = process.env.WEBHOOK_USERNAME;
-  webhookPassword = process.env.WEBHOOK_PASSWORD;
-
   klarnaApprovedNLDateOfBirth = "10-07-1970";
 
   afterPayApprovedNLGender = "M";
@@ -33,6 +30,11 @@ export default class PaymentResources {
     username: process.env.MAGENTO_ADMIN_USERNAME,
     password: process.env.MAGENTO_ADMIN_PASSWORD,
   };
+
+  webhookCredentials = {
+    webhookUsername : process.env.WEBHOOK_USERNAME,
+    webhookPassword : process.env.WEBHOOK_PASSWORD,
+  }
 
   apiCredentials = {
     merchantAccount: process.env.ADYEN_MERCHANT,
