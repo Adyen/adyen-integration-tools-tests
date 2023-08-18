@@ -22,8 +22,7 @@ test.describe('Configure required settings', () => {
 // Webhook needed for testing
     test("Manual mode should be configured successfully with Webhook", async ({ page }) => {
         adyenConfigPage = new AdminAdyenConfigPage(page);
-        await adyenConfigPage.manualConfigureRequiredSettings(page, apiCredentials.apiKey,
-            apiCredentials.clientKey, apiCredentials.merchantAccount, paymentResources.webhookUsername, paymentResources.webhookPassword)
+        await adyenConfigPage.manualConfigureRequiredSettings(page, apiCredentials.merchantAccount, paymentResources.webhookUsername, paymentResources.webhookPassword)
         await adyenConfigPage.waitForPageLoad(page);
 
         await expect(adyenConfigPage.successMessage).toContainText("You saved the configuration.");
