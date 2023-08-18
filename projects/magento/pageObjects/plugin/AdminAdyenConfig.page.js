@@ -122,7 +122,8 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
     await expect(this.clientKeyInput).toHaveValue(clientKey);
 
     await this.webhookUsernameInput.scrollIntoViewIfNeeded();
-    await this.webhookUsernameInput.click().fill("")
+    await this.webhookUsernameInput.click();
+    await this.webhookUsernameInput.fill("");
     await this.webhookUsernameInput.type(webhookUsername); 
 
     // await expect(this.webhookUsernameInput).toHaveValue(webhookUsername);
