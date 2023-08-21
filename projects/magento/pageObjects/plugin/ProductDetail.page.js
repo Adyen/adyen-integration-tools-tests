@@ -21,10 +21,14 @@ export class ProductDetailsPage extends BasePage {
     await this.page.goto(`/${itemURL}`);
   }
 
-  async addItemToCart(itemURL) {
-    await this.navigateToItemPage(itemURL);
+  async addToCart(){
     await this.addToCartButton.click();
     await new AnimationHelper(this.page).waitForAnimation();
+  }
+
+  async addItemToCart(itemURL) {
+    await this.navigateToItemPage(itemURL);
+    await this.addToCart();
   }
 
   async addItemWithOptionsToCart(itemURL, itemSize = "S", howMany = 1) {
