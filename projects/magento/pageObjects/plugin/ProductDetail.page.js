@@ -17,14 +17,18 @@ export class ProductDetailsPage extends BasePage {
     .locator(".adyen-checkout__paywithgoogle");
   }
 
-  async addItemToCart(itemURL) {
+  async navigateToItemPage(itemURL){
     await this.page.goto(`/${itemURL}`);
+  }
+
+  async addItemToCart(itemURL) {
+    await this.navigateToItemPage(itemURL);
     await this.addToCartButton.click();
     await new AnimationHelper(this.page).waitForAnimation();
   }
 
   async addItemWithOptionsToCart(itemURL, itemSize = "S", howMany = 1) {
-    await this.page.goto(`/${itemURL}`);
+    await this.navigateToItemPage(itemURL);
     await this.page.locator(`[aria-label='${itemSize.toUpperCase()}']`).click();
     await this.firstColorOption.click();
     await this.quantityField.fill(howMany.toString());
@@ -34,5 +38,9 @@ export class ProductDetailsPage extends BasePage {
     /* 100ms additional ugly wait to prevent race condition between
     the animation and the item number update */
     await new Promise(resolve => setTimeout(resolve, 100));
+  }
+
+  async clickBuyWithGPay(){
+    await this.buyWithGoogleViaProductPageButton.click();
   }
 }
