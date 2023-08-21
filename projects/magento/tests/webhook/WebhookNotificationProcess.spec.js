@@ -3,10 +3,10 @@ import PaymentResources from "../../../data/PaymentResources.js";
 import {
   getOrderNumber,
   goToShippingWithFullCart,
-  makeIDealPayment,
   proceedToPaymentAs,
   verifySuccessfulPayment,
 } from "../../helpers/ScenarioHelper.js";
+import { makeCreditCardPayment } from "../../helpers/PaymentHelper.js";
 
 const paymentResources = new PaymentResources();
 const webhookCredentials = paymentResources.webhookCredentials;
@@ -25,8 +25,12 @@ test.describe.parallel("Webhook notifications", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
     await proceedToPaymentAs(page, users.dutch);
-    await makeIDealPayment(page, "Test Issuer");
-    await verifySuccessfulPayment(page, false);
+    await makeCreditCardPayment(page,
+      users.regular,
+      paymentResources.masterCardWithout3D,
+      paymentResources.expDate,
+      paymentResources.cvc)
+    await verifySuccessfulPayment(page);
     orderNumber = await getOrderNumber(page);
   });
 
@@ -51,7 +55,7 @@ test.describe.parallel("Webhook notifications", () => {
                 "operations" : [
                    "REFUND"
                 ],
-                "paymentMethod" : "ideal",
+                "paymentMethod" : "mc",
                 "pspReference" : `LVL9PX2ZPQR${randomPspNumber}`,
                 "reason" : "",
                 "success" : "true"
