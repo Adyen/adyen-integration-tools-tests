@@ -21,4 +21,13 @@ export class BasePage extends TopBar {
     });
     return this.cartItemCount.innerText();
   }
+
+  async clickbuyWithGPayViaMiniCart(){
+    await this.shoppingCartLoaderMask.waitFor({
+      state: "detached",
+      timeout: 10000,
+    });
+    await this.cartIcon.click();
+    await this.buyWithGoogleViaCartButton.click();
+  }
 }
