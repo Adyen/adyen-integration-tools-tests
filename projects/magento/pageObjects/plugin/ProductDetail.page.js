@@ -5,11 +5,16 @@ export class ProductDetailsPage extends BasePage {
   constructor(page) {
     super(page);
     this.page = page;
+
     this.firstColorOption = page
       .locator("//*[contains(@class,'swatch-option color')]")
       .first();
     this.quantityField = page.locator("input[name='qty']");
     this.addToCartButton = page.locator("#product-addtocart-button");
+  
+    this.productDetailActionsWrapper = page.locator(".box-tocart");
+    this.buyWithGoogleViaProductPageButton = this.productDetailActionsWrapper
+    .locator(".adyen-checkout__paywithgoogle");
   }
 
   async addItemToCart(itemURL) {

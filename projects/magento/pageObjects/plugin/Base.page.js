@@ -9,6 +9,9 @@ export class BasePage extends TopBar {
     this.cartIcon = page.locator(".showcart");
     this.cartItemCount = page.locator(".qty .counter-number");
     this.shoppingCartLoaderMask = page.locator(".showcart .loading-mask");
+    
+    this.miniCartWrapper = page.locator(".block-minicart");
+    this.buyWithGoogleViaCartButton = this.miniCartWrapper.locator(".adyen-checkout__paywithgoogle");
   }
 
   async currentCartItemCount() {
