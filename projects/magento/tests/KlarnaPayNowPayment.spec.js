@@ -18,7 +18,8 @@ test.describe.parallel("Payment via Klarna Pay Now", () => {
     await goToShippingWithFullCart(page);
   });
 
-  test("should succeed via direct debit", async ({ page }) => {
+  test.skip("should succeed via direct debit", async ({ page }) => {
+    // Skipping this test until Klarna's ever changing bank transfer flow settles
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 
