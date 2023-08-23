@@ -3,14 +3,14 @@ import PaymentResources from "../../../data/PaymentResources.js";
 import { loginAsAdmin } from "../../helpers/ScenarioHelper.js";
 import { AdminAdyenConfigPage } from "../../pageObjects/plugin/AdminAdyenConfig.page.js";
 
+export default function requiredSettingsAutoConfigTest(){
 
 const paymentResources = new PaymentResources();
 const apiCredentials = paymentResources.apiCredentials;
 
 let adyenConfigPage;
 
-
-test.describe('Configure required settings', () => {
+test.describe.serial('Configure required settings', () => {
     test.beforeEach(async ({ page }) => {
         await loginAsAdmin(page, paymentResources.magentoAdminUser);
         adyenConfigPage = new AdminAdyenConfigPage(page);
@@ -37,3 +37,4 @@ test.describe('Configure required settings', () => {
         await expect(await adyenConfigPage.requiredSettingsWarningMessage).toContainText('Unable to load merchant accounts');
     });
 });
+}

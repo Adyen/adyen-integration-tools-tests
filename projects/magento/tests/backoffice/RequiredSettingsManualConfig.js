@@ -3,6 +3,7 @@ import PaymentResources from "../../../data/PaymentResources.js";
 import { loginAsAdmin } from "../../helpers/ScenarioHelper.js";
 import { AdminAdyenConfigPage } from "../../pageObjects/plugin/AdminAdyenConfig.page.js";
 
+export default function requiredSettingsManualConfigTest() {
 
 const paymentResources = new PaymentResources();
 const apiCredentials = paymentResources.apiCredentials;
@@ -11,7 +12,7 @@ const webhookCredentials = paymentResources.webhookCredentials;
 let adyenConfigPage;
 
 
-test.describe('Configure required settings', () => {
+test.describe.serial('Configure required settings', () => {
     test.beforeEach(async ({ page }) => {
         await loginAsAdmin(page, paymentResources.magentoAdminUser);
         adyenConfigPage = new AdminAdyenConfigPage(page);
@@ -30,3 +31,4 @@ test.describe('Configure required settings', () => {
 
     });
 });
+}

@@ -4,6 +4,7 @@ import { loginAsAdmin } from "../../helpers/ScenarioHelper.js";
 import { AdminAdyenConfigPage } from "../../pageObjects/plugin/AdminAdyenConfig.page.js";
 import { AdminOrderCreationPage } from "../../pageObjects/plugin/AdminOrderCreation.page.js";
 
+export default function backofficeMOTOTest(){
 
 const paymentResources = new PaymentResources();
 const magentoAdminUser = paymentResources.magentoAdminUser;
@@ -16,8 +17,7 @@ const wrongExpirationDate = paymentResources.wrongExpDate;
 let adyenConfigPage;
 let adminOrderCreationPage;
 
-
-test.describe("MOTO Orders", () => {
+test.describe.serial("MOTO Orders", () => {
   test.beforeEach(async ({ page }) => {
     await loginAsAdmin(page, magentoAdminUser);
 
@@ -43,3 +43,4 @@ test.describe("MOTO Orders", () => {
     expect(await adminOrderCreationPage.orderErrorMessage.innerText()).toContain("The payment is REFUSED.");
   });
 });
+}

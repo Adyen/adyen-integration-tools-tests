@@ -8,6 +8,8 @@ import {
 } from "../../helpers/ScenarioHelper.js";
 import { makeCreditCardPayment } from "../../helpers/PaymentHelper.js";
 
+export default function webhookNotificationProcessTests(){
+
 const paymentResources = new PaymentResources();
 const webhookCredentials = paymentResources.webhookCredentials;
 const users = paymentResources.guestUser;
@@ -21,7 +23,7 @@ const headers = {
     Authorization: `Basic ${base64Credentials}`
 };
 
-test.describe.parallel("Webhook notifications", () => {
+test.describe.serial("Webhook notifications", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
     await proceedToPaymentAs(page, users.dutch);
@@ -79,3 +81,4 @@ test.describe.parallel("Webhook notifications", () => {
 
  });
 });
+}

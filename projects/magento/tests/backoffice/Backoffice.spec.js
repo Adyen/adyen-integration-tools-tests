@@ -1,8 +1,14 @@
+import { test } from "@playwright/test";
+import backofficeMOTOTest from "../backoffice/MOTO.js";
+import requiredSettingsAutoConfigTest from "../backoffice/RequiredSettingsAutoConfig.js";
+import requiredSettingsManualConfigTest from "../backoffice/RequiredSettingsManualConfig.js";
+import webhookNotificationProcessTests from "../backoffice/WebhookNotificationProcess.js";
+
 /* Since we use multiple workers for E2E tests and
 Magento doesn't allow multiple administrator sessions,
 we are running them through this file to allow serialization */
 
-import "../backoffice/MOTO.js";
-import "../backoffice/RequiredSettingsAutoConfig.js"
-import "../backoffice/RequiredSettingsManualConfig.js"
-import "../backoffice/WebhookNotificationProcess.js";
+test.describe(backofficeMOTOTest);
+test.describe(requiredSettingsAutoConfigTest);
+test.describe(requiredSettingsManualConfigTest);
+test.describe(webhookNotificationProcessTests);
