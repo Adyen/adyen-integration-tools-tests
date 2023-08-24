@@ -6,20 +6,21 @@ import { GooglePayPage } from "../../../common/redirect/GooglePayPage.js";
 
 const googleCredentials = new PaymentResources().googleCredentials;
 
-test.describe("Payment via Express Checkout with Google Pay", () => {  
+test.describe.parallel("Payment via Express Checkout with Google Pay", () => { 
 
   test("should work as expected from product detail page", async ({ page }) => {
     await goToShippingWithFullCart(page);
     const productPage = new ProductDetailsPage(page);
 
-    
+    await page.waitForLoadState("networkidle", { timeout: 10000 });
+
     const [popup] = await Promise.all([
-      page.waitForEvent("page"),
-      await productPage.clickbuyWithGPayViaMiniCart()
+      page.waitForEvent("popup"),
+      await productPage.clickbuyWithGPayViaMiniCart(),
     ]);
 
     await new GooglePayPage(popup).payWithGoogle(googleCredentials.userName, googleCredentials.password);
-    await verifySuccessfulPayment(page);
+    await verifySuccessfulPayment(page, true, 20000);
 
   });
   
@@ -27,13 +28,15 @@ test.describe("Payment via Express Checkout with Google Pay", () => {
     const productPage = new ProductDetailsPage(page);
     await productPage.navigateToItemPage("joust-duffle-bag.html");
 
+    await page.waitForLoadState("networkidle", { timeout: 10000 });
+
     const [popup] = await Promise.all([
-      page.waitForEvent("page"),
+      page.waitForEvent("popup"),
       await productPage.clickBuyWithGPay()
     ]);
-
+    
     await new GooglePayPage(popup).payWithGoogle(googleCredentials.userName, googleCredentials.password);
-    await verifySuccessfulPayment(page);
+    await verifySuccessfulPayment(page, true, 20000);
 
   });
 });
