@@ -50,10 +50,10 @@ export async function proceedToPaymentAs(page, user, isGuest = true) {
   }
 }
 
-export async function verifySuccessfulPayment(page, redirect = true) {
+export async function verifySuccessfulPayment(page, redirect = true, timeout) {
   const successfulCheckoutPage = new SuccessfulCheckoutPage(page);
   if (redirect != false) {
-    await successfulCheckoutPage.waitForRedirection();
+    await successfulCheckoutPage.waitForRedirection(timeout);
   }
   expect(await successfulCheckoutPage.pageTitle.innerText()).toContain(
     "Thank you for your purchase!"
