@@ -33,7 +33,7 @@ export async function verifySuccessfulPayment(page, redirect = true) {
   if (redirect) {
     await successfulResultPage.waitForRedirection({ timeout:15000 });
   }
-  expect(successfulResultPage.titleText).toContain(
+  expect(await successfulResultPage.titleText()).toContain(
     "Thank you for your order with"
   );
 }
