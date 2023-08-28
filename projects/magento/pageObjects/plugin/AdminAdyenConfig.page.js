@@ -22,7 +22,7 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
     this.configuredCheckMark = this.adyenRequiredSettingsGroup.locator(".configured");
 
     this.requiredSettingsWarningMessage = this.adyenRequiredSettingsGroup.locator(".message.message-warning");
-    this.requiredSettingsSpinner = this.adyenRequiredSettingsGroup.locator("img.processing");
+    this.requiredSettingsSpinner = this.adyenRequiredSettingsGroup.locator("img.processing").first();
 
 
     //Configuration > Payment Methods
