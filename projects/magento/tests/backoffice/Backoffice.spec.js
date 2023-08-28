@@ -9,6 +9,6 @@ Magento doesn't allow multiple administrator sessions,
 we are running them through this file to allow serialization */
 
 test.describe(backofficeMOTOTest);
+test.describe(webhookNotificationProcessTests);
 test.describe(requiredSettingsAutoConfigTest);
 test.describe(requiredSettingsManualConfigTest);
-test.describe(webhookNotificationProcessTests);
