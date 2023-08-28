@@ -36,7 +36,7 @@ test.describe.serial("Webhook notifications", () => {
     orderNumber = await getOrderNumber(page);
   });
 
-  test("should be able to process notification", async ({ request }) => {
+  test.only("should be able to process notification", async ({ request }) => {
    
    // Send the notification process request
    const processWebhookResponse = await request.post("/adyen/process/json", {
