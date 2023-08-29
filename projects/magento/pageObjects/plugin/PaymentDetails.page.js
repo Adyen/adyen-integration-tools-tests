@@ -11,7 +11,7 @@ export class PaymentDetailsPage {
     this.page = page;
 
     this.creditCardRadioButton = page.locator("#adyen_cc");
-    this.idealWrapper = page.locator("#payment_form_adyen_hpp_ideal");
+    this.idealWrapper = page.locator("#adyen-ideal-form");
     this.idealRadioButton = page.locator("#adyen_ideal");
     this.payPalRadioButton = page.locator("#adyen_paypal");
     this.klarnaPayLaterRadioButton = page.locator("#adyen_klarna");
