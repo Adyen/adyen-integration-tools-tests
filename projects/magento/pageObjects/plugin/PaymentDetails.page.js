@@ -13,6 +13,7 @@ export class PaymentDetailsPage {
     this.creditCardRadioButton = page.locator("#adyen_cc");
     this.idealWrapper = page.locator("#adyen-ideal-form");
     this.idealRadioButton = page.locator("#adyen_ideal");
+    this.bancontactRadioButton = page.locator("#adyen_bcmc_mobile");
     this.payPalRadioButton = page.locator("#adyen_paypal");
     this.klarnaPayLaterRadioButton = page.locator("#adyen_klarna");
     this.klarnaPayOverTimeRadioButton = page.locator("#adyen_klarna_account");
@@ -56,6 +57,11 @@ export class PaymentDetailsPage {
     await this.idealRadioButton.click();
     await this.waitForPaymentMethodReady();
     return new IDealComponents(this.idealWrapper);
+  }
+
+  async selectBancontactMobile() {
+    await this.bancontactRadioButton.click();
+    await this.waitForPaymentMethodReady();
   }
 
   async selectPayPal() {
