@@ -1,4 +1,3 @@
-import { BancontactCardComponentsMagento } from "../checkout/BancontactCardComponentsMagento.js";
 import { CreditCardComponentsMagento } from "../checkout/CreditCardComponentsMagento.js";
 import { PayPalComponents } from "../../../common/checkoutComponents/PayPalComponents.js"
 import { SepaDirectDebitComponents } from "../../../common/checkoutComponents/SepaDirectDebitComponents.js";
