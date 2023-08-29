@@ -8,7 +8,6 @@ import {
   verifyFailedPayment,
   verifySuccessfulPayment,
 } from "../helpers/ScenarioHelper.js";
-import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
 import { makeCreditCardPayment } from "../helpers/PaymentHelper.js";
 
 const paymentResources = new PaymentResources();
