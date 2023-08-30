@@ -66,7 +66,6 @@ const config = {
       testDir: "./tests/backoffice",
       use: {
         browserName: "chromium",
-        trace: "retain-on-failure",
         viewport: {
           width: VIEWPORT_WIDTH,
           height: VIEWPORT_HEIGHT,
