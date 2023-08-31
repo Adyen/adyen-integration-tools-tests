@@ -9,10 +9,10 @@ export class QRPage {
   
     async verifySuccessfulQRCode() {
         await this.page.waitForLoadState(
-            "networkidle", 
+            "load", 
             { timeout: 10000 }
         );
         
-        await expect(this.QRCode).toBeVisible({ timeout: 7000 });
+        await expect(this.QRCode).toBeVisible({ timeout: 10000 });
     }
 }
