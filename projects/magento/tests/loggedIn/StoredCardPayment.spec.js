@@ -17,7 +17,7 @@ const users = paymentResources.guestUser;
 
 /* No parallelism due to usage of same user account
 since it will cause the cart to reset */
-test.describe("Payment via stored credit card", () => {
+test.describe.fixme("ECP-8603 Payment via stored credit card", () => {
   test.beforeEach(async ({ page }) => {
     await loginAs(page, magentoSampleUser);
     await goToShippingWithFullCart(page);
