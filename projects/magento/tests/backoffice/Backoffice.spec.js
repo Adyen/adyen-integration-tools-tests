@@ -8,7 +8,7 @@ import webhookNotificationProcessTests from "../backoffice/WebhookNotificationPr
 Magento doesn't allow multiple administrator sessions,
 we are running them through this file to allow serialization */
 
-test.describe(backofficeMOTOTest);
 test.describe(webhookNotificationProcessTests);
+test.describe(backofficeMOTOTest);
 test.describe(requiredSettingsAutoConfigTest);
 test.describe(requiredSettingsManualConfigTest);
