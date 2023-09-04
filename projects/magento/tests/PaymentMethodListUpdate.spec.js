@@ -26,6 +26,6 @@ test.describe("Payment method list", () => {
     await shippingDetailsPage.fillShippingDetails(belgianUser);
     await shippingDetailsPage.clickNextButton();
 
-    await paymentDetailPage.selectBancontactCard();
+    await paymentDetailPage.selectBancontactMobile();
   });
 });

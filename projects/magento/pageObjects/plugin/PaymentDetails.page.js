@@ -1,4 +1,3 @@
-import { BancontactCardComponentsMagento } from "../checkout/BancontactCardComponentsMagento.js";
 import { CreditCardComponentsMagento } from "../checkout/CreditCardComponentsMagento.js";
 import { PayPalComponents } from "../../../common/checkoutComponents/PayPalComponents.js"
 import { SepaDirectDebitComponents } from "../../../common/checkoutComponents/SepaDirectDebitComponents.js";
@@ -11,14 +10,14 @@ export class PaymentDetailsPage {
     this.page = page;
 
     this.creditCardRadioButton = page.locator("#adyen_cc");
-    this.idealWrapper = page.locator("#payment_form_adyen_hpp_ideal");
+    this.idealWrapper = page.locator("#adyen-ideal-form");
     this.idealRadioButton = page.locator("#adyen_ideal");
+    this.bancontactRadioButton = page.locator("#adyen_bcmc_mobile");
     this.payPalRadioButton = page.locator("#adyen_paypal");
     this.klarnaPayLaterRadioButton = page.locator("#adyen_klarna");
     this.klarnaPayOverTimeRadioButton = page.locator("#adyen_klarna_account");
     this.klarnaPayNowRadioButton = page.locator("#adyen_klarna_paynow");
-    this.bancontactCardRadioButton = page.locator("#adyen_bcmc");
-    this.sepaWrapper = page.locator("#payment_form_adyen_hpp_sepadirectdebit");
+    this.sepaWrapper = page.locator("#adyen-sepadirectdebit-form");
     this.sepaDirectDebitRadioButton = page.locator("#adyen_sepadirectdebit");
     this.genericGiftCardRadioButton = page.locator("#adyen_genericgiftcard");
     this.oney3RadioButton = page.locator("#adyen_facilypay_3x");
@@ -59,6 +58,11 @@ export class PaymentDetailsPage {
     return new IDealComponents(this.idealWrapper);
   }
 
+  async selectBancontactMobile() {
+    await this.bancontactRadioButton.click();
+    await this.waitForPaymentMethodReady();
+  }
+
   async selectPayPal() {
     await this.payPalRadioButton.click();
     await this.waitForPaymentMethodReady();
@@ -78,12 +82,6 @@ export class PaymentDetailsPage {
   async selectKlarnaPayNow() {
     await this.klarnaPayNowRadioButton.click();
     await this.waitForPaymentMethodReady();
-  }
-
-  async selectBancontactCard() {
-    await this.bancontactCardRadioButton.click();
-    await this.waitForPaymentMethodReady();
-    return new BancontactCardComponentsMagento(this.page);
   }
 
   async selectSepaDirectDebit() {
