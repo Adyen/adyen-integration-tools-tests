@@ -1,3 +1,4 @@
+import { expect } from "@playwright/test";
 import { TopBar } from "./TopBar.page.js";
 
 export class BasePage extends TopBar {
@@ -28,6 +29,9 @@ export class BasePage extends TopBar {
       timeout: 10000,
     });
     await this.cartIcon.click();
+    
+    // Debugging on CI
+    await expect(this.buyWithGoogleViaCartButton).toBeVisible();
     await this.buyWithGoogleViaCartButton.click();
   }
 }
