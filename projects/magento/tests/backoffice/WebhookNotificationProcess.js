@@ -23,7 +23,7 @@ const headers = {
     Authorization: `Basic ${base64Credentials}`
 };
 
-test.describe.serial("Webhook notifications", () => {
+test.describe.only("Webhook notifications", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
     await proceedToPaymentAs(page, users.dutch);
