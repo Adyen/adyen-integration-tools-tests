@@ -6,7 +6,8 @@ import { GooglePayPage } from "../../../common/redirect/GooglePayPage.js";
 
 const googleCredentials = new PaymentResources().googleCredentials;
 
-test.describe.parallel("Payment via Express Checkout with Google Pay", () => { 
+// Debug on CI
+test.describe.only("Payment via Express Checkout with Google Pay", () => { 
 
   test("should work as expected from product detail page", async ({ page }) => {
     await goToShippingWithFullCart(page);
