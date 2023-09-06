@@ -1,4 +1,3 @@
-import { expect } from "@playwright/test";
 import { TopBar } from "./TopBar.page.js";
 
 export class BasePage extends TopBar {
@@ -13,6 +12,7 @@ export class BasePage extends TopBar {
     
     this.miniCartWrapper = page.locator(".block-minicart");
     this.buyWithGoogleViaCartButton = this.miniCartWrapper.locator(".adyen-checkout__paywithgoogle");
+    this.buyWithGoogleViaCartButtonAnimation = this.miniCartWrapper.locator(".gpay-card-info-animated-progress-bar");
   }
 
   async currentCartItemCount() {
@@ -31,8 +31,8 @@ export class BasePage extends TopBar {
     await this.cartIcon.click();
     
     // Debugging on CI
-    await expect(this.buyWithGoogleViaCartButton).toBeVisible();
-    await this.page.waitForLoadState("networkidle", { timeout: 10000 });
+    await (this.buyWithGoogleViaCartButtonAnimation).waitFor({state: "visible"});
+    await (this.buyWithGoogleViaCartButtonAnimation).waitFor({state: "hidden", timeout:15000});
     await this.buyWithGoogleViaCartButton.click();
   }
 }

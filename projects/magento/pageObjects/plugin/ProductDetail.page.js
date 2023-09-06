@@ -15,6 +15,8 @@ export class ProductDetailsPage extends BasePage {
     this.productDetailActionsWrapper = page.locator(".box-tocart");
     this.buyWithGoogleViaProductPageButton = this.productDetailActionsWrapper
     .locator(".adyen-checkout__paywithgoogle");
+    this.buyWithGoogleViaProductPageButtonAnimation = this.productDetailActionsWrapper
+    .locator(".gpay-card-info-animated-progress-bar");
   }
 
   async navigateToItemPage(itemURL){
@@ -45,8 +47,8 @@ export class ProductDetailsPage extends BasePage {
   }
 
   async clickBuyWithGPay(){
-    await expect(this.buyWithGoogleViaProductPageButton).toBeVisible();
-    await this.page.waitForLoadState("networkidle", { timeout: 10000 });
+    await (this.buyWithGoogleViaProductPageButtonAnimation).waitFor({state: "visible"});
+    await (this.buyWithGoogleViaProductPageButtonAnimation).waitFor({state: "hidden", timeout:15000});
     await this.buyWithGoogleViaProductPageButton.click();
   }
 }
