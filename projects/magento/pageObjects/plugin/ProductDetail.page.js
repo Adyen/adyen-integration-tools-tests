@@ -48,7 +48,7 @@ export class ProductDetailsPage extends BasePage {
 
   async clickBuyWithGPay(){
     await (this.buyWithGoogleViaProductPageButtonAnimation).waitFor({state: "visible"});
-    await (this.buyWithGoogleViaProductPageButtonAnimation).waitFor({state: "hidden", timeout:15000});
+    await (this.buyWithGoogleViaProductPageButton).waitFor({state: "visible"});
     await this.buyWithGoogleViaProductPageButton.click();
   }
 }
