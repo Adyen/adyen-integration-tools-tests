@@ -45,6 +45,8 @@ export class ProductDetailsPage extends BasePage {
   }
 
   async clickBuyWithGPay(){
+    await expect(this.buyWithGoogleViaProductPageButton).toBeVisible();
+    await this.page.waitForLoadState("networkidle", { timeout: 10000 });
     await this.buyWithGoogleViaProductPageButton.click();
   }
 }
