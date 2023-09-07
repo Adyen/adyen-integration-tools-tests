@@ -33,6 +33,7 @@ export class BasePage extends TopBar {
     // Debugging on CI
     await (this.buyWithGoogleViaCartButtonAnimation).waitFor({state: "visible"});
     await (this.buyWithGoogleViaCartButton).waitFor({state: "visible"});
+    await page.waitForLoadState("networkidle", { timeout: 10000 });
     await this.buyWithGoogleViaCartButton.click();
   }
 }
