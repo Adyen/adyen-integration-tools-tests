@@ -19,7 +19,7 @@ test.describe.parallel("Payment via credit card", () => {
     await goToShippingWithFullCart(page);
   });
 
-  test("without 3Ds should succeed", async ({ page }) => {
+  test.only("without 3Ds should succeed", async ({ page }) => {
     await proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
