@@ -16,7 +16,7 @@ test.describe("Payment via Express Checkout with Google Pay", () => {
     await page.waitForLoadState("networkidle", { timeout: 10000 });
 
     const [popup] = await Promise.all([
-      page.waitForEvent("popup"),
+      page.waitForEvent("popup", {timeout:25000}),
       await productPage.clickbuyWithGPayViaMiniCart(),
     ]);
 
@@ -32,7 +32,7 @@ test.describe("Payment via Express Checkout with Google Pay", () => {
     await page.waitForLoadState("networkidle", { timeout: 10000 });
 
     const [popup] = await Promise.all([
-      page.waitForEvent("popup"),
+      page.waitForEvent("popup", {timeout:25000}),
       await productPage.clickBuyWithGPay()
     ]);
     
