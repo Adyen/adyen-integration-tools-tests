@@ -76,7 +76,7 @@ const config = {
       name: "expressCheckout",
       testDir: "./tests/expressCheckout",
       use: {
-        browserName: "chromium",
+        browserName: "firefox",
         trace: "retain-on-failure",
         viewport: {
           width: VIEWPORT_WIDTH,
