@@ -37,7 +37,7 @@ export default class PaymentResources {
   }
 
   googleCredentials = {
-    userName: process.env.GOOGLE_USERNAME,
+    username: process.env.GOOGLE_USERNAME,
     password: process.env.GOOGLE_PASSWORD,
     }
 
