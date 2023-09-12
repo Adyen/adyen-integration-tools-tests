@@ -10,6 +10,8 @@ export class GooglePayPage {
 
     this.paymentIframe = page.frameLocator("iframe[allow='camera']")
     this.payButton = this.paymentIframe.locator(".jfk-button").first();
+
+    this.verificationText = page.getByRole('heading', { name: "Verify it's you" });
   }
 
   async fillUsername(username) {
@@ -46,7 +48,7 @@ export class GooglePayPage {
     await this.payButton.click();
   }
 
-  async payWithGoogle(username, password){
+  async fillGoogleCredentials(username, password){
     await this.page.waitForLoadState("networkidle", { timeout: 10000 });
 
     await this.fillUsername(username);
@@ -54,8 +56,11 @@ export class GooglePayPage {
 
     await this.fillPassword(password);
     await this.clickNext();
-    await this.page.waitForLoadState("networkidle", { timeout: 10000 });
-
-    await this.clickPay();
   }
+
+  async payOrSkipDueToVerification(){
+    await this.page.waitForLoadState("networkidle", { timeout: 10000 });
+    await this.verificationText.isVisible()? false:await this.clickPay();
+  }
+  
 }

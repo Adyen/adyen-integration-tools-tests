@@ -20,7 +20,7 @@ test.describe("Payment via Express Checkout with Google Pay", () => {
       await productPage.clickbuyWithGPayViaMiniCart(),
     ]);
 
-    await new GooglePayPage(popup).payWithGoogle(googleCredentials.username, googleCredentials.password);
+    await new GooglePayPage(popup).fillGoogleCredentials(googleCredentials.username, googleCredentials.password);
     await verifySuccessfulPayment(page, true, 20000);
 
   });
@@ -36,8 +36,12 @@ test.describe("Payment via Express Checkout with Google Pay", () => {
       await productPage.clickBuyWithGPay()
     ]);
     
-    await new GooglePayPage(popup).payWithGoogle(googleCredentials.username, googleCredentials.password);
-    await verifySuccessfulPayment(page, true, 20000);
+    const activePopup = new GooglePayPage(popup);
+    await activePopup.fillGoogleCredentials(googleCredentials.username, googleCredentials.password);
+    if(await activePopup.payOrSkipDueToVerification()!=false){
+      await verifySuccessfulPayment(page, true, 20000);
+    }
+    
 
   });
 });
