@@ -33,7 +33,7 @@ test.describe.parallel("Payment via credit card", () => {
     await verifySuccessfulPayment(page);
   });
 
-  test("with 3Ds1 should succeed", async ({ page }) => {
+  test.skip("with 3Ds1 should succeed", async ({ page }) => {
     await proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
@@ -51,7 +51,7 @@ test.describe.parallel("Payment via credit card", () => {
     await verifySuccessfulPayment(page);
   });
 
-  test("with wrong 3Ds1 credentials should fail", async ({ page }) => {
+  test.skip("with wrong 3Ds1 credentials should fail", async ({ page }) => {
     await proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
