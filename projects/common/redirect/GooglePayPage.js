@@ -11,7 +11,8 @@ export class GooglePayPage {
     this.paymentIframe = page.frameLocator("iframe[allow='camera']")
     this.payButton = this.paymentIframe.locator(".jfk-button").first();
 
-    this.verificationText = page.getByRole('heading', { name: "Verify it's you" });
+    // Ugly Xpath locator to work both with Dutch and English text
+    this.verificationText = page.locator("//h1[@id='headingText']/*[contains(text(),'Verif')]");
   }
 
   async fillUsername(username) {
