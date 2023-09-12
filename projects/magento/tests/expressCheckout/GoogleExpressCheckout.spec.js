@@ -6,10 +6,9 @@ import { GooglePayPage } from "../../../common/redirect/GooglePayPage.js";
 
 const googleCredentials = new PaymentResources().googleCredentials;
 
-// Debug on CI
-test.describe("Payment via Express Checkout with Google Pay", () => { 
+test.describe.parallel("Payment via Express Checkout with Google Pay", () => { 
 
-  test.only("should work as expected from product detail page", async ({ page }) => {
+  test("should work as expected from product detail page", async ({ page }) => {
     await goToShippingWithFullCart(page);
     const productPage = new ProductDetailsPage(page);
 
@@ -20,8 +19,11 @@ test.describe("Payment via Express Checkout with Google Pay", () => {
       await productPage.clickbuyWithGPayViaMiniCart(),
     ]);
 
-    await new GooglePayPage(popup).fillGoogleCredentials(googleCredentials.username, googleCredentials.password);
-    await verifySuccessfulPayment(page, true, 20000);
+    const activePopup = new GooglePayPage(popup);
+    await activePopup.fillGoogleCredentials(googleCredentials.username, googleCredentials.password);
+    if(await activePopup.payOrSkipDueToVerification()){
+      await verifySuccessfulPayment(page, true, 20000);
+    }
 
   });
   
@@ -38,10 +40,9 @@ test.describe("Payment via Express Checkout with Google Pay", () => {
     
     const activePopup = new GooglePayPage(popup);
     await activePopup.fillGoogleCredentials(googleCredentials.username, googleCredentials.password);
-    if(await activePopup.payOrSkipDueToVerification()!=false){
+    if(await activePopup.payOrSkipDueToVerification()){
       await verifySuccessfulPayment(page, true, 20000);
     }
-    
 
   });
 });
