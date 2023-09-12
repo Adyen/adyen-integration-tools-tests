@@ -26,7 +26,7 @@ const config = {
   forbidOnly: !!process.env.CI,
 
   /* Retry on CI only */
-  retries: 0,
+  retries: 1,
 
   /* Opt out of parallel tests on CI. */
   workers: 4,
@@ -54,7 +54,7 @@ const config = {
       testIgnore: ["tests/backoffice/**","tests/expressCheckout/**",],
       use: {
         browserName: "chromium",
-        trace: "on",
+        trace: "retain-on-failure",
         viewport: {
           width: VIEWPORT_WIDTH,
           height: VIEWPORT_HEIGHT,
@@ -77,7 +77,6 @@ const config = {
       testDir: "./tests/expressCheckout",
       use: {
         browserName: "firefox",
-        trace: "on",
         viewport: {
           width: VIEWPORT_WIDTH,
           height: VIEWPORT_HEIGHT,
