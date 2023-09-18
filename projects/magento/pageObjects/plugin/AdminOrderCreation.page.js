@@ -82,4 +82,16 @@ export class AdminOrderCreationPage extends AdminPanelPage {
     await this.submitOrderButton.click();
     await this.waitForPageLoad(page);
   }
+
+  async createRefund(page, orderNumber) {
+    await this.waitForPageLoad(page);
+    await this.goToOrdersPage();
+    await this.waitForPageLoad(page);
+    await this.selectOrderToRefund(orderNumber);
+    await this.waitForPageLoad(page);
+    await this.createCreditMemo(orderNumber);
+    await this.waitForPageLoad(page);
+
+    console.log('GREAT SUCCESS!!!!!')
+  }
 }

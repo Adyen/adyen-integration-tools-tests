@@ -3,6 +3,7 @@ export default class PaymentResources {
   masterCard3DS2 = "5454545454545454";
   visa3DS1 = "4212345678901237";
   oneyCard = "4970101558744789";
+  visa = "4111111111111111";
 
   klarnaVerificationCode = "123456";
 
