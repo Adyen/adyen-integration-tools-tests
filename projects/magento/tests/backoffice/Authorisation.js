@@ -35,7 +35,7 @@ test.describe("Process AUTHORISATION webhook notifications", () => {
       paymentResources.cvc
     );
    //  await makeIDealPayment(page, "Test Issuer");
-    await verifySuccessfulPayment(page, false);
+    await verifySuccessfulPayment(page);
     orderNumber = await getOrderNumber(page);
     SharedState.orderNumber = orderNumber;
   });
@@ -60,7 +60,7 @@ test.describe("Process AUTHORISATION webhook notifications", () => {
                 "operations" : [
                    "AUTHORISATION"
                 ],
-                "paymentMethod" : "ideal",
+                "paymentMethod" : "visa",
                 "pspReference" : `LVL9PX2ZPQR${randomPspNumber}`,
                 "reason" : "",
                 "success" : "true"

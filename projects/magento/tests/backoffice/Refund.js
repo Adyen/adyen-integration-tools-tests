@@ -48,7 +48,7 @@ test.describe("Process REFUND webhook notifications", () => {
                         "merchantAccountCode": `${paymentResources.apiCredentials.merchantAccount}`,
                         "merchantReference": `${SharedState.orderNumber}`,
                         "originalReference": "DGSVMDS3N3RZNN82",
-                        "paymentMethod": "ideal",
+                        "paymentMethod": "visa",
                         "pspReference": `LVL9PX2ZPQR${randomPspNumber}`,
                         "reason": "",
                         "success": "true"
@@ -58,10 +58,10 @@ test.describe("Process REFUND webhook notifications", () => {
           }
        });
        expect(processWebhookResponse.status()).toBe(200);
-       const processedNotificationResponse = await request.get(`/adyentest/test?orderId=${orderNumber}&eventCode=REFUND`);
+       const processedNotificationResponse = await request.get(`/adyentest/test?orderId=${SharedState.orderNumber}&eventCode=REFUND`);
        expect(processedNotificationResponse.status()).toBe(200);
        const processedNotificationBody = await processedNotificationResponse.json();
-       expect(processedNotificationBody[0].status).toBe("processing");
+       expect(processedNotificationBody.refund_success).toBe("true");
     })
 
     // test("should be able to process refund notification", async ({ request }) => {
