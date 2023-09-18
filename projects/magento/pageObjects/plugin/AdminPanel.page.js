@@ -47,11 +47,13 @@ export class AdminPanelPage {
     //Order details page
     this.creditMemoSidebar = this.page.locator("#sales_order_view_tabs_order_invoices").getByRole('link', { name: 'Invoices' })
     this.getInvoiceLink = (orderNumber) => {return this.page.locator(".data-grid.data-grid-draggable").getByRole('cell', { name:`${orderNumber}` })};
+    this.invoiceActionLink = this.page.locator(".page-actions-buttons").getByRole('button', { name: 'Invoice' });
+    this.submitInvoice = this.page.locator(".order-totals-actions").getByRole('button', { name: 'Submit Invoice' });
     this.creditMemoLink = this.page.locator(".page-actions-buttons").getByRole('button', { name: 'Credit Memo' });
     this.refundButton = this.page.locator('[data-ui-id="order-items-submit-button"]');
   }
 
-  refundOrderLink(orderNumber) {
+  modificationOrderLink(orderNumber) {
     return this.page.locator(`text=${orderNumber}`);
   }
 
@@ -81,9 +83,14 @@ export class AdminPanelPage {
     await this.orderLink.click();
   }
 
-  async selectOrderToRefund(orderNumber) {
-    const locator = this.refundOrderLink(orderNumber);
+  async selectOrderToModify(orderNumber) {
+    const locator = this.modificationOrderLink(orderNumber);
     await locator.click();
+  }
+
+  async createInvoice() {
+   await this.invoiceActionLink.click();
+   await this.submitInvoice.click();
   }
 
   async createCreditMemo(orderNumber) {

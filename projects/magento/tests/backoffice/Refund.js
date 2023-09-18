@@ -35,10 +35,6 @@ test.describe("Process REFUND webhook notifications", () => {
              "notificationItems": [
                 {
                     "NotificationRequestItem": {
-                        "additionalData": {
-                            "bookingDate": "2023-09-15T15:53:02Z",
-                            "paymentMethodVariant": "idealtestissuer",
-                        },
                         "amount": {
                             "currency": "EUR",
                             "value": 3900
@@ -63,9 +59,4 @@ test.describe("Process REFUND webhook notifications", () => {
        const processedNotificationBody = await processedNotificationResponse.json();
        expect(processedNotificationBody.refund_success).toBe("true");
     })
-
-    // test("should be able to process refund notification", async ({ request }) => {
-        
-    // })
-
 });
