@@ -43,6 +43,18 @@ export class AdminPanelPage {
     //Configuration Screen > Sales Subsection
     this.salesConfigMenu = this.salesConfigLink.locator("..").locator("..");
     this.paymentMethodsLink = this.salesConfigMenu.locator("//span[text()='Payment Methods']");
+
+    //Order details page
+    this.creditMemoSidebar = this.page.locator("#sales_order_view_tabs_order_invoices").getByRole('link', { name: 'Invoices' })
+    this.getInvoiceLink = (orderNumber) => {return this.page.locator(".data-grid.data-grid-draggable").getByRole('cell', { name:`${orderNumber}` })};
+    this.invoiceActionLink = this.page.locator(".page-actions-buttons").getByRole('button', { name: 'Invoice' });
+    this.submitInvoice = this.page.locator(".order-totals-actions").getByRole('button', { name: 'Submit Invoice' });
+    this.creditMemoLink = this.page.locator(".page-actions-buttons").getByRole('button', { name: 'Credit Memo' });
+    this.refundButton = this.page.locator('[data-ui-id="order-items-submit-button"]');
+  }
+
+  modificationOrderLink(orderNumber) {
+    return this.page.locator(`text=${orderNumber}`);
   }
 
   async closePopup() {
@@ -69,6 +81,24 @@ export class AdminPanelPage {
   async goToOrdersPage() {
     await this.salesLink.click();
     await this.orderLink.click();
+  }
+
+  async selectOrderToModify(orderNumber) {
+    const locator = this.modificationOrderLink(orderNumber);
+    await locator.click();
+  }
+
+  async createInvoice() {
+   await this.invoiceActionLink.click();
+   await this.submitInvoice.click();
+  }
+
+  async createCreditMemo(orderNumber) {
+    await this.creditMemoSidebar.click();
+    const invoiceLink = this.getInvoiceLink(orderNumber);
+    await invoiceLink.click();
+    await this.creditMemoLink.click();
+    this.refundButton.click();
   }
 
   async goToAdyenPluginConfigurationPage(page) {

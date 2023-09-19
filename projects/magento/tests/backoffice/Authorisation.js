@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
 import PaymentResources from "../../../data/PaymentResources.js";
+import SharedState from "./SharedState.js";
 import {
   getOrderNumber,
   goToShippingWithFullCart,
@@ -7,6 +8,7 @@ import {
   proceedToPaymentAs,
   verifySuccessfulPayment,
 } from "../../helpers/ScenarioHelper.js";
+import { makeCreditCardPayment } from "../../helpers/PaymentHelper.js";
 
 const paymentResources = new PaymentResources();
 const webhookCredentials = paymentResources.webhookCredentials;
@@ -21,19 +23,25 @@ const headers = {
     Authorization: `Basic ${base64Credentials}`
 };
 
-test.describe.parallel("Webhook notifications", () => {
+test.describe("Process AUTHORISATION webhook notifications", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
     await proceedToPaymentAs(page, users.dutch);
-    await makeIDealPayment(page, "Test Issuer");
-    await verifySuccessfulPayment(page, false);
+    await makeCreditCardPayment(
+      page,
+      users.regular,
+      paymentResources.visa,
+      paymentResources.expDate,
+      paymentResources.cvc
+    );
+    await verifySuccessfulPayment(page);
     orderNumber = await getOrderNumber(page);
+    SharedState.orderNumber = orderNumber;
   });
 
-  test("should be able to process notification", async ({ request }) => {
-   
+  test("should be able to process AUTHORISATION notification", async ({ request }) => {
    // Send the notification process request
-   const processWebhookResponse = await request.post("/adyen/process/json", {
+   const processWebhookResponse = await request.post("/adyen/webhook", {
       headers,
       data: {
        "live" : "false",
@@ -49,9 +57,9 @@ test.describe.parallel("Webhook notifications", () => {
                 "merchantAccountCode" : `${paymentResources.apiCredentials.merchantAccount}`,
                 "merchantReference" : `${orderNumber}`,
                 "operations" : [
-                   "REFUND"
+                   "AUTHORISATION"
                 ],
-                "paymentMethod" : "ideal",
+                "paymentMethod" : "visa",
                 "pspReference" : `LVL9PX2ZPQR${randomPspNumber}`,
                 "reason" : "",
                 "success" : "true"
@@ -64,14 +72,13 @@ test.describe.parallel("Webhook notifications", () => {
  expect(processWebhookResponse.status()).toBe(200);
 
  // Get processed notification
- const processedNotificationResponse = await request.get(`/adyentest/test?orderId=${orderNumber}`)
+ const processedNotificationResponse = await request.get(`/adyentest/test?orderId=${orderNumber}&eventCode=AUTHORISATION`)
  
  // Check response status
  expect(processedNotificationResponse.status()).toBe(200);
  
  // Check the body of processed notification
  const processedNotificationBody = await processedNotificationResponse.json();
-  expect(processedNotificationBody[0].status).toBe("processing");
-
+  expect(processedNotificationBody[0].status).toBe("pending_payment");
  });
 });
