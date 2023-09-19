@@ -39,15 +39,8 @@ export async function proceedToPaymentAs(page, user, isGuest = true) {
   const shippingDetailsPage = new ShippingDetails(page);
   await shippingDetailsPage.goTo();
 
-  // Used switch since more functionality is to be added for registered users
-  switch (isGuest) {
-    case true:
-      await shippingDetailsPage.fillShippingDetailsAndProceedToPayment(user);
-      break;
-    case false:
-      await shippingDetailsPage.proceedToPaymentWithSavedAddress();
-      break;
-  }
+  isGuest?await shippingDetailsPage.fillShippingDetailsAndProceedToPayment(user)
+  :await shippingDetailsPage.proceedToPaymentWithSavedAddress();
 }
 
 export async function verifySuccessfulPayment(page, redirect = true) {
