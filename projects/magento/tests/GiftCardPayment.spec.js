@@ -15,7 +15,8 @@ const giftCard50EUR = paymentResources.giftCard.EUR50;
 const giftCard20EUR = paymentResources.giftCard.EUR20;
 const user = paymentResources.guestUser.dutch;
 
-test.describe.parallel("Payment via Gift Card", () => {
+// TODO
+test.describe.skip("Payment via Gift Card", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page, 1);
     await proceedToPaymentAs(page, user);

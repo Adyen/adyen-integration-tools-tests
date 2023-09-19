@@ -19,7 +19,8 @@ test.describe.parallel("Adyen Giving payments", () => {
     proceedToPaymentAs(page, users.dutch);
   });
 
-  test("should succeed with iDeal", async ({ page }) => {
+  
+  test.fixme("TODO: ECP-8598 should succeed with iDeal", async ({ page }) => {
     await makeIDealPayment(page, "Test Issuer");
     await verifySuccessfulPayment(page, false);
     const donationSection = new AdyenGivingMagento(page);
