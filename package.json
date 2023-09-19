@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test:ci:magento": "npx playwright test --config=projects/magento/magentoCIContainer.config.cjs",
+    "test:ci:magento": "npx playwright test --config=projects/magento/magentoCIContainer.config.cjs --project='backoffice' --project='user'",
+    "test:ci:magento:all": "npx playwright test --config=projects/magento/magentoCIContainer.config.cjs",
+    "test:ci:magento:expressCheckout": "npx playwright test --config=projects/magento/magentoCIContainer.config.cjs --project='expressCheckout'",
     "test:adyenlocal:magento": "npx playwright test --workers=1 --headed --project=chromium --config=projects/magento/magento.config.cjs",
     "test:adyenlocal:magento:headless": "npx playwright test --workers=1 --project=chromium --config=projects/magento/magento.config.cjs",
     "test:adyenlocal:magento:parallel": "npx playwright test --headed --project=chromium --config=projects/magento/magento.config.cjs",

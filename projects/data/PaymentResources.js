@@ -36,6 +36,11 @@ export default class PaymentResources {
     webhookPassword : process.env.WEBHOOK_PASSWORD,
   }
 
+  googleCredentials = {
+    username: process.env.GOOGLE_USERNAME,
+    password: process.env.GOOGLE_PASSWORD,
+    }
+
   apiCredentials = {
     merchantAccount: process.env.ADYEN_MERCHANT,
     clientKey: process.env.ADYEN_CLIENT_KEY,

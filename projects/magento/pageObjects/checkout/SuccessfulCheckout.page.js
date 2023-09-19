@@ -23,10 +23,10 @@ export class SuccessfulCheckoutPage extends BasePage {
     return await this.orderNumberSpan.innerText();
   }
 
-  async waitForRedirection() {
+  async waitForRedirection(timeout = 15000) {
     await this.page.waitForNavigation({
       url: / *\/onepage\/success/,
-      timeout: 15000,
+      timeout: timeout,
     });
   }
 }
