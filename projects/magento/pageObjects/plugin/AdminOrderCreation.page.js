@@ -83,23 +83,21 @@ export class AdminOrderCreationPage extends AdminPanelPage {
     await this.waitForPageLoad(page);
   }
 
-  async createCapture(page, orderNumber) {
+  async performModification(page, orderNumber, action) {
     await this.waitForPageLoad(page);
     await this.goToOrdersPage();
     await this.waitForPageLoad(page);
     await this.selectOrderToModify(orderNumber);
     await this.waitForPageLoad(page);
-    await this.createInvoice();
+    await action(orderNumber);
     await this.waitForPageLoad(page);
   }
 
+  async createCapture(page, orderNumber) {
+    await this.performModification(page, orderNumber, this.createInvoice.bind(this));
+  }
+
   async createRefund(page, orderNumber) {
-    await this.waitForPageLoad(page);
-    await this.goToOrdersPage();
-    await this.waitForPageLoad(page);
-    await this.selectOrderToModify(orderNumber);
-    await this.waitForPageLoad(page);
-    await this.createCreditMemo(orderNumber);
-    await this.waitForPageLoad(page);
+    await this.performModification(page, orderNumber, this.createCreditMemo.bind(this));
   }
 }
