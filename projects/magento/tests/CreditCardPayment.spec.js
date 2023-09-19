@@ -17,10 +17,10 @@ const users = paymentResources.guestUser;
 test.describe.parallel("Payment via credit card", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
+    await proceedToPaymentAs(page, users.regular);
   });
 
   test("without 3Ds should succeed", async ({ page }) => {
-    await proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
       page,
@@ -34,7 +34,6 @@ test.describe.parallel("Payment via credit card", () => {
   });
 
   test("with 3Ds2 should succeed", async ({ page }) => {
-    await proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
       page,
@@ -52,7 +51,6 @@ test.describe.parallel("Payment via credit card", () => {
   });
 
   test("with wrong 3Ds2 credentials should fail", async ({ page }) => {
-    await proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
       page,
@@ -70,7 +68,6 @@ test.describe.parallel("Payment via credit card", () => {
   });
 
   test("with 3Ds2 should abort the payment with correct message when cancelled", async ({ page }) => {
-    await proceedToPaymentAs(page, users.regular);
 
     await makeCreditCardPayment(
       page,
