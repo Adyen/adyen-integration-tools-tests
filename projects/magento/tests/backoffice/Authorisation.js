@@ -34,13 +34,12 @@ test.describe("Process AUTHORISATION webhook notifications", () => {
       paymentResources.expDate,
       paymentResources.cvc
     );
-   //  await makeIDealPayment(page, "Test Issuer");
     await verifySuccessfulPayment(page);
     orderNumber = await getOrderNumber(page);
     SharedState.orderNumber = orderNumber;
   });
 
-  test("should be able to process notification", async ({ request }) => {
+  test("should be able to process AUTHORISATION notification", async ({ request }) => {
    // Send the notification process request
    const processWebhookResponse = await request.post("/adyen/webhook", {
       headers,

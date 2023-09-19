@@ -20,7 +20,7 @@ const headers = {
 
 let adminOrderCreationPage;
 
-test.describe("Process REFUND webhook notifications", () => {
+test.describe("Process CAPTURE webhook notifications", () => {
     test.beforeEach(async ({ page }) => {
         await loginAsAdmin(page, magentoAdminUser)
         adminOrderCreationPage = new AdminOrderCreationPage(page);
@@ -54,9 +54,9 @@ test.describe("Process REFUND webhook notifications", () => {
           }
        });
        expect(processWebhookResponse.status()).toBe(200);
-       const processedNotificationResponse = await request.get(`/adyentest/test?orderId=${SharedState.orderNumber}&eventCode=REFUND`);
+       const processedNotificationResponse = await request.get(`/adyentest/test?orderId=${SharedState.orderNumber}&eventCode=CAPTURE`);
        expect(processedNotificationResponse.status()).toBe(200);
        const processedNotificationBody = await processedNotificationResponse.json();
-       expect(processedNotificationBody.refund_success).toBe("true");
+       expect(processedNotificationBody[0].status).toBe("processing");
     })
 });
