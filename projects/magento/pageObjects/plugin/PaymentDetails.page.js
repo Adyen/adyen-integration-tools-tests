@@ -120,18 +120,8 @@ export class PaymentDetailsPage {
   }
 
   async waitForPaymentMethodReady() {
-    await this.waitForPaymentSummaryLoader();
+    await this.page.waitForLoadState("networkidle", { timeout: 10000 });
     await this.activePaymentMethod.scrollIntoViewIfNeeded();
   }
 
-  async waitForPaymentSummaryLoader() {
-    await this.paymentSummaryLoadingSpinner.waitFor({
-      state: "attached",
-      timeout: 15000,
-    });
-    await this.paymentSummaryLoadingSpinner.waitFor({
-      state: "detached",
-      timeout: 20000,
-    });
-  }
 }
