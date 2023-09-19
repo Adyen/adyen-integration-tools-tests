@@ -57,6 +57,6 @@ test.describe("Process REFUND webhook notifications", () => {
        const processedNotificationResponse = await request.get(`/adyentest/test?orderId=${SharedState.orderNumber}&eventCode=REFUND`);
        expect(processedNotificationResponse.status()).toBe(200);
        const processedNotificationBody = await processedNotificationResponse.json();
-       expect(processedNotificationBody.refund_success).toBe("true");
+       expect(parseFloat(processedNotificationBody[0].total_refunded)).toEqual(parseFloat(processedNotificationBody[0].grand_total));
     })
 });
