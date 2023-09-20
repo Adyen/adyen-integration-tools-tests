@@ -61,8 +61,11 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
     await this.adyenMOTODropdown.selectOption("Yes");
     await this.adyenMOTOAccountAddButton.click();
 
+    await this.adyenMOTOMerhcantAccountInputField.fill("");
     await this.adyenMOTOMerhcantAccountInputField.type(adyenMOTOMerchantAccount);
+    await this.adyenMOTOClientKeyInputField.fill("");
     await this.adyenMOTOClientKeyInputField.type(adyenMOTOClientKey);
+    await this.adyenMOTOApiKeyInputField.fill("");
     await this.adyenMOTOApiKeyInputField.type(adyenMOTOApiKey);
 
     await this.adyenMOTOModeSelector.selectOption("1");
