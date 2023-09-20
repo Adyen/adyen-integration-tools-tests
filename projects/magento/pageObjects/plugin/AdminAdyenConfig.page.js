@@ -25,22 +25,25 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
     this.requiredSettingsSpinner = this.adyenInitialSetupGroup.locator("img.processing");
 
 
-    //Configuration > Payment Methods
-    
-    this.adyenPaymentsConfigButton = page.locator("//*[contains(@id,'_adyen_group_all_in_one-head')]");
-    this.acceptingPaymentsLink = page.locator("//*[contains(@id,'_adyen_group_all_in_one_adyen_accepting_payments-head')]");
-    this.adminOrdersLink = page.locator("//*[contains(@id,'_adyen_group_all_in_one_adyen_accepting_payments_adyen_admin_orders-head')]");
-    this.adyenMOTOLink = page.getByRole('combobox', { name: '[STORE VIEW] MOTO enabled' });
+    //Configuration > Payment Methods > Adyen Payments
+
+    this.adyenPaymentsSection = page.locator(".section-config.adyen-payments");
+    this.adyenPaymentsConfigButton = this.adyenPaymentsSection.locator(".button.action-configure");
+
+      //Configuration > Payment Methods > Adyen Payments > Accepting Payments
+      this.acceptingPaymentsSection = this.adyenPaymentsSection.locator("//tr[contains(@id,'adyen_accepting_payments')]").first();
+        this.adminOrdersLink = this.acceptingPaymentsSection.getByRole('link', { name: 'Admin Orders' });
+          this.adminOrdersSection = this.acceptingPaymentsSection.locator("//tr[contains(@id,'adyen_admin_orders')]").first();
+            this.adyenMOTODropdown = this.adminOrdersSection.locator("//select[contains(@id,'adyen_moto_active')]");
 
     //Configuration > Payment Methods > AdyenMOTO
-    this.adyenMOTOAccountSettingsGroup = page.locator("//*[contains(@id,'_adyen_group_all_in_one_adyen_accepting_payments_adyen_admin_orders')]");
+    this.adyenMOTOAccountSettingsGroup = this.adminOrdersSection.locator("//table[contains(@id,'adyen_moto_accounts')]");
     this.adyenMOTOStatusDropdown = this.adyenMOTOAccountSettingsGroup.locator("//*[contains(@id,'_adyen_group_all_in_one_adyen_accepting_payments_adyen_admin_orders_adyen_moto_active')]");
 
     this.adyenMOTOAccountAddButton = this.adyenMOTOAccountSettingsGroup.getByRole('button', { name: 'Add' });
     this.adyenMOTOCredentialsFirstTable = this.adyenMOTOAccountSettingsGroup.locator("tbody tr").first();
 
     this.adyenMOTOMerhcantAccountInputField = this.adyenMOTOCredentialsFirstTable.locator("//input[contains(@id,'_merchant_account')]");
-
     this.adyenMOTOClientKeyInputField = this.adyenMOTOCredentialsFirstTable.locator("//input[contains(@id,'_client_key')]");
     this.adyenMOTOApiKeyInputField = this.adyenMOTOCredentialsFirstTable.locator("//input[contains(@id,'_api_key')]");
     this.adyenMOTOModeSelector = this.adyenMOTOCredentialsFirstTable.locator("select");
@@ -52,11 +55,10 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
 
   async enableMOTO(page, adyenMOTOMerchantAccount, adyenMOTOClientKey, adyenMOTOApiKey) {
     await this.revealAdyenSettings();
-    await this.acceptingPaymentsLink.click();
+    await this.acceptingPaymentsSection.click();
     await this.adminOrdersLink.click();
 
-    await this.adyenMOTOLink.click();
-    await this.adyenMOTOStatusDropdown.selectOption("1");
+    await this.adyenMOTODropdown.selectOption("Yes");
     await this.adyenMOTOAccountAddButton.click();
 
     await this.adyenMOTOMerhcantAccountInputField.type(adyenMOTOMerchantAccount);
