@@ -27,15 +27,16 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
 
     //Configuration > Payment Methods
     this.adyenPaymentsConfigButton = page.locator("#payment_other_adyen_group_all_in_one-head");
-    this.configurePaymentMethodsLink = page.locator("#payment_us_adyen_group_all_in_one_adyen_configure_payment_methods-head");
-    this.adyenMOTOLink = page.locator("#payment_us_adyen_group_all_in_one_adyen_configure_payment_methods_adyen_moto_advanced_settings-head");
+    this.acceptingPaymentsLink = page.locator("#payment_other_adyen_group_all_in_one_adyen_accepting_payments-head");
+    this.adminOrdersLink = page.locator("#payment_other_adyen_group_all_in_one_adyen_accepting_payments_adyen_admin_orders-head");
+    this.adyenMOTOLink = page.getByRole('combobox', { name: '[STORE VIEW] MOTO enabled' });
 
     //Configuration > Payment Methods > AdyenMOTO
-    this.adyenMOTOStatusDropdown = page.locator("#payment_us_adyen_group_all_in_one_adyen_configure_payment_methods_adyen_moto_advanced_settings_active");
+    this.adyenMOTOStatusDropdown = page.locator("#payment_other_adyen_group_all_in_one_adyen_accepting_payments_adyen_admin_orders_adyen_moto_active");
 
-    this.adyenMOTOAccountSettingsGroup = page.locator("#payment_us_adyen_group_all_in_one_adyen_configure_payment_methods_adyen_moto_advanced_settings_moto_settings");
+    this.adyenMOTOAccountSettingsGroup = page.locator("#payment_other_adyen_group_all_in_one_adyen_accepting_payments_adyen_admin_orders");
 
-    this.adyenMOTOAccountAddButton = this.adyenMOTOAccountSettingsGroup.locator("button[title='Add']");
+    this.adyenMOTOAccountAddButton = this.adyenMOTOAccountSettingsGroup.getByRole('button', { name: 'Add' });
     this.adyenMOTOCredentialsFirstTable = this.adyenMOTOAccountSettingsGroup.locator("tbody tr").first();
 
     this.adyenMOTOMerhcantAccountInputField = this.adyenMOTOCredentialsFirstTable.locator("//input[contains(@id,'_merchant_account')]");
@@ -50,7 +51,8 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
 
   async enableMOTO(page, adyenMOTOMerchantAccount, adyenMOTOClientKey, adyenMOTOApiKey) {
     await this.revealAdyenSettings();
-    await this.configurePaymentMethodsLink.click();
+    await this.acceptingPaymentsLink.click();
+    await this.adminOrdersLink.click();
 
     await this.adyenMOTOLink.click();
     await this.adyenMOTOStatusDropdown.selectOption("1");
@@ -67,7 +69,7 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
 
   }
 
-  async autoConfigureRequiredSettings(page, apiKey, clientKey, merchantAccount, webhookUsername,) {
+  async autoConfigureRequiredSettings(page, apiKey, clientKey, merchantAccount, webhookUsername) {
     await this.waitForPageLoad(page);
     await this.revealAdyenSettings();
 
@@ -136,10 +138,5 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
 
     await this.saveConfigButton.scrollIntoViewIfNeeded();
     await this.saveConfigButton.click();
-
-}
-
-// async creditMemo() {
-  
-// }
+  }
 }
