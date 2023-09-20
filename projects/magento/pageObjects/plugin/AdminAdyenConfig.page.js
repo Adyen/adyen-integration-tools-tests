@@ -59,7 +59,9 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
     await this.adminOrdersLink.click();
 
     await this.adyenMOTODropdown.selectOption("Yes");
-    await this.adyenMOTOAccountAddButton.click();
+    if(!await this.adyenMOTOCredentialsFirstTable.isVisible()){
+      await this.adyenMOTOAccountAddButton.click();
+    }
 
     await this.adyenMOTOMerhcantAccountInputField.fill("");
     await this.adyenMOTOMerhcantAccountInputField.type(adyenMOTOMerchantAccount);
