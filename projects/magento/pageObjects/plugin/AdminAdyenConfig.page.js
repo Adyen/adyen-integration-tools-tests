@@ -26,20 +26,21 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
 
 
     //Configuration > Payment Methods
-    this.adyenPaymentsConfigButton = page.locator("#payment_other_adyen_group_all_in_one-head");
-    this.acceptingPaymentsLink = page.locator("#payment_other_adyen_group_all_in_one_adyen_accepting_payments-head");
-    this.adminOrdersLink = page.locator("#payment_other_adyen_group_all_in_one_adyen_accepting_payments_adyen_admin_orders-head");
+    
+    this.adyenPaymentsConfigButton = page.locator("//*[contains(@id,'_adyen_group_all_in_one-head')]");
+    this.acceptingPaymentsLink = page.locator("//*[contains(@id,'_adyen_group_all_in_one_adyen_accepting_payments-head')]");
+    this.adminOrdersLink = page.locator("//*[contains(@id,'_adyen_group_all_in_one_adyen_accepting_payments_adyen_admin_orders-head')]");
     this.adyenMOTOLink = page.getByRole('combobox', { name: '[STORE VIEW] MOTO enabled' });
 
     //Configuration > Payment Methods > AdyenMOTO
-    this.adyenMOTOStatusDropdown = page.locator("#payment_other_adyen_group_all_in_one_adyen_accepting_payments_adyen_admin_orders_adyen_moto_active");
-
-    this.adyenMOTOAccountSettingsGroup = page.locator("#payment_other_adyen_group_all_in_one_adyen_accepting_payments_adyen_admin_orders");
+    this.adyenMOTOAccountSettingsGroup = page.locator("//*[contains(@id,'_adyen_group_all_in_one_adyen_accepting_payments_adyen_admin_orders')]");
+    this.adyenMOTOStatusDropdown = this.adyenMOTOAccountSettingsGroup.locator("//*[contains(@id,'_adyen_group_all_in_one_adyen_accepting_payments_adyen_admin_orders_adyen_moto_active')]");
 
     this.adyenMOTOAccountAddButton = this.adyenMOTOAccountSettingsGroup.getByRole('button', { name: 'Add' });
     this.adyenMOTOCredentialsFirstTable = this.adyenMOTOAccountSettingsGroup.locator("tbody tr").first();
 
     this.adyenMOTOMerhcantAccountInputField = this.adyenMOTOCredentialsFirstTable.locator("//input[contains(@id,'_merchant_account')]");
+
     this.adyenMOTOClientKeyInputField = this.adyenMOTOCredentialsFirstTable.locator("//input[contains(@id,'_client_key')]");
     this.adyenMOTOApiKeyInputField = this.adyenMOTOCredentialsFirstTable.locator("//input[contains(@id,'_api_key')]");
     this.adyenMOTOModeSelector = this.adyenMOTOCredentialsFirstTable.locator("select");
