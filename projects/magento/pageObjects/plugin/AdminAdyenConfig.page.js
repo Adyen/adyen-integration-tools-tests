@@ -7,26 +7,26 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
     this.page = page;
 
     //Configuration > Required Settings
-    this.adyenRequiredSettingsLink = page.locator("#payment_us_adyen_group_all_in_one_adyen_required_settings-head");
-    this.adyenRequiredSettingsGroup = page.locator("#payment_us_adyen_group_all_in_one_adyen_required_settings");
+    this.adyenInitialSetupLink = page.locator("#payment_other_adyen_group_all_in_one_adyen_initial_setup-head");
+    this.adyenInitialSetupGroup = page.locator("#payment_other_adyen_group_all_in_one_adyen_initial_setup");
 
-    this.confirgurationModeDropdown = this.adyenRequiredSettingsGroup.locator("select[name*=configuration_mode]");
-    this.environmentDropdown = this.adyenRequiredSettingsGroup.locator("select[name*=demo_mode]");
-    this.apiKeyInput = this.adyenRequiredSettingsGroup.locator("input[name*=api_key_test]");
-    this.clientKeyInput = this.adyenRequiredSettingsGroup.locator("input[name*=client_key_test]");
-    this.merchantAccountDropdown = this.adyenRequiredSettingsGroup.locator("select[name*=merchant_account_auto]");
-    this.webhookUsernameInput = this.adyenRequiredSettingsGroup.locator("input[name*=notification_username]");
-    this.webhookPasswordInput = this.adyenRequiredSettingsGroup.locator("input[name*=notification_password]");
-    this.nextButton = this.adyenRequiredSettingsGroup.locator("#adyen_configuration_action");
-    this.reconfigureButton = this.adyenRequiredSettingsGroup.locator("#adyen_configuration_action_reset");
-    this.configuredCheckMark = this.adyenRequiredSettingsGroup.locator(".configured");
+    this.confirgurationModeDropdown = this.adyenInitialSetupGroup.locator("select[name*=configuration_mode]");
+    this.environmentDropdown = this.adyenInitialSetupGroup.locator("select[name*=demo_mode]");
+    this.apiKeyInput = this.adyenInitialSetupGroup.locator("input[name*=api_key_test]");
+    this.clientKeyInput = this.adyenInitialSetupGroup.locator("input[name*=client_key_test]");
+    this.merchantAccountDropdown = this.adyenInitialSetupGroup.locator("select[name*=merchant_account_auto]");
+    this.webhookUsernameInput = this.adyenInitialSetupGroup.locator("input[name*=notification_username]");
+    this.webhookPasswordInput = this.adyenInitialSetupGroup.locator("input[name*=notification_password]");
+    this.nextButton = this.adyenInitialSetupGroup.locator("#adyen_configuration_action");
+    this.reconfigureButton = this.adyenInitialSetupGroup.locator("#adyen_configuration_action_reset");
+    this.configuredCheckMark = this.adyenInitialSetupGroup.locator(".configured");
 
-    this.requiredSettingsWarningMessage = this.adyenRequiredSettingsGroup.locator(".message.message-warning");
-    this.requiredSettingsSpinner = this.adyenRequiredSettingsGroup.locator("img.processing");
+    this.requiredSettingsWarningMessage = this.adyenInitialSetupGroup.locator(".message.message-warning");
+    this.requiredSettingsSpinner = this.adyenInitialSetupGroup.locator("img.processing");
 
 
     //Configuration > Payment Methods
-    this.adyenPaymentsConfigButton = page.locator("#payment_us_adyen_group_all_in_one-head");
+    this.adyenPaymentsConfigButton = page.locator("#payment_other_adyen_group_all_in_one-head");
     this.configurePaymentMethodsLink = page.locator("#payment_us_adyen_group_all_in_one_adyen_configure_payment_methods-head");
     this.adyenMOTOLink = page.locator("#payment_us_adyen_group_all_in_one_adyen_configure_payment_methods_adyen_moto_advanced_settings-head");
 
@@ -71,7 +71,7 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
     await this.waitForPageLoad(page);
     await this.revealAdyenSettings();
 
-    await this.adyenRequiredSettingsLink.click();
+    await this.adyenInitialSetupLink.click();
     await this.confirgurationModeDropdown.selectOption("auto");
     await this.environmentDropdown.selectOption("1");
 
@@ -113,7 +113,7 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
     await this.waitForPageLoad(page);
     await this.revealAdyenSettings();
 
-    await this.adyenRequiredSettingsLink.click();
+    await this.adyenInitialSetupLink.click();
     await this.confirgurationModeDropdown.selectOption("manual");
     await this.environmentDropdown.selectOption("1");
 
@@ -138,4 +138,8 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
     await this.saveConfigButton.click();
 
 }
+
+// async creditMemo() {
+  
+// }
 }
