@@ -4,7 +4,6 @@ import SharedState from "./SharedState.js";
 import {
   getOrderNumber,
   goToShippingWithFullCart,
-  makeIDealPayment,
   proceedToPaymentAs,
   verifySuccessfulPayment,
 } from "../../helpers/ScenarioHelper.js";

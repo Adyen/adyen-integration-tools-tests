@@ -7,35 +7,40 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
     this.page = page;
 
     //Configuration > Required Settings
-    this.adyenRequiredSettingsLink = page.locator("#payment_us_adyen_group_all_in_one_adyen_required_settings-head");
-    this.adyenRequiredSettingsGroup = page.locator("#payment_us_adyen_group_all_in_one_adyen_required_settings");
+    this.adyenInitialSetupLink = page.locator("#payment_other_adyen_group_all_in_one_adyen_initial_setup-head");
+    this.adyenInitialSetupGroup = page.locator("#payment_other_adyen_group_all_in_one_adyen_initial_setup");
 
-    this.confirgurationModeDropdown = this.adyenRequiredSettingsGroup.locator("select[name*=configuration_mode]");
-    this.environmentDropdown = this.adyenRequiredSettingsGroup.locator("select[name*=demo_mode]");
-    this.apiKeyInput = this.adyenRequiredSettingsGroup.locator("input[name*=api_key_test]");
-    this.clientKeyInput = this.adyenRequiredSettingsGroup.locator("input[name*=client_key_test]");
-    this.merchantAccountDropdown = this.adyenRequiredSettingsGroup.locator("select[name*=merchant_account_auto]");
-    this.webhookUsernameInput = this.adyenRequiredSettingsGroup.locator("input[name*=notification_username]");
-    this.webhookPasswordInput = this.adyenRequiredSettingsGroup.locator("input[name*=notification_password]");
-    this.nextButton = this.adyenRequiredSettingsGroup.locator("#adyen_configuration_action");
-    this.reconfigureButton = this.adyenRequiredSettingsGroup.locator("#adyen_configuration_action_reset");
-    this.configuredCheckMark = this.adyenRequiredSettingsGroup.locator(".configured");
+    this.confirgurationModeDropdown = this.adyenInitialSetupGroup.locator("select[name*=configuration_mode]");
+    this.environmentDropdown = this.adyenInitialSetupGroup.locator("select[name*=demo_mode]");
+    this.apiKeyInput = this.adyenInitialSetupGroup.locator("input[name*=api_key_test]");
+    this.clientKeyInput = this.adyenInitialSetupGroup.locator("input[name*=client_key_test]");
+    this.merchantAccountDropdown = this.adyenInitialSetupGroup.locator("select[name*=merchant_account_auto]");
+    this.webhookUsernameInput = this.adyenInitialSetupGroup.locator("input[name*=notification_username]");
+    this.webhookPasswordInput = this.adyenInitialSetupGroup.locator("input[name*=notification_password]");
+    this.nextButton = this.adyenInitialSetupGroup.locator("#adyen_configuration_action");
+    this.reconfigureButton = this.adyenInitialSetupGroup.locator("#adyen_configuration_action_reset");
+    this.configuredCheckMark = this.adyenInitialSetupGroup.locator(".configured");
 
-    this.requiredSettingsWarningMessage = this.adyenRequiredSettingsGroup.locator(".message.message-warning");
-    this.requiredSettingsSpinner = this.adyenRequiredSettingsGroup.locator("img.processing");
+    this.requiredSettingsWarningMessage = this.adyenInitialSetupGroup.locator(".message.message-warning");
+    this.requiredSettingsSpinner = this.adyenInitialSetupGroup.locator("img.processing");
 
 
-    //Configuration > Payment Methods
-    this.adyenPaymentsConfigButton = page.locator("#payment_us_adyen_group_all_in_one-head");
-    this.configurePaymentMethodsLink = page.locator("#payment_us_adyen_group_all_in_one_adyen_configure_payment_methods-head");
-    this.adyenMOTOLink = page.locator("#payment_us_adyen_group_all_in_one_adyen_configure_payment_methods_adyen_moto_advanced_settings-head");
+    //Configuration > Payment Methods > Adyen Payments
+
+    this.adyenPaymentsSection = page.locator(".section-config.adyen-payments");
+    this.adyenPaymentsConfigButton = this.adyenPaymentsSection.locator(".button.action-configure");
+
+      //Configuration > Payment Methods > Adyen Payments > Accepting Payments
+      this.acceptingPaymentsSection = this.adyenPaymentsSection.locator("//tr[contains(@id,'adyen_accepting_payments')]").first();
+        this.adminOrdersLink = this.acceptingPaymentsSection.getByRole('link', { name: 'Admin Orders' });
+          this.adminOrdersSection = this.acceptingPaymentsSection.locator("//tr[contains(@id,'adyen_admin_orders')]").first();
+            this.adyenMOTODropdown = this.adminOrdersSection.locator("//select[contains(@id,'adyen_moto_active')]");
 
     //Configuration > Payment Methods > AdyenMOTO
-    this.adyenMOTOStatusDropdown = page.locator("#payment_us_adyen_group_all_in_one_adyen_configure_payment_methods_adyen_moto_advanced_settings_active");
+    this.adyenMOTOAccountSettingsGroup = this.adminOrdersSection.locator("//table[contains(@id,'adyen_moto_accounts')]");
+    this.adyenMOTOStatusDropdown = this.adyenMOTOAccountSettingsGroup.locator("//*[contains(@id,'_adyen_group_all_in_one_adyen_accepting_payments_adyen_admin_orders_adyen_moto_active')]");
 
-    this.adyenMOTOAccountSettingsGroup = page.locator("#payment_us_adyen_group_all_in_one_adyen_configure_payment_methods_adyen_moto_advanced_settings_moto_settings");
-
-    this.adyenMOTOAccountAddButton = this.adyenMOTOAccountSettingsGroup.locator("button[title='Add']");
+    this.adyenMOTOAccountAddButton = this.adyenMOTOAccountSettingsGroup.getByRole('button', { name: 'Add' });
     this.adyenMOTOCredentialsFirstTable = this.adyenMOTOAccountSettingsGroup.locator("tbody tr").first();
 
     this.adyenMOTOMerhcantAccountInputField = this.adyenMOTOCredentialsFirstTable.locator("//input[contains(@id,'_merchant_account')]");
@@ -50,14 +55,19 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
 
   async enableMOTO(page, adyenMOTOMerchantAccount, adyenMOTOClientKey, adyenMOTOApiKey) {
     await this.revealAdyenSettings();
-    await this.configurePaymentMethodsLink.click();
+    await this.acceptingPaymentsSection.click();
+    await this.adminOrdersLink.click();
 
-    await this.adyenMOTOLink.click();
-    await this.adyenMOTOStatusDropdown.selectOption("1");
-    await this.adyenMOTOAccountAddButton.click();
+    await this.adyenMOTODropdown.selectOption("Yes");
+    if(!await this.adyenMOTOCredentialsFirstTable.isVisible()){
+      await this.adyenMOTOAccountAddButton.click();
+    }
 
+    await this.adyenMOTOMerhcantAccountInputField.fill("");
     await this.adyenMOTOMerhcantAccountInputField.type(adyenMOTOMerchantAccount);
+    await this.adyenMOTOClientKeyInputField.fill("");
     await this.adyenMOTOClientKeyInputField.type(adyenMOTOClientKey);
+    await this.adyenMOTOApiKeyInputField.fill("");
     await this.adyenMOTOApiKeyInputField.type(adyenMOTOApiKey);
 
     await this.adyenMOTOModeSelector.selectOption("1");
@@ -67,11 +77,11 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
 
   }
 
-  async autoConfigureRequiredSettings(page, apiKey, clientKey, merchantAccount, webhookUsername,) {
+  async autoConfigureRequiredSettings(page, apiKey, clientKey, merchantAccount, webhookUsername) {
     await this.waitForPageLoad(page);
     await this.revealAdyenSettings();
 
-    await this.adyenRequiredSettingsLink.click();
+    await this.adyenInitialSetupLink.click();
     await this.confirgurationModeDropdown.selectOption("auto");
     await this.environmentDropdown.selectOption("1");
 
@@ -113,7 +123,7 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
     await this.waitForPageLoad(page);
     await this.revealAdyenSettings();
 
-    await this.adyenRequiredSettingsLink.click();
+    await this.adyenInitialSetupLink.click();
     await this.confirgurationModeDropdown.selectOption("manual");
     await this.environmentDropdown.selectOption("1");
 
@@ -136,6 +146,5 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
 
     await this.saveConfigButton.scrollIntoViewIfNeeded();
     await this.saveConfigButton.click();
-
-}
+  }
 }

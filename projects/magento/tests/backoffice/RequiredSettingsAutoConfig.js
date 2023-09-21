@@ -6,6 +6,7 @@ import { AdminAdyenConfigPage } from "../../pageObjects/plugin/AdminAdyenConfig.
 
 const paymentResources = new PaymentResources();
 const apiCredentials = paymentResources.apiCredentials;
+const webhookCredentials = paymentResources.webhookCredentials;
 
 let adyenConfigPage;
 
@@ -21,14 +22,10 @@ test.describe('Configure required settings', () => {
     test("auto mode should be configured successfully", async ({ page }) => {
         adyenConfigPage = new AdminAdyenConfigPage(page);
         await adyenConfigPage.autoConfigureRequiredSettings(page, apiCredentials.apiKey,
-            apiCredentials.clientKey, apiCredentials.merchantAccount, "webuser")
+            apiCredentials.clientKey, apiCredentials.merchantAccount, webhookCredentials.webhookUsername)
         await adyenConfigPage.waitForPageLoad(page);
 
         await expect(adyenConfigPage.successMessage).toContainText("You saved the configuration.");
-
-        if (page.url().includes("https://192.168.58.20/")) {
-            await expect(adyenConfigPage.errorMessage).toContainText("Credentials saved but webhook and HMAC key couldn't be generated");
-        }
     });
 
     test('auto mode fails with bad api key', async ({ page }) => {

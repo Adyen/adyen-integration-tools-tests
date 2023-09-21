@@ -7,8 +7,6 @@ import { loginAsAdmin } from "../../helpers/ScenarioHelper.js";
 const paymentResources = new PaymentResources();
 const webhookCredentials = paymentResources.webhookCredentials;
 const magentoAdminUser = paymentResources.magentoAdminUser;
-const users = paymentResources.guestUser;
-let orderNumber;
 const randomPspNumber = Math.random().toString().slice(2,7);
 const username = webhookCredentials.webhookUsername;
 const password = webhookCredentials.webhookPassword;
