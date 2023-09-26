@@ -26,7 +26,7 @@ const config = {
   forbidOnly: !!process.env.CI,
 
   /* Retry on CI only */
-  retries: 0,
+  retries: 1,
 
   /* Opt out of parallel tests on CI. */
   workers: 4,
@@ -66,7 +66,6 @@ const config = {
       testDir: "./tests/backoffice",
       use: {
         browserName: "chromium",
-        trace: "retain-on-failure",
         viewport: {
           width: VIEWPORT_WIDTH,
           height: VIEWPORT_HEIGHT,
@@ -78,7 +77,6 @@ const config = {
       testDir: "./tests/expressCheckout",
       use: {
         browserName: "firefox",
-        trace: "retain-on-failure",
         viewport: {
           width: VIEWPORT_WIDTH,
           height: VIEWPORT_HEIGHT,
