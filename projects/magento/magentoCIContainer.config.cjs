@@ -51,7 +51,7 @@ const config = {
     {
       name: "user",
       testDir: "./tests/",
-      testIgnore: "**/backoffice/**",
+      testIgnore: ["tests/backoffice/**","tests/expressCheckout/**",],
       use: {
         browserName: "chromium",
         trace: "retain-on-failure",
@@ -66,6 +66,17 @@ const config = {
       testDir: "./tests/backoffice",
       use: {
         browserName: "chromium",
+        viewport: {
+          width: VIEWPORT_WIDTH,
+          height: VIEWPORT_HEIGHT,
+        },
+      }
+    },
+    {
+      name: "expressCheckout",
+      testDir: "./tests/expressCheckout",
+      use: {
+        browserName: "firefox",
         viewport: {
           width: VIEWPORT_WIDTH,
           height: VIEWPORT_HEIGHT,
