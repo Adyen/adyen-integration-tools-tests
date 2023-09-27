@@ -118,7 +118,7 @@ export class PaymentDetailsPage {
   }
 
   async waitForPaymentMethodReady() {
-    await this.page.waitForLoadState("networkidle", { timeout: 15000 });
+    await this.page.waitForLoadState("domcontentloaded", { timeout: 15000 });
     await this.activePaymentMethod.scrollIntoViewIfNeeded();
   }
 

@@ -75,7 +75,6 @@ export class AdminPanelPage {
 
   async waitForPageLoad(page) {
     await page.waitForLoadState("domcontentloaded", { timeout: 10000 });
-    await page.waitForLoadState("networkidle", { timeout: 10000 });
   }
 
   async goToOrdersPage() {

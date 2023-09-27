@@ -75,9 +75,9 @@ export class AdminOrderCreationPage extends AdminPanelPage {
     await this.waitForPageLoad(page);
 
     const ccSection = new CreditCardComponentsMagento(page);
-    await ccSection.fillHolderName("John Doe");
     await ccSection.fillCardNumber(cardNumber);
     await ccSection.fillExpDate(cardExpirationDate);
+    await ccSection.fillHolderName("John Doe");
 
     await this.submitOrderButton.click();
     await this.waitForPageLoad(page);
