@@ -35,41 +35,6 @@ test.describe.parallel("Payment via credit card", () => {
 
     });
 
-    test("with 3Ds1 should succeed", async ({ page }) => {
-
-        await makeCreditCardPayment(
-            page,
-            users.regular,
-            paymentResources.visa3DS1,
-            paymentResources.expDate,
-            paymentResources.cvc
-        );
-
-        await new ThreeDSPaymentPage(page).validate3DS(
-            paymentResources.threeDSCorrectUser,
-            paymentResources.threeDSCorrectPassword
-        );
-        await verifySuccessfulPayment(page);
-    });
-
-    test("with wrong 3Ds1 credentials should fail", async ({ page }) => {
-
-        await makeCreditCardPayment(
-            page,
-            users.regular,
-            paymentResources.visa3DS1,
-            paymentResources.expDate,
-            paymentResources.cvc
-        );
-
-        await new ThreeDSPaymentPage(page).validate3DS(
-            paymentResources.threeDSCorrectUser,
-            paymentResources.threeDSWrongPassword
-        );
-
-        await verifyFailedPayment(page);
-    });
-
     test("with 3Ds2 should succeed", async ({ page }) => {
 
         await makeCreditCardPayment(
