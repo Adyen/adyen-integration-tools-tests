@@ -4,6 +4,7 @@ import { SepaDirectDebitComponents } from "../../../common/checkoutComponents/Se
 import { BoletoComponents } from "../../../common/checkoutComponents/BoletoComponents.js";
 import { IDealComponents } from "../../../common/checkoutComponents/iDealComponents.js";
 import { OneyComponents } from "../../../common/checkoutComponents/OneyComponents.js";
+import { GiftcardComponentsMagento } from "../checkout/GiftcardComponentsMagento.js";
 
 export class PaymentDetailsPage {
   constructor(page) {
@@ -19,7 +20,7 @@ export class PaymentDetailsPage {
     this.klarnaPayNowRadioButton = page.locator("#adyen_klarna_paynow");
     this.sepaWrapper = page.locator("#adyen-sepadirectdebit-form");
     this.sepaDirectDebitRadioButton = page.locator("#adyen_sepadirectdebit");
-    this.genericGiftCardRadioButton = page.locator("#adyen_genericgiftcard");
+    this.giftcardRadioButton = page.locator("#adyen_giftcard");
     this.oney3RadioButton = page.locator("#adyen_facilypay_3x");
     this.clearPayRadioButton = page.locator("#adyen_clearpay");
     this.boletoRadioButton = page.locator("#adyen_boleto");
@@ -91,8 +92,10 @@ export class PaymentDetailsPage {
   }
 
   async selectGiftCard() {
-    await this.genericGiftCardRadioButton.click();
+    await this.giftcardRadioButton.click();
     await this.waitForPaymentMethodReady();
+
+    return new GiftcardComponentsMagento(this.page.locator(".payment-method._active"));
   }
 
   async selectOney() {
@@ -121,5 +124,4 @@ export class PaymentDetailsPage {
     await this.page.waitForLoadState("networkidle", { timeout: 15000 });
     await this.activePaymentMethod.scrollIntoViewIfNeeded();
   }
-
 }
