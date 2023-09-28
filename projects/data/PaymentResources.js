@@ -72,13 +72,22 @@ export default class PaymentResources {
       cardHolderName: "BALANCE EUR 5000",
       cardNumber: "6064364295385017424",
       cardPIN: "73737",
+      cardBrand: "vvv"
     },
 
     EUR20: {
       cardHolderName: "BALANCE EUR 2000",
       cardNumber: "6064364295385017427",
       cardPIN: "73737",
+      cardBrand: "vvv"
     },
+
+    EUR50SVS: {
+      cardHolderName: "SVS TEST",
+      cardNumber: "6006490000000000",
+      cardPIN: "123",
+      cardBrand: "svs"
+    }
   };
 
   sampleRegisteredUser = {
