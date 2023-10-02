@@ -45,7 +45,7 @@ export async function proceedToPaymentAs(page, user, isGuest = true) {
 
 export async function verifySuccessfulPayment(page, redirect = true, timeout) {
   const successfulCheckoutPage = new SuccessfulCheckoutPage(page);
-  if (redirect != false) {
+  if (redirect !== false) {
     await successfulCheckoutPage.waitForRedirection(timeout);
   }
   expect(await successfulCheckoutPage.pageTitle.innerText()).toContain(
