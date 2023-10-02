@@ -69,7 +69,13 @@ export class AdminPanelPage {
 
   async waitForAdminPanelAnimation(page) {
     const loadingLayer = page.locator(".loading-mask");
-    await loadingLayer.waitFor({ state: "visible", timeout: 15000 });
+    await loadingLayer.waitFor({ state: "visible", timeout: 5000 });
+    await loadingLayer.waitFor({ state: "hidden", timeout: 15000 });
+  }
+
+  async waitForLoaderWithText(page) {
+    const loadingLayer = page.locator(".popup-loading");
+    await loadingLayer.waitFor({ state: "visible", timeout: 5000 });
     await loadingLayer.waitFor({ state: "hidden", timeout: 15000 });
   }
 
