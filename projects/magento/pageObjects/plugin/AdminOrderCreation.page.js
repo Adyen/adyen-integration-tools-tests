@@ -29,19 +29,20 @@ export class AdminOrderCreationPage extends AdminPanelPage {
   }
 
   async createOrder(page) {
-    await this.waitForPageLoad(page);
+    await this.page.waitForLoadState("networkidle", { timeout: 10000 });
     await this.goToOrdersPage();
     await this.waitForPageLoad(page);
     await this.createNewOrderButton.click();
     await this.waitForPageLoad(page);
     await this.testUserNameSelector.click();
-    await this.waitForPageLoad(page);
+    
+    await this.page.waitForLoadState("networkidle", { timeout: 10000 });
     await this.addProductsButton.click();
     await this.waitForPageLoad(page);
     await this.thirdProductPriceSelector.click();
     await this.waitForPageLoad(page);
     await this.addProductsToOrderButton.click();
-    await this.waitForAdminPanelAnimation(page);
+    await this.waitForLoaderWithText(page);
     await this.waitForPageLoad(page);
     await this.shippingMethodCalculateLink.click();
     await this.waitForAdminPanelAnimation(page);
