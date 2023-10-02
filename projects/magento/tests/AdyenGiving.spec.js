@@ -16,7 +16,7 @@ const users = paymentResources.guestUser;
 test.describe.parallel("Adyen Giving payments", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
-    proceedToPaymentAs(page, users.dutch);
+    await proceedToPaymentAs(page, users.dutch);
   });
 
   
