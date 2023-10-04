@@ -18,7 +18,7 @@ test.describe.parallel("Payment via Klarna Pay Over Time", () => {
     await goToShippingWithFullCart(page);
   });
 
-  test("ECP-8578 should succeed", async ({ page }) => {
+  test("should succeed", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayOverTime(page);
 
