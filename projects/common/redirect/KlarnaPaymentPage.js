@@ -26,7 +26,9 @@ export default class KlarnaPaymentPage {
       "#invoice_kp-purchase-review-continue-button"
     );
 
-    this.klarnaConfirmPaymentButton = this.klarnaIframe.locator("#dd-confirmation-dialog__footer-button-wrapper button")
+    this.klarnaConfirmPaymentButton = this.klarnaIframe.getByRole('button', { name: 'Confirm and pay' });
+    this.klarnaClosePopupButton = this.klarnaIframe.locator('#dd-confirmation-dialog__nav-bar__right-icon');
+    this.klarnaIbanPromptText = this.klarnaIframe.getByText('The IBAN can be found in your bank documents or on your bank card.');
 
     this.klarnaConfirmBankAccountButton = this.klarnaIframe.locator(
       "#mandate-review__confirmation-button"
@@ -72,26 +74,22 @@ export default class KlarnaPaymentPage {
         });
         await this.directDebitButton.click();
         await this.continueOnKlarna(phoneNumber);
-        /* Commenting out the step below due to changes in sandbox,
-        but not deleting it since the changes get reverted from time
-        to time.
-
-        await this.klarnaConfirmBankAccountButton.waitFor({
-          state: "visible",
-          timeout: 10000,
-        });
-        await this.klarnaConfirmBankAccountButton.click();
-        */
         await this.page.waitForLoadState("domcontentloaded", { timeout: 10000 });
+
+        /* Adding this conditional since Klarna can randomly ask for IBAN prompt
+        for confirmation */
+
+        if (await this.klarnaIbanPromptText.isVisible()){
+          await this.klarnaClosePopupButton.click();
+          await this.klarnaBuyButton.click();
+          await this.klarnaConfirmPaymentButton.click();
+        } else {
         await this.klarnaConfirmPaymentButton.click();
+        }
 
         break;
       case "directBankTransfer":
-        /* Commenting out the step below due to changes in sandbox,
-        but not deleting it since the changes get reverted from time
-        to time.
-        await this.payNowButton.click();
-        */
+
         await this.directBankTransferButton.waitFor({
           state: "visible",
           timeout: 10000,
