@@ -18,7 +18,7 @@ test.describe.parallel("Payment via Klarna Pay Now", () => {
     await goToShippingWithFullCart(page);
   });
 
-  test.fixme("ECP-8578 should succeed via direct debit", async ({ page }) => {
+  test("ECP-8578 should succeed via direct debit", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 
@@ -26,8 +26,7 @@ test.describe.parallel("Payment via Klarna Pay Now", () => {
     await verifySuccessfulPayment(page);
   });
 
-  test.fixme("ECP-8578 should succeed via direct bank transfer", async ({ page }) => {
-    // Skipping this test until Klarna's ever changing bank transfer flow settles
+  test("ECP-8578 should succeed via direct bank transfer", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 
@@ -38,7 +37,7 @@ test.describe.parallel("Payment via Klarna Pay Now", () => {
     await verifySuccessfulPayment(page);
   });
 
-  test.fixme("ECP-8578 should fail if cancelled", async ({ page }) => {
+  test("ECP-8578 should fail if cancelled", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 

@@ -43,42 +43,8 @@ export default class KlarnaPaymentPage {
     );
 
     this.dialogIframe = this.klarnaIframe.frameLocator("iframe");
-
-    // Bank Selection Dialog Selectors
-    this.countryAndBankSelectionDialog =
-      this.dialogIframe.locator("#SelectCountryPage");
-    this.bankSelectionDropdown = this.countryAndBankSelectionDialog.locator(
-      "select[id='SenderBank']"
-    );
-    this.countryAndBankSelectionNextButton =
-      this.countryAndBankSelectionDialog.locator("button:has-text('Next')");
-
-    // Bank Account Dialog Selectors
-    this.bankCredentialsDialog = this.dialogIframe.locator("#LoginPage");
-    this.userIDInput = this.bankCredentialsDialog.locator(
-      "input#BackendFormUSERID"
-    );
-    this.userPINInput = this.bankCredentialsDialog.locator(
-      "input#BackendFormUSERPIN"
-    );
-    this.bankCredentialsNextButton = this.bankCredentialsDialog.locator(
-      "button:has-text('Next')"
-    );
-
-    // Select Account Dialog Selectors
-    this.selectAccountDialog = this.dialogIframe.locator("#SelectAccountPage");
-    this.selectAccountNextButton = this.selectAccountDialog.locator(
-      "button:has-text('Next')"
-    );
-
-    // Transaction Confirmation Dialog
-    this.transactionConfirmationDialog =
-      this.dialogIframe.locator("#ProvideTanPage");
-    this.confirmationCodeInput = this.transactionConfirmationDialog.locator(
-      "input#BackendFormTAN"
-    );
-    this.transactionConfirmationNextButton =
-      this.transactionConfirmationDialog.locator("button:has-text('Next')");
+    this.bankSelectionDialog = this.dialogIframe.locator("#SelectCountryPage");
+    
   }
 
   async makeKlarnaPayment(action, phoneNumber = null) {
@@ -116,7 +82,7 @@ export default class KlarnaPaymentPage {
         });
         await this.klarnaConfirmBankAccountButton.click();
         */
-        await this.klarnaConfirmPaymentButton.waitFor({ state: "visible", timeout: 10000 });
+        await this.page.waitForLoadState("domcontentloaded", { timeout: 10000 });
         await this.klarnaConfirmPaymentButton.click();
 
         break;
@@ -136,19 +102,22 @@ export default class KlarnaPaymentPage {
         the flow */
         await this.page.waitForLoadState("networkidle", { timeout: 10000 });
         await this.continueOnKlarna(phoneNumber);
-        await this.bankSelectionDropdown.selectOption("00000");
-        await this.countryAndBankSelectionNextButton.click();
+        await this.bankSelectionDialog.getByText('Demo Bank').click();
+        await this.page.waitForLoadState("domcontentloaded");
+        
+        await this.dialogIframe.getByLabel('User ID').click();
+        await this.dialogIframe.getByLabel('User ID').fill('test');
+        await this.dialogIframe.getByLabel('PIN').click();
+        await this.dialogIframe.getByLabel('PIN').fill('1111');
+        await this.dialogIframe.getByRole('button', { name: 'Next' }).click();
+        
+        await this.page.waitForLoadState("domcontentloaded");
+        await this.dialogIframe.getByLabel('Confirmation code').click();
+        await this.dialogIframe.getByLabel('Confirmation code').fill('12345');
+        await this.dialogIframe.getByRole('button', { name: 'Next' }).click();
 
-        await this.userIDInput.fill("test");
-        await this.userPINInput.fill("1111");
-        await this.bankCredentialsNextButton.click();
-        /* Commenting out the step below due to changes in sandbox,
-        but not deleting it since the changes get reverted from time
-        to time.
-        await this.selectAccountNextButton.click();
-        */
-        await this.confirmationCodeInput.fill("12345");
-        await this.transactionConfirmationNextButton.click();
+        await this.page.waitForLoadState("domcontentloaded");
+        await this.dialogIframe.getByRole('heading', { name: 'Thank you' }).waitFor({state:"visible"});
         break;
       case "overTime":
         /* Commenting out the step below due to changes in sandbox,
