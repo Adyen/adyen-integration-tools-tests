@@ -4,10 +4,11 @@ export class AdminPanelPage {
 
     //Security Patch Message Selectors
     this.securityMessageHeader = page.locator("//*[contains(@class, 'modal-title') and contains(text(),'Incoming Message')]/..");
-    this.securityMessageCloseButton = this.securityMessageHeader.locator(".action-close")
+    this.securityMessageCloseButton = this.securityMessageHeader.locator(".action-close");
+    this.infoPopupLoader = this.page.locator("#container .admin__form-loading-mask .spinner").first();
 
     //Adobe Data collection popup button
-    this.usageStatsTrackerPopupCloser = page.locator(".modal-footer .action-secondary")
+    this.usageStatsTrackerPopupCloser = page.locator(".modal-footer .action-secondary");
 
     //General Buttons
     this.saveConfigButton = page.locator("#save");
@@ -15,7 +16,7 @@ export class AdminPanelPage {
     //Messages
     this.successMessage = page.locator("#messages .message-success");
     this.errorMessage = page.locator("#messages .message-error");
-    this.orderErrorMessage = page.locator("#order-message .message-error")
+    this.orderErrorMessage = page.locator("#order-message .message-error");
 
     // Sidebar locators
     this.salesLink = page.locator("#menu-magento-sales-sales");
@@ -59,6 +60,7 @@ export class AdminPanelPage {
 
   async closePopup() {
     await this.waitForPageLoad(this.page);
+    await this.infoPopupLoader.waitFor({ state: "hidden", timeout: 15000 });
     if (await this.securityMessageHeader.isVisible()) {
       await this.securityMessageCloseButton.click();
     }
