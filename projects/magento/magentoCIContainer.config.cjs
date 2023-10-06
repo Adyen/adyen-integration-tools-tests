@@ -29,7 +29,7 @@ const config = {
   retries: 0,
 
   /* Opt out of parallel tests on CI. */
-  workers: 4,
+  workers: 3,
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [["html", { outputFolder: "/tmp/test-report", open: "never" }]],
