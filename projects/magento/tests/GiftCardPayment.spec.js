@@ -15,13 +15,15 @@ const giftCard50EUR = paymentResources.giftCard.EUR50;
 const giftCard20EUR = paymentResources.giftCard.EUR20;
 const user = paymentResources.guestUser.dutch;
 
+// Giftcards tests are being skipped for now due to HPP deprecation.
+// HPP fallback ADP is disabled for V9.
 test.describe.parallel("Payment via Gift Card", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page, 1);
     await proceedToPaymentAs(page, user);
   });
 
-  test("should succeed with gift card that has sufficient funds", async ({
+  test.skip("should succeed with gift card that has sufficient funds", async ({
     page,
   }) => {
     const giftCardPaymentPage = await selectGiftCard(page);
@@ -37,7 +39,7 @@ test.describe.parallel("Payment via Gift Card", () => {
     await verifySuccessfulPayment(page, false);
   });
 
-  test("should fail if Previous Button is clicked on payment details page", async ({
+  test.skip("should fail if Previous Button is clicked on payment details page", async ({
     page,
   }) => {
     const giftCardPaymentPage = await selectGiftCard(page);
@@ -52,7 +54,7 @@ test.describe.parallel("Payment via Gift Card", () => {
     await verifyFailedPayment(page);
   });
 
-  test("should redirect to a second payment method if giftcard has less balance than sum", async ({
+  test.skip("should redirect to a second payment method if giftcard has less balance than sum", async ({
     page,
   }) => {
     const giftCardPaymentPage = await selectGiftCard(page);
@@ -80,7 +82,7 @@ test.describe.parallel("Payment via Gift Card", () => {
     await verifySuccessfulPayment(page, false);
   });
 
-  test("should succeed when partially combined with another payment method", async ({
+  test.skip("should succeed when partially combined with another payment method", async ({
     page,
   }) => {
     const giftCardPaymentPage = await selectGiftCard(page);
@@ -104,7 +106,7 @@ test.describe.parallel("Payment via Gift Card", () => {
     await verifySuccessfulPayment(page, false);
   });
 
-  test("should fail when the second part of a partial payment is cancelled", async ({
+  test.skip("should fail when the second part of a partial payment is cancelled", async ({
     page,
   }) => {
     const giftCardPaymentPage = await selectGiftCard(page);
