@@ -17,7 +17,7 @@ let adyenConfigPage;
 let adminOrderCreationPage;
 
 
-test.describe("MOTO Orders", () => {
+test.describe.serial("MOTO Orders", () => {
   test.beforeEach(async ({ page }) => {
     await loginAsAdmin(page, magentoAdminUser);
 
@@ -26,7 +26,7 @@ test.describe("MOTO Orders", () => {
     await adyenConfigPage.goToAdyenPluginConfigurationPage(page);
   });
 
-  test("should successfully be created and paid with a valid CC", async ({ page }) => {
+  test.only("should successfully be created and paid with a valid CC", async ({ page }) => {
     adyenConfigPage = new AdminAdyenConfigPage(page);
     await adyenConfigPage.enableMOTO(page, apiCredentials.merchantAccount, apiCredentials.clientKey, apiCredentials.apiKey);
 
