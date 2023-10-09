@@ -65,7 +65,6 @@ export class GiftcardComponentsMagento extends GiftcardComponents {
 
     async selectGiftcard(txVariant) {
         await this.availableGiftcardsDropdown.scrollIntoViewIfNeeded();
-        await this.availableGiftcardsDropdown.click();
         await this.availableGiftcardsDropdown.selectOption(txVariant);
     }
 
