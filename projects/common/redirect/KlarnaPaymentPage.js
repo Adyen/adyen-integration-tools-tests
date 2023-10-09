@@ -27,7 +27,7 @@ export default class KlarnaPaymentPage {
     );
 
     this.klarnaConfirmPaymentButton = this.klarnaIframe.getByRole('button', { name: 'Confirm and pay' });
-    this.klarnaClosePopupButton = this.klarnaIframe.locator('#dd-confirmation-dialog__nav-bar__right-icon');
+    this.klarnaClosePopupButton = this.klarnaIframe.locator('#dd-manual-input-dialog__nav-bar__right-icon__overlay');
     this.klarnaIbanPromptText = this.klarnaIframe.getByText('The IBAN can be found in your bank documents or on your bank card.');
 
     this.klarnaConfirmBankAccountButton = this.klarnaIframe.locator(
@@ -46,6 +46,8 @@ export default class KlarnaPaymentPage {
 
     this.dialogIframe = this.klarnaIframe.frameLocator("iframe");
     this.bankSelectionDialog = this.dialogIframe.locator("#SelectCountryPage");
+
+    this.klarnaDialogLoader = this.klarnaIframe.locator("circle");
     
   }
 
@@ -74,17 +76,23 @@ export default class KlarnaPaymentPage {
         });
         await this.directDebitButton.click();
         await this.continueOnKlarna(phoneNumber);
+
+        await this.klarnaDialogLoader.waitFor({
+          state: "hidden",
+          timeout: 10000,
+        });
+
         await this.page.waitForLoadState("domcontentloaded", { timeout: 10000 });
 
         /* Adding this conditional since Klarna can randomly ask for IBAN prompt
         for confirmation */
 
-        if (await this.klarnaIbanPromptText.isVisible()){
+        try {
+          await this.klarnaConfirmPaymentButton.click();
+        } catch {
           await this.klarnaClosePopupButton.click();
           await this.klarnaBuyButton.click();
           await this.klarnaConfirmPaymentButton.click();
-        } else {
-        await this.klarnaConfirmPaymentButton.click();
         }
 
         break;
@@ -110,6 +118,11 @@ export default class KlarnaPaymentPage {
         await this.dialogIframe.getByRole('button', { name: 'Next' }).click();
         
         await this.page.waitForLoadState("domcontentloaded");
+
+        if (await this.dialogIframe.getByRole('button', { name: 'Next' }).isVisible()){
+          await this.dialogIframe.getByRole('button', { name: 'Next' }).click();
+        }
+
         await this.dialogIframe.getByLabel('Confirmation code').click();
         await this.dialogIframe.getByLabel('Confirmation code').fill('12345');
         await this.dialogIframe.getByRole('button', { name: 'Next' }).click();
