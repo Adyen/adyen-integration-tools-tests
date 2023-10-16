@@ -7,8 +7,8 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
     this.page = page;
 
     //Configuration > Required Settings
-    this.adyenInitialSetupLink = page.locator("#payment_other_adyen_group_all_in_one_adyen_initial_setup-head");
-    this.adyenInitialSetupGroup = page.locator("#payment_other_adyen_group_all_in_one_adyen_initial_setup");
+    this.adyenInitialSetupLink = page.locator("#payment_us_adyen_group_all_in_one_adyen_initial_setup-head");
+    this.adyenInitialSetupGroup = page.locator("#payment_us_adyen_group_all_in_one_adyen_initial_setup");
 
     this.confirgurationModeDropdown = this.adyenInitialSetupGroup.locator("select[name*=configuration_mode]");
     this.environmentDropdown = this.adyenInitialSetupGroup.locator("select[name*=demo_mode]");

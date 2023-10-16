@@ -1,8 +1,8 @@
 // @ts-check
 const { devices } = require("@playwright/test");
 
-const VIEWPORT_WIDTH = 1600;
-const VIEWPORT_HEIGHT = 900;
+const VIEWPORT_WIDTH = 1920;
+const VIEWPORT_HEIGHT = 1080;
 
 /**
  * @see https://playwright.dev/docs/test-configuration
