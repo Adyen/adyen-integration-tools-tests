@@ -21,7 +21,7 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
     this.reconfigureButton = this.adyenInitialSetupGroup.locator("#adyen_configuration_action_reset");
     this.configuredCheckMark = this.adyenInitialSetupGroup.locator(".configured");
     this.generateNewWebhookCredentialsRadioButton = this.adyenInitialSetupGroup.locator
-    ("label[for=payment_other_adyen_group_all_in_one_adyen_initial_setup_create_new_webhook1]");
+    ("label[for=payment_us_adyen_group_all_in_one_adyen_initial_setup_create_new_webhook1]");
 
     this.requiredSettingsWarningMessage = this.adyenInitialSetupGroup.locator(".message.message-warning");
     this.requiredSettingsSpinner = this.adyenInitialSetupGroup.locator("img.processing");
