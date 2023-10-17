@@ -20,6 +20,8 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
     this.nextButton = this.adyenInitialSetupGroup.locator("#adyen_configuration_action");
     this.reconfigureButton = this.adyenInitialSetupGroup.locator("#adyen_configuration_action_reset");
     this.configuredCheckMark = this.adyenInitialSetupGroup.locator(".configured");
+    this.generateNewWebhookCredentialsRadioButton = this.adyenInitialSetupGroup.locator
+    ("label[for=payment_other_adyen_group_all_in_one_adyen_initial_setup_create_new_webhook1]");
 
     this.requiredSettingsWarningMessage = this.adyenInitialSetupGroup.locator(".message.message-warning");
     this.requiredSettingsSpinner = this.adyenInitialSetupGroup.locator("img.processing");
@@ -109,9 +111,13 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
       await expect(this.configuredCheckMark).toBeVisible();
       await this.nextButton.scrollIntoViewIfNeeded();
       await this.nextButton.click();
+      await this.generateNewWebhookCredentialsRadioButton.click();
 
-      await expect(this.webhookUsernameInput).toHaveValue(webhookUsername);
-      await expect(this.webhookPasswordInput).not.toBeEmpty();
+      await this.webhookUsernameInput.fill("");
+      await this.webhookUsernameInput.type(webhookUsername);
+
+      await this.webhookPasswordInput.fill("");
+      await this.webhookPasswordInput.type(webhookUsername);
 
       await expect(this.configuredCheckMark).toBeVisible();
       await this.saveConfigButton.scrollIntoViewIfNeeded();
