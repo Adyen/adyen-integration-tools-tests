@@ -35,26 +35,22 @@ export class GiftcardComponentsMagento extends GiftcardComponents {
         this.typeDelay = 50;
     }
     async fillCardNumber(cardNumber) {
-        await this.cardNumberInput.scrollIntoViewIfNeeded();
+        await this.removeSingleGiftcardButton.scrollIntoViewIfNeeded();
         await this.cardNumberInput.click();
         await this.cardNumberInput.type(cardNumber, { delay: this.typeDelay });
     }
     async fillCVC(CVC) {
-        await this.cvcInput.scrollIntoViewIfNeeded();
         await this.cvcInput.click();
         await this.cvcInput.type(CVC, { delay: this.typeDelay });
     }
     async addGiftcard() {
-        await this.addGiftcardButton.scrollIntoViewIfNeeded();
         await this.addGiftcardButton.click();
     }
     async redeemOrPay() {
-        await this.redeemOrPayButton.scrollIntoViewIfNeeded();
         await this.redeemOrPayButton.click();
     }
     async removeSingleGiftcard()
     {
-        await this.removeSingleGiftcardButton.scrollIntoViewIfNeeded();
         await this.removeSingleGiftcardButton.click();
     }
     async removeGiftcardStateData()
