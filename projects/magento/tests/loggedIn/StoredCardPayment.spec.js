@@ -23,7 +23,7 @@ test.describe.serial("Payment via stored credit card", () => {
     await goToShippingWithFullCart(page);
     await proceedToPaymentAs(page, undefined, false);
 
-    
+
   });
 
   test("should succeed with 3Ds2", async ({ page }) => {
@@ -79,9 +79,7 @@ async function makeCreditCardPayment(
 ) {
   const paymentDetailPage = new PaymentDetailsPage(page);
   const creditCardSection = await paymentDetailPage.selectCreditCard();
-  if (saveCard == true){
-    await paymentDetailPage.savePaymentMethod();
-  }
+
   await creditCardSection.fillCreditCardInfo(
     user.firstName,
     user.lastName,
@@ -89,6 +87,11 @@ async function makeCreditCardPayment(
     expDate,
     cvc
   );
+
+  if (saveCard == true){
+    await paymentDetailPage.savePaymentMethod();
+  }
+
   await placeOrder(page);
 }
 
