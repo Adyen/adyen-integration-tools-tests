@@ -20,7 +20,7 @@ export async function goToShippingWithFullCart(page, additionalItemCount = 0) {
     );
   }
 
-  await page.waitForLoadState("networkidle", { timeout: 15000 });
+  await page.waitForLoadState("networkidle", { timeout: 20000 });
 }
 
 export async function loginAs(page, user) {
