@@ -74,7 +74,7 @@ const config = {
       }
     },
     {
-      name: "expressCheckout",
+      name: "express-checkout",
       testDir: "./tests/expressCheckout",
       use: {
         browserName: "firefox",
