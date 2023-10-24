@@ -3,10 +3,10 @@ run-name: Headless E2E tests for ${{ github.event.pull_request.head.ref}}
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     paths-ignore:
       - "projects/shopware/**"
     branches: [main, develop]
-  workflow_dispatch:
 
 jobs:
   test:
