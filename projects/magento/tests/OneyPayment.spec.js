@@ -12,7 +12,7 @@ const paymentResources = new PaymentResources();
 const user = paymentResources.guestUser.oney.approved.fr;
 
 // Skipping until ECP-8607 is done
-test.describe.skip("Payment via Oney", () => {
+test.describe("Payment via Oney", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page, 5);
   });
