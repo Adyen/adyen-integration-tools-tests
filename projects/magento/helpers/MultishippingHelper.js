@@ -10,9 +10,11 @@ export async function proceedToMultishippingAs(page, user) {
   const multishippingShippingMethodsPage = new MultishippingShippingMethods(page);
 
   await multishippingShippingDetailsPage.goTo();
+  await this.page.waitForLoadState("load");
   let addressCount = await multishippingShippingDetailsPage.getAddressCount()
 
   if (addressCount < 2) {
+    await this.page.waitForLoadState("load");
     await multishippingShippingDetailsPage.enterNewAddress();
     await multishippingNewAddressPage.fillNewAddressForm();
   }
