@@ -15,15 +15,22 @@ export async function proceedToMultishippingAs(page, user) {
 
   if (addressCount < 2) {
     await page.waitForLoadState("load");
+
     await multishippingShippingDetailsPage.enterNewAddress();
+    await multishippingShippingDetailsPage.page.waitForLoadState("load");
+
     await multishippingNewAddressPage.fillNewAddressForm();
+    await multishippingNewAddressPage.page.waitForLoadState("load");
   }
 
   await multishippingShippingDetailsPage.updateItemAddress();
   await multishippingShippingDetailsPage.proceedToShippingInformation();
+  await multishippingShippingDetailsPage.page.waitForLoadState("load");
 
   await multishippingShippingMethodsPage.selectShippingMethods();
   await multishippingShippingMethodsPage.proceedToBillingInformation();
+
+  await multishippingShippingMethodsPage.page.waitForLoadState("load");
 }
 
 export async function fillCreditCardForm(page, user, creditCardNumber, expDate, cvc) {
