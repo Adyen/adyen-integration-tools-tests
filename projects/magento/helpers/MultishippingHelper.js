@@ -15,12 +15,12 @@ export async function proceedToMultishippingAs(page, user) {
 
   if (addressCount < 2) {
     await page.waitForLoadState("load");
-
     await multishippingShippingDetailsPage.enterNewAddress();
-    await multishippingShippingDetailsPage.page.waitForLoadState("load");
 
-    await multishippingNewAddressPage.fillNewAddressForm();
     await multishippingNewAddressPage.page.waitForLoadState("load");
+    await multishippingNewAddressPage.fillNewAddressForm();
+
+    await multishippingShippingDetailsPage.page.waitForLoadState("load");
   }
 
   await multishippingShippingDetailsPage.updateItemAddress();
