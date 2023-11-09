@@ -8,6 +8,7 @@ export async function proceedToMultishippingAs(page, user) {
   const multishippingShippingDetailsPage = new MultishippingShippingDetails(page);
   const multishippingNewAddressPage = new MultishippingNewAddress(page, user);
   const multishippingShippingMethodsPage = new MultishippingShippingMethods(page);
+  const multishippingBillingInformationPage = new MultishippingBillingInformation(page);
 
   await multishippingShippingDetailsPage.goTo();
   await page.waitForLoadState("load");
@@ -26,12 +27,12 @@ export async function proceedToMultishippingAs(page, user) {
 
   await multishippingShippingDetailsPage.updateItemAddress();
   await multishippingShippingDetailsPage.proceedToShippingInformation();
-  await multishippingShippingDetailsPage.page.waitForLoadState("load");
 
+  await multishippingShippingMethodsPage.page.waitForLoadState("load");
   await multishippingShippingMethodsPage.selectShippingMethods();
   await multishippingShippingMethodsPage.proceedToBillingInformation();
 
-  await multishippingShippingMethodsPage.page.waitForLoadState("load");
+  await multishippingBillingInformationPage.page.waitForLoadState("load");
 }
 
 export async function fillCreditCardForm(page, user, creditCardNumber, expDate, cvc) {
