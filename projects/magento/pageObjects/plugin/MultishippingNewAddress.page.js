@@ -17,6 +17,10 @@ export class MultishippingNewAddress {
         this.primaryBillingCheckbox = this.addressForm.locator("#primary_billing");
     }
 
+    async goTo() {
+        await this.page.goto("/multishipping/checkout_address/newShipping/");
+    }
+
     async fillNewAddressForm()  {
         await this.firstnameInput.fill(this.user.firstName);
         await this.lastnameInput.fill(this.user.lastName);
