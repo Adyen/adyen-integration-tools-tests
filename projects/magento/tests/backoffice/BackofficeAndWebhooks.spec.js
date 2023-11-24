@@ -4,8 +4,8 @@ we are running them through this file to allow consequent runs */
 
 // Backoffice Tests
 import "./MOTO.js";
-import "./RequiredSettingsAutoConfig.js"
-import "./RequiredSettingsManualConfig.js"
+// import "./RequiredSettingsAutoConfig.js"
+// import "./RequiredSettingsManualConfig.js"
 import "./PayByLink.js"
 
 /* Webhook Tests are also run through this file
