@@ -11,7 +11,7 @@ const webhookCredentials = paymentResources.webhookCredentials;
 let adyenConfigPage;
 
 
-test.describe('Configure required settings', () => {
+test.describe.only('Configure required settings', () => {
     test.beforeEach(async ({ page }) => {
         await loginAsAdmin(page, paymentResources.magentoAdminUser);
         adyenConfigPage = new AdminAdyenConfigPage(page);
