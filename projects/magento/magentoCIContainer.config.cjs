@@ -71,7 +71,8 @@ const config = {
           width: VIEWPORT_WIDTH,
           height: VIEWPORT_HEIGHT,
         },
-      }
+      },
+      dependencies: ['user'],
     },
     {
       name: "express-checkout",
@@ -83,7 +84,8 @@ const config = {
           width: VIEWPORT_WIDTH,
           height: VIEWPORT_HEIGHT,
         },
-      }
+      },
+      dependencies: ['user', 'backoffice'],
     },
 
     /* Test against mobile viewports. */
