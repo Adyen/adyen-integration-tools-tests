@@ -9,7 +9,6 @@ export class MultishippingShippingMethods {
 
     async selectShippingMethods() {
         await this.shippingMethodSelector.first().getByText("Fixed").click();
-        await this.shippingMethodSelector.nth(1).getByText("Fixed").click();
     }
 
     async proceedToBillingInformation() {

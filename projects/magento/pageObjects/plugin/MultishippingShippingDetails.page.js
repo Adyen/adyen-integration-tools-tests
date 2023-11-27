@@ -17,7 +17,8 @@ export class MultishippingShippingDetails {
     }
 
     async updateItemAddress() {
-        await this.addressDropdown.nth(1).selectOption({index: 1});
+        let value = this.addressDropdown.first().getByRole("option").last().innerText();
+        await this.addressDropdown.first().selectOption(value);
     }
 
     async enterNewAddress() {
