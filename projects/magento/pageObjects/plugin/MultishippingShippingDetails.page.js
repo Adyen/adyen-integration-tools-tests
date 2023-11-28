@@ -22,6 +22,8 @@ export class MultishippingShippingDetails {
     }
 
     async enterNewAddress() {
+        await this.page.waitForLoadState("networkidle");
+
         await this.enterNewAddressButton.click();
     }
 
