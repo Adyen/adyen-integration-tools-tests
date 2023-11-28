@@ -17,6 +17,7 @@ export async function proceedToMultishippingAs(page, user) {
     await page.waitForLoadState("load");
     await multishippingShippingDetailsPage.enterNewAddress();
     await multishippingNewAddressPage.fillNewAddressForm();
+    await page.waitForLoadstate("load");
   }
 
   await multishippingShippingDetailsPage.updateItemAddress();
