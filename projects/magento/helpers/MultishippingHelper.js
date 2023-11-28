@@ -21,6 +21,7 @@ export async function proceedToMultishippingAs(page, user) {
 
   await multishippingShippingDetailsPage.updateItemAddress();
   await multishippingShippingDetailsPage.proceedToShippingInformation();
+  await page.waitForLoadState("load");
 
   await multishippingShippingMethodsPage.selectShippingMethods();
   await multishippingShippingMethodsPage.proceedToBillingInformation();
