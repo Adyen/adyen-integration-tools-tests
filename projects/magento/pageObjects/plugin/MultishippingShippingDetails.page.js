@@ -10,14 +10,17 @@ export class MultishippingShippingDetails {
 
     async goTo() {
         await this.page.goto("/multishipping/checkout/addresses");
-        await this.page.waitForLoadState("load");
     }
 
     async getAddressCount() {
-         return await this.addressDropdown.first().getByRole("option").count();
+        // Ugly wait should hopefully suffice
+        await new Promise(r => setTimeout(r, 2000));
+        return await this.addressDropdown.first().getByRole("option").count();
     }
 
     async updateItemAddress() {
+        // Ugly wait should hopefully suffice
+        await new Promise(r => setTimeout(r, 2000));
         const value = await this.addressDropdown.first().getByRole("option").last().getAttribute("value");
         await this.addressDropdown.first().selectOption(value);
     }
