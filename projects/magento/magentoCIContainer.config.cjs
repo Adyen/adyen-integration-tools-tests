@@ -85,7 +85,6 @@ const config = {
           height: VIEWPORT_HEIGHT,
         },
       },
-      dependencies: ['user', 'backoffice'],
     },
 
     /* Test against mobile viewports. */
