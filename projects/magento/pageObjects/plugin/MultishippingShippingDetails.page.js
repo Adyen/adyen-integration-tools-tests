@@ -14,13 +14,13 @@ export class MultishippingShippingDetails {
 
     async getAddressCount() {
         // Ugly wait should hopefully suffice
-        await new Promise(r => setTimeout(r, 2000));
+        await new Promise(r => setTimeout(r, 1000));
         return await this.addressDropdown.first().getByRole("option").count();
     }
 
     async updateItemAddress() {
         // Ugly wait should hopefully suffice
-        await new Promise(r => setTimeout(r, 2000));
+        await new Promise(r => setTimeout(r, 1000));
         const value = await this.addressDropdown.first().getByRole("option").last().getAttribute("value");
         await this.addressDropdown.first().selectOption(value);
     }
