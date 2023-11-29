@@ -41,14 +41,14 @@ export class MultishippingSuccess {
         await this.completePaymentButton.first().click();
         await new ThreeDS2PaymentPage(this.page).validate3DS2(threeDSPassword);
 
-        await this.paymentCompletedButton.first().waitFor({ state: "attached", timeout: 5000 });
+        await this.paymentCompletedButton.first().waitFor({ state: "visible", timeout: 5000 });
 
         await this.page.waitForLoadState("load", {timeout: 10000});
 
         await this.completePaymentButton.first().click();
         await new ThreeDS2PaymentPage(this.page).validate3DS2(threeDSPassword);
 
-        await this.completePaymentButton.last().waitFor({ state: "detached", timeout: 5000 });
+        await this.completePaymentButton.last().waitFor({ state: "hidden", timeout: 5000 });
     }
 
     async completeIdealAction(page) {
@@ -58,7 +58,7 @@ export class MultishippingSuccess {
         await new IdealIssuerPage(page).continuePayment();
 
         await this.page.waitForURL("**/checkout/success/**");
-        await this.page.waitForLoadState("load", {timeout: 10000});
+        await new Promise(r => setTimeout(r, 2000));
 
         await this.completePaymentButton.first().click();
         await new IdealIssuerPage(page).continuePayment();

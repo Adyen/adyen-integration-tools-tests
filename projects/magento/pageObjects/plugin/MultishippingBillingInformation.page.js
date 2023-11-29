@@ -31,7 +31,9 @@ export class MultishippingBillingInformation {
     }
 
     async proceedToOrderReviewPageAndPlaceOrder() {
+        await this.proceedToOrderReviewButton.scrollIntoViewIfNeeded();
         await this.proceedToOrderReviewButton.click();
+        await this.placeOrderButton.scrollIntoViewIfNeeded();
         await this.placeOrderButton.click();
     }
 }
