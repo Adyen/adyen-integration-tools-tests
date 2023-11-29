@@ -26,7 +26,7 @@ const config = {
   forbidOnly: !!process.env.CI,
 
   /* Retry on CI only */
-  retries: 4,
+  retries: 1,
 
   /* Opt out of parallel tests on CI. */
   workers: 3,
