@@ -1,13 +1,13 @@
 import { test } from "@playwright/test";
 import PaymentResources from "../../../data/PaymentResources.js";
-import { PaymentDetailsPage } from "../../../magento/pageObjects/plugin/PaymentDetails.page.js";
+import { PaymentDetailsPage } from "../../pageObjects/plugin/PaymentDetails.page.js";
 import {
   goToShippingWithFullCart,
   proceedToPaymentAs,
   verifySuccessfulPayment,
   loginAs,
   placeOrder,
-} from "../../../magento/helpers/ScenarioHelper.js";
+} from "../../helpers/ScenarioHelper.js";
 import { CreditCardComponentsMagento } from "../../pageObjects/checkout/CreditCardComponentsMagento.js";
 import { ThreeDS2PaymentPage } from "../../../common/redirect/ThreeDS2PaymentPage.js";
 
@@ -17,7 +17,7 @@ const users = paymentResources.guestUser;
 
 /* No parallelism due to usage of same user account
 since it will cause the cart to reset */
-test.describe.serial("Payment via stored credit card", () => {
+test.describe("Payment via stored credit card", () => {
   test.beforeEach(async ({ page }) => {
     await loginAs(page, magentoSampleUser);
     await goToShippingWithFullCart(page);
