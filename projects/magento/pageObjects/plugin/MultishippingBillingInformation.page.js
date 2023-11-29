@@ -32,7 +32,6 @@ export class MultishippingBillingInformation {
 
     async proceedToOrderReviewPageAndPlaceOrder() {
         await this.proceedToOrderReviewButton.click();
-        await this.page.waitForLoadState("load", {timeout: 10000});
         await this.placeOrderButton.click();
     }
 }
