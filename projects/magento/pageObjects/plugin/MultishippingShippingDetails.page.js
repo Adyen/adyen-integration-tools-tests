@@ -13,18 +13,25 @@ export class MultishippingShippingDetails {
     }
 
     async getAddressCount() {
-         return await this.addressDropdown.first().getByRole("option").count();
+        // Ugly wait should hopefully suffice
+        await new Promise(r => setTimeout(r, 2000));
+        return await this.addressDropdown.first().getByRole("option").count();
     }
 
     async updateItemAddress() {
-        await this.addressDropdown.nth(1).selectOption({index: 1});
+        // Ugly wait should hopefully suffice
+        await new Promise(r => setTimeout(r, 2000));
+        const value = await this.addressDropdown.first().getByRole("option").last().getAttribute("value");
+        await this.addressDropdown.first().selectOption(value);
     }
 
     async enterNewAddress() {
         await this.enterNewAddressButton.click();
+        await this.page.waitForURL("**/checkout_address/newShipping/");
     }
 
     async proceedToShippingInformation() {
         await this.proceedToShippingInformationButton.click();
+        await this.page.waitForURL("**/checkout/shipping/");
     }
 }

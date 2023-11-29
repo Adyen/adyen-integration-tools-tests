@@ -57,9 +57,11 @@ export class MultishippingSuccess {
         await this.completePaymentButton.first().click();
         await new IdealIssuerPage(page).continuePayment();
 
+        await this.page.waitForURL("**/checkout/success/**");
         await this.page.waitForLoadState("load", {timeout: 10000});
 
         await this.completePaymentButton.first().click();
         await new IdealIssuerPage(page).continuePayment();
+        await this.page.waitForURL("**/checkout/success/**");
     }
 }

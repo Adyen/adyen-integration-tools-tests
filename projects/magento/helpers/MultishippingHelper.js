@@ -14,7 +14,6 @@ export async function proceedToMultishippingAs(page, user) {
   let addressCount = await multishippingShippingDetailsPage.getAddressCount()
 
   if (addressCount < 2) {
-    await page.waitForLoadState("load");
     await multishippingShippingDetailsPage.enterNewAddress();
     await multishippingNewAddressPage.fillNewAddressForm();
   }

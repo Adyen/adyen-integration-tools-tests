@@ -8,8 +8,12 @@ export class MultishippingShippingMethods {
     }
 
     async selectShippingMethods() {
-        await this.shippingMethodSelector.first().getByText("Fixed").click();
-        await this.shippingMethodSelector.nth(1).getByText("Fixed").click();
+        // Ugly implementation due to page.$$ not being stable to implement an iterator
+        let firstShippingMethod = this.page.locator(".box-shipping-method").first();
+        await firstShippingMethod.locator("[type=radio]").first().click();
+
+        let lastShippingMethod = this.page.locator(".box-shipping-method").last();
+        await lastShippingMethod.locator("[type=radio]").first().click();
     }
 
     async proceedToBillingInformation() {
