@@ -14,15 +14,12 @@ export async function proceedToMultishippingAs(page, user) {
   let addressCount = await multishippingShippingDetailsPage.getAddressCount()
 
   if (addressCount < 2) {
-    await page.waitForLoadState("load");
     await multishippingShippingDetailsPage.enterNewAddress();
     await multishippingNewAddressPage.fillNewAddressForm();
-    await page.waitForLoadstate("load");
   }
 
   await multishippingShippingDetailsPage.updateItemAddress();
   await multishippingShippingDetailsPage.proceedToShippingInformation();
-  await page.waitForLoadState("load");
 
   await multishippingShippingMethodsPage.selectShippingMethods();
   await multishippingShippingMethodsPage.proceedToBillingInformation();
