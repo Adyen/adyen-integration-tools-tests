@@ -10,6 +10,7 @@ export class MultishippingShippingDetails {
 
     async goTo() {
         await this.page.goto("/multishipping/checkout/addresses");
+        await this.page.waitForLoadState("load");
     }
 
     async getAddressCount() {
@@ -22,12 +23,12 @@ export class MultishippingShippingDetails {
     }
 
     async enterNewAddress() {
-        await this.page.waitForLoadState("networkidle");
-
         await this.enterNewAddressButton.click();
+        await this.page.waitForURL("**/checkout_address/newShipping/");
     }
 
     async proceedToShippingInformation() {
         await this.proceedToShippingInformationButton.click();
+        await this.page.waitForURL("**/checkout/shipping/");
     }
 }
