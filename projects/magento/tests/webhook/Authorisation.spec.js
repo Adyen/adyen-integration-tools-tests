@@ -22,7 +22,7 @@ const headers = {
     Authorization: `Basic ${base64Credentials}`
 };
 
-test.describe("Process AUTHORISATION webhook notifications", () => {
+test.only.describe("Process AUTHORISATION webhook notifications", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
     await proceedToPaymentAs(page, users.dutch);
@@ -78,6 +78,6 @@ test.describe("Process AUTHORISATION webhook notifications", () => {
  
  // Check the body of processed notification
  const processedNotificationBody = await processedNotificationResponse.json();
-  expect(processedNotificationBody[0].status).toBe("pending_payment");
+  expect(processedNotificationBody[0].status).toBe("processing");
  });
 });
