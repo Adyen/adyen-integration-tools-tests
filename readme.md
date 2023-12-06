@@ -60,23 +60,33 @@ This will run the `CreditCardPayment.spec.js` test only with **one worker** in a
 
 Check `package.json` to see all available scripts.
 
-```bash
-npm run test:adyenlocal:magento
-```
+* Runs all Magento tests on headed Chrome browser with a single worker.
 
-Runs all Magento tests on headed Chrome browser with a single worker.
+    ```bash
+    npm run test:adyenlocal:magento
+    ```
+    
+    **Optional step:**
+    
+    You can add your local environment from `.env` file, just copy it from `.env_example` and fill it with your secrets
 
-```bash
-npm run test:adyenlocal:magento:headless
-```
+    ```
+    cp  .env_example .env
+    ## Fill .env with your prefered env values
+    ```
 
-Runs all Magento tests on headless Chrome browser with a single worker.
 
-```bash
-npm run test:adyenlocal:magento:parallel
-```
+* Runs all Magento tests on headless Chrome browser with a single worker.
 
-Runs all Magento tests on headed Chrome browser parallelly with multiple workers.
+    ```bash
+    npm run test:adyenlocal:magento:headless
+    ```
+
+* Runs all Magento tests on headed Chrome browser parallelly with multiple workers.
+    
+    ```bash
+    npm run test:adyenlocal:magento:parallel
+    ```
 
 ## Contributing
 
