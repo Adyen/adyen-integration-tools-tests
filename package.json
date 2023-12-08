@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test:ci:magento:all": "npx playwright test projects/magento/tests/webhook/Authorisation.spec.js  --config=projects/magento/magentoCIContainer.config.cjs",
+    "test:ci:magento:all": "npx playwright test projects/magento/tests/webhook  --config=projects/magento/magentoCIContainer.config.cjs",
     "test:ci:magento": "npx playwright test --config=projects/magento/magentoCIContainer.config.cjs --project='backoffice' --project='user'",
     "test:ci:magento:express-checkout": "npx playwright test --config=projects/magento/magentoCIContainer.config.cjs --project='express-checkout'",
     "test:adyenlocal:magento": "npx playwright test --workers=1 --headed --project='backoffice' --project='user' --config=projects/magento/magento.config.cjs",
