@@ -78,6 +78,6 @@ test.describe("Process AUTHORISATION webhook notifications", () => {
  
  // Check the body of processed notification
  const processedNotificationBody = await processedNotificationResponse.json();
-  expect(processedNotificationBody[0].status).toBe("processing");
+  expect(processedNotificationBody[0].status).toBe("pending_payment");
  });
 });
