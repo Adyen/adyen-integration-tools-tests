@@ -8,6 +8,7 @@
     "test:ci:magento:all": "npx playwright test --config=projects/magento/magentoCIContainer.config.cjs",
     "test:ci:magento": "npx playwright test --config=projects/magento/magentoCIContainer.config.cjs --project='backoffice' --project='user'",
     "test:ci:magento:express-checkout": "npx playwright test --config=projects/magento/magentoCIContainer.config.cjs --project='express-checkout'",
+    "test:ci:magento:webhook": "npx playwright test --config=projects/magento/magentoCIContainer.config.cjs --project='webhook'",
     "test:adyenlocal:magento": "npx playwright test --workers=1 --headed --project=chromium --config=projects/magento/magento.config.cjs",
     "test:adyenlocal:magento:headless": "npx playwright test --workers=1 --project=chromium --config=projects/magento/magento.config.cjs",
     "test:adyenlocal:magento:parallel": "npx playwright test --headed --project=chromium --config=projects/magento/magento.config.cjs",
