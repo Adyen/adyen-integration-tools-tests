@@ -86,7 +86,18 @@ const config = {
         },
       },
     },
-
+    {
+      name: "webhook",
+      testDir: "./tests/webhook",
+      use: {
+        browserName: "chromium",
+        trace: "retain-on-failure",
+        viewport: {
+          width: VIEWPORT_WIDTH,
+          height: VIEWPORT_HEIGHT,
+        },
+      },
+    },
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
