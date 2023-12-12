@@ -4,3 +4,4 @@ test-results.json
 test-report/
 .DS_Store
 .idea
+.env

@@ -1,9 +1,10 @@
 // @ts-check
 const { devices } = require("@playwright/test");
-
+const dotenv = require('dotenv');
 const VIEWPORT_WIDTH = 1600;
 const VIEWPORT_HEIGHT = 900;
 
+dotenv.config();
 /**
  * @see https://playwright.dev/docs/test-configuration
  * @type {import('@playwright/test').PlaywrightTestConfig}
