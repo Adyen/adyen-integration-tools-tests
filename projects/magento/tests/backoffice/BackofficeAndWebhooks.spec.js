@@ -11,8 +11,7 @@ import "./PayByLink.js"
 /* Webhook Tests are also run through this file
 since they also require usage of Admin Panel */
 
-/* Skipping the Webhook tests until ECP-8686 is finalized
 import "../webhook/Authorisation.js";
 import "../webhook/Capture.js";
 import "../webhook/Refund.js";
-*/
+

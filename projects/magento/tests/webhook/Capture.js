@@ -22,6 +22,7 @@ test.describe("Process CAPTURE webhook notifications", () => {
     test.beforeEach(async ({ page }) => {
         await loginAsAdmin(page, magentoAdminUser)
         adminOrderCreationPage = new AdminOrderCreationPage(page);
+        await adminOrderCreationPage.closePopup();
         await adminOrderCreationPage.createCapture(page, SharedState.orderNumber);
     });
 
