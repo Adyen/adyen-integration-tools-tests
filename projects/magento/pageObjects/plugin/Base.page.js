@@ -9,6 +9,10 @@ export class BasePage extends TopBar {
     this.cartIcon = page.locator(".showcart");
     this.cartItemCount = page.locator(".qty .counter-number");
     this.shoppingCartLoaderMask = page.locator(".showcart .loading-mask");
+
+    this.miniCartWrapper = page.locator(".block-minicart");
+    this.buyWithGoogleViaCartButton = this.miniCartWrapper.locator(".adyen-checkout__paywithgoogle");
+    this.buyWithGoogleViaCartButtonAnimation = this.miniCartWrapper.locator(".gpay-card-info-animated-progress-bar");
   }
 
   async currentCartItemCount() {
@@ -17,5 +21,18 @@ export class BasePage extends TopBar {
       timeout: 10000,
     });
     return this.cartItemCount.innerText();
+  }
+
+  async clickbuyWithGPayViaMiniCart(){
+    await this.shoppingCartLoaderMask.waitFor({
+      state: "detached",
+      timeout: 10000,
+    });
+    await this.cartIcon.click();
+
+    await (this.buyWithGoogleViaCartButtonAnimation).waitFor({state: "visible"});
+    await (this.buyWithGoogleViaCartButton).waitFor({state: "visible"});
+    await this.page.waitForLoadState("networkidle", { timeout: 10000 });
+    await this.buyWithGoogleViaCartButton.click();
   }
 }
