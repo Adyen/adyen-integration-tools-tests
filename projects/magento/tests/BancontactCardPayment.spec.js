@@ -1,14 +1,14 @@
 import { test } from "@playwright/test";
-import { ThreeDSPaymentPage } from "../../common/redirect/ThreeDSPaymentPage.js";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
   goToShippingWithFullCart,
   placeOrder,
   proceedToPaymentAs,
-  verifyFailedPayment,
   verifySuccessfulPayment,
 } from "../helpers/ScenarioHelper.js";
 import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
+import { ThreeDS2PaymentPage } from "../../common/redirect/ThreeDS2PaymentPage.js";
+import { BancontactCardComponentsMagento } from "../pageObjects/checkout/BancontactCardComponentsMagento.js";
 
 const paymentResources = new PaymentResources();
 const bancontactCard = paymentResources.bcmc.be;
@@ -30,20 +30,18 @@ test.describe.parallel("Payment via Bancontact Card", () => {
   });
 
   test("should succeed with correct 3DS credentials", async ({ page }) => {
-    await new ThreeDSPaymentPage(page).validate3DS(
-      bancontactCard.user,
-      bancontactCard.password
+    await new ThreeDS2PaymentPage(page).validate3DS2(
+        paymentResources.threeDSCorrectPassword
     );
 
     await verifySuccessfulPayment(page);
   });
 
   test("should fail with wrong 3DS credentials", async ({ page }) => {
-    await new ThreeDSPaymentPage(page).validate3DS(
-      bancontactCard.wrongUser,
-      bancontactCard.wrongPassword
+    await new ThreeDS2PaymentPage(page).validate3DS2(
+        paymentResources.threeDSWrongPassword
     );
 
-    await verifyFailedPayment(page);
+    await new BancontactCardComponentsMagento(page).verifyPaymentRefusal();
   });
 });
