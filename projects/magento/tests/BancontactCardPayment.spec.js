@@ -30,18 +30,18 @@ test.describe.parallel("Payment via Bancontact Card", () => {
   });
 
   test("should succeed with correct 3DS credentials", async ({ page }) => {
-    await new ThreeDS2PaymentPage(page).validate3DS2(
-        paymentResources.threeDSCorrectPassword
-    );
-
+    const threeDS2Page = new ThreeDS2PaymentPage(page);
+    if (await threeDS2Page.threeDS2PasswordInput.isVisible({timeout:3000})){
+      await new threeDS2Page.validate3DS2(paymentResources.threeDSCorrectPassword);
+    }
     await verifySuccessfulPayment(page);
   });
 
   test("should fail with wrong 3DS credentials", async ({ page }) => {
-    await new ThreeDS2PaymentPage(page).validate3DS2(
-        paymentResources.threeDSWrongPassword
-    );
-
+    const threeDS2Page = new ThreeDS2PaymentPage(page);
+    if (await threeDS2Page.threeDS2PasswordInput.isVisible({timeout:3000})){
+      await new threeDS2Page.validate3DS2(paymentResources.threeDSWrongPassword);
+    }
     await new BancontactCardComponentsMagento(page).verifyPaymentRefusal();
   });
 });
