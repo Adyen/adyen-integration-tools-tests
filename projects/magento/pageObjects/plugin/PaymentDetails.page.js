@@ -33,6 +33,8 @@ export class PaymentDetailsPage {
     this.paymentMethodSaveCheckBox = this.activePaymentMethod.locator(
       ".adyen-checkout__checkbox__label"
     );
+
+    this.errorMessageContainer = page.locator("[data-ui-id='checkout-cart-validationmessages-message-error']");
   }
 
   async savePaymentMethod() {
