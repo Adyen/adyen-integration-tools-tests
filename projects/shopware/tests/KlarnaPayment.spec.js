@@ -19,21 +19,21 @@ test.describe.parallel("Payment via Klarna", () => {
         await doPrePaymentChecks(page);
     });
 
-    test("Pay Now should succeed via direct debit", async ({ page }) => {
+    test("Pay Now should succeed via pay now", async ({ page }) => {
         const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
-        await klarnaPaymentPage.makeKlarnaPayment("directDebit", user.phoneNumber);
+        await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber, true);
         await verifySuccessfulPayment(page);
     });
 
     test("Pay Now should fail gracefully when cancelled", async ({ page }) => {
         const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
-        await klarnaPaymentPage.makeKlarnaPayment("cancel");
+        await klarnaPaymentPage.cancelKlarnaPayment();
         await verifyFailedPayment(page, false);
     });
 
     test("Pay Later should succeed", async ({ page }) => {
         const klarnaPaymentPage = await proceedToKlarnaPayLater(page);
-        await klarnaPaymentPage.makeKlarnaPayment("later", user.phoneNumber);
+        await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber, true);
         await verifySuccessfulPayment(page);
     });
 
@@ -49,7 +49,7 @@ test.describe.parallel("Payment via Klarna", () => {
 
     test("Pay Klarna Account should succeed", async ({ page }) => {
         const klarnaPaymentPage = await proceedToKlarnaPayAccount(page);
-        await klarnaPaymentPage.makeKlarnaPayment("overTime", user.phoneNumber);
+        await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber, false);
         await verifySuccessfulPayment(page);
     });
 
