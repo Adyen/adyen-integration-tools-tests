@@ -13,42 +13,58 @@ import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js
 const paymentResources = new PaymentResources();
 const user = paymentResources.guestUser.klarna.approved.nl;
 
-test.describe.parallel("Payment via Klarna Pay Now", () => {
+test.describe.parallel("Payment via Klarna", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
   });
 
-  test("should succeed via direct debit", async ({ page }) => {
+  test("should succeed via Pay Now", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 
-    await klarnaPaymentPage.makeKlarnaPayment("directDebit", user.phoneNumber);
+    await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber, true);
     await verifySuccessfulPayment(page);
   });
 
-  test.skip("should succeed via direct bank transfer", async ({ page }) => {
-    // Skipping this test until Klarna's ever changing bank transfer flow settles
+  test("should succeed via Pay Later", async ({ page }) => {
     await proceedToPaymentAs(page, user);
-    const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
+    const klarnaPaymentPage = await proceedToKlarnaPayLater(page);
 
-    await klarnaPaymentPage.makeKlarnaPayment(
-      "directBankTransfer",
-      user.phoneNumber
-    );
+    await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber, false);
     await verifySuccessfulPayment(page);
   });
 
-  test("should fail if cancelled", async ({ page }) => {
+  test("should succeed via Pay Over Time", async ({ page }) => {
+    await proceedToPaymentAs(page, user);
+    const klarnaPaymentPage = await proceedToKlarnaPayOverTime(page);
+
+    await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber, false);
+    await verifySuccessfulPayment(page);
+  });
+
+  test("should be handled properly if cancelled", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 
-    await klarnaPaymentPage.makeKlarnaPayment("cancel");
+    await klarnaPaymentPage.cancelKlarnaPayment();
     await verifyFailedPayment(page);
   });
 });
 
 async function proceedToKlarnaPayNow(page) {
   await new PaymentDetailsPage(page).selectKlarnaPayNow();
+  await placeOrder(page);
+  return new KlarnaPaymentPage(page);
+}
+
+async function proceedToKlarnaPayOverTime(page) {
+  await new PaymentDetailsPage(page).selectKlarnaPayOverTime();
+  await placeOrder(page);
+  return new KlarnaPaymentPage(page);
+}
+
+async function proceedToKlarnaPayLater(page) {
+  await new PaymentDetailsPage(page).selectKlarnaPayLater();
   await placeOrder(page);
   return new KlarnaPaymentPage(page);
 }
