@@ -5,7 +5,7 @@ import {
   goToShippingWithFullCart,
   placeOrder,
   proceedToPaymentAs,
-  verifyFailedPayment,
+  verifyGenericPaymentRefusal,
   verifySuccessfulPayment,
 } from "../helpers/ScenarioHelper.js";
 import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
@@ -42,6 +42,6 @@ test.describe.parallel("Payment via Bancontact Card", () => {
       bancontactCard.wrongPassword
   );
 
-    await verifyFailedPayment(page);
+  await verifyGenericPaymentRefusal(page);
   });
 });
