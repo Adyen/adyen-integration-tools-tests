@@ -1,13 +1,14 @@
 import { test } from "@playwright/test";
+import {ThreeDS2PaymentPage} from "../../common/redirect/ThreeDS2PaymentPage.js";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
   goToShippingWithFullCart,
+  placeOrder,
   proceedToPaymentAs,
+  verifyFailedPayment,
   verifySuccessfulPayment,
 } from "../helpers/ScenarioHelper.js";
-import { makeCreditCardPayment } from "../helpers/PaymentHelper.js";
-import {ThreeDS2PaymentPage} from "../../common/redirect/ThreeDS2PaymentPage.js";
-import {CreditCardComponentsMagento} from "../pageObjects/checkout/CreditCardComponentsMagento.js";
+import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
 
 const paymentResources = new PaymentResources();
 const bancontactCard = paymentResources.bcmc.be;
@@ -17,28 +18,30 @@ test.describe.parallel("Payment via Bancontact Card", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
     await proceedToPaymentAs(page, user);
-
-    await makeCreditCardPayment(
-      page,
-      user,
+    const bancontactCardSection = await new PaymentDetailsPage(page)
+    .selectBancontactCard();
+    await bancontactCardSection.fillBancontacCardInfo(
       bancontactCard.cardNumber,
-      bancontactCard.expDate
+      bancontactCard.expDate,
+      user.firstName,
+      user.lastName
     );
+    await placeOrder(page);
   });
 
   test("should succeed with correct 3DS credentials", async ({ page }) => {
     await new ThreeDS2PaymentPage(page).validate3DS2(
-        paymentResources.threeDSCorrectPassword
-    );
+      bancontactCard.password
+  );
 
     await verifySuccessfulPayment(page);
   });
 
   test("should fail with wrong 3DS credentials", async ({ page }) => {
     await new ThreeDS2PaymentPage(page).validate3DS2(
-        paymentResources.threeDSWrongPassword
-    );
+      bancontactCard.wrongPassword
+  );
 
-    await new CreditCardComponentsMagento(page).verifyPaymentRefusal();
+    await verifyFailedPayment(page);
   });
 });
