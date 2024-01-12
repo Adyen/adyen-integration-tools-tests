@@ -60,6 +60,13 @@ export async function verifySuccessfulPayment(page, redirect = true, timeout) {
   );
 }
 
+export async function verifyGenericPaymentRefusal(page){
+  const paymentPage = new PaymentDetailsPage(page);
+  expect(await paymentPage.generalAlertMessage.innerText()).toContain(
+    "The payment is REFUSED"
+  );
+}
+
 export async function getOrderNumber(page){
   return (await new SuccessfulCheckoutPage(page).orderNumber());
 }

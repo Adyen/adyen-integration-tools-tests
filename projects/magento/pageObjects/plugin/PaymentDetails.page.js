@@ -10,6 +10,9 @@ export class PaymentDetailsPage {
   constructor(page) {
     this.page = page;
 
+    this.generalAlertMessage = page
+    .locator(("[data-ui-id='checkout-cart-validationmessages-message-error']"));
+
     this.creditCardRadioButton = page.locator("#adyen_cc");
     this.idealWrapper = page.locator("#payment_form_adyen_hpp_ideal");
     this.idealRadioButton = page.locator("#adyen_ideal");
