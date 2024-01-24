@@ -1,5 +1,4 @@
 import { test } from "@playwright/test";
-import { ThreeDSPaymentPage } from "../../common/redirect/ThreeDSPaymentPage.js";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
     doPrePaymentChecks,
@@ -9,6 +8,7 @@ import {
     verifySuccessfulPayment
 } from "../helpers/ScenarioHelper.js";
 import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
+import { ThreeDS2PaymentPage } from "../../common/redirect/ThreeDS2PaymentPage.js";
 
 const paymentResources = new PaymentResources();
 const user = paymentResources.guestUser.belgian;
@@ -28,20 +28,17 @@ test.describe.parallel("Payment via credit card", () => {
         await paymentDetailPage.submitOrder();
     });
 
-    test("with 3Ds1 should succeed", async ({ page }) => {
-
-        await new ThreeDSPaymentPage(page).validate3DS(
-            bancontactCard.user,
-            bancontactCard.password
+    test("with 3Ds2 should succeed", async ({ page }) => {
+        await new ThreeDS2PaymentPage(page).validate3DS2(
+            paymentResources.threeDSCorrectPassword
         );
+
         await verifySuccessfulPayment(page);
     });
 
-    test("with wrong 3Ds1 credentials should fail", async ({ page }) => {
-
-        await new ThreeDSPaymentPage(page).validate3DS(
-            bancontactCard.wrongUser,
-            bancontactCard.wrongPassword
+    test("with wrong 3Ds2 credentials should fail", async ({ page }) => {
+        await new ThreeDS2PaymentPage(page).validate3DS2(
+            paymentResources.threeDSWrongPassword
         );
 
         await verifyFailedPayment(page);
