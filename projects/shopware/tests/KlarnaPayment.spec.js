@@ -33,7 +33,7 @@ test.describe.parallel("Payment via Klarna", () => {
 
     test("Pay Later should succeed", async ({ page }) => {
         const klarnaPaymentPage = await proceedToKlarnaPayLater(page);
-        await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber, true);
+        await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber, false);
         await verifySuccessfulPayment(page);
     });
 
