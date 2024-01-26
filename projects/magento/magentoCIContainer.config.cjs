@@ -29,7 +29,7 @@ const config = {
   retries: 1,
 
   /* Opt out of parallel tests on CI. */
-  workers: 4,
+  workers: 3,
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [["html", { outputFolder: "/tmp/test-report", open: "never" }]],
@@ -66,22 +66,25 @@ const config = {
       testDir: "./tests/backoffice",
       use: {
         browserName: "chromium",
+        trace: "retain-on-failure",
         viewport: {
           width: VIEWPORT_WIDTH,
           height: VIEWPORT_HEIGHT,
         },
-      }
+      },
+      dependencies: ['user'],
     },
     {
-      name: "expressCheckout",
+      name: "express-checkout",
       testDir: "./tests/expressCheckout",
       use: {
         browserName: "firefox",
+        trace: "retain-on-failure",
         viewport: {
           width: VIEWPORT_WIDTH,
           height: VIEWPORT_HEIGHT,
         },
-      }
+      },
     },
 
     /* Test against mobile viewports. */
