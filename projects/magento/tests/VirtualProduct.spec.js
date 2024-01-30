@@ -6,7 +6,6 @@ const adminUsername = credentials.magentoAdminUser.username
 const adminPassword = credentials.magentoAdminUser.password
 
 let bearerToken;
-let productURL;
 
 test.describe("Virtual Products", () => {
   test.beforeEach(async ({ request }) => {
@@ -23,15 +22,12 @@ test.describe("Virtual Products", () => {
     })
     
     bearerToken = await bearerToken.json();
-    console.log(bearerToken)
-
-
     const uniqueTimestamp = Date.now();
-    productURL = await request.post("/index.php/rest/default/V1/products"), {
+
+    const productCall = await request.post("/index.php/rest/default/V1/products", {
       headers: {
-        'Authorization': `Bearer ${bearerToken}`,
         'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache',
+        'Authorization': `Bearer ${bearerToken}`,
       },
       data: {
           "product": {
@@ -51,10 +47,9 @@ test.describe("Virtual Products", () => {
               }
           }
       }
-    }
+    })
 
-    expect(productURL.ok()).toBeTruthy();
-
-    console.log(await productURL.json());
+    expect(productCall.status()).toBe(200);
+    console.log(await productCall.json());
   });
 });
