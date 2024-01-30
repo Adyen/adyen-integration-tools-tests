@@ -8,9 +8,9 @@ import { AdminLoginPage } from "../pageObjects/plugin/AdminLogin.page.js";
 import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
 import { IdealIssuerPage } from "../../common/redirect/IdealIssuerPage.js";
 
-export async function goToShippingWithFullCart(page, additionalItemCount = 0) {
+export async function goToShippingWithFullCart(page, additionalItemCount = 0, itemURL="joust-duffle-bag.html") {
   const productDetailsPage = new ProductDetailsPage(page);
-  await productDetailsPage.addItemToCart("joust-duffle-bag.html");
+  await productDetailsPage.addItemToCart(itemURL);
 
   if (additionalItemCount >= 1) {
     await productDetailsPage.addItemWithOptionsToCart(
