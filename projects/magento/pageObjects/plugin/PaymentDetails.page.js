@@ -10,6 +10,8 @@ export class PaymentDetailsPage {
   constructor(page) {
     this.page = page;
 
+    this.emailField = page.locator("#customer-email");
+
     this.creditCardRadioButton = page.locator("#adyen_cc");
     this.idealWrapper = page.locator("#adyen-ideal-form");
     this.idealRadioButton = page.locator("#adyen_ideal");
@@ -33,6 +35,10 @@ export class PaymentDetailsPage {
     this.paymentMethodSaveCheckBox = this.activePaymentMethod.locator(
       ".adyen-checkout__checkbox__label"
     );
+  }
+
+  async fillEmailAddress(user){
+    this.emailField.fill(user.email);
   }
 
   async savePaymentMethod() {
