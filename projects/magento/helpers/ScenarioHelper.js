@@ -7,6 +7,7 @@ import { LoginPage } from "../pageObjects/plugin/Login.page.js";
 import { AdminLoginPage } from "../pageObjects/plugin/AdminLogin.page.js";
 import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
 import { IdealIssuerPage } from "../../common/redirect/IdealIssuerPage.js";
+import { AnimationHelper } from "./AnimationHelper.js";
 
 export async function goToShippingWithFullCart(page, additionalItemCount = 0, itemURL="joust-duffle-bag.html") {
   const productDetailsPage = new ProductDetailsPage(page);
@@ -88,4 +89,9 @@ export async function makeIDealPayment(page, issuerName) {
   await placeOrder(page);
   await page.waitForNavigation();
   await new IdealIssuerPage(page).continuePayment();
+}
+
+export async function proceedToPaymentWithoutShipping(page) {
+  await page.goto("/checkout#payment");
+  await new AnimationHelper(page).waitForAnimation();
 }
