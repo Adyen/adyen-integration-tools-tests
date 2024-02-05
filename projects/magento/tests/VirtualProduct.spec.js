@@ -1,19 +1,21 @@
 import { expect, test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
+import { fillBillingAddress, goToShippingWithFullCart, proceedToPaymentAs, proceedToPaymentWithoutShipping, verifySuccessfulPayment } from "../helpers/ScenarioHelper.js";
+import { makeCreditCardPayment } from "../helpers/PaymentHelper.js";
+import { ShippingDetails } from "../pageObjects/plugin/ShippingDetails.page.js";
+import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
 
 const credentials = new PaymentResources();
 const adminUsername = credentials.magentoAdminUser.username
 const adminPassword = credentials.magentoAdminUser.password
 
+const users = credentials.guestUser;
+
 let bearerToken;
+let productURL;
 
-test.describe("Virtual Products", () => {
+test.describe("Virtual Products should be", () => {
   test.beforeEach(async ({ request }) => {
-    console.log("beforeEach");
-    
-  });
-
-  test("should be bought", async ({ request }) => {
     bearerToken = await request.post("/index.php/rest/V1/integration/admin/token",{
       data:{
         username: adminUsername,
@@ -50,6 +52,26 @@ test.describe("Virtual Products", () => {
     })
 
     expect(productCall.status()).toBe(200);
-    console.log(await productCall.json());
+    const responseBody = await productCall.json();
+    productURL = `${responseBody.custom_attributes.find(obj => obj.attribute_code === 'url_key').value}.html`;   
+  });
+
+  test("purchasable via CC", async ({ page }) => {
+    await goToShippingWithFullCart(page, 0, productURL);
+    await proceedToPaymentWithoutShipping(page);
+    await new PaymentDetailsPage(page).selectCreditCard();
+    await fillBillingAddress(page, users.dutch)
+    
+    
+    await makeCreditCardPayment(
+      page,
+      users.regular,
+      credentials.masterCardWithout3D,
+      credentials.expDate,
+      credentials.cvc
+    );
+
+    await verifySuccessfulPayment(page);
+   
   });
 });
