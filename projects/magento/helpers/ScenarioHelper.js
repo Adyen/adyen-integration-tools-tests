@@ -44,6 +44,16 @@ export async function proceedToPaymentAs(page, user, isGuest = true) {
   :await shippingDetailsPage.proceedToPaymentWithSavedAddress();
 }
 
+/* This method should only be used for cases where the user should fill the billing
+details only on payment page; e.g. For virtual products */
+export async function fillBillingAddress(page, user){
+  await new ShippingDetails(page, page.locator(".payment-method._active"))
+  .fillShippingDetails(user, false);
+  await new PaymentDetailsPage(page).fillEmailAddress(user);
+  await page.getByRole('button', { name: 'Update' }).click();
+  await new AnimationHelper(page).waitForAnimation();
+}
+
 export async function verifySuccessfulPayment(page, redirect = true, timeout) {
   const successfulCheckoutPage = new SuccessfulCheckoutPage(page);
   if (redirect !== false) {
