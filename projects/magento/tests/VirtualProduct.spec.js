@@ -14,7 +14,7 @@ const users = credentials.guestUser;
 let bearerToken;
 let productURL;
 
-test.describe("Virtual Products should be", () => {
+test.describe.only("Virtual Products should be", () => {
   test.beforeEach(async ({ request }) => {
     bearerToken = await request.post("/index.php/rest/V1/integration/admin/token",{
       data:{
