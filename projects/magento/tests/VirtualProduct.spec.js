@@ -59,6 +59,7 @@ test.describe.only("Virtual Products should be", () => {
   test("purchasable via CC", async ({ page }) => {
     await goToShippingWithFullCart(page, 0, productURL);
     await proceedToPaymentWithoutShipping(page);
+    await new PaymentDetailsPage(page).fillEmailAddress(users.dutch);
     await new PaymentDetailsPage(page).selectCreditCard();
     await fillBillingAddress(page, users.dutch)
     
