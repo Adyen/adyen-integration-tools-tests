@@ -1,3 +1,5 @@
+import { expect } from "@playwright/test";
+
 export class GooglePayPage {
     constructor(page) {
       this.page = page;
@@ -17,6 +19,14 @@ export class GooglePayPage {
       this.verificationText = page.locator("//h1[@id='headingText']/*[contains(text(),'Verif')]");
     }
   
+    async assertNavigation(){
+      await this.loginHeader.waitFor({
+        state: "visible",
+        timeout: 10000,
+      });
+      await expect(this.emailInput).toBeVisible();
+    }
+
     async fillUsername(username) {
       await this.loginHeader.waitFor({
         state: "visible",

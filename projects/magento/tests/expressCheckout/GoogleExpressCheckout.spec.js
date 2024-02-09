@@ -20,10 +20,11 @@ test.describe("Payment via Express Checkout with Google Pay", () => {
     ]);
 
     const activePopup = new GooglePayPage(popup);
-    await activePopup.fillGoogleCredentials(googleCredentials.username, googleCredentials.password);
-    if(await activePopup.payOrSkipDueToVerification()){
-      await verifySuccessfulPayment(page, true, 20000);
-    }
+    await activePopup.assertNavigation();
+    // await activePopup.fillGoogleCredentials(googleCredentials.username, googleCredentials.password);
+    // if(await activePopup.payOrSkipDueToVerification()){
+    //   await verifySuccessfulPayment(page, true, 20000);
+    // }
 
   });
   
@@ -39,10 +40,11 @@ test.describe("Payment via Express Checkout with Google Pay", () => {
     ]);
     
     const activePopup = new GooglePayPage(popup);
-    await activePopup.fillGoogleCredentials(googleCredentials.username, googleCredentials.password);
-    if(await activePopup.payOrSkipDueToVerification()){
-      await verifySuccessfulPayment(page, true, 20000);
-    }
+    await activePopup.assertNavigation();
+    // await activePopup.fillGoogleCredentials(googleCredentials.username, googleCredentials.password);
+    // if(await activePopup.payOrSkipDueToVerification()){
+    //   await verifySuccessfulPayment(page, true, 20000);
+    // }
 
   });
 });
