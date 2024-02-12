@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import PaymentResources from "../../../data/PaymentResources.js";
 import { PaymentDetailsPage } from "../../pageObjects/plugin/PaymentDetails.page.js";
 import {
@@ -18,12 +18,23 @@ const users = paymentResources.guestUser;
 /* No parallelism due to usage of same user account
 since it will cause the cart to reset */
 test.describe("Payment via stored credit card", () => {
+  
   test.beforeEach(async ({ page }) => {
     await loginAs(page, magentoSampleUser);
     await goToShippingWithFullCart(page);
     await proceedToPaymentAs(page, undefined, false);
+  });
+  
+  test.afterEach("should allow the tokenized cards to be cleared", async ({page}) =>{
+    await page.goto("/vault/cards/listaction/");
+    await page.waitForLoadState("load", { timeout: 15000 });
 
+    await page.getByRole('button', { name: 'Delete' }).click();
+    await page.getByLabel('Delete').getByRole('button', { name: 'Delete' }).click();
 
+    await page.waitForLoadState("load", { timeout: 15000 });
+    await expect(page.getByText('Stored Payment Methods You have no stored payment methods.')).toBeVisible();
+    await expect(page.getByText('Stored Payment Method was successfully removed')).toBeVisible();
   });
 
   test("should succeed with 3Ds2", async ({ page }) => {
@@ -67,6 +78,7 @@ test.describe("Payment via stored credit card", () => {
     await makeVaultPayment(page, paymentResources.masterCardWithout3D, paymentResources.cvc);
     await verifySuccessfulPayment(page);
   });
+  
 });
 
 async function makeCreditCardPayment(
