@@ -5,3 +5,4 @@ consequently */
 // Logged In User Tests
 import "./MultishippingPayment.js";
 import "./StoredCardPayment.js"
+import "./VirtualProduct.js"

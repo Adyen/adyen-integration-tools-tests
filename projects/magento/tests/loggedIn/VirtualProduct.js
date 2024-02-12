@@ -1,15 +1,15 @@
 import { expect, test } from "@playwright/test";
-import PaymentResources from "../../data/PaymentResources.js";
-import { fillBillingAddress, goToShippingWithFullCart, proceedToPaymentAs, proceedToPaymentWithoutShipping, verifySuccessfulPayment } from "../helpers/ScenarioHelper.js";
-import { makeCreditCardPayment } from "../helpers/PaymentHelper.js";
-import { ShippingDetails } from "../pageObjects/plugin/ShippingDetails.page.js";
-import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
+import PaymentResources from "../../../data/PaymentResources.js";
+import { goToShippingWithFullCart, loginAs, proceedToPaymentWithoutShipping, verifySuccessfulPayment } from "../../helpers/ScenarioHelper.js";
+import { makeCreditCardPayment } from "../../helpers/PaymentHelper.js";
+import { PaymentDetailsPage } from "../../pageObjects/plugin/PaymentDetails.page.js";
 
 const credentials = new PaymentResources();
 const adminUsername = credentials.magentoAdminUser.username
 const adminPassword = credentials.magentoAdminUser.password
 
 const users = credentials.guestUser;
+const magentoUser = credentials.sampleRegisteredUser;
 
 let bearerToken;
 let productURL;
@@ -57,12 +57,10 @@ test.describe.only("Virtual Products should be", () => {
   });
 
   test("purchasable via CC", async ({ page }) => {
+    await loginAs(page, magentoUser )
     await goToShippingWithFullCart(page, 0, productURL);
     await proceedToPaymentWithoutShipping(page);
-    await new PaymentDetailsPage(page).fillEmailAddress(users.dutch);
     await new PaymentDetailsPage(page).selectCreditCard();
-    await fillBillingAddress(page, users.dutch)
-    
     
     await makeCreditCardPayment(
       page,
