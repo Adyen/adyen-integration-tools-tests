@@ -7,10 +7,11 @@ import { LoginPage } from "../pageObjects/plugin/Login.page.js";
 import { AdminLoginPage } from "../pageObjects/plugin/AdminLogin.page.js";
 import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
 import { IdealIssuerPage } from "../../common/redirect/IdealIssuerPage.js";
+import { AnimationHelper } from "./AnimationHelper.js";
 
-export async function goToShippingWithFullCart(page, additionalItemCount = 0) {
+export async function goToShippingWithFullCart(page, additionalItemCount = 0, itemURL="joust-duffle-bag.html") {
   const productDetailsPage = new ProductDetailsPage(page);
-  await productDetailsPage.addItemToCart("joust-duffle-bag.html");
+  await productDetailsPage.addItemToCart(itemURL);
 
   if (additionalItemCount >= 1) {
     await productDetailsPage.addItemWithOptionsToCart(
@@ -41,6 +42,15 @@ export async function proceedToPaymentAs(page, user, isGuest = true) {
 
   isGuest?await shippingDetailsPage.fillShippingDetailsAndProceedToPayment(user)
   :await shippingDetailsPage.proceedToPaymentWithSavedAddress();
+}
+
+/* This method should only be used for cases where the user should fill the billing
+details only on payment page; e.g. For virtual products */
+export async function fillBillingAddress(page, user){
+  await new ShippingDetails(page, page.locator(".payment-method._active"))
+  .fillShippingDetails(user, false);
+  await page.getByRole('button', { name: 'Update' }).click();
+  await new AnimationHelper(page).waitForAnimation();
 }
 
 export async function verifySuccessfulPayment(page, redirect = true, timeout) {
@@ -88,4 +98,9 @@ export async function makeIDealPayment(page, issuerName) {
   await placeOrder(page);
   await page.waitForNavigation();
   await new IdealIssuerPage(page).continuePayment();
+}
+
+export async function proceedToPaymentWithoutShipping(page) {
+  await page.goto("/checkout#payment");
+  await new AnimationHelper(page).waitForAnimation();
 }

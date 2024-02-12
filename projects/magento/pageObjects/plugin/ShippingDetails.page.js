@@ -1,13 +1,11 @@
 import { AnimationHelper } from "../../helpers/AnimationHelper.js";
 
 export class ShippingDetails {
-  constructor(page) {
+  constructor(page, formWrapper = page.locator("#checkout-step-shipping")) {
     this.page = page;
 
     // Shipping Section Locators
-    this.shippingForm = page.locator(
-      "#checkout-step-shipping"
-    );
+    this.shippingForm = formWrapper
     this.emailInput = this.shippingForm.locator("#customer-email");
     this.firstNameInput = this.shippingForm.locator("input[name='firstname']");
     this.lastNameInput = this.shippingForm.locator("input[name='lastname']");
@@ -34,10 +32,13 @@ export class ShippingDetails {
     }
   }
 
-  async fillShippingDetails(user) {
+  async fillShippingDetails(user, fillEmail = true) {
     const typeDelay = 50;
 
-    await this.emailInput.fill(user.email);
+    if (fillEmail === true) {
+      await this.emailInput.fill(user.email);
+    }
+
     await this.firstNameInput.fill(user.firstName);
     await this.lastNameInput.fill(user.lastName);
     await this.addressInput.fill(user.street);
@@ -56,7 +57,10 @@ export class ShippingDetails {
     await this.postCodeInput.type(user.postCode, { delay: typeDelay });
 
     await this.phoneNumberInput.type(user.phoneNumber, { delay: typeDelay });
-    await this.shippingMethodRadioButton.check();
+    
+    if (fillEmail === true) {
+      await this.shippingMethodRadioButton.check();
+    }
   }
 
   async clickNextButton() {
