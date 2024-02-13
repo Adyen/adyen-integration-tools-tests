@@ -11,7 +11,7 @@ export class AdminOrderCreationPage extends AdminPanelPage {
       "//td[@data-column='name' and contains(text(),'Veronica Costello')]"
     );
     this.addProductsButton = page.locator("#add_products");
-    this.thirdProductPriceSelector = page.locator(".col-price").nth(3);
+    this.erikaRunningShorts = page.getByRole('cell', { name: 'Erika Running Short-32-Red' });
     this.addProductsToOrderButton = page.locator(
       "button[title='Add Selected Product(s) to Order']"
     );
@@ -39,7 +39,7 @@ export class AdminOrderCreationPage extends AdminPanelPage {
     await this.page.waitForLoadState("networkidle", { timeout: 10000 });
     await this.addProductsButton.click();
     await this.waitForPageLoad(page);
-    await this.thirdProductPriceSelector.click();
+    await this.erikaRunningShorts.click();
     await this.waitForPageLoad(page);
     await this.addProductsToOrderButton.click();
     await this.waitForLoaderWithText(page);
