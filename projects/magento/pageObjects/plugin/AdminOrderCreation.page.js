@@ -11,7 +11,9 @@ export class AdminOrderCreationPage extends AdminPanelPage {
       "//td[@data-column='name' and contains(text(),'Veronica Costello')]"
     );
     this.addProductsButton = page.locator("#add_products");
-    this.erikaRunningShorts = page.getByRole('cell', { name: 'Erika Running Short-32-Red' });
+    
+    this.productDataGrid = page.locator("#sales_order_create_search_grid_table");
+    this.erikaRunningShorts = this.productDataGrid.getByRole('cell', { name: 'Erika Running Short-32-Red' });
     this.addProductsToOrderButton = page.locator(
       "button[title='Add Selected Product(s) to Order']"
     );
