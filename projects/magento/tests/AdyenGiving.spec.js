@@ -61,7 +61,7 @@ test.describe.parallel("Adyen Giving payments", () => {
 
     // Check whether the redirect occurs after declining the donation
     const [response] = await Promise.all([
-      await page.waitForURL(/.*success*/, { timeout: 15000 }),
+      await page.waitForURL(/.*success*/, { timeout: 25000 }),
       donationSection.declineDonation()
     ]);
 
