@@ -53,7 +53,7 @@ export async function fillBillingAddress(page, user){
   await new AnimationHelper(page).waitForAnimation();
 }
 
-export async function verifySuccessfulPayment(page, redirect = true, timeout=15000) {
+export async function verifySuccessfulPayment(page, redirect = true, timeout) {
   const successfulCheckoutPage = new SuccessfulCheckoutPage(page);
   if (redirect !== false) {
     await successfulCheckoutPage.waitForRedirection(timeout);
