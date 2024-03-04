@@ -53,7 +53,7 @@ export async function fillBillingAddress(page, user){
   await new AnimationHelper(page).waitForAnimation();
 }
 
-export async function verifySuccessfulPayment(page, redirect = true, timeout) {
+export async function verifySuccessfulPayment(page, redirect = true, timeout=15000) {
   const successfulCheckoutPage = new SuccessfulCheckoutPage(page);
   if (redirect !== false) {
     await successfulCheckoutPage.waitForRedirection(timeout);
@@ -96,7 +96,7 @@ export async function makeIDealPayment(page, issuerName) {
   await idealPaymentSection.selectIdealIssuer(issuerName);
 
   await placeOrder(page);
-  await page.waitForNavigation();
+  await page.waitForURL("**/acquirersimulator/**");
   await new IdealIssuerPage(page).continuePayment();
 }
 
