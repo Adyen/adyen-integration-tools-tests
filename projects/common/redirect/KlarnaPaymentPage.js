@@ -41,10 +41,9 @@ export default class KlarnaPaymentPage {
   }
 
   async waitForKlarnaLoad() {
-    await this.page.waitForNavigation({
-      url: /.*playground.klarna/,
-      timeout: 15000,
-      waitUntil: "networkidle",
-    });
+    await this.page.waitForURL(/.*playground.klarna/, {
+      timeout:15000,
+      waitUntil: "load",
+    })
   }
 }
