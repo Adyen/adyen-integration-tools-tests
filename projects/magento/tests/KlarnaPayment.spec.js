@@ -23,7 +23,7 @@ test.describe.parallel("Payment via Klarna", () => {
     const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 
     await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber, true);
-    await verifySuccessfulPayment(page);
+    await verifySuccessfulPayment(page, true, 25000);
   });
 
   test("should succeed via Pay Later", async ({ page }) => {
@@ -31,7 +31,7 @@ test.describe.parallel("Payment via Klarna", () => {
     const klarnaPaymentPage = await proceedToKlarnaPayLater(page);
 
     await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber, false);
-    await verifySuccessfulPayment(page);
+    await verifySuccessfulPayment(page, true, 25000);
   });
 
   test("should succeed via Pay Over Time", async ({ page }) => {
@@ -39,7 +39,7 @@ test.describe.parallel("Payment via Klarna", () => {
     const klarnaPaymentPage = await proceedToKlarnaPayOverTime(page);
 
     await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber, false);
-    await verifySuccessfulPayment(page);
+    await verifySuccessfulPayment(page, true, 25000);
   });
 
   test("should be handled properly if cancelled", async ({ page }) => {
