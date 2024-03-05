@@ -5,12 +5,12 @@ export class CreditCardComponentsMagento extends CreditCardComponents {
     super(page);
     this.page = page;
 
-    this.errorMessage = page.locator("#adyen-cc-form .message-error");
+    this.errorMessage = page.locator("#CreditCardActionContainerMessageContainer");
   }
 
   async verifyPaymentRefusal() {
     expect(await this.errorMessage.innerText()).toContain(
-      "The payment is REFUSED."
+      "The Payment is Refused"
     );
   }
 

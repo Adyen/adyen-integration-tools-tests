@@ -32,4 +32,53 @@ test.describe.parallel("Payment via credit card", () => {
 
     await verifySuccessfulPayment(page);
   });
+
+  test("with 3Ds2 should succeed", async ({ page }) => {
+
+    await makeCreditCardPayment(
+        page,
+        users.regular,
+        paymentResources.masterCard3DS2,
+        paymentResources.expDate,
+        paymentResources.cvc
+    );
+
+    await new ThreeDS2PaymentPage(page).validate3DS2(
+        paymentResources.threeDSCorrectPassword
+    );
+
+    await verifySuccessfulPayment(page);
+  });
+
+  test("with wrong 3Ds2 credentials should fail", async ({ page }) => {
+
+    await makeCreditCardPayment(
+        page,
+        users.regular,
+        paymentResources.masterCard3DS2,
+        paymentResources.expDate,
+        paymentResources.cvc
+    );
+
+    await new ThreeDS2PaymentPage(page).validate3DS2(
+        paymentResources.threeDSWrongPassword
+    );
+
+    await new CreditCardComponentsMagento(page).verifyPaymentRefusal();
+  });
+
+  test("with 3Ds2 should abort the payment with correct message when cancelled", async ({ page }) => {
+
+    await makeCreditCardPayment(
+        page,
+        users.regular,
+        paymentResources.masterCard3DS2,
+        paymentResources.expDate,
+        paymentResources.cvc
+    );
+
+    await new ThreeDS2PaymentPage(page).clickCancel();
+
+    await new CreditCardComponentsMagento(page).verifyPaymentRefusal();
+  });
 });
