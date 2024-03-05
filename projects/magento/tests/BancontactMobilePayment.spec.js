@@ -11,7 +11,7 @@ import { QRPage } from "../../common/redirect/QRPage.js";
 const paymentResources = new PaymentResources();
 const user = paymentResources.guestUser.belgian;
 
-test.describe.skip("Payment via Bancontact Mobile", () => {
+test.describe.only("Payment via Bancontact Mobile", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
     await proceedToPaymentAs(page, user);

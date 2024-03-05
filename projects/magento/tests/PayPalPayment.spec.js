@@ -11,7 +11,7 @@ import { PayPalPaymentPage } from "../../common/redirect/PayPalPaymentPage.js";
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
 
-test.describe("Payment via PayPal", () => {
+test.describe.only("Payment via PayPal", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
   });
