@@ -96,7 +96,7 @@ export async function makeIDealPayment(page, issuerName) {
   await idealPaymentSection.selectIdealIssuer(issuerName);
 
   await placeOrder(page);
-  await page.waitForNavigation();
+  await page.waitForURL("**/acquirersimulator/**");
   await new IdealIssuerPage(page).continuePayment();
 }
 

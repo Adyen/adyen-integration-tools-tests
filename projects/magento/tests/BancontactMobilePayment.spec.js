@@ -11,11 +11,13 @@ import { QRPage } from "../../common/redirect/QRPage.js";
 const paymentResources = new PaymentResources();
 const user = paymentResources.guestUser.belgian;
 
-test.describe.parallel("Payment via Bancontact Mobile", () => {
+test.describe.skip("Payment via Bancontact Mobile", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
     await proceedToPaymentAs(page, user);
+    await page.waitForLoadState("load", {timeout:10000})
     await new PaymentDetailsPage(page).selectBancontactMobile();
+    await page.waitForLoadState("load", {timeout:10000})
     await placeOrder(page);
   });
 

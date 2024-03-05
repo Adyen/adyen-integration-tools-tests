@@ -36,7 +36,7 @@ export class PaymentDetailsPage extends SPRBasePage {
         this.multiBancoSelector = this.paymentDetailsList.locator("img[alt='Multibanco']");
         this.oneySelector = this.paymentDetailsList.locator("img[alt='Oney 3x']");
         this.oneyWrapper = this.oneySelector.locator("..");
-        this.bancontactCardSelector = this.paymentDetailsList.locator("img[alt='Bancontact card']");
+        this.bancontactCardSelector = this.paymentDetailsList.locator("img[title='Bancontact card']");
         this.bancontactCardWrapper = this.bancontactCardSelector.locator("..");
         this.storedCardSelector = this.paymentDetailsList.locator("img[alt='Stored Payment Methods']");
         this.storedCardWrapper = this.storedCardSelector.locator("..");

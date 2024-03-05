@@ -15,11 +15,13 @@ export class ShoppingCartPage extends BasePage {
   }
 
   async verifyPaymentFailure() {
-    await this.page.waitForNavigation({
-      url: /.*checkout\/cart/,
+    await this.page.waitForURL(/.*checkout\/cart/,
+    {
       timeout: 10000,
+      waitUntil: "load"
     });
-    await expect(await this.errorMessage.innerText()).toContain(
+    
+    expect(await this.errorMessage.innerText()).toContain(
       "Your payment failed, Please try again later"
     );
   }
