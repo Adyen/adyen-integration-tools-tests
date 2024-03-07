@@ -22,7 +22,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@playwright/test": "^1.38.0"
+    "@playwright/test": "^1.40.1"
   },
   "dependencies": {
     "dotenv": "^16.3.1"
