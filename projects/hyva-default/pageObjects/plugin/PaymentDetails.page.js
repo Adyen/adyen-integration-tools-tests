@@ -16,7 +16,7 @@ export class PaymentDetailsPage {
     this.cvcInput = page
         .frameLocator(".adyen-checkout__card__cvc__input iframe")
         .locator(".input-field");
-    this.payPalRadioButton = page.locator("#adyen_paypal");
+    this.payPalRadioButton = page.locator("input#payment-method-adyen_paypal");
 
     this.paymentSummaryLoadingSpinner = page.locator(
       ".opc-sidebar .loading-mask"
@@ -53,6 +53,7 @@ export class PaymentDetailsPage {
 
   async selectPayPal() {
     await this.payPalRadioButton.click();
+    this.activePaymentMethod = this.page.locator("div[id='PaypalActionContainer']");
     await this.waitForPaymentMethodReady();
     return new PayPalComponents(this.page);
   }
