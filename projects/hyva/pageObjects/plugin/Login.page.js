@@ -8,7 +8,7 @@ export class LoginPage extends TopBar {
     this.loginForm = this.loginFormContainer.locator(".fieldset.login");
     this.emailInput = this.loginForm.locator("#email");
     this.passwordInput = this.loginForm.locator("#pass");
-    this.loginButton = this.loginForm.locator("#send2");
+    this.loginButton = this.loginForm.locator("button[type='submit']");
   }
 
   async goTo() {
