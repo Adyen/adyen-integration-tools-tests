@@ -5,6 +5,7 @@ import { BoletoComponents } from "../../../common/checkoutComponents/BoletoCompo
 import { IDealComponents } from "../../../common/checkoutComponents/iDealComponents.js";
 import { OneyComponents } from "../../../common/checkoutComponents/OneyComponents.js";
 import { GiftcardComponentsMagento } from "../checkout/GiftcardComponentsMagento.js";
+import { AmazonPayComponents } from "../../../common/checkoutComponents/AmazonPayComponents.js";
 
 export class PaymentDetailsPage {
   constructor(page) {
@@ -27,6 +28,8 @@ export class PaymentDetailsPage {
     this.clearPayRadioButton = page.locator("#adyen_clearpay");
     this.boletoRadioButton = page.locator("#adyen_boleto");
     this.multiBancoRadioButton = page.locator("#adyen_multibanco");
+    this.amazonPayRadioButton = page.locator("#adyen_amazonpay");
+    this.amazonWrapper = page.locator("#adyen-amazonpay-form");
 
     this.paymentSummaryLoadingSpinner = page.locator(
       ".opc-sidebar .loading-mask"
@@ -65,6 +68,12 @@ export class PaymentDetailsPage {
     return new IDealComponents(this.idealWrapper);
   }
 
+  async selectAmazonPay() {
+    await this.amazonPayRadioButton.click();
+    await this.waitForPaymentMethodReady();
+    return new AmazonPayComponents(this.amazonWrapper);
+  }
+  
   async selectBancontactMobile() {
     await this.bancontactRadioButton.click();
     await this.waitForPaymentMethodReady();
