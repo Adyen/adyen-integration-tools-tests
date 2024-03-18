@@ -11,7 +11,7 @@ import {
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
 
-test.describe.parallel("Payment with iDeal", () => {
+test.describe.only("Payment with iDeal", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
   });
