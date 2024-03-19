@@ -40,7 +40,7 @@ const config = {
     actionTimeout: 20000,
 
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: "http://host.docker.internal",
+    baseURL: "https://web",
     ignoreHTTPSErrors: true,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
