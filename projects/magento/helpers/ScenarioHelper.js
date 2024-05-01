@@ -14,6 +14,8 @@ export async function goToShippingWithFullCart(page, additionalItemCount = 0, it
   await productDetailsPage.addItemToCart(itemURL);
 
   if (additionalItemCount >= 1) {
+    await page.waitForLoadState("networkidle", { timeout: 20000 });
+
     await productDetailsPage.addItemWithOptionsToCart(
       "breathe-easy-tank.html",
       "M",
