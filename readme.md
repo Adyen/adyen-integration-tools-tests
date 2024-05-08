@@ -21,7 +21,7 @@ Use JS package manager to install dependencies.
 ```bash
 npm install @playwright/test
 ```
-Install the required browser for playwright to run the tests.
+Install the required browsers for playwright to run the tests.
 
 ```bash 
 npx playwright install
@@ -33,7 +33,7 @@ Make sure your Magento or Shopware instance is up and running, also that the Pay
 
 **Set Environment Variables with .env file:**
 
-You can add your local environment from `.env` file, copy it from `.env_example_magento` or `.env_example_shopware`  and fill it with your secrets.
+In the root folder, you can add your local environment from `.env` file, copy it from `.env_example_magento` or `.env_example_shopware`  and fill it with your secrets.
 
   ```bash
   cp .env_example_shopware .env
@@ -42,11 +42,9 @@ You can add your local environment from `.env` file, copy it from `.env_example_
 
 **Note:** For Shopware, environment variables such as merchant details (Account, Client Key & API Key) and Adyen giving details (Charity Merchant Account, comma separated Donation Amount values) etc. needs to be set on the shopware store admin panel and not through the .env file. So make sure all required information of merchant and Adyen Giving is set properly and is enabled. 
 
-On the first execution of the tests, you will be required to log in to your Google account. Finish the login process and run the tests again, if required. 
+Go to the adyen-integration-tools-tests repository folder from the terminal to finally execute the tests. Below we havek a few examples for Magento and Shopware with different parameters (check `package.json` to see all available scripts).
 
-Here are a few examples for Magento and Shopware with different parameters (check `package.json` to see all available scripts).
-
-
+**Note:** On the first execution of tests, you will be required to log in to your Google account. Finish the login process and run the tests again, if required.
 
 * Runs all tests on headed Chrome browser with a single worker.
 
@@ -73,7 +71,7 @@ Here are a few examples for Magento and Shopware with different parameters (chec
 
 ## Usage
 
-The following commands below can be run directly without using an .env file, in which case all the environment variables are passed with the test execution command.
+The following commands can be run directly without an .env file, in which case all the environment variables are passed with the test execution command.
 
 **Command structure**
 
