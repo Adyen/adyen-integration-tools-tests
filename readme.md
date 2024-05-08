@@ -42,7 +42,7 @@ In the root folder, you can add your local environment from `.env` file, copy it
 
 **Note:** For Shopware, environment variables such as merchant details (Account, Client Key & API Key) and Adyen giving details (Charity Merchant Account, comma separated Donation Amount values) etc. needs to be set on the shopware store admin panel and not through the .env file. So make sure all required information of merchant and Adyen Giving is set properly and is enabled. 
 
-Go to the adyen-integration-tools-tests repository folder from the terminal to finally execute the tests. Below we havek a few examples for Magento and Shopware with different parameters (check `package.json` to see all available scripts).
+Go to the adyen-integration-tools-tests repository folder from the terminal to finally execute the tests. Below we have a few examples for Magento and Shopware with different parameters (check `package.json` to see all available scripts).
 
 **Note:** On the first execution of tests, you will be required to log in to your Google account. Finish the login process and run the tests again, if required.
 
@@ -85,7 +85,7 @@ ENVIRONMENT VARIABLE(S) + npx playwright test + test worker count + headless/hea
 
 `--workers=1` = Forces the tests to run with the defined worker count, worker count being the same as the test count to be run simultaneously at given time.
 
-`--headed` = Use this flag running the tests in a headed browser. Currently using no flag defaults to a headless run.
+`--headed` = Use this flag running the tests in a headed browser. Currently, using no flag defaults to a headless run.
 
 `--project` = Use this flag to define with which browser/platform is desired while running the tests. All these options should be defined in specific configuration file before they can be used. Check `projects` variable in **projects/magento/magento.config.cjs** if you need an example.
 
