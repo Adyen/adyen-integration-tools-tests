@@ -19,7 +19,7 @@ npm install
 Use JS package manager to install dependencies.
 
 ```bash
-npm install @playwright/test@1.30.0
+npm install @playwright/test
 ```
 Install the required browser for playwright to run the tests.
 
