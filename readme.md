@@ -16,17 +16,62 @@ npm install
 
 ## Installation For Adyen Laptops
 
-Delete `package-lock.json` file in the root folder.
-
 Use JS package manager to install dependencies.
 
 ```bash
-npm install @playwright/test@1.25.0
+npm install @playwright/test
 ```
+Install the required browsers for playwright to run the tests.
+
+```bash 
+npx playwright install
+```
+
+## Quick Start Commands
+
+Make sure your Magento or Shopware instance is up and running, also that the Payment Methods are correctly set and functional for the store.
+
+**Set Environment Variables with .env file:**
+
+In the root folder, you can add your local environment from `.env` file, copy it from `.env_example_magento` or `.env_example_shopware`  and fill it with your secrets.
+
+  ```bash
+  cp .env_example_shopware .env
+  ## Fill .env with your preferred env values
+  ```
+
+**Note:** For Shopware, environment variables such as merchant details (Account, Client Key & API Key) and Adyen giving details (Charity Merchant Account, comma separated Donation Amount values) etc. needs to be set on the shopware store admin panel and not through the .env file. So make sure all required information of merchant and Adyen Giving is set properly and is enabled. 
+
+Go to the adyen-integration-tools-tests repository folder from the terminal to finally execute the tests. Below we have a few examples for Magento and Shopware with different parameters (check `package.json` to see all available scripts).
+
+**Note:** On the first execution of tests, you will be required to log in to your Google account. Finish the login process and run the tests again, if required.
+
+* Runs all tests on headed Chrome browser with a single worker.
+
+    ```bash
+    npm run test:adyenlocal:magento
+    
+     Or
+  
+    npm run test:adyenlocal:shopware
+    ```
+
+* Runs all Magento tests on headless Chrome browser with a single worker.
+
+    ```bash
+    npm run test:adyenlocal:magento:headless
+    ```
+
+* Runs all Shopware tests on headed Chrome browser simultaneously with multiple workers.
+    
+    ```bash
+    npm run test:adyenlocal:shopware:parallel
+    ```
+
 
 ## Usage
 
-To run the tests, run the following commands below.
+The following commands can be run directly without an .env file, in which case all the environment variables are passed with the test execution command.
 
 **Command structure**
 
@@ -40,7 +85,7 @@ ENVIRONMENT VARIABLE(S) + npx playwright test + test worker count + headless/hea
 
 `--workers=1` = Forces the tests to run with the defined worker count, worker count being the same as the test count to be run simultaneously at given time.
 
-`--headed` = Use this flag running the tests in a headed browser. Currently using no flag defaults to a headless run.
+`--headed` = Use this flag running the tests in a headed browser. Currently, using no flag defaults to a headless run.
 
 `--project` = Use this flag to define with which browser/platform is desired while running the tests. All these options should be defined in specific configuration file before they can be used. Check `projects` variable in **projects/magento/magento.config.cjs** if you need an example.
 
@@ -50,43 +95,16 @@ ENVIRONMENT VARIABLE(S) + npx playwright test + test worker count + headless/hea
 
 **Sample bash command compilation**
 
+Magento - 
 ```bash
-MAGENTO_BASE_URL="https://mymagento2.store/" npx playwright test --workers=1 --headed --project=chrome --config=projects/magento/magento.config.cjs projects/magento/tests/CreditCardPayment.spec.js
+MAGENTO_BASE_URL="https://mymagento2.store/" npx playwright test --workers=1 --headed --project=chromium --config=projects/magento/magento.config.cjs projects/magento/tests/CreditCardPayment.spec.js
+```
+Shopware - 
+```bash
+SHOPWARE_BASE_URL="https://192.168.58.10" npx playwright test --workers=1 --headed --project=chromium --config=projects/shopware/shopware.config.cjs projects/shopware/tests/CreditCardPayment.spec.js
 ```
 
-This will run the `CreditCardPayment.spec.js` test only with **one worker** in a **headed chrome browser** using **magento.config.cjs**
-
-## Quick Start Commands
-
-Check `package.json` to see all available scripts.
-
-* Runs all Magento tests on headed Chrome browser with a single worker.
-
-    ```bash
-    npm run test:adyenlocal:magento
-    ```
-    
-    **Optional step:**
-    
-    You can add your local environment from `.env` file, just copy it from `.env_example` and fill it with your secrets
-
-    ```
-    cp  .env_example .env
-    ## Fill .env with your prefered env values
-    ```
-
-
-* Runs all Magento tests on headless Chrome browser with a single worker.
-
-    ```bash
-    npm run test:adyenlocal:magento:headless
-    ```
-
-* Runs all Magento tests on headed Chrome browser parallelly with multiple workers.
-    
-    ```bash
-    npm run test:adyenlocal:magento:parallel
-    ```
+This will run the `CreditCardPayment.spec.js` test only with **one worker** in a **headed chromium browser** using relevant **magento.config.cjs** or **shopware.config.cjs**.
 
 ## Contributing
 
