@@ -12,7 +12,7 @@ export class ShippingDetailsPage extends SPRBasePage {
         this.changeBillingAddressButton = page.locator("text=Change billing address");
         
         this.currentAddressModal = page.locator(".address-editor-modal");
-        this.editAddressButton = this.currentAddressModal.locator("text=Edit address");
+        this.editAddressButton = this.currentAddressModal.locator("text=Edit address").first();
 
         this.editAddressEditorWrapper = page.locator(".address-editor-create-address-wrapper").first();
         
