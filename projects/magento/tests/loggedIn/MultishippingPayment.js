@@ -6,7 +6,7 @@ import {
 } from "../../helpers/ScenarioHelper.js";
 import {
     completeFinalAction,
-    fillCreditCardForm, fillIdealForm,
+    fillCreditCardForm, fillIdeal2Form, fillIdealForm,
     proceedToMultishippingAs,
     proceedToOrderReviewPageAndPlaceOrder,
     verifyPayment,
@@ -84,25 +84,19 @@ test.describe("Payment with multiple shipping address", () => {
     });
 
     test("should succeed with iDeal", async ({ page }) => {
-        await fillIdealForm(
-            page,
-            "Test Issuer"
-        );
+        await fillIdeal2Form(page);
 
         await proceedToOrderReviewPageAndPlaceOrder(page);
-        await completeFinalAction(page, "ideal")
+        await completeFinalAction(page, "ideal", false, paymentResources.ideal2.issuer);
 
         await verifyPayment(page);
     });
 
     test("should fail with iDeal failing issuer", async ({ page }) => {
-        await fillIdealForm(
-            page,
-            "Test Issuer Refused"
-        );
+        await fillIdeal2Form(page);
 
         await proceedToOrderReviewPageAndPlaceOrder(page);
-        await completeFinalAction(page, "ideal")
+        await completeFinalAction(page, "ideal", true, paymentResources.ideal2.issuer);
 
         await verifyRefusedPaymentWithAction(page);
     });

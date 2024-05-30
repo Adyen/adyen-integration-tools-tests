@@ -23,6 +23,7 @@ export class MultishippingBillingInformation {
         await this.idealMethodLabel.click();
     }
 
+    /** @deprecated on Ideal 2.0 */
     async selectIdealIssuer(issuerName) {
         await this.idealDropdown.click();
         await this.page.locator(

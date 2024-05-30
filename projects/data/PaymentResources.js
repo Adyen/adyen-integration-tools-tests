@@ -71,6 +71,10 @@ export default class PaymentResources {
     },
   };
 
+  ideal2 = {
+    issuer: "TESTNL2A"
+  }
+
   giftCard = {
     /* The test cards are broken as of 18th Jul 2022,
     so using the VVVgiftcard codes instead, after discussing
@@ -289,6 +293,6 @@ export default class PaymentResources {
         dateOfBirth: "1990-01-01",
         gender: "M",
       },
-    },
+    }
   };
 }

@@ -92,6 +92,7 @@ export async function placeOrder(page) {
   await placeOrderButton.click();
 }
 
+/** @deprecated on Ideal 2.0 use makeIDeal2Payment() instead */
 export async function makeIDealPayment(page, issuerName) {
   const paymentDetailPage = new PaymentDetailsPage(page);
   const idealPaymentSection = await paymentDetailPage.selectIDeal();
@@ -100,6 +101,26 @@ export async function makeIDealPayment(page, issuerName) {
   await placeOrder(page);
   await page.waitForURL("**/acquirersimulator/**");
   await new IdealIssuerPage(page).continuePayment();
+}
+
+export async function makeIDeal2Payment(page, bankName, success = true) {
+  const paymentDetailPage = new PaymentDetailsPage(page);
+  await paymentDetailPage.selectIDeal();
+
+  await placeOrder(page);
+  await page.waitForURL("**/ext.pay.ideal.nl/**");
+
+  const idealIssuerPage = new IdealIssuerPage(page, bankName);
+
+  await idealIssuerPage.proceedWithSelectedBank();
+
+  if (success) {
+    await idealIssuerPage.simulateSuccess();
+  } else {
+    await idealIssuerPage.simulateFailure();
+  }
+
+  await page.waitForLoadState("load", { timeout: 10000 });
 }
 
 export async function proceedToPaymentWithoutShipping(page) {
