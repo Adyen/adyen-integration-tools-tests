@@ -38,11 +38,18 @@ export async function fillCreditCardForm(page, user, creditCardNumber, expDate, 
   );
 }
 
+/** @deprecated on Ideal 2.0 */
 export async function fillIdealForm(page, issuerName) {
   const multishippingBillingInformationPage = new MultishippingBillingInformation(page);
 
   await multishippingBillingInformationPage.selectIdealPaymentMethod();
   await multishippingBillingInformationPage.selectIdealIssuer(issuerName)
+}
+
+export async function fillIdeal2Form(page) {
+  const multishippingBillingInformationPage = new MultishippingBillingInformation(page);
+
+  await multishippingBillingInformationPage.selectIdealPaymentMethod();
 }
 
 export async function proceedToOrderReviewPageAndPlaceOrder(page) {
@@ -65,7 +72,7 @@ export async function verifyRefusedPayment(page) {
   await multishippingSuccessPage.verifyRefusal();
 }
 
-export async function completeFinalAction(page, actionType, simulateFailure = false) {
+export async function completeFinalAction(page, actionType, simulateFailure = false, issuer = null) {
   const multishippingSuccessPage = new MultishippingSuccess(page);
   await page.waitForLoadState("load", {timeout: 10000});
 
@@ -74,7 +81,7 @@ export async function completeFinalAction(page, actionType, simulateFailure = fa
       await multishippingSuccessPage.complete3dsAction(simulateFailure);
       break;
     case "ideal":
-      await multishippingSuccessPage.completeIdealAction(page)
+      await multishippingSuccessPage.completeIdealAction(page, simulateFailure, issuer)
       break;
     default:
       break;

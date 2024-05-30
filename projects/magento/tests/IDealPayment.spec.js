@@ -1,8 +1,7 @@
 import { test } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
-  goToShippingWithFullCart,
-  makeIDealPayment,
+  goToShippingWithFullCart, makeIDeal2Payment,
   proceedToPaymentAs,
   verifyFailedPayment,
   verifySuccessfulPayment,
@@ -14,17 +13,16 @@ const users = paymentResources.guestUser;
 test.describe.parallel("Payment with iDeal", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
+    await proceedToPaymentAs(page, users.dutch);
   });
 
   test("should succeed via Test Issuer", async ({ page }) => {
-    await proceedToPaymentAs(page, users.dutch);
-    await makeIDealPayment(page, "Test Issuer");
+    await makeIDeal2Payment(page, paymentResources.ideal2.issuer, true);
     await verifySuccessfulPayment(page, false);
   });
 
   test("should fail via Failing Test Issuer", async ({ page }) => {
-    await proceedToPaymentAs(page, users.dutch);
-    await makeIDealPayment(page, "Test Issuer Refused");
+    await makeIDeal2Payment(page, paymentResources.ideal2.issuer, false);
     await verifyFailedPayment(page);
   });
 });
