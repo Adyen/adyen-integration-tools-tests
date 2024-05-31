@@ -94,12 +94,22 @@ export async function placeOrder(page) {
   await placeOrderButton.click();
 }
 
-export async function makeIDealPayment(page, issuerName) {
+export async function makeIDealPayment(page, bankName, success = true) {
   const paymentDetailPage = new PaymentDetailsPage(page);
-  const idealPaymentSection = await paymentDetailPage.selectIDeal();
-  await idealPaymentSection.selectIdealIssuer(issuerName);
+  await paymentDetailPage.selectIDeal();
 
   await placeOrder(page);
-  await page.waitForNavigation();
-  await new IdealIssuerPage(page).continuePayment();
+  await page.waitForURL("**/ext.pay.ideal.nl/**");
+
+  const idealIssuerPage = new IdealIssuerPage(page, bankName);
+
+  await idealIssuerPage.proceedWithSelectedBank();
+
+  if (success) {
+    await idealIssuerPage.simulateSuccess();
+  } else {
+    await idealIssuerPage.simulateFailure();
+  }
+
+  await page.waitForLoadState("load", { timeout: 10000 });
 }
