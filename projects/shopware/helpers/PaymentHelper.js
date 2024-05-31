@@ -1,6 +1,4 @@
-import { IdealIssuerPage } from "../../common/redirect/IdealIssuerPage.js";
 import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
-
 
 export async function makeCreditCardPayment(
     page,
@@ -34,6 +32,5 @@ export async function makeIDealPayment(page, issuerName) {
     await paymentDetailPage.submitOrder();
   
     await page.waitForNavigation();
-    await new IdealIssuerPage(page).continuePayment();
 }
 
