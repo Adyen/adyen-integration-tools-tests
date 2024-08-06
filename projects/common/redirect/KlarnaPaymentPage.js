@@ -1,18 +1,18 @@
 export default class KlarnaPaymentPage {
   constructor(page) {
     this.page = page;
-    this.klarnaIframe = page.frameLocator('#klarna-apf-iframe');
-    
-    this.phoneNumberVerificationDialog = this.klarnaIframe.locator('#collectPhonePurchaseFlow');
-    this.genericInputField = this.klarnaIframe.getByTestId('kaf-field');
-    this.genericButton = this.klarnaIframe.getByTestId('kaf-button');
-    this.smsVerificationDialog = this.klarnaIframe.locator('#phoneOtp');
-    this.closeButton = this.klarnaIframe.getByLabel('Close');
+    // this.klarnaIframe = page.frameLocator('#klarna-apf-iframe');
+
+    this.phoneNumberVerificationDialog = page.locator('#collectPhonePurchaseFlow');
+    this.genericInputField = page.getByTestId('kaf-field');
+    this.genericButton = page.getByTestId('kaf-button');
+    this.smsVerificationDialog = page.locator('#phoneOtp');
+    this.closeButton = page.getByLabel('Close');
     this.cancelDialog =  page.locator('#payment-cancel-dialog-express__container');
     this.confirmCancellationButton =  page.getByRole('button', { name: 'Yes, cancel' });
-
-    this.paymentTypeSelectButton = this.klarnaIframe.getByTestId('pick-plan');
-    this.confirmAndPayButton = this.klarnaIframe.getByTestId('confirm-and-pay');
+    this.paymentTypeSelectButton = page.getByTestId('pick-plan');
+    // this.paymentSummaryDialog = page.getByTestId('summary');
+    this.confirmAndPayButton = page.getByTestId('confirm-and-pay');
   }
 
   async makeKlarnaPayment(phoneNumber, paynow = false){
@@ -27,7 +27,9 @@ export default class KlarnaPaymentPage {
     if (paynow) {
       await this.paymentTypeSelectButton.waitFor({state:'visible'})
       await this.paymentTypeSelectButton.click();
+      await this.paymentTypeSelectButton.click();
     }
+    // await this.paymentSummaryDialog.waitFor({state:'visible'})
     await this.confirmAndPayButton.waitFor({state:'visible'})
     await this.confirmAndPayButton.click();
   }

@@ -1,13 +1,15 @@
 export class IdealIssuerPage {
   constructor(page, bankName) {
     const PAYMENT_ACTION_BUTTON_TEST_ID = 'payment-action-button';
-    const BANK_ITEM_TEST_ID_PREFIX = 'ideal-box-bank-item-';
+    const BANK_ITEM_TEST_ID_PREFIX = 'bank-item-';
 
     this.iDealContinueButton = page.locator("button");
     this.selectYourBankButton = page.getByTestId(PAYMENT_ACTION_BUTTON_TEST_ID);
-    this.selectIssuerButton = page.getByTestId(BANK_ITEM_TEST_ID_PREFIX + bankName);
-    this.simulateSuccessButton = page.getByRole('button', { name: 'Success'});
-    this.simulateFailureButton = page.getByRole('button', { name: 'Failure'});
+    // this.selectIssuerButton = page.getByTestId(BANK_ITEM_TEST_ID_PREFIX + bankName);
+    this.selectIssuerButton = page.locator("#bank-item-TESTNL2A");
+
+    this.simulateSuccessButton = page.getByRole('button', {name: 'Success'});
+    this.simulateFailureButton = page.getByRole('button', {name: 'Failure'});
   }
 
   /** @deprecated on Ideal 2.0 */
