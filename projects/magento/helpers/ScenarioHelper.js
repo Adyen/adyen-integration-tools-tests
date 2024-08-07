@@ -77,7 +77,7 @@ export async function verifyVoucherCouponGeneration(page) {
 
 export async function verifyFailedPayment(page, redirect = false) {
   const errorMessage = await new ShoppingCartPage(
-      page
+    page
   ).errorMessage.innerText();
   expect(errorMessage).toContain(
     "Your payment failed, Please try again later"
