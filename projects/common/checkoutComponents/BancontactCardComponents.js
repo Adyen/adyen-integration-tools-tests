@@ -21,26 +21,22 @@ export class BancontactCardComponents {
 
   async fillHolderName(holderName) {
     await this.holderNameInput.click();
-    await this.holderNameInput.type(holderName);
+    await this.holderNameInput.fill(holderName);
   }
   async fillCardNumber(cardNumber) {
     await this.cardNumberInput.click();
-    await this.cardNumberInput.type(cardNumber);
+    await this.cardNumberInput.fill(cardNumber);
   }
   async fillExpDate(expDate) {
     await this.expDateInput.click();
-    await this.expDateInput.type(expDate);
+    await this.expDateInput.fill(expDate);
   }
 
   async fillBancontacCardInfo(
     cardNumber,
     cardExpirationDate,
-    cardHolderName,
-    cardHolderLastName
   ) {
     await this.fillCardNumber(cardNumber);
     await this.fillExpDate(cardExpirationDate);
-    await this.fillHolderName(cardHolderName);
-    await this.fillHolderName(` ${cardHolderLastName}`);
   }
 }

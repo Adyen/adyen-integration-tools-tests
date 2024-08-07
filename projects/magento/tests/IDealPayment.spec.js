@@ -18,11 +18,11 @@ test.describe.parallel("Payment with iDeal", () => {
 
   test("should succeed via Test Issuer", async ({ page }) => {
     await makeIDeal2Payment(page, paymentResources.ideal2.issuer, true);
-    await verifySuccessfulPayment(page, false);
+    await verifySuccessfulPayment(page, true);
   });
 
   test("should fail via Failing Test Issuer", async ({ page }) => {
     await makeIDeal2Payment(page, paymentResources.ideal2.issuer, false);
-    await verifyFailedPayment(page);
+    await verifyFailedPayment(page, true);
   });
 });
