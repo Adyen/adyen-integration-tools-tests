@@ -11,7 +11,6 @@ export default class KlarnaPaymentPage {
     this.cancelDialog =  page.locator('#payment-cancel-dialog-express__container');
     this.confirmCancellationButton =  page.getByRole('button', { name: 'Yes, cancel' });
     this.paymentTypeSelectButton = page.getByTestId('pick-plan');
-    // this.paymentSummaryDialog = page.getByTestId('summary');
     this.confirmAndPayButton = page.getByTestId('confirm-and-pay');
   }
 
@@ -29,7 +28,7 @@ export default class KlarnaPaymentPage {
       await this.paymentTypeSelectButton.click();
       await this.paymentTypeSelectButton.click();
     }
-    // await this.paymentSummaryDialog.waitFor({state:'visible'})
+
     await this.confirmAndPayButton.waitFor({state:'visible'})
     await this.confirmAndPayButton.click();
   }

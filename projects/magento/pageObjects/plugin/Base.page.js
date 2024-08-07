@@ -36,30 +36,4 @@ export class BasePage extends TopBar {
     await this.buyWithGoogleViaCartButton.click();
   }
 
-  async waitForRedirection(timeout = 15000) {
-    await this.page.waitForURL(/ *\/onepage\/success/,
-        {
-          timeout: timeout,
-          waitUntil:"load"
-        });
-  }
-
-  async waitForRedirectionOrManuallyNavigate(timeout)
-  {
-    let attemptedUrl = '';
-
-    // Listen for responses to capture redirect status
-    this.page.on('response', response => {
-      const status = response.status();
-      if (status >= 300 && status < 400) {
-        attemptedUrl = response.headers()['location'];
-      }
-    });
-
-    try{
-      await this.waitForRedirection(timeout);
-    } catch (e) {
-      await this.page.goto(attemptedUrl);
-    }
-  }
 }

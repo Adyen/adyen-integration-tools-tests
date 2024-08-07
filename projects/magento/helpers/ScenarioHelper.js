@@ -57,28 +57,11 @@ export async function fillBillingAddress(page, user){
 
 export async function verifySuccessfulPayment(page, redirect = true, timeout) {
   const successfulCheckoutPage = new SuccessfulCheckoutPage(page);
-
-  // let attemptedUrl = '';
-  //
-  // // Listen for responses to capture redirect status
-  // successfulCheckoutPage.page.on('response', response => {
-  //   const status = response.status();
-  //   if (status >= 300 && status < 400) {
-  //     attemptedUrl = response.headers()['location'];
-  //   }
-  // });
-
   if (redirect !== false) {
-    // await successfulCheckoutPage.waitForRedirectionOrManuallyNavigate(timeout);
     await successfulCheckoutPage.waitForRedirection(timeout);
-    // try{
-    //   await successfulCheckoutPage.waitForRedirection(timeout);
-    // } catch (e) {
-    //   await successfulCheckoutPage.page.goto(attemptedUrl);
-    // }
   }
   expect(await successfulCheckoutPage.pageTitle.innerText()).toContain(
-    "Thank you for your purchase!"
+      "Thank you for your purchase!"
   );
 }
 
@@ -93,17 +76,11 @@ export async function verifyVoucherCouponGeneration(page) {
 }
 
 export async function verifyFailedPayment(page, redirect = false) {
-  const shoppingCartPage = new ShoppingCartPage(
-    page
-  );
-
-  // if(redirect !== false) {
-  //   await shoppingCartPage.waitForRedirectionOrManuallyNavigate();
-  // }
-
-  const errorMessage = await shoppingCartPage.errorMessage.innerText();
+  const errorMessage = await new ShoppingCartPage(
+      page
+  ).errorMessage.innerText();
   expect(errorMessage).toContain(
-    "Your payment failed, Please try again later"
+      "Your payment failed, Please try again later"
   );
 }
 

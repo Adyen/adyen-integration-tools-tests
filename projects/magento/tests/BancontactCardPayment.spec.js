@@ -7,7 +7,6 @@ import {
 } from "../helpers/ScenarioHelper.js";
 
 import {ThreeDS2PaymentPage} from "../../common/redirect/ThreeDS2PaymentPage.js";
-// import {CreditCardComponentsMagento} from "../pageObjects/checkout/CreditCardComponentsMagento.js";
 import {BancontactCardComponentsMagento} from "../pageObjects/checkout/BancontactCardComponentsMagento.js";
 import {PaymentDetailsPage} from "../pageObjects/plugin/PaymentDetails.page.js";
 
