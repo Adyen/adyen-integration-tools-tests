@@ -10,7 +10,7 @@ export class BancontactCardComponentsMagento extends BancontactCardComponents {
 
   async verifyPaymentRefusal() {
     expect(await this.errorMessage.innerText()).toContain(
-        "The payment is REFUSED."
+      "The payment is REFUSED."
     );
   }
 }

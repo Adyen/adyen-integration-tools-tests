@@ -61,7 +61,7 @@ export async function verifySuccessfulPayment(page, redirect = true, timeout) {
     await successfulCheckoutPage.waitForRedirection(timeout);
   }
   expect(await successfulCheckoutPage.pageTitle.innerText()).toContain(
-      "Thank you for your purchase!"
+    "Thank you for your purchase!"
   );
 }
 
@@ -80,7 +80,7 @@ export async function verifyFailedPayment(page, redirect = false) {
       page
   ).errorMessage.innerText();
   expect(errorMessage).toContain(
-      "Your payment failed, Please try again later"
+    "Your payment failed, Please try again later"
   );
 }
 

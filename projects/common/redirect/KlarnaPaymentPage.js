@@ -28,7 +28,6 @@ export default class KlarnaPaymentPage {
       await this.paymentTypeSelectButton.click();
       await this.paymentTypeSelectButton.click();
     }
-
     await this.confirmAndPayButton.waitFor({state:'visible'})
     await this.confirmAndPayButton.click();
   }

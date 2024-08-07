@@ -35,5 +35,4 @@ export class BasePage extends TopBar {
     await this.page.waitForLoadState("networkidle", { timeout: 10000 });
     await this.buyWithGoogleViaCartButton.click();
   }
-
 }

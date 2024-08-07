@@ -37,7 +37,6 @@ test.describe.parallel("Payment via Bancontact Card", () => {
     await verifySuccessfulPayment(page);
   });
 
-
   test("should fail with wrong 3DS credentials", async ({ page }) => {
     await new ThreeDS2PaymentPage(page).validate3DS2(
         paymentResources.threeDSWrongPassword

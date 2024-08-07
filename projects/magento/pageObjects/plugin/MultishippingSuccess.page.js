@@ -58,8 +58,6 @@ export class MultishippingSuccess {
 
         const idealIssuerPage = new IdealIssuerPage(page, issuer);
 
-        // await page.pause();
-
         await idealIssuerPage.proceedWithSelectedBank();
 
         if (!simulateFailure) {
