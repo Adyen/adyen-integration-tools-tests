@@ -6,8 +6,6 @@ export class IdealIssuerPage {
 
     this.iDealContinueButton = page.locator("button");
     this.selectYourBankButton = page.getByTestId(PAYMENT_ACTION_BUTTON_TEST_ID);
-    // this.selectIssuerButton = page.getByTestId(BANK_ITEM_TEST_ID_PREFIX + bankName);
-    // "#bank-item-TESTNL2A"
     this.selectIssuerButton = page.locator(bankSelector);
 
     this.simulateSuccessButton = page.getByRole('button', {name: 'Success'});
