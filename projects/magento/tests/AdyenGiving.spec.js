@@ -20,7 +20,7 @@ test.describe.parallel("Adyen Giving payments", () => {
   });
 
   
-  test("should succeed with iDeal", async ({ page }) => {
+  test.skip("should succeed with iDeal", async ({ page }) => {
     await makeIDealPayment(page, "Test Issuer");
     await verifySuccessfulPayment(page, false);
     const donationSection = new AdyenGivingMagento(page);

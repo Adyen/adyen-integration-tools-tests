@@ -75,7 +75,7 @@ export async function verifyVoucherCouponGeneration(page) {
   await expect(successfulCheckoutPage.voucherCodeContainer).toBeVisible();
 }
 
-export async function verifyFailedPayment(page) {
+export async function verifyFailedPayment(page, redirect = false) {
   const errorMessage = await new ShoppingCartPage(
     page
   ).errorMessage.innerText();

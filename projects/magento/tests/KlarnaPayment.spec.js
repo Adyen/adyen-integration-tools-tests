@@ -47,7 +47,7 @@ test.describe.parallel("Payment via Klarna", () => {
     const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 
     await klarnaPaymentPage.cancelKlarnaPayment();
-    await verifyFailedPayment(page);
+    await verifyFailedPayment(page, true);
   });
 });
 
