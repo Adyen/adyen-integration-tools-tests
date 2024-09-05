@@ -22,7 +22,7 @@ test.describe.parallel("Payment via Klarna", () => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 
-    await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber, true);
+    await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber);
     await verifySuccessfulPayment(page, true, 25000);
   });
 
@@ -30,7 +30,7 @@ test.describe.parallel("Payment via Klarna", () => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayLater(page);
 
-    await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber, false);
+    await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber);
     await verifySuccessfulPayment(page, true, 25000);
   });
 
@@ -38,7 +38,7 @@ test.describe.parallel("Payment via Klarna", () => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayOverTime(page);
 
-    await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber, false);
+    await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber);
     await verifySuccessfulPayment(page, true, 25000);
   });
 

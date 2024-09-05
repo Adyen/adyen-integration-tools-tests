@@ -12,7 +12,7 @@ export default class KlarnaPaymentPage {
     this.confirmAndPayButton = page.getByTestId('confirm-and-pay');
   }
 
-  async makeKlarnaPayment(phoneNumber, paynow = false){
+  async makeKlarnaPayment(phoneNumber){
     await this.waitForKlarnaLoad();
     await this.phoneNumberVerificationDialog.waitFor({state:'attached'})
     await this.genericInputField.click();
