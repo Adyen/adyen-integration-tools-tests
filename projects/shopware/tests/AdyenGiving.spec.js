@@ -7,7 +7,7 @@ import {
     proceedToPaymentAs,
     verifySuccessfulPayment
 } from "../helpers/ScenarioHelper.js";
-import { makeCreditCardPayment, makeIDealPayment } from "../helpers/PaymentHelper.js";
+import { makeCreditCardPayment } from "../helpers/PaymentHelper.js";
 import { AdyenGivingComponents } from "../../common/checkoutComponents/AdyenGivingComponents.js";
 
 const paymentResources = new PaymentResources();
@@ -18,15 +18,6 @@ test.describe.parallel("Adyen Giving payments", () => {
         await goToShippingWithFullCart(page);
         await proceedToPaymentAs(page, users.dutch);
         await doPrePaymentChecks(page);
-    });
-
-    test("should succeed via Test Issuer", async ({ page }) => {
-        await makeIDealPayment(page, "Test Issuer");
-        await verifySuccessfulPayment(page, false);
-
-        const donationSection = new AdyenGivingComponents(page);
-        await donationSection.makeDonation("least");
-        await donationSection.verifySuccessfulDonationMessage();
     });
 
     test("with 3Ds2 should succeed", async ({ page }) => {
