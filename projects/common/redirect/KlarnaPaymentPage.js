@@ -26,6 +26,7 @@ export default class KlarnaPaymentPage {
 
     if (paynow) {
       await this.summaryPaymentPreview.waitFor({state:'attached'})
+      await this.page.waitForLoadState("networkidle", { timeout: 10000 });
 
       if (await this.paymentTypeSelectButton.isVisible()) {
         await this.paymentTypeSelectButton.click();
