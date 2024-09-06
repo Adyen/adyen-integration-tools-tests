@@ -10,7 +10,7 @@ export default class KlarnaPaymentPage {
     this.cancelDialog =  page.locator('#payment-cancel-dialog-express__container');
     this.confirmCancellationButton =  page.getByRole('button', { name: 'Yes, cancel' });
     this.paymentTypeSelectButton = page.getByTestId('pick-plan');
-    this.summaryPaymentPreview = page.getByTestId('summary.payment_preview').locator('button');
+    this.summaryPaymentPreview = page.getByTestId('summary')
     this.confirmAndPayButton = page.getByTestId('confirm-and-pay');
   }
 
@@ -23,12 +23,16 @@ export default class KlarnaPaymentPage {
     await this.smsVerificationDialog.waitFor({state:'visible'})
     await this.genericInputField.click();
     await this.genericInputField.fill('111111');
+
     if (paynow) {
       await this.summaryPaymentPreview.waitFor({state:'attached'})
-      await this.summaryPaymentPreview.click();
-      await this.paymentTypeSelectButton.click();
-      await this.paymentTypeSelectButton.click();
+
+      if (await this.paymentTypeSelectButton.isVisible()) {
+        await this.paymentTypeSelectButton.click();
+        await this.paymentTypeSelectButton.click();
+      }
     }
+
     await this.confirmAndPayButton.waitFor({state:'visible'})
     await this.confirmAndPayButton.click();
   }
