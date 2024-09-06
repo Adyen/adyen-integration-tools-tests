@@ -40,7 +40,7 @@ export async function makeIDealPayment(page, issuerName) {
 
 export async function makeIDeal2Payment(page, bankName, success = true) {
     const paymentDetailPage = new PaymentDetailsPage(page);
-    await paymentDetailPage.selectIDeal();
+    await paymentDetailPage.selectIdeal();
 
     await paymentDetailPage.scrollToCheckoutSummary();
     await paymentDetailPage.submitOrder();
