@@ -20,12 +20,12 @@ test.describe.parallel("Payment via iDeal", () => {
     });
 
     test("should succeed via Test Issuer", async ({ page }) => {
-        await makeIDeal2Payment(page, "Test Issuer");
+        await makeIDeal2Payment(page, paymentResources.ideal2.issuer, true);
         await verifySuccessfulPayment(page, true);
     });
 
     test("should fail via Failing Test Issuer", async ({ page }) => {
-        await makeIDeal2Payment(page, "Test Issuer Refused");
+        await makeIDeal2Payment(page, paymentResources.ideal2.issuer, false);
         await verifyFailedPayment(page, true);
     });
 
