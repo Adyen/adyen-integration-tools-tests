@@ -37,6 +37,11 @@ export default class PaymentResources {
     webhookPassword : process.env.WEBHOOK_PASSWORD,
   }
 
+  amazonCredentials = {
+    username: process.env.AMAZON_USERNAME,
+    password: process.env.AMAZON_PASSWORD,
+  }
+
   googleCredentials = {
     username: process.env.GOOGLE_USERNAME,
     password: process.env.GOOGLE_PASSWORD,
@@ -65,6 +70,10 @@ export default class PaymentResources {
       iban: "NL13TEST0123456789",
     },
   };
+
+  ideal2 = {
+    issuer: "TESTNL2A"
+  }
 
   giftCard = {
     /* The test cards are broken as of 18th Jul 2022,
@@ -284,6 +293,6 @@ export default class PaymentResources {
         dateOfBirth: "1990-01-01",
         gender: "M",
       },
-    },
+    }
   };
 }

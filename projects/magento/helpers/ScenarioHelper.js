@@ -14,6 +14,8 @@ export async function goToShippingWithFullCart(page, additionalItemCount = 0, it
   await productDetailsPage.addItemToCart(itemURL);
 
   if (additionalItemCount >= 1) {
+    await page.waitForLoadState("networkidle", { timeout: 20000 });
+
     await productDetailsPage.addItemWithOptionsToCart(
       "breathe-easy-tank.html",
       "M",
@@ -73,7 +75,7 @@ export async function verifyVoucherCouponGeneration(page) {
   await expect(successfulCheckoutPage.voucherCodeContainer).toBeVisible();
 }
 
-export async function verifyFailedPayment(page) {
+export async function verifyFailedPayment(page, redirect = false) {
   const errorMessage = await new ShoppingCartPage(
     page
   ).errorMessage.innerText();
@@ -90,6 +92,7 @@ export async function placeOrder(page) {
   await placeOrderButton.click();
 }
 
+/** @deprecated on Ideal 2.0 use makeIDeal2Payment() instead */
 export async function makeIDealPayment(page, issuerName) {
   const paymentDetailPage = new PaymentDetailsPage(page);
   const idealPaymentSection = await paymentDetailPage.selectIDeal();
@@ -98,6 +101,26 @@ export async function makeIDealPayment(page, issuerName) {
   await placeOrder(page);
   await page.waitForURL("**/acquirersimulator/**");
   await new IdealIssuerPage(page).continuePayment();
+}
+
+export async function makeIDeal2Payment(page, bankName, success = true) {
+  const paymentDetailPage = new PaymentDetailsPage(page);
+  await paymentDetailPage.selectIDeal();
+
+  await placeOrder(page);
+  await page.waitForURL("**/ext.pay.ideal.nl/**");
+
+  const idealIssuerPage = new IdealIssuerPage(page, bankName);
+
+  await idealIssuerPage.proceedWithSelectedBank();
+
+  if (success) {
+    await idealIssuerPage.simulateSuccess();
+  } else {
+    await idealIssuerPage.simulateFailure();
+  }
+
+  await page.waitForLoadState("load", { timeout: 10000 });
 }
 
 export async function proceedToPaymentWithoutShipping(page) {

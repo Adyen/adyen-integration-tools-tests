@@ -5,6 +5,7 @@ import { BoletoComponents } from "../../../common/checkoutComponents/BoletoCompo
 import { IDealComponents } from "../../../common/checkoutComponents/iDealComponents.js";
 import { OneyComponents } from "../../../common/checkoutComponents/OneyComponents.js";
 import { GiftcardComponentsMagento } from "../checkout/GiftcardComponentsMagento.js";
+import { AmazonPayComponents } from "../../../common/checkoutComponents/AmazonPayComponents.js";
 
 export class PaymentDetailsPage {
   constructor(page) {
@@ -15,7 +16,6 @@ export class PaymentDetailsPage {
     this.creditCardRadioButton = page.locator("#adyen_cc");
     this.idealWrapper = page.locator("#adyen-ideal-form");
     this.idealRadioButton = page.locator("#adyen_ideal");
-    this.bancontactRadioButton = page.locator("#adyen_bcmc_mobile");
     this.payPalRadioButton = page.locator("#adyen_paypal");
     this.klarnaPayLaterRadioButton = page.locator("#adyen_klarna");
     this.klarnaPayOverTimeRadioButton = page.locator("#adyen_klarna_account");
@@ -26,7 +26,11 @@ export class PaymentDetailsPage {
     this.oney3RadioButton = page.locator("#adyen_facilypay_3x");
     this.clearPayRadioButton = page.locator("#adyen_clearpay");
     this.boletoRadioButton = page.locator("#adyen_boleto");
+    this.bancontactRadioButton = page.locator("#adyen_bcmc_mobile");
+    this.bancontactCardRadioButton = page.locator("#adyen_bcmc");
     this.multiBancoRadioButton = page.locator("#adyen_multibanco");
+    this.amazonPayRadioButton = page.locator("#adyen_amazonpay");
+    this.amazonWrapper = page.locator("#adyen-amazonpay-form");
 
     this.paymentSummaryLoadingSpinner = page.locator(
       ".opc-sidebar .loading-mask"
@@ -65,9 +69,10 @@ export class PaymentDetailsPage {
     return new IDealComponents(this.idealWrapper);
   }
 
-  async selectBancontactMobile() {
-    await this.bancontactRadioButton.click();
+  async selectAmazonPay() {
+    await this.amazonPayRadioButton.click();
     await this.waitForPaymentMethodReady();
+    return new AmazonPayComponents(this.amazonWrapper);
   }
 
   async selectPayPal() {
@@ -119,6 +124,16 @@ export class PaymentDetailsPage {
     await this.boletoRadioButton.click();
     await this.waitForPaymentMethodReady();
     return new BoletoComponents(this.page);
+  }
+
+  async selectBancontactMobile() {
+    await this.bancontactRadioButton.click();
+    await this.waitForPaymentMethodReady();
+  }
+
+  async selectBancontactCard() {
+    await this.bancontactCardRadioButton.click();
+    await this.waitForPaymentMethodReady();
   }
 
   async selectMultiBanco() {

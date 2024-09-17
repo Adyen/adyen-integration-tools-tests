@@ -7,7 +7,7 @@ import {
     verifyFailedPayment,
     verifySuccessfulPayment
 } from "../helpers/ScenarioHelper.js";
-import { makeIDealPayment } from "../helpers/PaymentHelper.js";
+import { makeIDeal2Payment } from "../helpers/PaymentHelper.js";
 
 const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
@@ -20,13 +20,13 @@ test.describe.parallel("Payment via iDeal", () => {
     });
 
     test("should succeed via Test Issuer", async ({ page }) => {
-        await makeIDealPayment(page, "Test Issuer");
-        await verifySuccessfulPayment(page, false);
+        await makeIDeal2Payment(page, paymentResources.ideal2.issuer, true);
+        await verifySuccessfulPayment(page, true);
     });
 
     test("should fail via Failing Test Issuer", async ({ page }) => {
-        await makeIDealPayment(page, "Test Issuer Refused");
-        await verifyFailedPayment(page, false);
+        await makeIDeal2Payment(page, paymentResources.ideal2.issuer, false);
+        await verifyFailedPayment(page, true);
     });
 
 });

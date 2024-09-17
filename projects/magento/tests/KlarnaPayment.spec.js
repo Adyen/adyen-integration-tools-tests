@@ -26,7 +26,8 @@ test.describe.parallel("Payment via Klarna", () => {
     await verifySuccessfulPayment(page, true, 25000);
   });
 
-  test("should succeed via Pay Later", async ({ page }) => {
+  // TODO:: Enable skipped test if identity verification is disabled.
+  test.skip("should succeed via Pay Later", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayLater(page);
 
@@ -47,7 +48,7 @@ test.describe.parallel("Payment via Klarna", () => {
     const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 
     await klarnaPaymentPage.cancelKlarnaPayment();
-    await verifyFailedPayment(page);
+    await verifyFailedPayment(page, true);
   });
 });
 

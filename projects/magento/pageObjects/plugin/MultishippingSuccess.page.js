@@ -51,17 +51,22 @@ export class MultishippingSuccess {
         await this.completePaymentButton.last().waitFor({ state: "hidden", timeout: 5000 });
     }
 
-    async completeIdealAction(page) {
+    async completeIdealAction(page, simulateFailure, issuer) {
         await new Promise(r => setTimeout(r, 500));
 
         await this.completePaymentButton.first().click();
-        await new IdealIssuerPage(page).continuePayment();
 
-        await this.page.waitForURL("**/checkout/success/**",{timeout:25000, waitUntil:"load"});
-        await new Promise(r => setTimeout(r, 2000));
+        const idealIssuerPage = new IdealIssuerPage(page, issuer);
 
-        await this.completePaymentButton.first().click();
-        await new IdealIssuerPage(page).continuePayment();
+        await idealIssuerPage.proceedWithSelectedBank();
+
+        if (!simulateFailure) {
+            await idealIssuerPage.simulateSuccess();
+        } else {
+            await idealIssuerPage.simulateFailure();
+        }
+
+        await page.waitForLoadState("load", { timeout: 10000 });
         await this.page.waitForURL("**/checkout/success/**",{timeout:25000, waitUntil:"load"});
     }
 }

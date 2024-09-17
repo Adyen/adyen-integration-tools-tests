@@ -25,6 +25,7 @@ export async function makeCreditCardPayment(
     await new PaymentDetailsPage(page).submitOrder();
 }
 
+/** @deprecated on Ideal 2.0 use makeIDeal2Payment() instead */
 export async function makeIDealPayment(page, issuerName) {
     const paymentDetailPage = new PaymentDetailsPage(page);
     const idealPaymentSection = await paymentDetailPage.selectIdeal();
@@ -37,3 +38,23 @@ export async function makeIDealPayment(page, issuerName) {
     await new IdealIssuerPage(page).continuePayment();
 }
 
+export async function makeIDeal2Payment(page, bankName, success = true) {
+    const paymentDetailPage = new PaymentDetailsPage(page);
+    await paymentDetailPage.selectIdeal();
+
+    await paymentDetailPage.scrollToCheckoutSummary();
+    await paymentDetailPage.submitOrder();
+    await page.waitForNavigation();
+
+    const idealIssuerPage = new IdealIssuerPage(page, bankName);
+
+    await idealIssuerPage.proceedWithSelectedBank();
+
+    if (success) {
+        await idealIssuerPage.simulateSuccess();
+    } else {
+        await idealIssuerPage.simulateFailure();
+    }
+
+    await page.waitForLoadState("load", { timeout: 10000 });
+}
