@@ -17,8 +17,8 @@
     "test:adyenlocal:shopware:headless": "npx playwright test --workers=1 --project=chromium --config=projects/shopware/shopware.config.cjs",
     "test:adyenlocal:shopware:parallel": "npx playwright test --headed --project=chromium --config=projects/shopware/shopware.config.cjs",
     "test:adyenlocal:shopware:headless:parallel": "npx playwright test --project=chromium --config=projects/shopware/shopware.config.cjs",
-    "test:ci:hyva": "npx playwright test --config=projects/hyva-default/magento.hyvaCIContainer.config.cjs",
-    "test:adyenlocal:hyva": "npx playwright test --config=projects/hyva-default/magento.hyva.config.cjs"
+    "test:ci:hyva": "npx playwright test --config=projects/hyva-default/hyvaCIContainer.config.cjs",
+    "test:adyenlocal:hyva": "npx playwright test --config=projects/hyva-default/hyva.config.cjs"
   },
   "keywords": [],
   "author": "",
