@@ -13,12 +13,14 @@ import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js
 const paymentResources = new PaymentResources();
 const user = paymentResources.guestUser.klarna.approved.nl;
 
+// TODO:: Enable skipped test if identity verification is disabled.
+
 test.describe.parallel("Payment via Klarna", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page);
   });
 
-  test("should succeed via Pay Now", async ({ page }) => {
+  test.skip("should succeed via Pay Now", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 
@@ -26,7 +28,6 @@ test.describe.parallel("Payment via Klarna", () => {
     await verifySuccessfulPayment(page, true, 25000);
   });
 
-  // TODO:: Enable skipped test if identity verification is disabled.
   test.skip("should succeed via Pay Later", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayLater(page);
@@ -35,7 +36,7 @@ test.describe.parallel("Payment via Klarna", () => {
     await verifySuccessfulPayment(page, true, 25000);
   });
 
-  test("should succeed via Pay Over Time", async ({ page }) => {
+  test.skip("should succeed via Pay Over Time", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayOverTime(page);
 
@@ -43,7 +44,7 @@ test.describe.parallel("Payment via Klarna", () => {
     await verifySuccessfulPayment(page, true, 25000);
   });
 
-  test("should be handled properly if cancelled", async ({ page }) => {
+  test.skip("should be handled properly if cancelled", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 
