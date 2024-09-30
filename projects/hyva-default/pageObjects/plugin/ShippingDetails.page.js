@@ -32,6 +32,7 @@ export class ShippingDetails {
     const typeDelay = 50;
 
     if (fillEmail === true) {
+      await this.page.waitForLoadState(this.emailInput, { timeout: 10000 });
       await this.emailInput.fill(user.email);
     }
 
