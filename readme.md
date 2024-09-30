@@ -106,6 +106,14 @@ SHOPWARE_BASE_URL="https://192.168.58.10" npx playwright test --workers=1 --head
 
 This will run the `CreditCardPayment.spec.js` test only with **one worker** in a **headed chromium browser** using relevant **magento.config.cjs** or **shopware.config.cjs**.
 
+## To debug
+Use the following commands to enable Playwright debugger while running the tests on local environment -
+
+```bash
+npm run test:adyenlocal:magento-debug
+npm run test:adyenlocal:shopware-debug
+npm run test:adyenlocal:hyva-debug
+```
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

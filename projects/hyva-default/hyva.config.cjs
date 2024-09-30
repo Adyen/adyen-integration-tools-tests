@@ -55,7 +55,7 @@ const config = {
       testDir: "./tests/",
       testIgnore: [],
       use: {
-        browserName: "chromium",
+        browserName: "firefox",
         trace: "retain-on-failure",
         viewport: {
           width: VIEWPORT_WIDTH,
