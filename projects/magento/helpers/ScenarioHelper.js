@@ -99,7 +99,7 @@ export async function makeIDealPayment(page, issuerName) {
   await idealPaymentSection.selectIdealIssuer(issuerName);
 
   await placeOrder(page);
-  await page.waitForURL("**/acquirersimulator/**");
+  await page.waitForURL("**/acquirersimulator/**", {timeout: 25000});
   await new IdealIssuerPage(page).continuePayment();
 }
 
@@ -108,7 +108,7 @@ export async function makeIDeal2Payment(page, bankName, success = true) {
   await paymentDetailPage.selectIDeal();
 
   await placeOrder(page);
-  await page.waitForURL("**/ext.pay.ideal.nl/**");
+  await page.waitForURL("**/ext.pay.ideal.nl/**", {timeout: 25000});
 
   const idealIssuerPage = new IdealIssuerPage(page, bankName);
 
