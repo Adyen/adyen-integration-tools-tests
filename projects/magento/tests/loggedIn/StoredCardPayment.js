@@ -21,11 +21,12 @@ test.describe("Payment via stored credit card", () => {
   
   test.beforeEach(async ({ page }) => {
     await loginAs(page, magentoSampleUser);
-    await goToShippingWithFullCart(page);
-    await proceedToPaymentAs(page, undefined, false);
   });
 
   test("should succeed with 3Ds2", async ({ page }) => {
+    await goToShippingWithFullCart(page);
+    await proceedToPaymentAs(page, undefined, false);
+
     await makeCreditCardPayment(
       page,
       users.regular,
@@ -58,11 +59,14 @@ test.describe("Payment via stored credit card", () => {
     await page.locator(".my-credit-cards-popup .modal-inner-wrap").getByRole('button', { name: 'Delete' }).click();
 
     await page.waitForLoadState("networkidle", { timeout: 15000 });
-    await expect(page.getByText('Stored Payment Methods You have no stored payment methods.')).toBeVisible();
+    await expect(page.getByText('You have no stored payment methods.')).toBeVisible();
     await expect(page.getByText('Stored Payment Method was successfully removed')).toBeVisible();
   });
 
   test("should succeed with no 3Ds", async ({ page }) => {
+    await goToShippingWithFullCart(page);
+    await proceedToPaymentAs(page, undefined, false);
+
     await makeCreditCardPayment(
       page,
       users.regular,
