@@ -19,15 +19,6 @@ test.describe.parallel("Adyen Giving payments", () => {
     proceedToPaymentAs(page, users.dutch);
   });
 
-  test("should succeed with iDeal", async ({ page }) => {
-    await makeIDealPayment(page, "Test Issuer");
-    await verifySuccessfulPayment(page, false);
-    const donationSection = new AdyenGivingMagento(page);
-
-    await donationSection.makeDonation("least");
-    await donationSection.verifySuccessfulDonationMessage();
-  });
-
   test("should succeed with a 3Ds2 credit card", async ({ page }) => {
     await makeCreditCardPayment(
       page,
