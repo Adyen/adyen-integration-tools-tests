@@ -8,31 +8,29 @@ const googleCredentials = new PaymentResources().googleCredentials;
 
 test.describe("Payment via Express Checkout with Google Pay", () => { 
 
-  test("should work as expected from product detail page", async ({ page }) => {
+  test("should work as expected from mini cart", async ({ page }) => {
     await goToShippingWithFullCart(page);
     const productPage = new ProductDetailsPage(page);
 
-    await page.waitForLoadState("networkidle", { timeout: 10000 });
+    await page.waitForLoadState();
 
     const [popup] = await Promise.all([
-      page.waitForEvent("popup", {timeout:25000}),
+      page.waitForEvent("popup"),
       await productPage.clickbuyWithGPayViaMiniCart(),
     ]);
 
     const activePopup = new GooglePayPage(popup);
     await activePopup.assertNavigation();
-    // await activePopup.fillGoogleCredentials(googleCredentials.username, googleCredentials.password);
-    // if(await activePopup.payOrSkipDueToVerification()){
-    //   await verifySuccessfulPayment(page, true, 20000);
-    // }
-
+    await activePopup.fillGoogleCredentials(googleCredentials.username, googleCredentials.password);
+    await activePopup.pay()
+    await verifySuccessfulPayment(page, true, 20000);
   });
   
-  test("should redirect to Google Payment Page via cart popup", async ({ page }) => {
+  test("should work as expected from product detail page", async ({ page }) => {
     const productPage = new ProductDetailsPage(page);
     await productPage.navigateToItemPage("joust-duffle-bag.html");
 
-    await page.waitForLoadState("networkidle", { timeout: 10000 });
+    await page.waitForLoadState();
 
     const [popup] = await Promise.all([
       page.waitForEvent("popup", {timeout:25000}),
@@ -41,10 +39,8 @@ test.describe("Payment via Express Checkout with Google Pay", () => {
     
     const activePopup = new GooglePayPage(popup);
     await activePopup.assertNavigation();
-    // await activePopup.fillGoogleCredentials(googleCredentials.username, googleCredentials.password);
-    // if(await activePopup.payOrSkipDueToVerification()){
-    //   await verifySuccessfulPayment(page, true, 20000);
-    // }
-
+    await activePopup.fillGoogleCredentials(googleCredentials.username, googleCredentials.password);
+    await activePopup.pay()
+    await verifySuccessfulPayment(page, true, 20000);
   });
 });
