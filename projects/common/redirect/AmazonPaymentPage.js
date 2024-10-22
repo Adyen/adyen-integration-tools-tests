@@ -18,7 +18,7 @@ export class AmazonPayPaymentPage {
     await this.passwordInput.click();
     await this.passwordInput.type(password);
     await this.loginButton.click();
-    await this.page.waitForLoadState("load", { timeout: 15000 });
+    await this.page.waitForLoadState();
 
     if (await this.amazonCaptcha.isVisible()){
       return false;

@@ -32,7 +32,7 @@ test.describe("Payment via PayPal", () => {
     const paymentDetailPage = new PaymentDetailsPage(page);
     const payPalSection = await paymentDetailPage.selectPayPal();
 
-    await page.waitForLoadState("load", { timeout: 15000 });
+    await page.waitForLoadState();
 
     const [popup] = await Promise.all([
       page.waitForEvent("popup"),
