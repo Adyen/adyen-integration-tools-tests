@@ -31,14 +31,14 @@ export class AdminOrderCreationPage extends AdminPanelPage {
   }
 
   async createOrder(page) {
-    await this.page.waitForLoadState("networkidle", { timeout: 10000 });
+    await this.page.waitForLoadState();
     await this.goToOrdersPage();
     await this.waitForPageLoad(page);
     await this.createNewOrderButton.click();
     await this.waitForPageLoad(page);
     await this.testUserNameSelector.click();
     
-    await this.page.waitForLoadState("networkidle", { timeout: 10000 });
+    await this.page.waitForLoadState();
     await this.addProductsButton.click();
     await this.waitForPageLoad(page);
     await this.erikaRunningShorts.click();

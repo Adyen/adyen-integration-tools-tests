@@ -32,7 +32,7 @@ test.describe("Payment via AmazonPay", () => {
     const amazonPaySection = await paymentDetailPage.selectAmazonPay();
 
     await amazonPaySection.clickAmazonPayButton();
-    await page.waitForLoadState("load", { timeout: 15000 });
+    await page.waitForLoadState();
     
     await new AmazonPayPaymentPage(page).proceedWithAmazonPay(username, password);
   }
