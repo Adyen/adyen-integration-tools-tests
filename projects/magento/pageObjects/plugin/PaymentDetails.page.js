@@ -49,11 +49,18 @@ export class PaymentDetailsPage {
     await this.paymentMethodSaveCheckBox.click();
   }
 
-  async selectVault(lastFourDigits) {
+  async selectVaultCC(lastFourDigits) {
     // Not ideal way of selecting saved card due to vault UI structure
     lastFourDigits != undefined ?
     await this.page.locator(`text=Ending ${lastFourDigits} ( expires: 3/2030 )`).click()
     : await page.locator("input#adyen_cc_vault_1").first().click();
+    await this.waitForPaymentMethodReady();
+  }
+
+  async selectVaultSepaDirectDebit() {
+    const d = new Date();
+    const formattedDate = d.toISOString().split('T')[0];
+    await this.page.locator(`text=SEPA Direct Debit token created on ${formattedDate}`).first().click();
     await this.waitForPaymentMethodReady();
   }
 
