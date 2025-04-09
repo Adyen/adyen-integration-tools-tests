@@ -72,12 +72,17 @@ export async function verifyVoucherCouponGeneration(page) {
 }
 
 export async function verifyFailedPayment(page, redirect = false) {
-  const errorMessage = await new ShoppingCartPage(
-    page
-  ).errorMessage.innerText();
-  expect(errorMessage).toContain(
-    "Your payment failed, Please try again later"
-  );
+  // const errorMessage = await new ShoppingCartPage(
+  //   page
+  // ).errorMessage.innerText();
+  // expect(errorMessage).toContain(
+  //   "Your payment failed, Please try again later"
+  // );
+  const errorMessageLocator = new ShoppingCartPage(page).errorMessage;
+  await errorMessageLocator.waitFor({ state: "visible", timeout: 20000 });
+
+  const errorMessage = await errorMessageLocator.innerText();
+  expect(errorMessage).toContain("Your payment failed, Please try again later");
 }
 
 export async function placeOrder(page) {

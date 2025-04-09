@@ -26,6 +26,16 @@ export class PayPalPaymentPage {
     await this.passwordInput.fill(password);
     await this.loginButton.click();
 
+    const maybeSecondPassword = this.passwordInput;
+    try {
+      await maybeSecondPassword.waitFor({ state: 'visible', timeout: 5000 });
+      console.log("🔁 Detected second password screen – retrying login");
+      await maybeSecondPassword.fill(password);
+      await this.loginButton.click();
+    } catch {
+      console.log("✅ No second login step required");
+    }
+
     await this.waitForAnimation();
 
     await this.declineCookies();

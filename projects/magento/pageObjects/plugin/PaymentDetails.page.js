@@ -6,6 +6,7 @@ import { IDealComponents } from "../../../common/checkoutComponents/iDealCompone
 import { OneyComponents } from "../../../common/checkoutComponents/OneyComponents.js";
 import { GiftcardComponentsMagento } from "../checkout/GiftcardComponentsMagento.js";
 import { AmazonPayComponents } from "../../../common/checkoutComponents/AmazonPayComponents.js";
+import { getLocator } from "../../helpers/LocatorHelper.js";
 import { expect } from "@playwright/test";
 
 export class PaymentDetailsPage {
@@ -30,7 +31,7 @@ export class PaymentDetailsPage {
     this.boletoRadioButton = page.locator("#adyen_boleto");
     this.bancontactRadioButton = page.locator("#adyen_bcmc_mobile");
     this.bancontactCardRadioButton = page.locator("#adyen_bcmc");
-    this.multiBancoRadioButton = page.locator("#adyen_multibanco");
+    this.multiBancoRadioButton = page.locator(getLocator("multiBancoRadioButton"));
     this.amazonPayRadioButton = page.locator("#adyen_amazonpay");
     this.amazonWrapper = page.locator("#adyen-amazonpay-form");
 

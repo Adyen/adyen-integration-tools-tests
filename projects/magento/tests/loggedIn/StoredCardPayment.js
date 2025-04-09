@@ -55,6 +55,7 @@ test.describe.serial("Payment via stored credit card", () => {
     await page.goto("/vault/cards/listaction/");
     await page.waitForLoadState();
 
+    await page.getByRole('button', { name: 'Delete' }).waitFor({ state: 'visible' });
     await page.getByRole('button', { name: 'Delete' }).click();
     await page.locator(".my-credit-cards-popup .modal-inner-wrap").waitFor({ state: "visible", timeout: 10000 });
     await page.locator(".my-credit-cards-popup .modal-inner-wrap").getByRole('button', { name: 'Delete' }).click();

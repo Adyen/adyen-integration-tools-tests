@@ -1,4 +1,5 @@
 import { TopBar } from "./TopBar.page.js";
+import { getLocator } from "../../helpers/LocatorHelper.js";
 
 export class LoginPage extends TopBar {
   constructor(page) {
@@ -7,7 +8,7 @@ export class LoginPage extends TopBar {
     this.loginFormContainer = page.locator(".login-container");
     this.loginForm = this.loginFormContainer.locator(".fieldset.login");
     this.emailInput = this.loginForm.locator("#email");
-    this.passwordInput = this.loginForm.locator("#password");
+    this.passwordInput = this.loginForm.locator(getLocator("passwordInput"));
     this.loginButton = this.loginForm.locator("#send2");
   }
 
