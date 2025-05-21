@@ -6,3 +6,4 @@ consequently */
 import "./MultishippingPayment.js";
 import "./StoredCardPayment.js"
 import "./VirtualProduct.js"
+import "./Installments.js"

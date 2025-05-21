@@ -1,6 +1,10 @@
 
 import { expect } from "@playwright/test";
 import { AdminPanelPage } from "./AdminPanel.page.js";
+import PaymentResources from "../../../data/PaymentResources.js";
+
+const paymentResources = new PaymentResources();
+
 export class AdminAdyenConfigPage extends AdminPanelPage {
   constructor(page) {
     super(page);
@@ -34,6 +38,14 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
 
       //Configuration > Payment Methods > Adyen Payments > Accepting Payments
       this.acceptingPaymentsSection = this.adyenPaymentsSection.locator("//tr[contains(@id,'adyen_accepting_payments')]").first();
+        this.paymentMethodsSection = this.acceptingPaymentsSection.getByRole('link', { name: 'Payment methods' });
+          this.cardPaymentsSection = this.acceptingPaymentsSection.locator("//tr[contains(@id,'adyen_card_payments')]").first();
+            this.enableInstallments = this.cardPaymentsSection.locator("//select[contains(@id,'enable_installments')]").first();
+              this.installmentsTable = this.cardPaymentsSection.locator("//tr[contains(@id,'adyen_card_payments_installments')]").first()
+                this.addInstallementsRule = this.installmentsTable.getByRole('button', { name: 'Add Rule' }).last();
+                this.installmentsAmount = this.installmentsTable.locator("//input[contains(@id,'amount')]").last();
+                this.numberOfInstallments = this.installmentsTable.locator("//select[contains(@id, 'installments')]").last();
+                this.installmentsCCTypes = this.installmentsTable.locator("//select[contains(@name,'cc_types')]").last();
         this.adminOrdersLink = this.acceptingPaymentsSection.getByRole('link', { name: 'Admin Orders' });
           this.adminOrdersSection = this.acceptingPaymentsSection.locator("//tr[contains(@id,'adyen_admin_orders')]").first();
             this.adyenMOTODropdown = this.adminOrdersSection.locator("//select[contains(@id,'adyen_moto_active')]");
@@ -149,6 +161,26 @@ export class AdminAdyenConfigPage extends AdminPanelPage {
 
     await expect(this.webhookPasswordInput).not.toBeEmpty()
 
+
+    await this.saveConfigButton.scrollIntoViewIfNeeded();
+    await this.saveConfigButton.click();
+  }
+
+  async configureInstallments(page) {
+    await this.waitForPageLoad(page);
+    await this.revealAdyenSettings();
+
+    await this.acceptingPaymentsSection.click();
+    await this.paymentMethodsSection.click();
+    await this.cardPaymentsSection.click();
+    await this.enableInstallments.selectOption("1");
+
+    await this.installmentsTable.waitFor({ state: "visible", timeout: 5000 });
+    await this.addInstallementsRule.click();
+    await this.installmentsAmount.click();
+    await this.installmentsAmount.type(paymentResources.installmentsDefaults.amount);
+    await this.numberOfInstallments.selectOption(paymentResources.installmentsDefaults.count);
+    await this.installmentsCCTypes.selectOption(paymentResources.installmentsDefaults.ccType);
 
     await this.saveConfigButton.scrollIntoViewIfNeeded();
     await this.saveConfigButton.click();
