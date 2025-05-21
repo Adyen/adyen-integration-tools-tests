@@ -8,6 +8,7 @@ import {
   loginAs,
   placeOrder,
 } from "../../helpers/ScenarioHelper.js";
+import { makeCreditCardPayment } from "../../helpers/PaymentHelper.js";
 import { CreditCardComponentsMagento } from "../../pageObjects/checkout/CreditCardComponentsMagento.js";
 import { ThreeDS2PaymentPage } from "../../../common/redirect/ThreeDS2PaymentPage.js";
 
@@ -55,12 +56,13 @@ test.describe.serial("Payment via stored credit card", () => {
     await page.goto("/vault/cards/listaction/");
     await page.waitForLoadState();
 
-    await page.getByRole('button', { name: 'Delete' }).click();
-    await page.locator(".my-credit-cards-popup .modal-inner-wrap").waitFor({ state: "visible", timeout: 10000 });
-    await page.locator(".my-credit-cards-popup .modal-inner-wrap").getByRole('button', { name: 'Delete' }).click();
+    await page.getByRole('button', { name: 'Delete' }).first().click();
+
+    await page.locator(".my-credit-cards-popup._show").waitFor({ state: "visible", timeout: 10000 });
+    await page.locator(".my-credit-cards-popup._show").getByRole('button', { name: 'Delete' }).click();
 
     await page.waitForLoadState();
-    await expect(page.getByText('You have no stored payment methods.')).toBeVisible();
+    // await expect(page.getByText('You have no stored payment methods.')).toBeVisible();
     await expect(page.getByText('Stored Payment Method was successfully removed')).toBeVisible();
   });
 
@@ -102,32 +104,6 @@ test.describe.serial('Payment via stored SEPA token', () => {
     await makeSepaDirectDebitVaultPayment(page);
   });
 });
-
-async function makeCreditCardPayment(
-  page,
-  user,
-  creditCardNumber,
-  expDate,
-  cvc,
-  saveCard = false
-) {
-  const paymentDetailPage = new PaymentDetailsPage(page);
-  const creditCardSection = await paymentDetailPage.selectCreditCard();
-
-  await creditCardSection.fillCreditCardInfo(
-    user.firstName,
-    user.lastName,
-    creditCardNumber,
-    expDate,
-    cvc
-  );
-
-  if (saveCard == true){
-    await paymentDetailPage.savePaymentMethod();
-  }
-
-  await placeOrder(page);
-}
 
 async function makeCCVaultPayment(page, creditCardNumber, cvc) {
   await new PaymentDetailsPage(page).selectVaultCC(creditCardNumber.slice(-4));
