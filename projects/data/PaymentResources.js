@@ -32,6 +32,12 @@ export default class PaymentResources {
     password: process.env.MAGENTO_ADMIN_PASSWORD,
   };
 
+  installmentsDefaults = {
+    amount: "10",
+    count: "3",
+    ccType: "VI"
+  };
+
   webhookCredentials = {
     webhookUsername : process.env.WEBHOOK_USERNAME,
     webhookPassword : process.env.WEBHOOK_PASSWORD,
@@ -173,6 +179,7 @@ export default class PaymentResources {
       city: "Brussels",
       postCode: "1000",
       countryCode: "BE",
+      stateOrProvince: "Antwerpen",
       countryName: "Belgium",
       phoneNumber: "+32456555720",
     },

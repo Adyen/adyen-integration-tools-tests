@@ -47,10 +47,6 @@ export class PaymentDetailsPage {
     this.emailField.fill(user.email);
   }
 
-  async savePaymentMethod() {
-    await this.paymentMethodSaveCheckBox.click();
-  }
-
   async selectVaultCC(lastFourDigits) {
     // Not ideal way of selecting saved card due to vault UI structure
     lastFourDigits != undefined ?
