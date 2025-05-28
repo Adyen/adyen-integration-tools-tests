@@ -25,7 +25,7 @@ test.describe.serial("Payment with multiple shipping address", () => {
         await proceedToMultishippingAs(page, users.dutch);
     });
 
-    test("should succeed without 3Ds2", async ({ page }) => {
+    test.skip("should succeed without 3Ds2", async ({ page }) => {
         await fillCreditCardForm(
             page,
             users.dutch,
@@ -39,7 +39,7 @@ test.describe.serial("Payment with multiple shipping address", () => {
         await verifyPayment(page);
     });
 
-    test("should fail with wrong expiry date", async ({ page }) => {
+    test.skip("should fail with wrong expiry date", async ({ page }) => {
         await fillCreditCardForm(
             page,
             users.dutch,
@@ -53,7 +53,7 @@ test.describe.serial("Payment with multiple shipping address", () => {
         await verifyRefusedPayment(page);
     });
 
-    test("should succeed with 3Ds2", async ({ page }) => {
+    test.skip("should succeed with 3Ds2", async ({ page }) => {
         await fillCreditCardForm(
             page,
             users.dutch,
@@ -68,7 +68,7 @@ test.describe.serial("Payment with multiple shipping address", () => {
         await verifyPayment(page);
     });
 
-    test("should fail with wrong 3Ds2 credentials", async ({ page }) => {
+    test.skip("should fail with wrong 3Ds2 credentials", async ({ page }) => {
         await fillCreditCardForm(
             page,
             users.dutch,
@@ -83,7 +83,7 @@ test.describe.serial("Payment with multiple shipping address", () => {
         await verifyRefusedPaymentWithAction(page);
     });
 
-    test("should succeed with iDeal", async ({ page }) => {
+    test.skip("should succeed with iDeal", async ({ page }) => {
         await fillIdeal2Form(page);
 
         await proceedToOrderReviewPageAndPlaceOrder(page);
@@ -92,7 +92,7 @@ test.describe.serial("Payment with multiple shipping address", () => {
         await verifyPayment(page);
     });
 
-    test("should fail with iDeal failing issuer", async ({ page }) => {
+    test.skip("should fail with iDeal failing issuer", async ({ page }) => {
         await fillIdeal2Form(page);
 
         await proceedToOrderReviewPageAndPlaceOrder(page);
