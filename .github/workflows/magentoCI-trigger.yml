@@ -9,7 +9,7 @@ on:
     branches: [main, develop]
 
 jobs:
-  test:
+  remote-trigger-test:
     runs-on: ubuntu-latest
     permissions:
       contents: read
