@@ -32,7 +32,7 @@ export class PayPalPaymentPage {
   }
 
   async waitForAnimation() {
-    await this.loggingInAnimation.waitFor({state: "visible", timeout: 10000});
+    //await this.loggingInAnimation.waitFor({state: "attached", timeout: 10000});
     await this.loggingInAnimation.waitFor({state: "hidden", timeout: 15000});
   }
 
@@ -58,13 +58,10 @@ export class PayPalPaymentPage {
   }
 
   async waitForPopupLoad(page) {
-    await page.waitForFunction(() => window.location.href.includes("paypal.com"), null, {
-      timeout: 15000
-    });
-
-    await page.waitForURL(url => url.includes("sandbox.paypal.com"), {
-      timeout: 20000,
-      waitUntil: "domcontentloaded"
+    await page.waitForURL(/.*sandbox.paypal.com*/,
+      {
+      timeout: 10000,
+      waitUntil:"load"
     });
   }
 
