@@ -58,10 +58,13 @@ export class PayPalPaymentPage {
   }
 
   async waitForPopupLoad(page) {
-    await page.waitForURL(/.*sandbox.paypal.com*/,
-      {
-      timeout: 10000,
-      waitUntil:"load"
+    await page.waitForFunction(() => window.location.href.includes("paypal.com"), null, {
+      timeout: 15000
+    });
+
+    await page.waitForURL(url => url.includes("sandbox.paypal.com"), {
+      timeout: 20000,
+      waitUntil: "domcontentloaded"
     });
   }
 
