@@ -32,7 +32,8 @@ export class PayPalPaymentPage {
   }
 
   async waitForAnimation() {
-    await this.loggingInAnimation.waitFor({state: "attached", timeout: 15000});
+    await this.loggingInAnimation.waitFor({state: "visible", timeout: 10000});
+    await this.loggingInAnimation.waitFor({state: "hidden", timeout: 15000});  
   }
 
   async agreeAndPay() {
