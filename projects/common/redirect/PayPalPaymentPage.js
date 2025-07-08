@@ -7,7 +7,7 @@ export class PayPalPaymentPage {
     this.nextButton = page.locator("#btnNext");
     this.passwordInput = page.locator("#password");
     this.loginButton = page.locator("#btnLogin");
-    this.agreeAndPayNowButton = page.locator("#payment-submit-btn");
+    this.agreeAndPayNowButton = page.locator('[data-id="payment-submit-btn"]');
     this.cancelButton = page.locator("#cancelLink");
     this.changeShippingAddressButton = page.locator("#change-shipping");
     this.shippingAddressDropdown = page.locator("#shippingDropdown");
@@ -33,7 +33,7 @@ export class PayPalPaymentPage {
 
   async waitForAnimation() {
     await this.loggingInAnimation.waitFor({state: "visible", timeout: 10000});
-    await this.loggingInAnimation.waitFor({state: "hidden", timeout: 15000});
+    await this.loggingInAnimation.waitFor({state: "hidden", timeout: 15000});  
   }
 
   async agreeAndPay() {
