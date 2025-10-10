@@ -6,7 +6,9 @@ export async function makeCreditCardPayment(
   user,
   creditCardNumber,
   expDate,
-  cvc
+  cvc,
+  saveCard = false,
+  installment = false
 ) {
   const paymentDetailPage = new PaymentDetailsPage(page);
   const creditCardSection = await paymentDetailPage.selectCreditCard();
@@ -15,7 +17,10 @@ export async function makeCreditCardPayment(
     user.lastName,
     creditCardNumber,
     expDate,
-    cvc
+    cvc,
+    saveCard,
+    installment
   );
+
   await placeOrder(page);
 }
