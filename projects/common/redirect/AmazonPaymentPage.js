@@ -5,6 +5,7 @@ export class AmazonPayPaymentPage {
     this.emailInput = this.page.locator("#ap_email");
     this.passwordInput = this.page.locator("#ap_password");
     this.loginButton = this.page.locator("#signInSubmit");
+    this.proceedToPasswordButton = this.page.locator("span#continue");
     this.payNowButton = this.page.locator('#continue-button');
     this.cancelPayment = this.page.locator('#return_back_to_merchant_link');
 
@@ -18,6 +19,7 @@ export class AmazonPayPaymentPage {
   async doLogin(amazonCredentials){
     await this.emailInput.click();
     await this.emailInput.type(amazonCredentials.username);
+    await this.proceedToPasswordButton.click();
     await this.passwordInput.click();
     await this.passwordInput.type(amazonCredentials.password);
     await this.loginButton.click();
