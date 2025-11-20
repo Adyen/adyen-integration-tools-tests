@@ -5,3 +5,4 @@ test-report/
 .DS_Store
 .idea
 .env
+package-lock.json
