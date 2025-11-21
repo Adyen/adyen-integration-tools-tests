@@ -28,7 +28,7 @@ test.describe.parallel("Payment via Klarna", () => {
     await verifySuccessfulPayment(page, true, 25000);
   });
 
-  test.skip("should succeed via Pay Later", async ({ page }) => {
+  test("should succeed via Pay Later", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayLater(page);
 
@@ -36,7 +36,7 @@ test.describe.parallel("Payment via Klarna", () => {
     await verifySuccessfulPayment(page, true, 25000);
   });
 
-  test.skip("should succeed via Pay Over Time", async ({ page }) => {
+  test("should succeed via Pay Over Time", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayOverTime(page);
 
