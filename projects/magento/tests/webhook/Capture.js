@@ -30,7 +30,7 @@ async function processCaptureWebhook(request, captureData, paymentStatus, captur
         },
     });
 
-    expect(processWebhookResponse.status()).toBe(200);
+    expect(processWebhookResponse.status()).toBe(202);
 
     const processedNotificationResponse = await request.get(
         `/adyentest/test?orderId=${SharedState.orderNumber}&eventCode=CAPTURE&processOrder=${captureOrder}`

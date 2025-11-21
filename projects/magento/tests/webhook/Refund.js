@@ -54,7 +54,7 @@ async function refundAndProcessWebhook(page, request, refundOrder) {
         }
     });
 
-    expect(processWebhookResponse.status()).toBe(200);
+    expect(processWebhookResponse.status()).toBe(202);
 
     const processedNotificationResponse = await request.get(`/adyentest/test?orderId=${SharedState.orderNumber}&eventCode=REFUND&processOrder=${refundOrder}`);
     expect(processedNotificationResponse.status()).toBe(200);

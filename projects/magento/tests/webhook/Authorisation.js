@@ -68,7 +68,7 @@ test.describe("Process AUTHORISATION webhook notifications", () => {
     }
  });
  // Check response status
- expect(processWebhookResponse.status()).toBe(200);
+ expect(processWebhookResponse.status()).toBe(202);
 
  // Get processed notification
  const processedNotificationResponse = await request.get(`/adyentest/test?orderId=${orderNumber}&eventCode=AUTHORISATION`)
