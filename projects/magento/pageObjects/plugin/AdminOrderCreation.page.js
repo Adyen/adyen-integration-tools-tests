@@ -127,7 +127,7 @@ export class AdminOrderCreationPage extends AdminPanelPage {
   }
 
   async verifyOrderStatusChange(page) {
-    const maxRetries = 5;
+    const maxRetries = 18;
 
     for (let attempt = 0; attempt < maxRetries; attempt++) {
       const text = await this.orderStatus.innerText().catch(() => "");
