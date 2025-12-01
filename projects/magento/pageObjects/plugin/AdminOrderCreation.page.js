@@ -30,6 +30,8 @@ export class AdminOrderCreationPage extends AdminPanelPage {
 
     this.submitOrderButton = page.locator("#submit_order_top_button");
     this.paymentLink = page.locator("a[rel='noopener']");
+
+    this.orderStatus = page.locator("#order_status");
   }
 
   async createOrder(page) {
@@ -121,6 +123,27 @@ export class AdminOrderCreationPage extends AdminPanelPage {
         orderNumber,
         this.createCreditMemo.bind(this),
         invoiceId
+    );
+  }
+
+  async verifyOrderStatusChange(page) {
+    const maxRetries = 5;
+
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+      const text = await this.orderStatus.innerText().catch(() => "");
+
+      if (text.trim() === "Authorized") {
+        return;
+      }
+
+      await page.waitForTimeout(10_000);
+
+      await page.reload();
+      await page.waitForLoadState("networkidle");
+    }
+
+    throw new Error(
+      `Failed: Locator text never became "Authorized" after ${maxRetries} attempts.`
     );
   }
 }
