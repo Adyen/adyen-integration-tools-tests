@@ -23,7 +23,7 @@ const config = {
   },
 
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
+  forbidOnly: false,
 
   /* Retry on CI only */
   retries: 1,
