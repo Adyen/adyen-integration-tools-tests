@@ -25,7 +25,7 @@ const headers = {
 
 let adminOrderCreationPage;
 
-test.only("Process AUTHORISATION webhook notifications", () => {
+test.describe("Process AUTHORISATION webhook notifications", () => {
   test.beforeEach(async ({ page }) => {
     await goToShippingWithFullCart(page,1);
     await proceedToPaymentAs(page, users.dutch);
