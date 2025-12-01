@@ -41,7 +41,7 @@ test.describe("Process AUTHORISATION webhook notifications", () => {
     SharedState.orderNumber = orderNumber;
   });
 
-  test("should be able to process AUTHORISATION notification through queue processor", async ({ request, page }) => {
+  test("using the queue processor", async ({ request, page }) => {
     // Send the notification process request
     const processWebhookResponse = await request.post("/adyen/webhook", {
       headers,
