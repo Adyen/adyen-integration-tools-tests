@@ -44,7 +44,7 @@ async cancelKlarnaPayment() {
 }
 
 async waitForKlarnaLoad() {
-   await this.page.waitForURL(/.*playground\.klarna/, {
+   await this.page.waitForURL(/.*playground.klarna/, {
       timeout: 15000,
       waitUntil: "load",
    });
