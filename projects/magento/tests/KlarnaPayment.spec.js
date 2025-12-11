@@ -20,31 +20,15 @@ test.describe.parallel("Payment via Klarna", () => {
     await goToShippingWithFullCart(page);
   });
 
-  test.skip("should succeed via Pay Now", async ({ page }) => {
-    await proceedToPaymentAs(page, user);
-    const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
-
-    await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber, true);
-    await verifySuccessfulPayment(page, true, 25000);
-  });
-
-  test.skip("should succeed via Pay Later", async ({ page }) => {
+  test("should succeed via Pay Later", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayLater(page);
 
-    await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber, false);
+    await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber);
     await verifySuccessfulPayment(page, true, 25000);
   });
 
-  test.skip("should succeed via Pay Over Time", async ({ page }) => {
-    await proceedToPaymentAs(page, user);
-    const klarnaPaymentPage = await proceedToKlarnaPayOverTime(page);
-
-    await klarnaPaymentPage.makeKlarnaPayment(user.phoneNumber, false);
-    await verifySuccessfulPayment(page, true, 25000);
-  });
-
-  test.skip("should be handled properly if cancelled", async ({ page }) => {
+  test("should be handled properly if cancelled", async ({ page }) => {
     await proceedToPaymentAs(page, user);
     const klarnaPaymentPage = await proceedToKlarnaPayNow(page);
 
@@ -55,12 +39,6 @@ test.describe.parallel("Payment via Klarna", () => {
 
 async function proceedToKlarnaPayNow(page) {
   await new PaymentDetailsPage(page).selectKlarnaPayNow();
-  await placeOrder(page);
-  return new KlarnaPaymentPage(page);
-}
-
-async function proceedToKlarnaPayOverTime(page) {
-  await new PaymentDetailsPage(page).selectKlarnaPayOverTime();
   await placeOrder(page);
   return new KlarnaPaymentPage(page);
 }
