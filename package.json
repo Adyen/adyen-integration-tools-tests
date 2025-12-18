@@ -26,6 +26,6 @@
     "@playwright/test": "^1.42.1"
   },
   "dependencies": {
-    "dotenv": "^16.3.1"
+    "dotenv": "^17.0.0"
   }
 }
