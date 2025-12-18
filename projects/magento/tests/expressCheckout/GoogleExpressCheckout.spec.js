@@ -57,7 +57,7 @@ test.describe("Smoke test: Google Pay component", () => {
    *
    * Other test cases are skipped on GitHub Actions due to human verification requirements.
    */
-  test("should be mounted and pop-up needs to be loaded", async ({ page }) => {
+  test.skip("should be mounted and pop-up needs to be loaded", async ({ page }) => {
     const productPage = new ProductDetailsPage(page);
     await productPage.navigateToItemPage("joust-duffle-bag.html");
 

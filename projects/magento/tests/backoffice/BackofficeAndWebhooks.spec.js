@@ -8,10 +8,10 @@ since they also require usage of Admin Panel */
 import "../webhook/Authorisation.js";
 import "../webhook/Capture.js";
 import "../webhook/Refund.js";
+import "../webhook/QueueProcessor.js";
 
 // Backoffice Tests
 import "./MOTO.js";
 import "./RequiredSettingsAutoConfig.js"
 import "./RequiredSettingsManualConfig.js"
 import "./PayByLink.js"
-

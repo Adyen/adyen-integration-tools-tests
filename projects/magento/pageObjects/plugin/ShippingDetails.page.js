@@ -45,11 +45,11 @@ export class ShippingDetails {
 
     await this.countrySelector.selectOption(user.countryCode);
 
-    if (user.stateOrProvince != undefined) {
+    if (user.stateOrProvince !== undefined) {
       const dropdownValue = await this.stateProvinceDropdown
       .locator(`//option[contains(text(),'${user.stateOrProvince}')]`).first().getAttribute("value");
       await this.stateProvinceDropdown.selectOption(dropdownValue);
-    } else if (user.stateCode != undefined) {
+    } else if (user.stateCode !== undefined) {
       await this.stateProvinceField.fill(user.stateCode);
     }
 

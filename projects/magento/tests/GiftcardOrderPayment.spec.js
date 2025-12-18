@@ -35,6 +35,7 @@ test.describe.parallel("Payment via giftcard", () => {
       paymentResources.giftCard.EUR50SVS.cardBrand
     );
 
+    await page.waitForResponse(resp => resp.url().includes('/adyen/payment-methods/balance'));
     await paySingleGiftcard(giftcardsSection);
     await verifySuccessfulPayment(page);
   });

@@ -30,6 +30,8 @@ export class AdminOrderCreationPage extends AdminPanelPage {
 
     this.submitOrderButton = page.locator("#submit_order_top_button");
     this.paymentLink = page.locator("a[rel='noopener']");
+
+    this.orderStatus = page.locator("#order_status");
   }
 
   async createOrder(page) {
@@ -95,23 +97,53 @@ export class AdminOrderCreationPage extends AdminPanelPage {
     await this.waitForPageLoad(page);
   }
 
-  async performModification(page, orderNumber, action) {
-    await this.waitForPageLoad(page);
+  async goToOrderDetailPage(page, orderNumber) {
     await this.goToOrdersPage();
     await this.waitForPageLoad(page);
     await this.selectOrderToModify(orderNumber);
     await this.waitForPageLoad(page);
-    await action(orderNumber);
+  }
+
+  async performModification(page, orderNumber, action, documentId = null) {
+    await action(orderNumber, documentId);
     await this.waitForPageLoad(page);
   }
 
   async createCapture(page, orderNumber) {
+    await this.goToOrderDetailPage(page, orderNumber);
+
     await this.performModification(page, orderNumber, async () => {
       await this.createInvoicesIndividually();
     });
   }
 
-  async createRefund(page, orderNumber) {
-    await this.performModification(page, orderNumber, this.createCreditMemo.bind(this));
+  async createRefund(page, orderNumber, invoiceId = null) {
+    await this.performModification(
+        page,
+        orderNumber,
+        this.createCreditMemo.bind(this),
+        invoiceId
+    );
+  }
+
+  async verifyOrderStatusChange(page) {
+    const maxRetries = 18;
+
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+      const text = await this.orderStatus.innerText().catch(() => "");
+
+      if (text.trim() === "Authorized") {
+        return;
+      }
+
+      await page.waitForTimeout(10_000);
+
+      await page.reload();
+      await page.waitForLoadState("networkidle");
+    }
+
+    throw new Error(
+      `Failed: Locator text never became "Authorized" after ${maxRetries} attempts.`
+    );
   }
 }

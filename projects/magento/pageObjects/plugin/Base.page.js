@@ -14,7 +14,7 @@ export class BasePage extends TopBar {
     this.buyWithGoogleViaCartButton = this.miniCartWrapper.locator(".adyen-checkout__paywithgoogle");
     this.buyWithGoogleViaCartButtonAnimation = this.miniCartWrapper.locator(".gpay-card-info-animated-progress-bar");
     this.buyWithPaypalViaCartButton = this.miniCartWrapper
-        .frameLocator("iframe[title='PayPal']").last()
+        .frameLocator("iframe[title='PayPal-paypal']").last()
         .locator(".paypal-button");
   }
 

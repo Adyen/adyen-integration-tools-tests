@@ -1,3 +1,6 @@
+import PaymentResources from "../../data/PaymentResources.js";
+const paymentResources = new PaymentResources();
+
 export class CreditCardComponents {
   constructor(page) {
     this.page = page;
@@ -17,6 +20,11 @@ export class CreditCardComponents {
     this.cvcInput = page
       .frameLocator(".adyen-checkout__card__cvc__input iframe")
       .locator(".input-field");
+
+    this.installmentDropdown = page.locator("//button[contains(@id,'adyen-checkout-installments')]").first();
+    this.installmentOption = page.locator(`#listItem-${paymentResources.installmentsDefaults.count}`);
+
+    this.paymentMethodSaveCheckBox = page.locator(".adyen-checkout__checkbox__label");
 
     this.typeDelay = 50;
   }
@@ -42,12 +50,19 @@ export class CreditCardComponents {
     await this.cvcInput.type(CVC, { delay: this.typeDelay });
   }
 
+  async fillInstallements() {
+    await this.installmentDropdown.click();
+    await this.installmentOption.click();
+  }
+
   async fillCreditCardInfo(
     cardHolderName,
     cardHolderLastName,
     cardNumber,
     cardExpirationDate,
-    cardCVC = undefined
+    cardCVC = undefined,
+    saveCard = false,
+    installment = false
   ) {
     await this.fillCardNumber(cardNumber);
     await this.fillExpDate(cardExpirationDate);
@@ -56,5 +71,13 @@ export class CreditCardComponents {
     }
     await this.fillHolderName(cardHolderName);
     await this.fillHolderName(` ${cardHolderLastName}`);
+
+    if (saveCard) {
+      await this.paymentMethodSaveCheckBox.click();
+    }
+
+    if (installment) {
+      await this.fillInstallements();
+    }
   }
 }

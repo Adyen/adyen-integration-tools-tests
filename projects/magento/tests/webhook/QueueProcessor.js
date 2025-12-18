@@ -3,11 +3,12 @@ import PaymentResources from "../../../data/PaymentResources.js";
 import SharedState from "./SharedState.js";
 import {
   getOrderNumber,
-  goToShippingWithFullCart,
+  goToShippingWithFullCart, loginAsAdmin,
   proceedToPaymentAs,
   verifySuccessfulPayment,
 } from "../../helpers/ScenarioHelper.js";
 import { makeCreditCardPayment } from "../../helpers/PaymentHelper.js";
+import {AdminOrderCreationPage} from "../../pageObjects/plugin/AdminOrderCreation.page.js";
 
 const paymentResources = new PaymentResources();
 const webhookCredentials = paymentResources.webhookCredentials;
@@ -21,6 +22,8 @@ const base64Credentials = Buffer.from(`${username}:${password}`).toString('base6
 const headers = {
     Authorization: `Basic ${base64Credentials}`
 };
+
+let adminOrderCreationPage;
 
 test.describe("Process AUTHORISATION webhook notifications", () => {
   test.beforeEach(async ({ page }) => {
@@ -38,9 +41,9 @@ test.describe("Process AUTHORISATION webhook notifications", () => {
     SharedState.orderNumber = orderNumber;
   });
 
-  test("should be able to process AUTHORISATION notification", async ({ request }) => {
-   // Send the notification process request
-   const processWebhookResponse = await request.post("/adyen/webhook", {
+  test("using the queue processor", async ({ request, page }) => {
+    // Send the notification process request
+    const processWebhookResponse = await request.post("/adyen/webhook", {
       headers,
       data: {
        "live" : "false",
@@ -52,7 +55,7 @@ test.describe("Process AUTHORISATION webhook notifications", () => {
                    "value" : 7800
                 },
                 "eventCode" : "AUTHORISATION",
-                "eventDate" : "2023-05-23T15:48:53+02:00",
+                "eventDate" : "2025-05-23T15:48:53+02:00",
                 "merchantAccountCode" : `${paymentResources.apiCredentials.merchantAccount}`,
                 "merchantReference" : `${orderNumber}`,
                 "operations" : [
@@ -65,19 +68,29 @@ test.describe("Process AUTHORISATION webhook notifications", () => {
              }
           }
        ]
-    }
- });
- // Check response status
- expect(processWebhookResponse.status()).toBe(202);
+      }
+    });
 
- // Get processed notification
- const processedNotificationResponse = await request.get(`/adyentest/test?orderId=${orderNumber}&eventCode=AUTHORISATION`)
- 
- // Check response status
- expect(processedNotificationResponse.status()).toBe(200);
- 
- // Check the body of processed notification
- const processedNotificationBody = await processedNotificationResponse.json();
-  expect(processedNotificationBody[0].status).toBe("adyen_authorized");
- });
+    // Check response status
+    expect(processWebhookResponse.status()).toBe(202);
+
+    // Get processed notification
+    const processedNotificationResponse = await request.get(`/adyentest/publishwebhookqueue`)
+
+    // Check response status
+    expect(processedNotificationResponse.status()).toBe(200);
+
+    // Check the body of processed notification
+    const processedNotificationBody = await processedNotificationResponse.json();
+    expect(processedNotificationBody.result).toBe("success");
+
+    // Navigate to the order details page
+    await loginAsAdmin(page, paymentResources.magentoAdminUser);
+    adminOrderCreationPage = new AdminOrderCreationPage(page);
+    await adminOrderCreationPage.closePopup();
+
+    await adminOrderCreationPage.goToOrderDetailPage(page, SharedState.orderNumber);
+
+    await adminOrderCreationPage.verifyOrderStatusChange(page);
+  });
 });

@@ -20,7 +20,7 @@ export class ProductDetailsPage extends BasePage {
         .locator(".gpay-card-info-animated-progress-bar");
 
     this.buyWithPaypalViaProductPageButton = this.productDetailActionsWrapper
-        .frameLocator("iframe[title='PayPal']").last()
+        .frameLocator("iframe[title='PayPal-paypal']").last()
         .locator(".paypal-button");
   }
 
