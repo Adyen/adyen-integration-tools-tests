@@ -7,7 +7,7 @@ import { AdminOrderCreationPage } from "../../pageObjects/plugin/AdminOrderCreat
 
 const paymentResources = new PaymentResources();
 const magentoAdminUser = paymentResources.magentoAdminUser;
-const apiCredentials = paymentResources.apiCredentials;
+const apiCredentials = paymentResources.motoApiCredentials;
 
 const cardNumber = paymentResources.visa3DS1;
 const cardExpirationDate = paymentResources.expDate;

@@ -59,6 +59,12 @@ export default class PaymentResources {
     apiKey: process.env.ADYEN_API_KEY,
   };
 
+  motoApiCredentials = {
+    merchantAccount: process.env.ADYEN_MOTO_MERCHANT,
+    clientKey: process.env.ADYEN_MOTO_CLIENT_KEY,
+    apiKey: process.env.ADYEN_MOTO_API_KEY,
+  }
+
   bcmc = {
     be: {
       cardNumber: "6703444444444449",
