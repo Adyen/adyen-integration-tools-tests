@@ -42,6 +42,7 @@ const config = {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: process.env.MAGENTO_BASE_URL,
     ignoreHTTPSErrors: true,
+    trace: "off",
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
   },
@@ -54,7 +55,6 @@ const config = {
       testIgnore: ["tests/backoffice/**","tests/expressCheckout/**",],
       use: {
         browserName: "firefox",
-        trace: "retain-on-failure",
         viewport: {
           width: VIEWPORT_WIDTH,
           height: VIEWPORT_HEIGHT,
@@ -66,7 +66,6 @@ const config = {
       testDir: "./tests/backoffice",
       use: {
         browserName: "firefox",
-        trace: "retain-on-failure",
         viewport: {
           width: VIEWPORT_WIDTH,
           height: VIEWPORT_HEIGHT,
@@ -79,7 +78,6 @@ const config = {
       testDir: "./tests/expressCheckout",
       use: {
         browserName: "firefox",
-        trace: "retain-on-failure",
         viewport: {
           width: VIEWPORT_WIDTH,
           height: VIEWPORT_HEIGHT,
