@@ -4,8 +4,6 @@ import { AdminOrderCreationPage } from "../../pageObjects/plugin/AdminOrderCreat
 import { loginAsAdmin } from "../../helpers/ScenarioHelper.js";
 import { createAuthorisedOrder, headers, paymentResources } from "./createAuthorisedOrder.js";
 
-const randomPspNumber = Math.random().toString().slice(2, 7);
-
 test.describe("Backoffice Cancel + process CANCELLATION webhook", () => {
     test.beforeEach(async ({ page, request }) => {
         await createAuthorisedOrder({
