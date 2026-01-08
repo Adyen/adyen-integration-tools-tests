@@ -31,7 +31,22 @@ export async function loginAs(page, user) {
 export async function loginAsAdmin(page, user) {
   const adminLoginPage = new AdminLoginPage(page);
   await adminLoginPage.goTo();
-  await adminLoginPage.login(user);
+
+    // If login form is visible -> login
+    const needsLogin = await adminLoginPage.usernameInput
+        .isVisible({ timeout: 1500 })
+        .catch(() => false);
+
+    if (needsLogin) {
+        await adminLoginPage.login(user);
+
+        // Wait until we are in the admin area (URL changes away from /admin/ login)
+        await page.waitForURL(/\/admin(?!\/$)/, { timeout: 30_000 }).catch(() => {});
+    }
+
+    // Final "logged in" signal (menu is a good one)
+    await page.locator("#menu-magento-backend-system").waitFor({ timeout: 30_000 });
+    await page.waitForLoadState("networkidle").catch(() => {});
 }
 
 export async function proceedToPaymentAs(page, user, isGuest = true) {
@@ -122,4 +137,37 @@ export async function makeIDeal2Payment(page, bankName, success = true) {
 export async function proceedToPaymentWithoutShipping(page) {
   await page.goto("/checkout#payment");
   await new AnimationHelper(page).waitForAnimation();
+}
+
+export async function extractPspReferenceFromAdminOrder(page) {
+    // Locate the comment block that contains Adyen transaction info
+    const commentLocator = page
+        .locator('#order_history_block .note-list .note-list-item .note-list-comment')
+        .filter({ hasText: 'Start Adyen transaction' })
+        .first();
+
+    // Wait until Magento has rendered the comment
+    await expect(commentLocator).toBeVisible({ timeout: 30_000 });
+
+    const commentText = await commentLocator.innerText();
+
+    /**
+     * Example text we expect:
+     *
+     * Start Adyen transaction
+     * "API endpoint: /payments"
+     * "Result code: Authorised"
+     * "PSP reference: QNXTWZPX9TX9MH75"
+     * "Payment method: visa"
+     */
+    const match = commentText.match(/PSP reference:\s*"?([A-Z0-9]+)"?/i);
+
+    if (!match) {
+        throw new Error(
+            `PSP reference not found in Admin order comment.\n` +
+            `Extracted text:\n${commentText}`
+        );
+    }
+
+    return match[1];
 }
