@@ -33,6 +33,7 @@ export class PaymentDetailsPage {
     this.multiBancoRadioButton = page.locator("#adyen_multibanco");
     this.amazonPayRadioButton = page.locator("#adyen_amazonpay");
     this.amazonWrapper = page.locator("#adyen-amazonpay-form");
+    this.vippsRadioButton = page.locator("#adyen_vipps");
 
     this.paymentSummaryLoadingSpinner = page.locator(
       ".opc-sidebar .loading-mask"
@@ -143,6 +144,11 @@ export class PaymentDetailsPage {
 
   async selectMultiBanco() {
     await this.multiBancoRadioButton.click();
+    await this.waitForPaymentMethodReady();
+  }
+
+  async selectVipps() {
+    await this.vippsRadioButton.click();
     await this.waitForPaymentMethodReady();
   }
 
