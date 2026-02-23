@@ -5,6 +5,7 @@ import { SuccessfulCheckoutPage } from "../pageObjects/checkout/SuccessfulChecko
 import { ShoppingCartPage } from "../pageObjects/plugin/ShoppingCart.page.js";
 import { LoginPage } from "../pageObjects/plugin/Login.page.js";
 import { AdminLoginPage } from "../pageObjects/plugin/AdminLogin.page.js";
+import { HomePageMagento } from "../pageObjects/checkout/HomePageMagento.js";
 import { PaymentDetailsPage } from "../pageObjects/plugin/PaymentDetails.page.js";
 import { IdealIssuerPage } from "../../common/redirect/IdealIssuerPage.js";
 import { AnimationHelper } from "./AnimationHelper.js";
@@ -170,4 +171,10 @@ export async function extractPspReferenceFromAdminOrder(page) {
     }
 
     return match[1];
+}
+
+export async function selectCurrency(page, currencyCode) {
+  await page.goto("/");
+  const homePageMagento = new HomePageMagento(page);
+  await homePageMagento.selectCurrencyCode(currencyCode);
 }

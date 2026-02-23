@@ -189,6 +189,19 @@ export default class PaymentResources {
       countryName: "Belgium",
       phoneNumber: "+32456555720",
     },
+    norwegian: {
+      email: "guest@adyen.com",
+      firstName: "Norwegian",
+      lastName: "Test",
+      street: "Guest street",
+      houseNumber: "1",
+      city: "Oslo",
+      postCode: "1234",
+      countryCode: "NO",
+      countryName: "Norway",
+      phoneNumber: "+4798081974",
+      currency: "NOK"
+    },
     klarna: {
       approved: {
         nl: {
