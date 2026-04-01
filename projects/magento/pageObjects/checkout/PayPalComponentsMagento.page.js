@@ -23,6 +23,7 @@ export class PayPalComponentsMagentoPage extends PayPalComponents {
         const payPalSection = await paymentDetailPage.selectPayPal();
 
         await this.page.waitForLoadState("load", { timeout: 15000 });
+        await this.page.waitForLoadState("networkidle");
 
         const [popup] = await Promise.all([
             this.page.waitForEvent("popup"),
