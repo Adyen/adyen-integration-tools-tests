@@ -15,11 +15,13 @@ export class MultishippingBillingInformation {
     }
 
     async selectCreditCardPaymentMethod() {
+        await this.page.locator('#checkout-loader').waitFor({ state: 'hidden', timeout: 30000 });
         await this.creditCardMethodLabel.click();
         return new CreditCardComponentsMagento(this.page.locator("#cardContainer"));
     }
 
     async selectIdealPaymentMethod() {
+        await this.page.locator('#checkout-loader').waitFor({ state: 'hidden', timeout: 30000 });
         await this.idealMethodLabel.click();
     }
 
