@@ -41,7 +41,7 @@ export class CreditCardComponents {
   }
   async fillExpDate(expDate) {
     await this.expDateInput.scrollIntoViewIfNeeded();
-    await this.expDateInput.click();
+    await this.expDateInput.click({ force: true });
     await this.expDateInput.type(expDate, { delay: this.typeDelay });
   }
   async fillCVC(CVC) {
