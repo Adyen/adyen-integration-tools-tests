@@ -61,6 +61,7 @@ export class PaymentDetailsPage {
     const formattedDate = d.toISOString().split('T')[0];
     await this.page.locator(`text=SEPA Direct Debit token created on ${formattedDate}`).first().click();
     await this.waitForPaymentMethodReady();
+    await this.page.waitForLoadState("networkidle");
   }
 
   async selectCreditCard() {

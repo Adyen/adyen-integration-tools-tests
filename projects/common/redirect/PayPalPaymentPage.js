@@ -60,7 +60,7 @@ export class PayPalPaymentPage {
   async waitForPopupLoad(page) {
     await page.waitForURL(/.*sandbox.paypal.com*/,
       {
-      timeout: 10000,
+      timeout: 20000,
       waitUntil:"load"
     });
   }

@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import PaymentResources from "../../data/PaymentResources.js";
 import {
   goToShippingWithFullCart,
@@ -12,24 +12,36 @@ const paymentResources = new PaymentResources();
 const users = paymentResources.guestUser;
 
 test.describe("Payment via PayPal", () => {
-  test.beforeEach(async ({ page }) => {
+  test.use({ storageState: undefined });
+
+  test("should succeed", async ({ browser }) => {
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
     await goToShippingWithFullCart(page);
     await proceedToPaymentAs(page, users.dutch);
-  });
 
-  test("should succeed", async ({ page }) => {
     await new PayPalComponentsMagentoPage(page).payViaPayPal(
       paymentResources.payPalUserName,
       paymentResources.payPalPassword
     );
 
     await verifySuccessfulPayment(page);
+    await context.close();
   });
 
-  test("should fail if shopper cancels", async ({ page }) => {
+  test("should fail if shopper cancels", async ({ browser }) => {
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
+    await goToShippingWithFullCart(page);
+    await proceedToPaymentAs(page, users.dutch);
+
     await new PayPalComponentsMagentoPage(page).cancelPayPal(page);
 
     const paymentDetailPage = new PaymentDetailsPage(page);
-    await paymentDetailPage.verifyPaymentRefusal();
+    await page.waitForLoadState("domcontentloaded", { timeout: 15000 });
+    await expect(paymentDetailPage.errorMessage).toBeVisible({ timeout: 15000 });
+    await context.close();
   });
 });
