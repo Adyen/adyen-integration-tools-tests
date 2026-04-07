@@ -51,7 +51,7 @@ export class PaymentDetailsPage {
   async selectVaultCC(lastFourDigits) {
     // Not ideal way of selecting saved card due to vault UI structure
     lastFourDigits != undefined ?
-    await this.page.locator(`text=Ending ${lastFourDigits} ( expires: 3/2030 )`).click()
+    await this.page.locator(`text=Ending ${lastFourDigits}`).first().click()
     : await page.locator("input#adyen_cc_vault_1").first().click();
     await this.waitForPaymentMethodReady();
   }
@@ -61,6 +61,7 @@ export class PaymentDetailsPage {
     const formattedDate = d.toISOString().split('T')[0];
     await this.page.locator(`text=SEPA Direct Debit token created on ${formattedDate}`).first().click();
     await this.waitForPaymentMethodReady();
+    await this.page.waitForLoadState("networkidle");
   }
 
   async selectCreditCard() {
@@ -159,6 +160,7 @@ export class PaymentDetailsPage {
 
   async verifyPaymentRefusal() {
     await this.page.waitForLoadState("domcontentloaded", { timeout: 15000 });
+    await expect(this.errorMessage).toBeVisible({ timeout: 15000 });
     expect(await this.errorMessage.innerText()).toContain(
         "The payment is REFUSED."
     );

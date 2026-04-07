@@ -41,7 +41,7 @@ test.describe("Payment via Vipps", () => {
   });
 
   test("should fail with cancellation simulation", async ({ page }) => {
-    await new PaymentSimulatorPage(page).refusePayment();
+    await new PaymentSimulatorPage(page).cancelPayment();
     await page.waitForLoadState()
 
     await verifyFailedPayment(page)

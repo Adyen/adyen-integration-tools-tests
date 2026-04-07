@@ -54,15 +54,16 @@ test.describe.serial("Payment via stored credit card", () => {
 
   test("should succeed with removing the tokenized 3Ds2 card", async ({ page }) => {
     await page.goto("/vault/cards/listaction/");
-    await page.waitForLoadState();
+    await page.waitForLoadState("networkidle");
 
-    await page.locator('.table-credit-cards .col button.delete').first().click();
+    const deleteButton = page.locator('.table-credit-cards .col button.delete').first();
+    await deleteButton.waitFor({ state: "visible", timeout: 10000 });
+    await deleteButton.click();
 
-    await page.locator(".my-credit-cards-popup._show").waitFor({ state: "visible", timeout: 10000 });
+    await page.locator(".my-credit-cards-popup._show").waitFor({ state: "visible", timeout: 15000 });
     await page.locator(".my-credit-cards-popup._show").getByRole('button', { name: 'Delete' }).click();
 
     await page.waitForLoadState();
-    // await expect(page.getByText('You have no stored payment methods.')).toBeVisible();
     await expect(page.getByText('Stored Payment Method was successfully removed')).toBeVisible();
   });
 

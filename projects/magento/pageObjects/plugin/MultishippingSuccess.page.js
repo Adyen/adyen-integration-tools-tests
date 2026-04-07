@@ -59,6 +59,8 @@ export class MultishippingSuccess {
         for (let i = 0; i < numberOfOrders; i++) {
             const idealIssuerPage = new IdealIssuerPage(page, issuer);
 
+            await this.completePaymentButton.first().waitFor({ state: "visible", timeout: 10000 });
+            await page.waitForLoadState("networkidle");
             await this.completePaymentButton.first().click();
             await idealIssuerPage.proceedWithSelectedBank();
             if (!simulateFailure) {
@@ -66,8 +68,7 @@ export class MultishippingSuccess {
             } else {
                 await idealIssuerPage.simulateFailure();
             }
-            await page.waitForLoadState();
-            await this.page.waitForURL("**/checkout/success/**",{timeout:25000, waitUntil:"load"});
+            await this.page.waitForURL("**/checkout/success/**", {timeout: 25000, waitUntil: "load"});
         }
 
         await this.completePaymentButton.last().waitFor({ state: "hidden", timeout: 5000 });

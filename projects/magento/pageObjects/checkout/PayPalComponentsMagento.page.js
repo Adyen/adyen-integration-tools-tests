@@ -23,12 +23,21 @@ export class PayPalComponentsMagentoPage extends PayPalComponents {
         const payPalSection = await paymentDetailPage.selectPayPal();
 
         await this.page.waitForLoadState("load", { timeout: 15000 });
+        await this.page.waitForLoadState("networkidle");
 
-        const [popup] = await Promise.all([
-            this.page.waitForEvent("popup"),
-            payPalSection.proceedToPayPal(),
-        ]);
-
-        return popup;
+        const maxAttempts = 3;
+        for (let attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                const [popup] = await Promise.all([
+                    this.page.waitForEvent("popup", { timeout: 15000 }),
+                    payPalSection.proceedToPayPal(),
+                ]);
+                return popup;
+            } catch (e) {
+                if (attempt === maxAttempts - 1) throw e;
+                // PayPal iframe SDK not ready yet, wait and retry
+                await this.page.waitForTimeout(2000);
+            }
+        }
     }
 }

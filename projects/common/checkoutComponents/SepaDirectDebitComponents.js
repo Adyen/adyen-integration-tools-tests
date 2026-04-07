@@ -11,10 +11,10 @@ export class SepaDirectDebitComponents {
   }
 
   async fillSepaDirectDebitInfo(accountHolderName, accountNumber) {
-    await this.accountHolderNameInput.click();
-    await this.accountHolderNameInput.fill(accountHolderName);
-
     await this.accountNumberInput.click();
     await this.accountNumberInput.fill(accountNumber);
+
+    await this.accountHolderNameInput.click();
+    await this.accountHolderNameInput.fill(accountHolderName);
   }
 }
